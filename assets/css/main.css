@@ -2970,7 +2970,7 @@ button.style1:hover,
 }
 /* Applica lo sfondo all'intero sito */
 html, body, #page-wrapper, #banner {
-    background-image: url("images/banner.jpg") !important;
+    background-image: url("../images/banner.jpg") !important;
     background-size: cover !important;
     background-position: center center !important;
     background-attachment: fixed !important;
