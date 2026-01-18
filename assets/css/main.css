@@ -2976,7 +2976,12 @@ html, body, #page-wrapper, #banner {
     background-attachment: fixed !important;
     background-repeat: no-repeat !important;
 }
-
+/* PORTA IL LOGO IN PRIMO PIANO */
+#logo {
+    position: relative !important;
+    z-index: 2 !important;
+    text-align: center;
+}
 
 
 
