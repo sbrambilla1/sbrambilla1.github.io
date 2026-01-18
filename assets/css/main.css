@@ -3017,7 +3017,7 @@ input, select, textarea {
 }
 /* SFONDO */
 body {
-    background-image: url("banner.jpg"); /* Controlla che il nome file sia corretto */
+    background-image: url("banner.png"); /* Controlla che il nome file sia corretto */
     background-size: cover;          /* Copre tutta la superficie */
     background-position: center;     /* Centra l'immagine */
     background-attachment: fixed;    /* L'immagine resta ferma mentre scorri */
