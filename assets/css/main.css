@@ -1623,7 +1623,7 @@ input, select, textarea {
 
 /* Button */
 
-/* --- STILE BASE: GRIGIO (Opaco) --- */
+/* --- STILE BASE: GRIGIO CHIARO (Perla) --- */
 input[type="button"],
 input[type="submit"],
 input[type="reset"],
@@ -1635,9 +1635,9 @@ button,
     transition: all .25s ease-in-out;
     display: inline-block;
     
-    /* Colore Grigio Piatto */
-    background-color: #808080 !important; 
-    color: #ffffff !important;
+    /* Grigio Chiaro */
+    background-color: #d1d1d1 !important; 
+    color: #333333 !important; /* Testo scuro per leggere sul grigio chiaro */
     
     border: none !important;
     box-shadow: none !important;
@@ -1658,33 +1658,33 @@ button,
     line-height: 4em;
 }
 
-/* Hover Grigio (Diventa un po' più scuro) */
+/* Hover Grigio (si schiarisce quasi al bianco) */
 input[type="button"]:hover,
 input[type="submit"]:hover,
 input[type="reset"]:hover,
 button:hover,
 .button:hover {
-    background-color: #666666 !important;
-    color: #ffffff !important;
+    background-color: #e6e6e6 !important;
+    color: #000000 !important;
 }
 
-/* --- STYLE 1: VERDE AQUA (Opaco) --- */
+/* --- STYLE 1: VERDE ACQUA CHIARO (Tiffany/Mint) --- */
 input[type="button"].style1,
 input[type="submit"].style1,
 input[type="reset"].style1,
 button.style1,
 .button.style1 {
-    background-color: #20b2aa !important; /* Light Sea Green */
-    color: #ffffff !important;
+    background-color: #7FFFD4 !important; /* Aquamarine molto chiaro */
+    color: #1a1a1a !important; /* Testo scuro per contrasto */
 }
 
-/* Hover Verde Aqua (Diventa un po' più scuro) */
+/* Hover Verde Acqua (diventa ancora più luminoso) */
 input[type="button"].style1:hover,
 input[type="submit"].style1:hover,
 input[type="reset"].style1:hover,
 button.style1:hover,
 .button.style1:hover {
-    background-color: #1a938c !important;
+    background-color: #a0ffe3 !important;
 }
 
 /* List */
