@@ -3025,6 +3025,36 @@ html, body, #page-wrapper, #banner {
 }
 
 
+@media screen and (max-width: 980px) {
+    /* Centra il contenitore delle tre lineette */
+    #header {
+        display: flex !important;
+        justify-content: center !important;
+        align-items: center !important;
+        background: rgba(0, 0, 0, 0.8) !important; /* Sfondo scuro per contrasto */
+    }
 
+    /* Nasconde il titolo h1 per centrare solo il menu */
+    #header h1 {
+        display: none !important;
+    }
+
+    /* Posiziona l'icona al centro */
+    .navPanelToggle {
+        left: 50% !important;
+        transform: translateX(-50%) !important;
+        width: 50px !important;
+        height: 50px !important;
+        display: flex !important;
+        justify-content: center !important;
+        align-items: center !important;
+    }
+
+    /* Colore verde menta per l'icona */
+    .navPanelToggle:before {
+        color: #B2E2D2 !important; /* Colore menta dei tuoi pulsanti */
+        font-size: 1.5em !important;
+    }
+}
 
 
