@@ -3030,3 +3030,39 @@ body {
     position: relative !important;
     z-index: 10 !important;
 }
+/* 1. PORTA LOGO E SCRITTE IN PRIMO PIANO */
+#logo {
+    position: relative !important;
+    z-index: 999 !important;
+    opacity: 1 !important;
+    visibility: visible !important;
+    text-align: center;
+    margin: 0 auto;
+    padding-top: 2em;
+}
+
+#logo h1, #logo p, #logo img {
+    opacity: 1 !important;
+    animation: effettoZoom 1.2s ease-out forwards !important;
+}
+
+/* 2. MENU MOBILE CENTRATO (Tre lineette menta) */
+@media screen and (max-width: 980px) {
+    #header {
+        display: flex !important;
+        justify-content: center !important;
+        background: rgba(0,0,0,0.8) !important;
+    }
+    #header h1 { display: none !important; } /* Nasconde titolo piccolo */
+    
+    .navPanelToggle {
+        left: 50% !important;
+        margin-left: -25px !important;
+        width: 50px !important;
+        z-index: 10001 !important;
+    }
+    .navPanelToggle:before {
+        color: #B2E2D2 !important; /* Verde Menta */
+    }
+}
+
