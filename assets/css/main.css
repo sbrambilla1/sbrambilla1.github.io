@@ -2003,10 +2003,6 @@ input, select, textarea {
 
 		.wrapper.style1 {
 			background: #e97770 url("images/overlay.png");
-			background-size: cover !important;        /* Copre tutto lo schermo */
-        background-position: center !important;   /* Centra l'immagine */
-        background-attachment: fixed !important;   /* L'immagine resta fissa mentre scorri (effetto Parallasse) */
-        background-repeat: no-repeat !important;
 			color: #eee;
 			color: rgba(255, 255, 255, 0.75);
 		}
