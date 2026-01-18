@@ -2987,38 +2987,53 @@ html, body, #page-wrapper, #banner {
     z-index: 10 !important;
 }
 
-/* Assicura che la barra superiore sia sempre visibile e sopra tutto */
+/* --- FIX DEFINITIVO SFONDO E MOBILE --- */
+
+/* 1. Forza il banner come sfondo globale */
+body, #page-wrapper, #banner {
+    background-image: url("../images/banner.jpg") !important;
+    background-size: cover !important;
+    background-position: center !important;
+    background-attachment: fixed !important;
+    background-color: #1b1f22 !important; /* Colore di riserva scuro */
+}
+
+/* 2. Rendi l'header visibile su smartphone */
 #header {
-    background: rgba(0, 0, 0, 0.8) !important; /* Sfondo scuro semitrasparente */
-    height: 3em !important;
-    line-height: 3em !important;
+    background: rgba(0, 0, 0, 0.9) !important; /* Sfondo nero solido per far vedere il menu */
+    z-index: 10000 !important;
+    position: fixed !important;
+    top: 0;
+    width: 100%;
+}
+
+/* 3. Forza la visibilità del tasto Menu (le lineette) */
+.navPanelToggle, #titleBar {
     z-index: 10001 !important;
+    display: block !important;
 }
 
-/* Colore delle icone in alto (Menu e Refresh) */
-#header .navPanelToggle:before, 
-#header a {
-    color: #B2E2D2 !important; /* Il tuo menta pastello */
+.navPanelToggle:before {
+    color: #B2E2D2 !important; /* Colore menta pastello per le icone */
+    content: '\f0c9'; /* Icona menu bars */
 }
 
+/* 4. Sistema il contenuto per non sparire sotto l'overlay */
 #banner {
     min-height: 100vh !important;
-    background-image: url("../images/banner.jpg") !important;
-    background-position: center center !important; /* Centra la foto */
-    background-size: cover !important;
     display: flex !important;
     flex-direction: column !important;
     justify-content: center !important;
     align-items: center !important;
+    position: relative !important;
 }
 
-/* Riduciamo un po' il logo solo su mobile per non coprire tutto */
-@media screen and (max-width: 736px) {
-    #logo img {
-        max-width: 120px !important;
-    }
-    #logo h1 {
-        font-size: 1.4em !important;
-        letter-spacing: 0.1em !important;
-    }
+#banner:after {
+    opacity: 0.4 !important; /* Rende l'overlay più trasparente per vedere la tua foto */
+    z-index: 1 !important;
+}
+
+#logo {
+    position: relative !important;
+    z-index: 2 !important; /* Porta il logo sopra l'overlay */
 }
