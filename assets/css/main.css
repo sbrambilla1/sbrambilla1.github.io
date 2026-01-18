@@ -2948,3 +2948,17 @@ button.style1:hover,
     opacity: 1 !important; /* Li rendiamo visibili di base */
     animation: effettoZoom 1.2s ease-out forwards !important;
 }
+
+#logo {
+    text-align: center;      /* Centra testi e immagini */
+    display: block;          /* Si assicura che occupi tutto lo spazio */
+    margin: 0 auto;          /* Centra il contenitore stesso */
+    padding-top: 2em;        /* Opzionale: aggiunge un po' di spazio sopra */
+}
+
+#logo img {
+    display: block;          /* Necessario per usare margin: auto */
+    margin: 0 auto 1.5em;    /* Centra l'immagine e aggiunge spazio sotto (1.5em) */
+    max-width: 150px;        /* Regola qui la grandezza del tuo logo */
+    height: auto;
+}
