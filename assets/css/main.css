@@ -3024,7 +3024,21 @@ body {
     background-repeat: no-repeat;    /* Non ripete l'immagine */
 }
 
+/* 1. PORTA LOGO E SCRITTE IN PRIMO PIANO */
+#logo {
+    position: relative !important;
+    z-index: 999 !important;
+    opacity: 1 !important;
+    visibility: visible !important;
+    text-align: center;
+    margin: 0 auto;
+    padding-top: 2em;
+}
 
+#logo h1, #logo p, #logo img {
+    opacity: 1 !important;
+    animation: effettoZoom 1.2s ease-out forwards !important;
+}
 
 /* RESET E CENTRAGGIO FORZATO LOGO */
 #logo {
