@@ -2950,15 +2950,20 @@ button.style1:hover,
 }
 
 #logo {
-    text-align: center;      /* Centra testi e immagini */
-    display: block;          /* Si assicura che occupi tutto lo spazio */
-    margin: 0 auto;          /* Centra il contenitore stesso */
-    padding-top: 2em;        /* Opzionale: aggiunge un po' di spazio sopra */
+    text-align: center !important;
+    width: 100%;
+    display: block;
+    margin-bottom: 2em;
 }
 
 #logo img {
-    display: block;          /* Necessario per usare margin: auto */
-    margin: 0 auto 1.5em;    /* Centra l'immagine e aggiunge spazio sotto (1.5em) */
-    max-width: 150px;        /* Regola qui la grandezza del tuo logo */
-    height: auto;
+    display: block !important;
+    margin: 0 auto 1em auto !important; /* Centra orizzontalmente */
+    width: auto !important;             /* Ripristina la larghezza */
+    max-width: 200px !important;        /* Regola la grandezza massima */
+    height: auto !important;            /* Mantiene le proporzioni */
+    
+    /* Riaggiungiamo l'animazione zoom qui per sicurezza */
+    opacity: 0;
+    animation: effettoZoom 1.2s cubic-bezier(0.175, 0.885, 0.32, 1.275) forwards;
 }
