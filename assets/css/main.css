@@ -3058,3 +3058,56 @@ html, body, #page-wrapper, #banner {
 }
 
 
+/* --- RESET E FORZATURA TOTALE --- */
+
+@media screen and (max-width: 980px) {
+    /* Centra la barra e le tre lineette */
+    body #header {
+        display: flex !important;
+        justify-content: center !important;
+        align-items: center !important;
+        left: 0 !important;
+        width: 100% !important;
+        background: rgba(0, 0, 0, 0.9) !important;
+    }
+
+    /* Nasconde il logo piccolo nell'header per non spostare le lineette */
+    body #header h1 {
+        display: none !important;
+    }
+
+    /* Posiziona l'icona esattamente al centro */
+    body .navPanelToggle {
+        left: 50% !important;
+        margin-left: -25px !important; /* Metà della larghezza per centratura perfetta */
+        width: 50px !important;
+        height: 50px !important;
+        top: 0 !important;
+        display: flex !important;
+        justify-content: center !important;
+        align-items: center !important;
+    }
+
+    /* Colore verde menta per l'icona menu */
+    body .navPanelToggle:before {
+        color: #B2E2D2 !important; /* Colore dai tuoi pulsanti */
+        font-size: 1.5em !important;
+    }
+}
+
+/* --- SFONDO MENTA PAGINA SPONSOR --- */
+/* Questo bersaglia specificamente il corpo della pagina sponsor */
+body.is-preload #main.container.special, 
+body.is-preload .wrapper.style4.container {
+    background-color: #B2E2D2 !important; /* Verde menta */
+    background-image: none !important;
+    color: #1b1f22 !important;
+    border-radius: 15px !important;
+}
+
+/* Forza il testo nero sopra il verde menta per leggibilità */
+body.is-preload #main.container.special h2, 
+body.is-preload #main.container.special p,
+body.is-preload #main.container.special a {
+    color: #1b1f22 !important;
+}
