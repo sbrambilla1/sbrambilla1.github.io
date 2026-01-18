@@ -3037,3 +3037,53 @@ body, #page-wrapper, #banner {
     position: relative !important;
     z-index: 2 !important; /* Porta il logo sopra l'overlay */
 }
+/* --- FIX FINALE PER MOBILE E VISIBILITÀ --- */
+
+/* 1. Forza lo sfondo su tutti i contenitori principali */
+body, #page-wrapper, #banner {
+    background-image: url("../images/banner.jpg") !important;
+    background-size: cover !important;
+    background-position: center !important;
+    background-attachment: fixed !important;
+}
+
+/* 2. Rendi l'header visibile e cliccabile su smartphone */
+@media screen and (max-width: 980px) {
+    #header {
+        display: flex !important; /* Forza la comparsa della barra */
+        background: rgba(0, 0, 0, 0.8) !important; /* Sfondo scuro per contrasto */
+        position: fixed !important;
+        top: 0 !important;
+        z-index: 10000 !important;
+        height: 44px !important;
+        line-height: 44px !important;
+    }
+
+    /* Forza il colore delle icone (Menu e Refresh) */
+    #header a, .navPanelToggle:before {
+        color: #B2E2D2 !important; /* Colore menta */
+        z-index: 10001 !important;
+    }
+}
+
+/* 3. Sistema il Banner Full Page affinché non copra il menu */
+#banner {
+    min-height: 100vh !important;
+    display: flex !important;
+    flex-direction: column !important;
+    justify-content: center !important;
+    align-items: center !important;
+    padding-top: 50px !important; /* Spazio per la barra in alto */
+}
+
+/* 4. Rendi l'overlay trasparente per vedere il banner */
+#banner:after {
+    background-color: rgba(0, 0, 0, 0.4) !important;
+    opacity: 0.6 !important;
+    z-index: 1 !important;
+}
+
+#logo {
+    position: relative !important;
+    z-index: 5 !important;
+}
