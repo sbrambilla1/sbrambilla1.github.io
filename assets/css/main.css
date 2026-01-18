@@ -2968,3 +2968,10 @@ button.style1:hover,
     opacity: 0;
     animation: effettoZoom 1.2s cubic-bezier(0.175, 0.885, 0.32, 1.275) forwards;
 }
+body {
+    background-image: url("images/banner.jpg"); /* Controlla che il nome file sia corretto */
+    background-size: cover;          /* Copre tutta la superficie */
+    background-position: center;     /* Centra l'immagine */
+    background-attachment: fixed;    /* L'immagine resta ferma mentre scorri */
+    background-repeat: no-repeat;    /* Non ripete l'immagine */
+}
