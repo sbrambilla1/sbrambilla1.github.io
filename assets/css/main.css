@@ -948,7 +948,14 @@ input, select, textarea {
 		}
 
 		@media screen and (max-width: 980px) {
-
+#header {
+        display: flex !important;
+        position: fixed !important;
+        z-index: 10000 !important;
+        background: rgba(0, 0, 0, 0.9) !important;
+        top: 0;
+        width: 100%;
+    }
 			.row {
 				display: flex;
 				flex-wrap: wrap;
