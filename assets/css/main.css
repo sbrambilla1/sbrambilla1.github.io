@@ -2951,6 +2951,7 @@ button.style1:hover,
 
 #logo {
     text-align: center !important;
+	justify-content: center !important; /* Centra verticalmente */
     width: 100%;
     display: block;
     margin-bottom: 2em;
