@@ -2944,7 +2944,7 @@ button.style1:hover,
 }
 
 /* Applica l'animazione al Titolo */
-#logo h1, #logo p, #header {
+#logo h1, #logo p, #logo img {
     opacity: 1 !important; /* Li rendiamo visibili di base */
     animation: effettoZoom 1.2s ease-out forwards !important;
 }
