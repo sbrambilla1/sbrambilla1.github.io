@@ -2975,3 +2975,26 @@ body {
     background-attachment: fixed;    /* L'immagine resta ferma mentre scorri */
     background-repeat: no-repeat;    /* Non ripete l'immagine */
 }
+
+/* GESTIONE OVERLAY: TRASPARENTE MA PRESENTE */
+#banner::after, 
+.is-preload::after,
+#header::after {
+    /* Manteniamo l'immagine dell'overlay (i puntini/texture) */
+    background-image: url("images/overlay.png"), linear-gradient(45deg, rgba(0,0,0,0.4), rgba(0,0,0,0.2)) !important;
+    
+    /* Regoliamo l'opacità generale del velo */
+    opacity: 0.6 !important; 
+    
+    /* Assicuriamoci che non copra i click */
+    pointer-events: none;
+}
+
+/* FORZA LO SFONDO SOTTO L'OVERLAY */
+body, #banner {
+    background-image: url("../images/banner.jpg") !important;
+    background-size: cover !important;
+    background-position: center !important;
+    background-attachment: fixed !important;
+    background-color: #000 !important; /* Colore di base se la foto tarda a caricare */
+}
