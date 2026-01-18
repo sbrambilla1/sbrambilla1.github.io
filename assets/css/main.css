@@ -2970,7 +2970,7 @@ button.style1:hover,
 }
 /* 1. RESET TOTALE DELLO SFONDO */
 #banner, body {
-    background-image: url("../../images/banner.jpg") !important;
+    background-image: url("images/banner.png") !important;
     background-size: cover !important;
     background-position: center !important;
     background-attachment: fixed !important;
@@ -2980,7 +2980,7 @@ button.style1:hover,
 /* 2. SISTEMAZIONE OVERLAY (Deve essere trasparente!) */
 #banner:after, .is-preload:after {
     /* Manteniamo i puntini ma togliamo il nero solido */
-    background-image: url("../../images/overlay.png") !important; 
+    background-image: url("assets/css/images/overlay.png") !important; 
     
     /* Questo gradiente crea l'effetto scuro ma trasparente (0.3 = 30% di nero) */
     background-color: rgba(0, 0, 0, 0.3) !important; 
