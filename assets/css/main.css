@@ -2977,11 +2977,7 @@ html, body, #page-wrapper, #banner {
     background-repeat: no-repeat !important;
 }
 
-/* Rendi TUTTI i contenitori trasparenti per far vedere lo sfondo sotto */
-#page-wrapper, #main, #header, #banner {
-    background-color: transparent !important;
-    background-image: none !important;
-}
+
 
 
 
