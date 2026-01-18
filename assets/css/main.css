@@ -2968,29 +2968,36 @@ button.style1:hover,
     opacity: 0;
     animation: effettoZoom 1.2s cubic-bezier(0.175, 0.885, 0.32, 1.275) forwards;
 }
-/* 1. RESET TOTALE DELLO SFONDO */
-#banner, body {
-    background-image: url("images/banner.png") !important;
+/* Applica lo sfondo all'intero sito */
+html, body, #page-wrapper, #banner {
+    background-image: url("../images/banner.jpg") !important;
     background-size: cover !important;
-    background-position: center !important;
+    background-position: center center !important;
     background-attachment: fixed !important;
     background-repeat: no-repeat !important;
 }
 
-/* 2. SISTEMAZIONE OVERLAY (Deve essere trasparente!) */
+/* Rendi TUTTI i contenitori trasparenti per far vedere lo sfondo sotto */
+#page-wrapper, #main, #header, #banner {
+    background-color: transparent !important;
+    background-image: none !important;
+}
+
+/* Mantieni l'overlay (i puntini) ma rendilo un velo leggero */
 #banner:after, .is-preload:after {
-    /* Manteniamo i puntini ma togliamo il nero solido */
-    background-image: url("assets/css/images/overlay.png") !important; 
-    
-    /* Questo gradiente crea l'effetto scuro ma trasparente (0.3 = 30% di nero) */
-    background-color: rgba(0, 0, 0, 0.3) !important; 
-    
-    opacity: 1 !important;
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background-image: url("images/overlay.png") !important; /* Puntini */
+    background-color: rgba(0, 0, 0, 0.4) !important;       /* Velo scuro */
     z-index: 1;
 }
 
-/* 3. ASSICURIAMOCI CHE IL LOGO STIA SOPRA TUTTO */
+/* Porta il Logo e il testo Padel davanti a tutto */
 #logo {
-    position: relative;
-    z-index: 10; /* Porta il logo e i testi davanti all'overlay */
+    position: relative !important;
+    z-index: 10 !important;
 }
