@@ -2935,7 +2935,7 @@ button.style1:hover,
 @keyframes effettoZoom {
     0% {
         opacity: 0;
-        transform: scale(0.5);
+        transform: scale(0.25);
         }
     100% {
         opacity: 1;
@@ -2944,7 +2944,7 @@ button.style1:hover,
 }
 
 /* Applica l'animazione al Titolo */
-#logo h1, #logo p {
+#logo h1, #logo p, #header {
     opacity: 1 !important; /* Li rendiamo visibili di base */
     animation: effettoZoom 1.2s ease-out forwards !important;
 }
