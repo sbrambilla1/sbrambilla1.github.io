@@ -2981,7 +2981,7 @@ body {
 .is-preload::after,
 #header::after {
     /* Manteniamo l'immagine dell'overlay (i puntini/texture) */
-    background-image: url("images/overlay.png"), linear-gradient(45deg, rgba(0,0,0,0.4), rgba(0,0,0,0.2)) !important;
+    background-image: url("assets/css/images/overlay.png"), linear-gradient(45deg, rgba(0,0,0,0.4), rgba(0,0,0,0.2)) !important;
     
     /* Regoliamo l'opacità generale del velo */
     opacity: 0.6 !important; 
@@ -2992,9 +2992,9 @@ body {
 
 /* FORZA LO SFONDO SOTTO L'OVERLAY */
 body, #banner {
-    background-image: url("../images/banner.jpg") !important;
+    background-image: url("assets/css/images/banner.png") !important;
     background-size: cover !important;
     background-position: center !important;
     background-attachment: fixed !important;
-    background-color: #000 !important; /* Colore di base se la foto tarda a caricare */
+    
 }
