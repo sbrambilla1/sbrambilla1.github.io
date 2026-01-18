@@ -3089,3 +3089,33 @@ body {
     }
 }
 
+/* --- STILE TASTI FORM --- */
+
+/* 1. Solo il tasto SUBMIT (Invia) diventa verde acqua */
+input[type="submit"].button, 
+input[type="submit"] {
+    background-color: #B2E2D2 !important; /* Verde acqua / Menta */
+    color: #1b1f22 !important;           /* Testo scuro per contrasto */
+    box-shadow: none !important;
+    border: 0 !important;
+}
+
+/* Effetto al passaggio del mouse solo per il Submit */
+input[type="submit"]:hover {
+    background-color: #92c9b8 !important; /* Un verde un po' più scuro */
+    color: #000 !important;
+}
+
+/* 2. Il tasto RESET (Annulla) rimane originale o neutro */
+input[type="reset"].button,
+input[type="reset"] {
+    background-color: #444 !important;    /* Grigio scuro o lo stile di base */
+    color: #fff !important;              /* Testo bianco */
+    box-shadow: none !important;
+    border: 0 !important;
+}
+
+/* Effetto al passaggio del mouse per il Reset */
+input[type="reset"]:hover {
+    background-color: #555 !important;
+}
