@@ -2986,3 +2986,39 @@ html, body, #page-wrapper, #banner {
     position: relative !important;
     z-index: 10 !important;
 }
+
+/* Assicura che la barra superiore sia sempre visibile e sopra tutto */
+#header {
+    background: rgba(0, 0, 0, 0.8) !important; /* Sfondo scuro semitrasparente */
+    height: 3em !important;
+    line-height: 3em !important;
+    z-index: 10001 !important;
+}
+
+/* Colore delle icone in alto (Menu e Refresh) */
+#header .navPanelToggle:before, 
+#header a {
+    color: #B2E2D2 !important; /* Il tuo menta pastello */
+}
+
+#banner {
+    min-height: 100vh !important;
+    background-image: url("../images/banner.jpg") !important;
+    background-position: center center !important; /* Centra la foto */
+    background-size: cover !important;
+    display: flex !important;
+    flex-direction: column !important;
+    justify-content: center !important;
+    align-items: center !important;
+}
+
+/* Riduciamo un po' il logo solo su mobile per non coprire tutto */
+@media screen and (max-width: 736px) {
+    #logo img {
+        max-width: 120px !important;
+    }
+    #logo h1 {
+        font-size: 1.4em !important;
+        letter-spacing: 0.1em !important;
+    }
+}
