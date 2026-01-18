@@ -3025,11 +3025,7 @@ body {
 }
 
 
-/* Porta il Logo e il testo Padel davanti a tutto */
-#logo {
-    position: relative !important;
-    z-index: 10 !important;
-}
+
 /* 1. PORTA LOGO E SCRITTE IN PRIMO PIANO */
 #logo {
     position: relative !important;
