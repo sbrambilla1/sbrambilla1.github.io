@@ -3015,3 +3015,14 @@ input, select, textarea {
     opacity: 0;
     animation: effettoZoom 1.0s ease-out 0.6s forwards;
 }
+/* SFONDO */
+body {
+    background-image: url("banner.jpg"); /* Controlla che il nome file sia corretto */
+    background-size: cover;          /* Copre tutta la superficie */
+    background-position: center;     /* Centra l'immagine */
+    background-attachment: fixed;    /* L'immagine resta ferma mentre scorri */
+    background-repeat: no-repeat;    /* Non ripete l'immagine */
+}
+
+
+}
