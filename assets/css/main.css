@@ -2930,3 +2930,28 @@ button.style1:hover,
 .testo-aqua {
     color: #B2E2D2 !important;
 }
+
+/* Definizione del movimento */
+@keyframes apparizioneFluida {
+    0% {
+        opacity: 0;
+        transform: translateY(-20px); /* Parte leggermente più in alto */
+        filter: blur(5px);           /* Parte leggermente sfocato */
+    }
+    100% {
+        opacity: 1;
+        transform: translateY(0);    /* Arriva alla posizione originale */
+        filter: blur(0);             /* Diventa nitido */
+    }
+}
+
+/* Classe da applicare agli elementi */
+.animazione-ingresso {
+    animation: apparizioneFluida 1.5s ease-out forwards;
+    backface-visibility: hidden;
+}
+
+/* Ritardo per la scritta (opzionale, per farla apparire subito dopo il logo) */
+.ritardo-animazione {
+    animation-delay: 0.5s;
+}
