@@ -2970,7 +2970,7 @@ button.style1:hover,
 }
 /* Applica lo sfondo all'intero sito */
 html, body, #page-wrapper, #banner {
-    background-image: url("../images/banner.jpg") !important;
+    background-image: url("images/banner.jpg") !important;
     background-size: cover !important;
     background-position: center center !important;
     background-attachment: fixed !important;
@@ -2983,18 +2983,7 @@ html, body, #page-wrapper, #banner {
     background-image: none !important;
 }
 
-/* Mantieni l'overlay (i puntini) ma rendilo un velo leggero */
-#banner:after, .is-preload:after {
-    content: '';
-    position: absolute;
-    top: 0;
-    left: 0;
-    width: 100%;
-    height: 100%;
-    background-image: url("images/overlay.png") !important; /* Puntini */
-    background-color: rgba(0, 0, 0, 0.4) !important;       /* Velo scuro */
-    z-index: 1;
-}
+
 
 /* Porta il Logo e il testo Padel davanti a tutto */
 #logo {
