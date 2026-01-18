@@ -2936,31 +2936,15 @@ button.style1:hover,
     0% {
         opacity: 0;
         transform: scale(0.5);
-        filter: blur(8px);
-    }
+        }
     100% {
         opacity: 1;
         transform: scale(1);
-        filter: blur(0);
-    }
+        }
 }
 
 /* Applica l'animazione al Titolo */
-#logo h1 {
-    opacity: 0; /* Parte invisibile */
-    display: block;
-    animation: effettoZoom 1.2s cubic-bezier(0.175, 0.885, 0.32, 1.275) forwards;
-}
-
-/* Applica l'animazione al Sottotitolo con un ritardo */
-#logo p {
-    opacity: 0; /* Parte invisibile */
-    display: block;
-    animation: effettoZoom 1.0s ease-out 0.5s forwards; /* Inizia dopo mezzo secondo */
-}
-
-/* Rende il link all'interno del titolo bianco o del tuo colore */
-#logo h1 a {
-    text-decoration: none;
-    display: inline-block;
+#logo h1, #logo p {
+    opacity: 1 !important; /* Li rendiamo visibili di base */
+    animation: effettoZoom 1.2s ease-out forwards !important;
 }
