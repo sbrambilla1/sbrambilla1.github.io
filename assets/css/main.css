@@ -3125,24 +3125,42 @@ input[type="reset"]:hover {
     font-weight: bold;         /* Opzionale: lo rende più visibile */
     text-shadow: 0 0 5px rgba(0, 255, 255, 0.2); /* Leggero effetto neon */
 }
-/* Stile per le scatole degli sponsor incolonnate */
-.sponsor-box {
-    margin-bottom: 3em !important; /* Spazio tra il primo e il secondo sponsor */
-    text-align: center;
-    background: rgba(255, 255, 255, 0.2); /* Leggero chiarore per staccare dal verde */
-    padding: 2em;
+/* STILE SPONSOR INCOLONNATI E CENTRATI */
+.sponsor-card {
+    text-align: center !important;
+    margin-bottom: 4em !important; /* Spazio tra i due sponsor */
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+.sponsor-card img {
+    /* Imposta una dimensione fissa uguale per entrambi */
+    width: 280px !important; 
+    height: 180px !important;
+    object-fit: contain !important; /* Mantiene le proporzioni senza tagliare l'immagine */
+    
+    background: white; /* Opzionale: sfondo bianco dietro al logo se è trasparente */
+    padding: 15px;
     border-radius: 10px;
+    margin-bottom: 1.5em;
+    box-shadow: 0 4px 15px rgba(0,0,0,0.1);
 }
 
-.sponsor-box img {
-    max-width: 300px; /* Regola la grandezza delle foto */
-    height: auto;
+/* SCRITTE IN BIANCO */
+.sponsor-card h3 {
+    color: #ffffff !important;
+    font-size: 1.8em !important;
+    font-weight: 700 !important;
+    letter-spacing: 2px;
+    margin-bottom: 0.5em;
+    text-transform: uppercase;
+}
+
+.sponsor-card p {
+    color: #ffffff !important;
+    font-size: 1.1em !important;
+    opacity: 0.9;
+    max-width: 500px; /* Evita che il testo sia troppo largo */
     margin: 0 auto;
-    display: block;
-    border-radius: 5px;
-}
-
-/* Colore dei testi dentro la scatola sponsor (sopra il menta) */
-.sponsor-box h3, .sponsor-box p {
-    color: #1b1f22 !important;
 }
