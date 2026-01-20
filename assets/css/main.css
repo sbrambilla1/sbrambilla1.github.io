@@ -3125,3 +3125,24 @@ input[type="reset"]:hover {
     font-weight: bold;         /* Opzionale: lo rende più visibile */
     text-shadow: 0 0 5px rgba(0, 255, 255, 0.2); /* Leggero effetto neon */
 }
+/* Stile per le scatole degli sponsor incolonnate */
+.sponsor-box {
+    margin-bottom: 3em !important; /* Spazio tra il primo e il secondo sponsor */
+    text-align: center;
+    background: rgba(255, 255, 255, 0.2); /* Leggero chiarore per staccare dal verde */
+    padding: 2em;
+    border-radius: 10px;
+}
+
+.sponsor-box img {
+    max-width: 300px; /* Regola la grandezza delle foto */
+    height: auto;
+    margin: 0 auto;
+    display: block;
+    border-radius: 5px;
+}
+
+/* Colore dei testi dentro la scatola sponsor (sopra il menta) */
+.sponsor-box h3, .sponsor-box p {
+    color: #1b1f22 !important;
+}
