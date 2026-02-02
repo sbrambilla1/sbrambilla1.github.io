@@ -1721,23 +1721,3 @@
 			}
 
 	}
-/* 2. Trasformazione in "Tendina Centrale" SOLO su Telefono */
-@media (max-width: 768px) {
-  .site-nav ul {
-    flex-direction: column; /* Dispone le voci in verticale */
-    align-items: center;    /* Centra le voci verticalmente */
-    width: 100%;
-    
-    li {
-      margin: 10px 0;      /* Spazio tra una voce e l'altra nella tendina */
-      text-align: center;
-    }
-  }
-
-  /* Rimuove l'oscuramento sfondo (come richiesto prima) */
-  .page-header, .hero, .wrapper {
-    &::before, &::after { display: none !important; }
-    background-color: transparent !important;
-    filter: none !important;
-  }
-}
