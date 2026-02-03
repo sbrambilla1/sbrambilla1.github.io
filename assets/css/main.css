@@ -2272,8 +2272,8 @@ input, select, textarea {
 /* Footer */
 
 	#footer {
-		background: url("images/overlay.png"); 
-    
+		background-color: transparent !important; /* Rende lo sfondo trasparente */
+    background-image: none !important;        /* Rimuove eventuali texture scure */
     box-shadow: none !important;              /* Rimuove ombre che creano stacco */
     padding: 3em 0 !important;
 	}
