@@ -3165,50 +3165,115 @@ input[type="reset"]:hover {
     margin: 0 auto;
 }
 
-/* Rimuove il filtro scuro dallo sfondo su dispositivi mobili */
-@media screen and (max-width: 768px) {
-    /* Seleziona il contenitore dello sfondo (es. hero o body) */
-    .hero::before, 
-    .background-overlay, 
-    header::after {
-        background: transparent !important;
-        background-color: transparent !important;
-        opacity: 0 !important;
-        display: none !important;
-    }
+/* ============================================================
+   OTTIMIZZAZIONE MOBILE DEFINITIVA (SOTTO 980PX)
+   ============================================================ */
+
+@media screen and (max-width: 980px) {
     
-    /* Assicurati che l'immagine di sfondo sia ben visibile */
-    body, .main-container {
-        background-color: white; /* o il colore base del tuo sito */
+    /* 1. Reset generale per evitare lo scroll orizzontale */
+    html, body {
+        overflow-x: hidden !important;
+        width: 100%;
+    }
+
+    /* 2. Menu a tre lineette: Centrato e più grande */
+    #header {
+        display: flex !important;
+        justify-content: center !important;
+        align-items: center !important;
+        background: rgba(0, 0, 0, 0.9) !important;
+        height: 60px !important;
+        position: fixed !important;
+        top: 0 !important;
+        z-index: 10000 !important;
+    }
+
+    .navPanelToggle {
+        left: 50% !important;
+        margin-left: -30px !important;
+        width: 60px !important;
+        height: 60px !important;
+        display: flex !important;
+        justify-content: center !important;
+        align-items: center !important;
+        border: 0 !important;
+    }
+
+    .navPanelToggle:before {
+        color: #B2E2D2 !important; /* Verde Menta */
+        font-size: 1.8em !important;
+    }
+
+    /* 3. Banner Home: Ottimizzazione Full Screen */
+    #banner {
+        min-height: 100vh !important;
+        padding: 80px 20px 40px 20px !important; /* Più spazio sopra per il menu */
+        display: flex !important;
+        flex-direction: column !important;
+        justify-content: center !important;
+    }
+
+    #logo img {
+        max-width: 150px !important; /* Logo più proporzionato */
+        margin-bottom: 1em !important;
+    }
+
+    #logo h1 {
+        font-size: 1.8em !important;
+        letter-spacing: 3px !important;
+    }
+
+    #logo p {
+        font-size: 0.9em !important;
+        line-height: 1.5 !important;
+        padding: 0 10px;
+    }
+
+    /* 4. Pagina Sponsor: Layout Incolonnato */
+    .sponsor-card {
+        padding: 20px !important;
+        margin-bottom: 30px !important;
+    }
+
+    .sponsor-card img {
+        width: 80% !important; /* Si adatta alla larghezza del telefono */
+        max-width: 250px !important;
+        height: auto !important;
+    }
+
+    /* 5. Sezioni di testo (Container) */
+    .container {
+        width: 95% !important;
+        padding-left: 15px !important;
+        padding-right: 15px !important;
+    }
+
+    .wrapper {
+        padding: 3em 0 !important; /* Riduciamo i margini eccessivi */
+    }
+
+    /* 6. Form e Pulsanti: Più grandi per le dita */
+    input[type="submit"],
+    input[type="reset"],
+    .button {
+        width: 100% !important; /* Pulsanti a larghezza intera */
+        height: 50px !important;
+        line-height: 50px !important;
+        font-size: 1.1em !important;
+        margin-bottom: 10px !important;
     }
 }
 
-@media screen and (max-width: 768px) {
-    /* Centra l'header e il logo */
-    header, .nav-container {
-        display: flex;
-        flex-direction: column;
-        align-items: center;
-        text-align: center;
-    }
+/* 7. Fix per il Pannello Menu quando è aperto */
+#navPanel {
+    background: #1b1f22 !important;
+    padding: 2em 1em !important;
+}
 
-    /* Centra il pulsante del menu (hamburger) */
-    .menu-toggle, .navbar-toggler {
-        margin: 0 auto !important;
-        display: block;
-    }
-
-    /* Centra la lista dei link del menu */
-    .nav-menu, .navbar-nav {
-        width: 100%;
-        padding-left: 0;
-        display: flex;
-        flex-direction: column;
-        align-items: center;
-    }
-    
-    .nav-menu li {
-        width: 100%;
-        text-align: center;
-    }
+#navPanel a {
+    color: #B2E2D2 !important;
+    font-size: 1.2em !important;
+    border-bottom: 1px solid rgba(178, 226, 210, 0.1) !important;
+    padding: 15px 0 !important;
 }
