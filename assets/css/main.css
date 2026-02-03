@@ -2273,7 +2273,7 @@ input, select, textarea {
 
 	#footer {
 		background-color: transparent !important; /* Rende lo sfondo trasparente */
-    background-image: none !important;        /* Rimuove eventuali texture scure */
+    background-image: url("images/overlay.png") !important;        /* Rimuove eventuali texture scure */
     box-shadow: none !important;              /* Rimuove ombre che creano stacco */
     padding: 3em 0 !important;
 	}
