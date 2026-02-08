@@ -170,11 +170,20 @@ i, .fa-solid, .fa-brands, .fab, .fas { color: #AAF0D1; }
     margin: 0;
     font-size: 1rem;
 }
-
-/* --- 5. HEADER & HERO --- */
+/* --- 5. HEADER & HERO (FULL SCREEN) --- */
 #header-hero, #hero-community, #hero-eventi, #hero-sponsor, #hero-grazie {
+    /* Questa è la riga magica: */
+    min-height: 100vh; /* Altezza minima = 100% dell'altezza dello schermo */
+    
+    display: flex;
+    flex-direction: column;
+    justify-content: center; /* Centra verticalmente */
+    align-items: center;     /* Centra orizzontalmente */
     text-align: center;
-    padding: 50px 15px;
+    padding: 20px;
+    
+    /* Compensa l'altezza della navbar fissa per centrare visivamente il logo */
+    padding-top: 80px; 
 }
 
 .logo-img {
@@ -192,10 +201,10 @@ i, .fa-solid, .fa-brands, .fab, .fas { color: #AAF0D1; }
     letter-spacing: 2px; 
     text-shadow: 1px 1px 3px #000;
     font-weight: 300; 
-    margin-bottom: 20px;
+    margin-bottom: 0; /* Tolto margine extra sotto */
 }
 
-.testo-aqua { color: #AAF0D1 !important; font-weight: 500; }
+
 
 /* --- 6. FOOTER --- */
 footer {
