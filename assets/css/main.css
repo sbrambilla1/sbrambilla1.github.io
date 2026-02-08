@@ -1,27 +1,25 @@
 /* --- 1. FONTS & BASE (UBUNTU) --- */
 @import url("https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css");
-/* Importiamo Ubuntu: Light (300), Regular (400), Bold (700) */
 @import url("https://fonts.googleapis.com/css2?family=Ubuntu:wght@300;400;700&display=swap");
 
 body {
     font-family: 'Ubuntu', sans-serif;
-    font-weight: 300; /* Testo fine */
-    font-size: 15px;  /* Dimensione contenuta (non zoomata) */
+    font-weight: 300;
+    font-size: 15px;
     line-height: 1.6;
     letter-spacing: 0.5px;
     
-    /* SFONDO BANNER ORIGINALE (Full Screen) */
+    /* SFONDO BANNER (FISSO E SCHERMO INTERO) */
     background-image: url('../../images/banner.png');
-    /* 'cover' assicura che lo sfondo riempia tutto lo schermo senza ridursi */
     background-size: cover;       
     background-position: center;  
-    background-attachment: fixed; /* L'immagine resta immobile */
+    background-attachment: fixed; 
     background-repeat: no-repeat;
     background-color: #111; 
     
     color: #fff;
     margin: 0;
-    padding-top: 60px; /* Spazio minimo per la navbar */
+    padding-top: 60px;
     display: flex;
     flex-direction: column;
     min-height: 100vh;
@@ -32,15 +30,16 @@ a { text-decoration: none; transition: 0.3s; }
 /* --- 2. NAVBAR (Menu) --- */
 .navbar {
     background-color: #000 !important; 
-    padding: 8px 0; /* Menu compatto */
+    padding: 8px 0;
     border-bottom: 1px solid rgba(255,255,255,0.1);
+    z-index: 9999; /* Assicura che il menu sia sempre sopra tutto */
 }
 .navbar-brand {
     font-family: 'Ubuntu', sans-serif;
     font-weight: 700;
     color: #fff !important;
     text-transform: uppercase;
-    font-size: 1.3rem; /* Logo testo proporzionato */
+    font-size: 1.3rem;
     letter-spacing: 1px;
 }
 .nav-link {
@@ -48,15 +47,28 @@ a { text-decoration: none; transition: 0.3s; }
     color: #ccc !important;
     font-weight: 400;
     text-transform: uppercase;
-    font-size: 0.85rem; /* Voci menu eleganti e non enormi */
+    font-size: 0.85rem;
     margin: 0 10px;
 }
 .nav-link:hover, .nav-link.active { color: #AAF0D1 !important; }
-.navbar-toggler { padding: 4px; font-size: 0.9rem; border: none; }
-.navbar-toggler-icon { filter: invert(1); }
+
+/* --- HAMBURGER MENU (MOBILE) --- */
+.navbar-toggler { 
+    padding: 5px; 
+    font-size: 1rem; 
+    /* Bordo bianco semitrasparente per vederlo bene */
+    border: 1px solid rgba(255,255,255,0.5) !important; 
+    border-radius: 4px;
+}
+.navbar-toggler:focus { 
+    box-shadow: 0 0 0 2px #AAF0D1; /* Effetto focus verde */
+}
+/* Icona bianca */
+.navbar-toggler-icon { 
+    filter: invert(1); 
+}
 
 /* --- 3. LAYOUT & TRASPARENZA --- */
-/* NESSUN velo bianco o grigio. Solo trasparenza. */
 section, .container, .wrapper, .main-section {
     background: transparent !important;
     background-color: transparent !important;
@@ -64,13 +76,14 @@ section, .container, .wrapper, .main-section {
     box-shadow: none !important;
 }
 
-/* --- 4. BOX CONTENUTO (Ridimensionati) --- */
+/* --- 4. BOX CONTENUTO (Più chiari) --- */
 .box-feature {
-    background-color: rgba(0, 0, 0, 0.6) !important; /* Scuro semitrasparente */
-    padding: 25px 20px; /* Padding ridotto */
+    /* Ora è nero al 30% (molto più chiaro) invece del 60% */
+    background-color: rgba(0, 0, 0, 0.3) !important; 
+    padding: 25px 20px;
     border-radius: 6px;
     margin-bottom: 25px;
-    border: 1px solid rgba(255,255,255,0.1);
+    border: 1px solid rgba(255,255,255,0.1); /* Bordino appena visibile */
     text-align: center;
     transition: transform 0.3s, border-color 0.3s;
 }
@@ -78,6 +91,8 @@ section, .container, .wrapper, .main-section {
 .box-feature:hover {
     transform: translateY(-3px);
     border-color: #AAF0D1; 
+    /* Quando passi col mouse diventa un po' più scuro per leggere meglio */
+    background-color: rgba(0, 0, 0, 0.5) !important; 
 }
 
 /* SPONSOR CARD */
@@ -91,15 +106,15 @@ section, .container, .wrapper, .main-section {
     flex-direction: column;
     align-items: center;
     justify-content: center;
-    min-height: 180px; /* Altezza contenuta */
+    min-height: 180px;
     box-shadow: 0 5px 15px rgba(0,0,0,0.3);
 }
 
-/* Stili Testo (Più fini) */
+/* Stili Testo */
 h1 {
     font-family: 'Ubuntu', sans-serif;
     font-weight: 700;
-    font-size: 2.2rem; /* Titolo grande ma non eccessivo */
+    font-size: 2.2rem;
     color: #fff;
     text-transform: uppercase;
     text-shadow: 2px 2px 8px #000;
@@ -120,16 +135,17 @@ h2, h3 {
     font-size: 1.1rem; 
 }
 .box-feature p { 
-    color: #ddd; 
-    font-weight: 300; /* Font fine */
-    font-size: 0.95rem; 
+    color: #eee; /* Testo più bianco per contrastare il box più chiaro */
+    font-weight: 300; 
+    font-size: 1rem; 
     margin-bottom: 0;
     line-height: 1.5;
+    text-shadow: 1px 1px 2px rgba(0,0,0,0.8); /* Ombra per leggere bene sul trasparente */
 }
 
-/* --- ICONE (Ridimensionate e Verde Menta) --- */
+/* --- ICONE --- */
 .icon-big {
-    font-size: 2.2rem; /* Icona proporzionata al testo */
+    font-size: 2.2rem;
     color: #AAF0D1;
     margin-bottom: 15px;
     display: block;
@@ -142,7 +158,7 @@ i, .fa-solid, .fa-brands, .fab, .fas { color: #AAF0D1; }
 .sponsor-card img {
     max-width: 100%;
     height: auto;
-    max-height: 90px; /* Loghi non giganti */
+    max-height: 90px;
     object-fit: contain;
     margin-bottom: 10px;
     filter: none !important;
@@ -158,11 +174,11 @@ i, .fa-solid, .fa-brands, .fab, .fas { color: #AAF0D1; }
 /* --- 5. HEADER & HERO --- */
 #header-hero, #hero-community, #hero-eventi, #hero-sponsor, #hero-grazie {
     text-align: center;
-    padding: 50px 15px; /* Spaziatura equilibrata */
+    padding: 50px 15px;
 }
 
 .logo-img {
-    max-width: 220px; /* Logo centrale di dimensione giusta */
+    max-width: 220px;
     height: auto;
     margin-bottom: 20px;
     filter: drop-shadow(0 0 10px #000);
@@ -201,4 +217,6 @@ footer a:hover { color: #AAF0D1; }
     .logo-img { max-width: 180px; }
     .box-feature { padding: 20px; }
     #header-hero { padding: 30px 15px; }
+    /* Assicura che l'hamburger non sia nascosto */
+    .navbar-toggler { display: block !important; }
 }
