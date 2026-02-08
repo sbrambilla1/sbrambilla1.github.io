@@ -1,12 +1,10 @@
-/* --- 1. FONTS & BASE (OUTFIT - BOLD & MODERN) --- */
+/* --- 1. FONTS & BASE (OUTFIT - LIGHT & ANIMATED) --- */
 @import url("https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css");
-/* Importiamo Outfit: Light (300), Regular (400), Bold (700) */
-@import url("https://fonts.googleapis.com/css2?family=Outfit:wght@300;400;700&display=swap");
+@import url("https://fonts.googleapis.com/css2?family=Outfit:wght@200;300;400;500&display=swap");
 
 body {
-    /* Font Outfit per tutto il sito */
     font-family: 'Outfit', sans-serif; 
-    font-weight: 300; /* Testo base leggero ed elegante */
+    font-weight: 300; /* Light */
     font-size: 16px;
     line-height: 1.6;
     letter-spacing: 0.5px;
@@ -29,48 +27,48 @@ body {
 
 a { text-decoration: none; transition: 0.3s; }
 
-/* --- 2. NAVBAR (Menu) --- */
+/* --- 2. NAVBAR (Menu Fine) --- */
 .navbar {
     background-color: rgba(0, 0, 0, 0.9) !important;
-    padding: 12px 0; /* Un po' più di respiro */
-    border-bottom: 1px solid rgba(255,255,255,0.1);
+    padding: 10px 0;
+    border-bottom: 1px solid rgba(255,255,255,0.05);
     z-index: 9999; 
 }
 
 .navbar-brand {
     font-family: 'Outfit', sans-serif;
-    font-weight: 700; /* BOLD 700 come richiesto */
+    font-weight: 400; /* Regular */
     color: #fff !important;
     text-transform: uppercase;
-    font-size: 1.5rem;
-    letter-spacing: 1px;
+    font-size: 1.3rem; 
+    letter-spacing: 2px;
 }
 
 .nav-link {
     font-family: 'Outfit', sans-serif;
-    color: #ccc !important;
-    font-weight: 400; /* Regular */
+    color: #bbb !important;
+    font-weight: 300; /* Light */
     text-transform: uppercase;
-    font-size: 0.9rem;
+    font-size: 0.85rem;
     margin: 0 10px;
-    letter-spacing: 0.5px;
+    letter-spacing: 1px;
 }
 .nav-link:hover, .nav-link.active { color: #AAF0D1 !important; }
 
 /* HAMBURGER MENU */
 .navbar-toggler { 
     padding: 5px; 
-    font-size: 1rem; 
-    border: 1px solid rgba(255,255,255,0.3) !important; 
-    border-radius: 6px; 
+    font-size: 0.9rem;
+    border: 1px solid rgba(255,255,255,0.2) !important; 
+    border-radius: 4px;
 }
-.navbar-toggler:focus { box-shadow: 0 0 0 2px #AAF0D1; }
+.navbar-toggler:focus { box-shadow: none; border-color: #AAF0D1 !important; }
 .navbar-toggler-icon { 
-    background-image: url("data:image/svg+xml,%3csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 30 30'%3e%3cpath stroke='rgba%28255, 255, 255, 1%29' stroke-linecap='round' stroke-miterlimit='10' stroke-width='2' d='M4 7h22M4 15h22M4 23h22'/%3e%3c/svg%3e") !important;
+    background-image: url("data:image/svg+xml,%3csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 30 30'%3e%3cpath stroke='rgba%28255, 255, 255, 1%29' stroke-linecap='round' stroke-miterlimit='10' stroke-width='1.5' d='M4 7h22M4 15h22M4 23h22'/%3e%3c/svg%3e") !important;
     filter: none !important;
 }
 
-/* --- 3. LAYOUT & TRASPARENZA --- */
+/* --- 3. LAYOUT --- */
 section, .container, .wrapper, .main-section {
     background: transparent !important;
     background-color: transparent !important;
@@ -78,80 +76,79 @@ section, .container, .wrapper, .main-section {
     box-shadow: none !important;
 }
 
-/* --- 4. BOX CONTENUTO (MODERNI) --- */
+/* --- 4. BOX CONTENUTO --- */
 .box-feature {
-    background-color: rgba(0, 0, 0, 0.4) !important; 
+    background-color: rgba(0, 0, 0, 0.5) !important; 
     padding: 30px 25px;
-    border-radius: 12px; /* Outfit sta bene con bordi leggermente curvi */
+    border-radius: 6px;
     margin-bottom: 25px;
     border: 1px solid rgba(255,255,255,0.1); 
     text-align: center;
-    transition: transform 0.3s, border-color 0.3s, background-color 0.3s;
+    transition: border-color 0.3s;
 }
 
 .box-feature:hover {
-    transform: translateY(-5px);
     border-color: #AAF0D1; 
-    background-color: rgba(0, 0, 0, 0.6) !important; 
 }
 
 /* SPONSOR CARD */
 .sponsor-card {
     background-color: #fff !important; 
     padding: 20px;
-    border-radius: 12px;
+    border-radius: 6px;
     margin-bottom: 25px;
     text-align: center;
     display: flex;
     flex-direction: column;
     align-items: center;
     justify-content: center;
-    min-height: 180px;
-    box-shadow: 0 4px 10px rgba(0,0,0,0.2);
+    min-height: 160px;
+    box-shadow: 0 2px 5px rgba(0,0,0,0.05);
 }
 
-/* Stili Testo */
+/* Stili Testo (MINIMAL) */
 h1 {
     font-family: 'Outfit', sans-serif;
-    font-weight: 700; /* BOLD 700 */
-    font-size: 2.8rem; /* Outfit è molto leggibile, possiamo osare con la grandezza */
+    font-weight: 300; /* LIGHT */
+    font-size: 2.5rem; 
     color: #fff;
     text-transform: uppercase;
-    text-shadow: 1px 1px 3px rgba(0,0,0,0.8);
+    text-shadow: 0 1px 2px rgba(0,0,0,0.5);
     margin-top: 15px;
     margin-bottom: 10px;
-    line-height: 1.1;
-    letter-spacing: -0.5px; /* Tight tracking per un look compatto */
+    line-height: 1.2;
+    letter-spacing: 3px; 
 }
 
 h2, h3 {
     font-family: 'Outfit', sans-serif;
     text-transform: uppercase;
     color: #fff;
-    font-weight: 700;
+    font-weight: 400; 
+    letter-spacing: 1px;
 }
 
 .box-feature h3 { 
     margin-top: 15px; 
-    font-weight: 700; /* Bold */
-    font-size: 1.3rem; 
+    font-size: 1.1rem; 
+    font-weight: 400; 
 }
 .box-feature p { 
-    color: #eee; 
-    font-weight: 300; /* Light */
-    font-size: 1.05rem; 
+    color: #ddd; 
+    font-weight: 200; /* Extra Light */
+    font-size: 1rem; 
     margin-bottom: 0;
-    line-height: 1.5;
-    text-shadow: 1px 1px 1px rgba(0,0,0,0.5);
+    line-height: 1.6;
 }
 
 /* --- ICONE --- */
 .icon-big {
-    font-size: 2.2rem;
+    font-size: 1.8rem; 
     color: #AAF0D1;
     margin-bottom: 15px;
     display: block;
     text-shadow: none;
+    opacity: 0.9; 
 }
 
 i, .fa-solid, .fa-brands, .fab, .fas { color: #AAF0D1; }
@@ -160,20 +157,20 @@ i, .fa-solid, .fa-brands, .fab, .fas { color: #AAF0D1; }
 .sponsor-card img {
     max-width: 100%;
     height: auto;
-    max-height: 90px;
+    max-height: 75px; 
     object-fit: contain;
     margin-bottom: 15px;
     filter: none !important;
     opacity: 1 !important;
 }
 .sponsor-card h3 {
-    color: #222;
-    font-weight: 700;
+    color: #333;
+    font-weight: 400; 
     margin: 0;
-    font-size: 1.1rem;
+    font-size: 0.9rem;
 }
 
-/* --- 5. HEADER & HERO (ANIMATO & FULL SCREEN) --- */
+/* --- 5. HEADER & HERO (CON ANIMAZIONE LOGO) --- */
 #header-hero, #hero-community, #hero-eventi, #hero-sponsor, #hero-grazie {
     min-height: 100vh;
     display: flex;
@@ -186,52 +183,61 @@ i, .fa-solid, .fa-brands, .fab, .fas { color: #AAF0D1; }
 }
 
 .logo-img {
-    max-width: 220px;
+    max-width: 180px;
     height: auto;
     margin-bottom: 25px;
-    filter: drop-shadow(2px 2px 5px rgba(0,0,0,0.5));
-    animation: fadeInUp 1.2s ease-out forwards;
-    opacity: 0;
+    filter: drop-shadow(0 2px 4px rgba(0,0,0,0.3));
+    
+    /* ANIMAZIONE RIPRISTINATA */
+    opacity: 0; /* Parte invisibile */
+    animation: fadeInUp 1.5s ease-out forwards; /* Entra in 1.5 secondi */
 }
 
 .subtitle {
     font-family: 'Outfit', sans-serif;
-    font-size: 1.1rem;
+    font-size: 0.95rem;
     color: #eee;
     text-transform: uppercase;
-    letter-spacing: 2px; 
-    text-shadow: 1px 1px 1px rgba(0,0,0,0.8);
-    font-weight: 400; 
+    letter-spacing: 3px; 
+    text-shadow: 0 1px 1px rgba(0,0,0,0.5);
+    font-weight: 300; 
     margin-bottom: 0;
+    opacity: 0.9;
 }
 
-.testo-aqua { color: #AAF0D1 !important; font-weight: 700; }
+.testo-aqua { color: #AAF0D1 !important; font-weight: 400; }
 
 /* --- 6. FOOTER --- */
 footer {
     background-color: #000;
-    color: #888;
+    color: #777;
     padding: 30px 0;
     text-align: center;
     margin-top: auto;
-    font-size: 0.8rem;
-    border-top: 1px solid #222;
+    font-size: 0.75rem;
+    border-top: 1px solid #111;
 }
-footer h3 { font-size: 1.1rem; margin-bottom: 15px; color: #fff; font-weight: 700; }
-footer a { color: #aaa; font-weight: 400; }
+footer h3 { font-size: 0.9rem; margin-bottom: 15px; color: #fff; font-weight: 400; letter-spacing: 1px; }
+footer a { color: #888; font-weight: 300; }
 footer a:hover { color: #AAF0D1; } 
 
 /* --- 7. MOBILE FIXES --- */
 @media (max-width: 768px) {
-    h1 { font-size: 2.2rem; }
-    .logo-img { max-width: 180px; }
-    .box-feature { padding: 25px 20px; }
+    h1 { font-size: 1.8rem; } 
+    .logo-img { max-width: 150px; }
+    .box-feature { padding: 20px; }
     #header-hero { padding: 30px 15px; padding-top: 70px; }
     .navbar-toggler { display: block !important; }
 }
 
-/* --- ANIMAZIONE --- */
+/* --- DEFINIZIONE ANIMAZIONE --- */
 @keyframes fadeInUp {
-    from { opacity: 0; transform: translateY(30px); }
-    to { opacity: 1; transform: translateY(0); }
+    from {
+        opacity: 0;
+        transform: translateY(30px); /* Parte dal basso */
+    }
+    to {
+        opacity: 1;
+        transform: translateY(0); /* Arriva al centro */
+    }
 }
