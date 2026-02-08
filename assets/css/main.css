@@ -199,8 +199,10 @@ i, .fa-solid, .fa-brands, .fab, .fas { color: #AAF0D1; }
 
 /* --- 6. FOOTER --- */
 footer {
-    background-color: #000;
-    color: #888;
+    background: transparent !important;
+    background-color: transparent !important;
+    border: none !important;
+    box-shadow: none !important;
     padding: 25px 0;
     text-align: center;
     margin-top: auto;
