@@ -7,111 +7,10 @@
     <link rel="icon" type="image/png" href="images/favicon.png">
 
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
-    
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
-
     <link href="https://fonts.googleapis.com/css?family=Source+Sans+Pro:400,400italic,700,900" rel="stylesheet">
 
-    <style>
-        body {
-            font-family: 'Source Sans Pro', sans-serif;
-            background-color: #222;
-            color: #fff;
-            display: flex;
-            flex-direction: column;
-            min-height: 100vh;
-        }
-
-        .navbar {
-            background-color: #1a1a1a !important;
-            padding: 1rem;
-        }
-        .navbar-brand {
-            font-weight: 900;
-            color: #fff !important;
-            text-transform: uppercase;
-        }
-        .nav-link {
-            color: #ddd !important;
-            font-weight: 700;
-            text-transform: uppercase;
-            margin: 0 10px;
-        }
-        .nav-link:hover {
-            color: #e95d3c !important;
-        }
-        .nav-link.active {
-            color: #fff !important;
-            border-bottom: 2px solid #e95d3c;
-        }
-
-        /* Hero Section Specifica per Community */
-        #hero-community {
-            flex: 1; /* Occupa tutto lo spazio disponibile per centrare il contenuto */
-            display: flex;
-            flex-direction: column;
-            justify-content: center;
-            align-items: center;
-            text-align: center;
-            padding: 20px;
-            background: #282828;
-        }
-
-        .logo-img {
-            width: 100%;
-            max-width: 300px;
-            height: auto;
-            margin-bottom: 20px;
-        }
-
-        h1 {
-            font-weight: 900;
-            font-size: 3rem;
-            margin-bottom: 0.5rem;
-            color: #fff;
-            text-transform: uppercase;
-        }
-        
-        p.subtitle {
-            font-size: 1.2rem;
-            color: #aaa;
-            letter-spacing: 2px;
-            text-transform: uppercase;
-            margin-bottom: 30px;
-        }
-
-        /* Pulsante Telegram Custom */
-        .btn-telegram {
-            background-color: #AAF0D1; /* Colore Aqua/Menta */
-            color: #004d40;
-            font-weight: 800;
-            padding: 15px 40px;
-            border-radius: 50px;
-            font-size: 1.2rem;
-            text-transform: uppercase;
-            box-shadow: 0 5px 15px rgba(72, 207, 173, 0.3);
-            transition: all 0.3s ease;
-            text-decoration: none;
-            display: inline-flex;
-            align-items: center;
-            gap: 10px;
-        }
-
-        .btn-telegram:hover {
-            background-color: #fff;
-            color: #004d40;
-            transform: translateY(-3px);
-            box-shadow: 0 10px 20px rgba(255, 255, 255, 0.2);
-        }
-
-        footer {
-            background-color: #1a1a1a;
-            color: #888;
-            padding: 20px 0;
-            text-align: center;
-            margin-top: auto; /* Spinge il footer in fondo */
-        }
-    </style>
+    <link rel="stylesheet" href="assets/css/main.css">
 </head>
 <body>
 
@@ -135,11 +34,19 @@
     <section id="hero-community">
         <div class="container">
             <img src="images/logo.png" alt="Nevera Logo" class="logo-img img-fluid">
-            
             <h1>COMMUNITY</h1>
             <p class="subtitle">born under pressure</p>
             
-            <a href="https://t.me/neverasports" target="_blank" class="btn-telegram">
+            <a href="https://t.me/neverasports" target="_blank" style="
+                background-color: #AAF0D1; 
+                color: #004d40; 
+                padding: 15px 40px; 
+                border-radius: 50px; 
+                text-decoration: none; 
+                font-weight: 800; 
+                text-transform: uppercase;
+                display: inline-block;
+                margin-top: 20px;">
                 <i class="fab fa-telegram-plane"></i> Unisciti ora
             </a>
         </div>
@@ -152,6 +59,5 @@
     </footer>
 
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
-
 </body>
 </html>
