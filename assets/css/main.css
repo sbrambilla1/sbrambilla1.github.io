@@ -1,24 +1,39 @@
-/* --- 1. RESET E SFONDO --- */
+/* --- 1. FONTS & BASE --- */
 @import url("https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css");
-@import url("https://fonts.googleapis.com/css?family=Source+Sans+Pro:400,400italic,700,900");
+/* Carichiamo Montserrat in vari spessori: Leggero (300), Normale (400), Grassetto (700), Extra (900) */
+@import url("https://fonts.googleapis.com/css2?family=Montserrat:wght@300;400;700;900&display=swap");
 
 body {
-    font-family: 'Source Sans Pro', sans-serif;
-    /* L'immagine di sfondo PURA, senza filtri sopra */
+    /* Nuovo font Minimal */
+    font-family: 'Montserrat', sans-serif;
+    
+    /* SFONDO (Resta quello che abbiamo sistemato prima) */
     background-image: url('../../images/banner.png');
     background-size: cover;
     background-position: center;
-    background-attachment: fixed; /* L'immagine resta ferma */
+    background-attachment: fixed;
     background-repeat: no-repeat;
     background-color: #000;
     
     color: #fff;
     margin: 0;
-    padding-top: 80px; /* Spazio per la navbar */
+    padding-top: 80px; 
     min-height: 100vh;
+    
+    /* Tocco di classe minimal: rendiamo il testo leggermente più spaziato */
+    letter-spacing: 0.5px;
+    font-weight: 400; /* Testo normale leggermente più fine */
+}
+
+/* Modifichiamo anche i titoli per renderli più "aggressivi" e minimal */
+h1, h2, h3, .navbar-brand {
+    font-family: 'Montserrat', sans-serif;
+    text-transform: uppercase;
+    letter-spacing: 2px; /* Spaziatura ampia tipica dello stile minimal */
 }
 
 a { text-decoration: none; transition: 0.3s; }
+
 
 /* --- 2. NAVBAR (Menu) --- */
 .navbar {
