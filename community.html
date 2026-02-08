@@ -1,124 +1,157 @@
 <!DOCTYPE HTML>
-<html>
-	<!-- LINGUETTA WEB -->
-	<head>
-		<title>NEVERA SPORTS</title>
-		<link rel="icon" type="image/png" href="images\favicon.png">
-		<meta charset="utf-8" />
-		<meta name="viewport" content="width=device-width, initial-scale=1, user-scalable=no" />
-		<link rel="stylesheet" href="assets/css/main.css" />
-	</head>
-	<body class="homepage is-preload">
-		<div id="page-wrapper">
+<html lang="it">
+<head>
+    <title>COMMUNITY - NEVERA SPORTS</title>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <link rel="icon" type="image/png" href="images/favicon.png">
 
-			<!-- Sezione HEADER -->
-				<section id="header" class="wrapper" style="height: 100vh; display: flex; flex-direction: column; justify-content: center; align-items: center; text-align: center;">
-				
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+    
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
 
-					
+    <link href="https://fonts.googleapis.com/css?family=Source+Sans+Pro:400,400italic,700,900" rel="stylesheet">
 
+    <style>
+        body {
+            font-family: 'Source Sans Pro', sans-serif;
+            background-color: #222;
+            color: #fff;
+            display: flex;
+            flex-direction: column;
+            min-height: 100vh;
+        }
 
-					<!-- CENTRALE LOGO -->
-						<div id="logo">	
-							<img src="images\logo.png"  style="
-        width: 300px;      /* Regola la grandezza del logo */
-        height: auto; 
-        margin-bottom:0; /* Spazio tra logo e scritta */
-        display: block;">
-							<h1><a href="#">COMMUNITY</a></h1>
-							<p>BORN UNDER PRESSURE</p>
-							<a href="https://t.me/neverasports" target="_blank" style="
-    display: inline-block;
-    padding: 15px 25px;
-    background-color: #AAF0D1; 
-    color: #004d40; 
-    text-decoration: none;
-    border-radius: 50px;
-    font-family: Arial, sans-serif;
-    font-weight: bold;
-    font-size: 16px;
-    box-shadow: 0 4px 6px rgba(0,0,0,0.1);
-    transition: 0.3s;
-">
-Unisciti
-</a>
-						</div>
-					
+        .navbar {
+            background-color: #1a1a1a !important;
+            padding: 1rem;
+        }
+        .navbar-brand {
+            font-weight: 900;
+            color: #fff !important;
+            text-transform: uppercase;
+        }
+        .nav-link {
+            color: #ddd !important;
+            font-weight: 700;
+            text-transform: uppercase;
+            margin: 0 10px;
+        }
+        .nav-link:hover {
+            color: #e95d3c !important;
+        }
+        .nav-link.active {
+            color: #fff !important;
+            border-bottom: 2px solid #e95d3c;
+        }
 
-					<!-- MENU IN ALTO -->
-						<nav id="nav">
-							<ul>
-								<li class="current"><a href="index.html">HOME</a></li>
-								<li><a href="#">GALLERY</a></li>
-								<li><a href="eventi.html">CALENDARIO EVENTI</a></li>							
-								<li><a href="sponsor.html">PARTNERS</a></li>
-								
-							</ul>
-						</nav>
+        /* Hero Section Specifica per Community */
+        #hero-community {
+            flex: 1; /* Occupa tutto lo spazio disponibile per centrare il contenuto */
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            text-align: center;
+            padding: 20px;
+            background: #282828;
+        }
 
-				</section>
+        .logo-img {
+            width: 100%;
+            max-width: 300px;
+            height: auto;
+            margin-bottom: 20px;
+        }
 
-		
+        h1 {
+            font-weight: 900;
+            font-size: 3rem;
+            margin-bottom: 0.5rem;
+            color: #fff;
+            text-transform: uppercase;
+        }
+        
+        p.subtitle {
+            font-size: 1.2rem;
+            color: #aaa;
+            letter-spacing: 2px;
+            text-transform: uppercase;
+            margin-bottom: 30px;
+        }
 
-								
-						<div id="copyright">
-							<ul>
-								<li>&copy;2026 NEVERA</li>
-							</ul>
-						</div>
-					</div>
-				</section>
+        /* Pulsante Telegram Custom */
+        .btn-telegram {
+            background-color: #AAF0D1; /* Colore Aqua/Menta */
+            color: #004d40;
+            font-weight: 800;
+            padding: 15px 40px;
+            border-radius: 50px;
+            font-size: 1.2rem;
+            text-transform: uppercase;
+            box-shadow: 0 5px 15px rgba(72, 207, 173, 0.3);
+            transition: all 0.3s ease;
+            text-decoration: none;
+            display: inline-flex;
+            align-items: center;
+            gap: 10px;
+        }
 
-		</div>
+        .btn-telegram:hover {
+            background-color: #fff;
+            color: #004d40;
+            transform: translateY(-3px);
+            box-shadow: 0 10px 20px rgba(255, 255, 255, 0.2);
+        }
 
-		<!-- Scripts -->
-			<script src="assets/js/jquery.min.js"></script>
-			<script src="assets/js/jquery.dropotron.min.js"></script>
-			<script src="assets/js/browser.min.js"></script>
-			<script src="assets/js/breakpoints.min.js"></script>
-			<script src="assets/js/util.js"></script>
-    		<script src="assets/js/main.js"></script>
+        footer {
+            background-color: #1a1a1a;
+            color: #888;
+            padding: 20px 0;
+            text-align: center;
+            margin-top: auto; /* Spinge il footer in fondo */
+        }
+    </style>
+</head>
+<body>
 
-	</body>
+    <nav class="navbar navbar-expand-lg navbar-dark fixed-top">
+        <div class="container">
+            <a class="navbar-brand" href="index.html">NEVERA SPORTS</a>
+            <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav">
+                <span class="navbar-toggler-icon"></span>
+            </button>
+            <div class="collapse navbar-collapse justify-content-end" id="navbarNav">
+                <ul class="navbar-nav">
+                    <li class="nav-item"><a class="nav-link" href="index.html">Home</a></li>
+                    <li class="nav-item"><a class="nav-link" href="eventi.html">Eventi</a></li>
+                    <li class="nav-item"><a class="nav-link active" href="community.html">Community</a></li>
+                    <li class="nav-item"><a class="nav-link" href="sponsor.html">Sponsor</a></li>
+                </ul>
+            </div>
+        </div>
+    </nav>
 
+    <section id="hero-community">
+        <div class="container">
+            <img src="images/logo.png" alt="Nevera Logo" class="logo-img img-fluid">
+            
+            <h1>COMMUNITY</h1>
+            <p class="subtitle">born under pressure</p>
+            
+            <a href="https://t.me/neverasports" target="_blank" class="btn-telegram">
+                <i class="fab fa-telegram-plane"></i> Unisciti ora
+            </a>
+        </div>
+    </section>
+
+    <footer>
+        <div class="container">
+            <p class="mb-0">&copy; 2026 NEVERA SPORTS</p>
+        </div>
+    </footer>
+
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+
+</body>
 </html>
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
