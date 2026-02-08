@@ -1,23 +1,25 @@
-/* --- 1. FONTS & BASE (RALEWAY - ELEGANTE) --- */
+/* --- 1. FONTS & BASE (RALEWAY FINE & ELEGANTE) --- */
 @import url("https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css");
-@import url("https://fonts.googleapis.com/css2?family=Raleway:wght@300;400;700;900&display=swap");
+@import url("https://fonts.googleapis.com/css2?family=Raleway:wght@300;400;600;800&display=swap");
 
 body {
     font-family: 'Raleway', sans-serif;
-    font-weight: 400; 
+    font-weight: 300; /* 300 = Light (Molto fine ed elegante) */
+    font-size: 16px;  /* Dimensione standard, non "zoomata" */
+    line-height: 1.6;
     letter-spacing: 0.5px;
     
-    /* SFONDO BANNER */
+    /* SFONDO BANNER PURO */
     background-image: url('../../images/banner.png');
     background-size: cover;
     background-position: center;
     background-attachment: fixed;
     background-repeat: no-repeat;
-    background-color: #222; 
+    background-color: #111; 
     
     color: #fff;
     margin: 0;
-    padding-top: 70px;
+    padding-top: 60px; /* Ridotto spazio menu */
     display: flex;
     flex-direction: column;
     min-height: 100vh;
@@ -25,170 +27,191 @@ body {
 
 a { text-decoration: none; transition: 0.3s; }
 
-/* --- 2. NAVBAR (Menu) --- */
+/* --- 2. NAVBAR (Menu più sottile) --- */
 .navbar {
-    background-color: #111 !important; 
-    padding: 10px 0;
-    border-bottom: 1px solid #333;
+    background-color: #000 !important; 
+    padding: 5px 0; /* Barra più sottile */
+    border-bottom: 1px solid rgba(255,255,255,0.1);
 }
 .navbar-brand {
     font-family: 'Raleway', sans-serif;
-    font-weight: 900;
+    font-weight: 800; /* Spesso ma non enorme */
     color: #fff !important;
     text-transform: uppercase;
-    font-size: 1.5rem;
-    letter-spacing: 2px;
+    font-size: 1.2rem; /* Ridotto dimensione logo testuale */
+    letter-spacing: 1px;
 }
 .nav-link {
     font-family: 'Raleway', sans-serif;
     color: #ccc !important;
-    font-weight: 700;
+    font-weight: 600; /* Semi-bold */
     text-transform: uppercase;
-    font-size: 0.85rem; 
-    margin: 0 10px;
+    font-size: 0.8rem; /* Testo menu più piccolo ed elegante */
+    margin: 0 8px;
     letter-spacing: 1px;
 }
-/* HOVER DEL MENU: Ora diventa Verde Menta */
 .nav-link:hover, .nav-link.active { color: #AAF0D1 !important; }
-.navbar-toggler { background-color: #333; border: none; }
-.navbar-toggler-icon { filter: invert(1); }
+.navbar-toggler { padding: 4px; font-size: 0.9rem; } /* Hamburger più piccolo */
+.navbar-toggler:focus { box-shadow: none; }
+.navbar-toggler-icon { filter: invert(1); width: 1.2em; height: 1.2em; }
 
-/* --- 3. LAYOUT --- */
-section, .container, .wrapper {
+/* --- 3. LAYOUT & TRASPARENZA TOTALE --- */
+/* Rimuove QUALSIASI sfondo o velo dalle sezioni */
+section, .container, .wrapper, .main-section, .feature-list {
     background: transparent !important;
+    background-color: transparent !important;
+    box-shadow: none !important;
+    border: none !important;
 }
 
-/* --- 4. BOX CONTENUTO --- */
+/* --- 4. BOX CONTENUTO (Più piccoli e fini) --- */
 .box-feature {
-    background-color: rgba(0, 0, 0, 0.6) !important;
-    padding: 40px 20px;
+    background-color: rgba(0, 0, 0, 0.6) !important; /* Scuro semitrasparente */
+    padding: 25px 15px; /* Meno padding = meno ingombrante */
     border-radius: 4px;
-    margin-bottom: 30px;
+    margin-bottom: 20px;
     border: 1px solid rgba(255,255,255,0.1);
     text-align: center;
     transition: transform 0.3s, border-color 0.3s;
 }
 
-/* Effetto Hover sui box: Bordo Verde Menta */
 .box-feature:hover {
-    transform: translateY(-5px);
+    transform: translateY(-3px);
     border-color: #AAF0D1; 
 }
 
 /* SPONSOR CARD */
 .sponsor-card {
     background-color: #fff !important; 
-    padding: 30px;
+    padding: 20px; /* Ridotto */
     border-radius: 6px;
-    margin-bottom: 30px;
+    margin-bottom: 20px;
     text-align: center;
     display: flex;
     flex-direction: column;
     align-items: center;
     justify-content: center;
-    min-height: 200px;
+    min-height: 180px; /* Meno alta */
     box-shadow: 0 5px 15px rgba(0,0,0,0.3);
 }
 
-/* Stili Testo */
+/* Stili Testo (Più fini e piccoli) */
 h1 {
     font-family: 'Raleway', sans-serif;
-    font-weight: 900;
-    font-size: 2.8rem;
+    font-weight: 800;
+    font-size: 2.2rem; /* Molto più piccolo di prima (era 3rem) */
     color: #fff;
     text-transform: uppercase;
-    text-shadow: 2px 2px 5px #000;
-    margin-top: 20px;
+    text-shadow: 2px 2px 10px #000;
+    margin-top: 10px;
     letter-spacing: 2px;
+    line-height: 1.2;
+}
+
+h2, h3 {
+    font-family: 'Raleway', sans-serif;
+    text-transform: uppercase;
+    color: #fff;
+    letter-spacing: 1px;
 }
 
 .box-feature h3 { 
-    color: #fff; 
-    margin-top: 15px; 
-    font-weight: 700; 
-    text-transform: uppercase;
-    letter-spacing: 1px;
+    margin-top: 10px; 
+    font-weight: 600; /* Meno grassetto */
+    font-size: 1.1rem; /* Più piccolo */
 }
 .box-feature p { 
     color: #ddd; 
-    font-weight: 300; 
-    line-height: 1.6;
+    font-weight: 300; /* Light */
+    font-size: 0.95rem; /* Testo fine */
+    line-height: 1.5;
+    margin-bottom: 0;
 }
 
-/* --- ICONE VERDE MENTA (#AAF0D1) --- */
+/* --- ICONE (Ridimensionate e Verde Menta) --- */
 .icon-big {
-    font-size: 3rem;
-    color: #AAF0D1; /* Eccolo qui! */
-    margin-bottom: 15px;
+    font-size: 2rem; /* Ridotta da 3rem a 2rem (meno zoomata) */
+    color: #AAF0D1;
+    margin-bottom: 10px;
     display: block;
-    text-shadow: 0 0 10px rgba(170, 240, 209, 0.3); /* Leggero bagliore */
+    text-shadow: 0 0 10px rgba(170, 240, 209, 0.2);
 }
 
-/* Icone generiche FontAwesome dentro ai testi */
-i, .fa-solid, .fa-brands, .fab, .fas {
-    color: #AAF0D1;
-}
+i, .fa-solid, .fa-brands, .fab, .fas { color: #AAF0D1; }
 
 /* SPONSOR IMMAGINI */
 .sponsor-card img {
     max-width: 100%;
     height: auto;
-    max-height: 120px;
+    max-height: 90px; /* Loghi più piccoli */
     object-fit: contain;
-    margin-bottom: 15px;
+    margin-bottom: 10px;
     filter: none !important;
     opacity: 1 !important;
 }
-
 .sponsor-card h3 {
     color: #333;
-    font-weight: 800;
+    font-weight: 700;
     margin: 0;
-    font-size: 1.2rem;
+    font-size: 1rem;
 }
 
-/* --- 5. HEADER & HERO --- */
+/* --- 5. HEADER & HERO (Spazi ridotti) --- */
 #header-hero, #hero-community, #hero-eventi, #hero-sponsor, #hero-grazie {
     text-align: center;
-    padding: 60px 20px;
+    padding: 40px 15px; /* Meno spazio sopra e sotto */
 }
 
 .logo-img {
-    max-width: 280px;
+    max-width: 200px; /* Logo più piccolo (era 280px) */
     height: auto;
-    margin-bottom: 20px;
+    margin-bottom: 15px;
     filter: drop-shadow(0 0 10px #000);
 }
 
 .subtitle {
     font-family: 'Raleway', sans-serif;
-    font-size: 1.1rem;
+    font-size: 1rem; /* Ridotto */
     color: #eee;
     text-transform: uppercase;
     letter-spacing: 3px; 
     text-shadow: 1px 1px 3px #000;
     font-weight: 300; 
+    margin-bottom: 20px;
 }
 
-/* Testi colorati specifici */
-.testo-aqua { color: #AAF0D1 !important; font-weight: bold; }
+/* Pulsanti (Stile minimale) */
+.btn, .button {
+    font-family: 'Raleway', sans-serif;
+    font-weight: 600;
+    text-transform: uppercase;
+    letter-spacing: 1px;
+    padding: 8px 20px;
+    font-size: 0.9rem;
+}
+
+.testo-aqua { color: #AAF0D1 !important; font-weight: 600; }
 
 /* --- 6. FOOTER --- */
 footer {
     background-color: #000;
-    color: #888;
-    padding: 30px 0;
+    color: #777;
+    padding: 20px 0;
     text-align: center;
     margin-top: auto;
-    font-size: 0.8rem;
+    font-size: 0.75rem; /* Testo footer piccolo e fine */
     letter-spacing: 1px;
+    border-top: 1px solid #222;
 }
-/* Link nel footer */
-footer a { color: #ccc; }
+footer h3 { font-size: 1rem; margin-bottom: 10px; color: #fff; }
+footer a { color: #999; font-weight: 300; }
 footer a:hover { color: #AAF0D1; } 
 
-/* --- 7. MOBILE FIXES --- */
+/* --- 7. MOBILE FIXES (Anti-Zoom) --- */
 @media (max-width: 768px) {
-    h1 { font-size: 2rem; }
-    .sponsor-card { margin-bottom: 20px; }
+    h1 { font-size: 1.8rem; } /* Titolo mobile proporzionato */
+    .logo-img { max-width: 160px; } /* Logo mobile proporzionato */
+    .box-feature { padding: 20px; margin-bottom: 15px; }
+    .icon-big { font-size: 1.8rem; }
+    #header-hero { padding: 30px 15px; }
 }
