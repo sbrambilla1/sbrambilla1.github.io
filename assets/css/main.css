@@ -5,15 +5,19 @@
 body {
     font-family: 'Source Sans Pro', sans-serif;
     
-    /* --- SFONDO BANNER --- */
-    background-image: url('../../images/banner.png'); 
+    /* --- SFONDO PURO --- */
+    /* Nessun colore sopra, nessuna sfumatura. Solo l'immagine. */
+    background-image: url('../../images/banner.png');
+    
     background-size: cover;       
     background-position: center;  
-    background-attachment: fixed; 
+    background-attachment: fixed; /* L'immagine sta ferma mentre scorri */
     background-repeat: no-repeat;
-    background-color: #222; /* Colore di riserva */
     
-    color: #fff;
+    /* Colore di riserva (nero) se l'immagine non carica */
+    background-color: #000; 
+    
+    color: #fff; /* Testo bianco */
     margin: 0;
     padding-top: 70px;
     display: flex;
@@ -23,14 +27,15 @@ body {
 
 a {
     text-decoration: none;
-    transition: color 0.3s ease;
+    transition: all 0.3s ease;
 }
 
-/* --- 2. NAVBAR --- */
+/* --- 2. NAVBAR (Menu) --- */
+/* Nera semitrasparente per leggere il menu, ma elegante */
 .navbar {
-    background-color: #1a1a1a !important;
+    background-color: rgba(0, 0, 0, 0.8) !important; 
     padding: 1rem 0;
-    box-shadow: 0 2px 10px rgba(0,0,0,0.5);
+    border-bottom: 1px solid rgba(255,255,255,0.1);
 }
 
 .navbar-brand {
@@ -48,27 +53,23 @@ a {
     margin: 0 10px;
 }
 .nav-link:hover, .nav-link.active {
-    color: #e95d3c !important;
+    color: #e95d3c !important; /* Arancione */
 }
 .navbar-toggler { border: none; }
-.navbar-toggler:focus { box-shadow: none; }
+.navbar-toggler-icon { filter: invert(1); }
 
-/* --- 3. HERO SECTIONS (Trasparenti per far vedere lo sfondo) --- */
-#header-hero, #hero-community, #hero-eventi, #hero-sponsor, #hero-grazie {
-    background: transparent; /* FONDAMENTALE: Se metti un colore qui, copri l'immagine! */
-    padding: 60px 20px;
-    text-align: center;
-    display: flex;
-    flex-direction: column;
-    justify-content: center;
-    align-items: center;
-    /* Rimuoviamo il bordo o lo facciamo leggero */
-    /* border-bottom: 1px solid rgba(255,255,255,0.1); */ 
+/* --- 3. ZERO SFONDI SULLE SEZIONI --- */
+/* Questa è la parte magica: rendiamo TUTTO trasparente */
+section, .main-section, .sponsor-list-section, .wrapper, #header-hero, #hero-community, #hero-eventi, #hero-sponsor {
+    background: transparent !important;
+    background-color: transparent !important;
+    border: none !important;
 }
 
-/* Se vuoi che il testo si legga meglio sopra l'immagine, aggiungi un'ombra */
-h1, .hero-subtitle, p {
-    text-shadow: 0 2px 10px rgba(0,0,0,0.8);
+/* --- 4. LEGGIBILITÀ TESTO --- */
+/* Dato che non c'è sfondo, mettiamo un'ombra nera forte dietro al testo */
+h1, h2, h3, p, li, .hero-title, .subtitle {
+    text-shadow: 2px 2px 4px #000000;
 }
 
 h1 {
@@ -81,39 +82,47 @@ h1 {
 
 .subtitle, .hero-subtitle {
     font-size: 1.1rem;
-    color: #ddd; /* Più chiaro per contrastare lo sfondo */
+    color: #eee;
     letter-spacing: 2px;
     text-transform: uppercase;
     margin-bottom: 20px;
 }
 
-/* --- 4. SEZIONI CONTENUTO (Queste devono avere sfondo per leggibilità) --- */
-.main-section, .sponsor-list-section {
-    background-color: #f5f5f5; /* Sfondo chiaro che copre l'immagine quando scorri */
-    color: #444;
-    padding: 60px 0;
-    width: 100%;
+/* --- 5. COMPONENTI --- */
+
+/* Logo con ombra per staccare dallo sfondo */
+.logo-img { 
+    width: 100%; 
+    max-width: 280px; 
+    height: auto; 
+    filter: drop-shadow(0 0 15px rgba(0,0,0,0.8));
 }
 
-/* --- 5. COMPONENTI --- */
-.logo-img { width: 100%; max-width: 280px; height: auto; }
-
+/* BOX HOME (FEATURE) */
+/* Devono essere leggibili ma non "schiarire" troppo */
 .box-feature {
-    background: #fff;
-    color: #333;
+    background: rgba(0, 0, 0, 0.7); /* Nero al 70% di trasparenza */
+    color: #fff;
     padding: 40px 20px;
     border-radius: 8px;
     text-align: center;
     margin-bottom: 30px;
-    box-shadow: 0 5px 15px rgba(0,0,0,0.1);
-    transition: transform 0.3s;
+    border: 1px solid rgba(255,255,255,0.2); /* Bordino sottile */
 }
-.box-feature:hover { transform: translateY(-5px); }
+.box-feature:hover {
+    background: rgba(0, 0, 0, 0.9); /* Diventa più scuro al passaggio */
+    border-color: #e95d3c;
+    transform: translateY(-5px);
+}
+.box-feature h3 { color: #fff; margin-top: 15px; text-shadow: none; }
+.box-feature p { color: #ddd; text-shadow: none; }
+
 .icon-big { font-size: 3rem; color: #e95d3c; margin-bottom: 20px; }
 
-/* Sponsor Card */
+/* SPONSOR CARD */
+/* I loghi neri richiedono sfondo bianco. Se i tuoi loghi sono bianchi, dimmelo! */
 .sponsor-card {
-    background: #fff;
+    background: #fff; 
     border-radius: 12px;
     padding: 30px;
     display: flex;
@@ -123,26 +132,31 @@ h1 {
     min-height: 250px;
     text-align: center;
     transition: transform 0.3s ease;
-    box-shadow: 0 5px 15px rgba(0,0,0,0.1);
+    box-shadow: 0 5px 20px rgba(0,0,0,0.5);
 }
 .sponsor-card:hover { transform: translateY(-10px); }
 .sponsor-card img { max-width: 100%; max-height: 120px; object-fit: contain; margin-bottom: 15px; }
-.sponsor-card h3 { color: #333; font-weight: 800; font-size: 1.2rem; margin: 0; }
+.sponsor-card h3 { color: #333; font-weight: 800; font-size: 1.2rem; margin: 0; text-shadow: none; }
 
-/* Testi colorati */
-.testo-aqua { color: #48cfad; font-weight: bold; }
+/* Pulsanti e Link */
+.btn-custom {
+    background-color: rgba(0,0,0,0.8);
+    color: #fff;
+    border: 1px solid #e95d3c;
+}
+.testo-aqua { color: #48cfad; font-weight: bold; text-shadow: 1px 1px 2px #000; }
 
 /* --- 6. FOOTER --- */
 footer {
-    background-color: #1a1a1a;
-    color: #777;
+    background-color: rgba(0, 0, 0, 0.9); /* Scuro in fondo per chiudere la pagina */
+    color: #aaa;
     padding: 40px 0;
     text-align: center;
     margin-top: auto;
     font-size: 0.9rem;
 }
-footer a { color: #888; }
-footer a:hover { color: #fff; }
+footer h3 { color: #fff; }
+footer a { color: #ccc; }
 
 /* --- 7. MOBILE FIXES --- */
 @media (max-width: 768px) {
