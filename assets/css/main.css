@@ -3212,3 +3212,42 @@ input[type="reset"]:hover {
         text-align: center;
     }
 }
+/* --- OTTIMIZZAZIONE MOBILE --- */
+@media screen and (max-width: 768px) {
+    /* 1. Reset dei contenitori: eliminiamo margini fissi che spingono il contenuto fuori */
+    .container, .wrapper, section {
+        width: 100% !important;
+        padding-left: 15px !important;
+        padding-right: 15px !important;
+        margin: 0 auto !important;
+        box-sizing: border-box;
+    }
+
+    /* 2. Layout a colonna: se hai elementi affiancati (es. griglie o flexbox) */
+    .row, .flex-container, .grid {
+        display: flex !important;
+        flex-direction: column !important;
+    }
+
+    /* 3. Immagini Responsive: impedisce alle foto di uscire dai bordi */
+    img {
+        max-width: 100% !important;
+        height: auto !important;
+    }
+
+    /* 4. Tipografia: i titoli enormi su desktop devono rimpicciolirsi */
+    h1 { font-size: 24px !important; text-align: center; }
+    h2 { font-size: 20px !important; }
+    p { font-size: 16px !important; line-height: 1.5; }
+
+    /* 5. Navigazione: rendiamo i link più facili da cliccare */
+    nav ul {
+        flex-direction: column;
+        text-align: center;
+        padding: 0;
+    }
+    nav ul li {
+        margin: 10px 0;
+    }
+}
+
