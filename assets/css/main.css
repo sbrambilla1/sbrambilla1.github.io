@@ -5,31 +5,30 @@
 body {
     font-family: 'Source Sans Pro', sans-serif;
     
-    /* --- SFONDO RIPRISTINATO --- */
-    background-image: url('../../images/banner.png');
-    
-    /* Impostazioni per adattarlo a tutti gli schermi */
-    background-size: cover;       /* Copre tutto lo schermo senza lasciare spazi */
-    background-position: center;  /* Centra l'immagine */
-    background-attachment: fixed; /* L'immagine resta ferma mentre scorri il testo */
+    /* --- SFONDO BANNER --- */
+    background-image: url('../../images/banner.png'); 
+    background-size: cover;       
+    background-position: center;  
+    background-attachment: fixed; 
     background-repeat: no-repeat;
+    background-color: #222; /* Colore di riserva */
     
-    /* Colore di riserva (si vede solo mentre carica l'immagine) */
-    background-color: #222;
-    
-    /* Layout della pagina */
     color: #fff;
     margin: 0;
-    padding-top: 70px; /* Spazio per la navbar */
+    padding-top: 70px;
     display: flex;
     flex-direction: column;
     min-height: 100vh;
 }
 
+a {
+    text-decoration: none;
+    transition: color 0.3s ease;
+}
 
-/* --- 2. NAVBAR (Menu) --- */
+/* --- 2. NAVBAR --- */
 .navbar {
-    background-color: #1a1a1a !important; /* Grigio scuro quasi nero */
+    background-color: #1a1a1a !important;
     padding: 1rem 0;
     box-shadow: 0 2px 10px rgba(0,0,0,0.5);
 }
@@ -48,29 +47,28 @@ body {
     font-size: 0.9rem;
     margin: 0 10px;
 }
-
 .nav-link:hover, .nav-link.active {
-    color: #e95d3c !important; /* Arancione Nevera */
+    color: #e95d3c !important;
 }
+.navbar-toggler { border: none; }
+.navbar-toggler:focus { box-shadow: none; }
 
-/* Tasto Hamburger su Mobile */
-.navbar-toggler {
-    border: none;
-}
-.navbar-toggler:focus {
-    box-shadow: none;
-}
-
-/* --- 3. HERO SECTIONS (Intestazioni) --- */
+/* --- 3. HERO SECTIONS (Trasparenti per far vedere lo sfondo) --- */
 #header-hero, #hero-community, #hero-eventi, #hero-sponsor, #hero-grazie {
-    background: #282828;
+    background: transparent; /* FONDAMENTALE: Se metti un colore qui, copri l'immagine! */
     padding: 60px 20px;
     text-align: center;
     display: flex;
     flex-direction: column;
     justify-content: center;
     align-items: center;
-    border-bottom: 1px solid #333;
+    /* Rimuoviamo il bordo o lo facciamo leggero */
+    /* border-bottom: 1px solid rgba(255,255,255,0.1); */ 
+}
+
+/* Se vuoi che il testo si legga meglio sopra l'immagine, aggiungi un'ombra */
+h1, .hero-subtitle, p {
+    text-shadow: 0 2px 10px rgba(0,0,0,0.8);
 }
 
 h1 {
@@ -83,22 +81,23 @@ h1 {
 
 .subtitle, .hero-subtitle {
     font-size: 1.1rem;
-    color: #aaa;
+    color: #ddd; /* Più chiaro per contrastare lo sfondo */
     letter-spacing: 2px;
     text-transform: uppercase;
     margin-bottom: 20px;
 }
 
-/* --- 4. COMPONENTI --- */
-
-/* Immagini */
-.logo-img {
+/* --- 4. SEZIONI CONTENUTO (Queste devono avere sfondo per leggibilità) --- */
+.main-section, .sponsor-list-section {
+    background-color: #f5f5f5; /* Sfondo chiaro che copre l'immagine quando scorri */
+    color: #444;
+    padding: 60px 0;
     width: 100%;
-    max-width: 280px;
-    height: auto;
 }
 
-/* Card Feature (Home) */
+/* --- 5. COMPONENTI --- */
+.logo-img { width: 100%; max-width: 280px; height: auto; }
+
 .box-feature {
     background: #fff;
     color: #333;
@@ -109,14 +108,8 @@ h1 {
     box-shadow: 0 5px 15px rgba(0,0,0,0.1);
     transition: transform 0.3s;
 }
-.box-feature:hover {
-    transform: translateY(-5px);
-}
-.icon-big {
-    font-size: 3rem;
-    color: #e95d3c;
-    margin-bottom: 20px;
-}
+.box-feature:hover { transform: translateY(-5px); }
+.icon-big { font-size: 3rem; color: #e95d3c; margin-bottom: 20px; }
 
 /* Sponsor Card */
 .sponsor-card {
@@ -132,40 +125,14 @@ h1 {
     transition: transform 0.3s ease;
     box-shadow: 0 5px 15px rgba(0,0,0,0.1);
 }
-.sponsor-card:hover {
-    transform: translateY(-10px);
-}
-.sponsor-card img {
-    max-width: 100%;
-    max-height: 120px;
-    object-fit: contain;
-    margin-bottom: 15px;
-}
-.sponsor-card h3 {
-    color: #333;
-    font-weight: 800;
-    font-size: 1.2rem;
-    margin: 0;
-}
-
-/* Pulsanti */
-.btn-custom {
-    background-color: #333;
-    color: #fff;
-    padding: 10px 20px;
-    border-radius: 5px;
-    text-transform: uppercase;
-    font-weight: bold;
-}
-.btn-custom:hover {
-    background-color: #e95d3c;
-    color: #fff;
-}
+.sponsor-card:hover { transform: translateY(-10px); }
+.sponsor-card img { max-width: 100%; max-height: 120px; object-fit: contain; margin-bottom: 15px; }
+.sponsor-card h3 { color: #333; font-weight: 800; font-size: 1.2rem; margin: 0; }
 
 /* Testi colorati */
 .testo-aqua { color: #48cfad; font-weight: bold; }
 
-/* --- 5. FOOTER --- */
+/* --- 6. FOOTER --- */
 footer {
     background-color: #1a1a1a;
     color: #777;
@@ -177,7 +144,7 @@ footer {
 footer a { color: #888; }
 footer a:hover { color: #fff; }
 
-/* --- 6. MOBILE FIXES --- */
+/* --- 7. MOBILE FIXES --- */
 @media (max-width: 768px) {
     h1 { font-size: 1.8rem; }
     .box-feature { padding: 30px 15px; }
