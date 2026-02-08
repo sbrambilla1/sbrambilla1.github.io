@@ -9,7 +9,7 @@ body {
     line-height: 1.6;
     letter-spacing: 0.5px;
     
-    /* SFONDO BANNER (FISSO E SCHERMO INTERO) */
+    /* SFONDO BANNER */
     background-image: url('../../images/banner.png');
     background-size: cover;       
     background-position: center;  
@@ -32,7 +32,7 @@ a { text-decoration: none; transition: 0.3s; }
     background-color: #000 !important; 
     padding: 8px 0;
     border-bottom: 1px solid rgba(255,255,255,0.1);
-    z-index: 9999; /* Assicura che il menu sia sempre sopra tutto */
+    z-index: 9999; 
 }
 .navbar-brand {
     font-family: 'Ubuntu', sans-serif;
@@ -52,20 +52,21 @@ a { text-decoration: none; transition: 0.3s; }
 }
 .nav-link:hover, .nav-link.active { color: #AAF0D1 !important; }
 
-/* --- HAMBURGER MENU (MOBILE) --- */
+/* --- HAMBURGER MENU (CORRETTO) --- */
 .navbar-toggler { 
     padding: 5px; 
     font-size: 1rem; 
-    /* Bordo bianco semitrasparente per vederlo bene */
-    border: 1px solid rgba(255,255,255,0.5) !important; 
+    border: 1px solid rgba(255,255,255,0.3) !important; 
     border-radius: 4px;
 }
 .navbar-toggler:focus { 
-    box-shadow: 0 0 0 2px #AAF0D1; /* Effetto focus verde */
+    box-shadow: 0 0 0 2px #AAF0D1; 
 }
-/* Icona bianca */
+
+/* ECCO LA FIX: Forziamo l'icona a essere BIANCA esplicitamente */
 .navbar-toggler-icon { 
-    filter: invert(1); 
+    background-image: url("data:image/svg+xml,%3csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 30 30'%3e%3cpath stroke='rgba%28255, 255, 255, 1%29' stroke-linecap='round' stroke-miterlimit='10' stroke-width='2' d='M4 7h22M4 15h22M4 23h22'/%3e%3c/svg%3e") !important;
+    filter: none !important; /* Rimuoviamo il filtro che la faceva diventare nera */
 }
 
 /* --- 3. LAYOUT & TRASPARENZA --- */
@@ -76,14 +77,14 @@ section, .container, .wrapper, .main-section {
     box-shadow: none !important;
 }
 
-/* --- 4. BOX CONTENUTO (Più chiari) --- */
+/* --- 4. BOX CONTENUTO (CHIARI E LEGGERI) --- */
 .box-feature {
-    /* Ora è nero al 30% (molto più chiaro) invece del 60% */
+    /* Nero al 30% di opacità: molto leggero */
     background-color: rgba(0, 0, 0, 0.3) !important; 
     padding: 25px 20px;
     border-radius: 6px;
     margin-bottom: 25px;
-    border: 1px solid rgba(255,255,255,0.1); /* Bordino appena visibile */
+    border: 1px solid rgba(255,255,255,0.1); 
     text-align: center;
     transition: transform 0.3s, border-color 0.3s;
 }
@@ -91,7 +92,6 @@ section, .container, .wrapper, .main-section {
 .box-feature:hover {
     transform: translateY(-3px);
     border-color: #AAF0D1; 
-    /* Quando passi col mouse diventa un po' più scuro per leggere meglio */
     background-color: rgba(0, 0, 0, 0.5) !important; 
 }
 
@@ -135,12 +135,12 @@ h2, h3 {
     font-size: 1.1rem; 
 }
 .box-feature p { 
-    color: #eee; /* Testo più bianco per contrastare il box più chiaro */
+    color: #eee; 
     font-weight: 300; 
     font-size: 1rem; 
     margin-bottom: 0;
     line-height: 1.5;
-    text-shadow: 1px 1px 2px rgba(0,0,0,0.8); /* Ombra per leggere bene sul trasparente */
+    text-shadow: 1px 1px 2px rgba(0,0,0,0.8);
 }
 
 /* --- ICONE --- */
@@ -217,6 +217,6 @@ footer a:hover { color: #AAF0D1; }
     .logo-img { max-width: 180px; }
     .box-feature { padding: 20px; }
     #header-hero { padding: 30px 15px; }
-    /* Assicura che l'hamburger non sia nascosto */
+    /* Forza la visibilità del bottone hamburger */
     .navbar-toggler { display: block !important; }
 }
