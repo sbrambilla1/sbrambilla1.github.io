@@ -91,88 +91,85 @@ section, .container, .wrapper, .main-section {
     border-color: #AAF0D1; 
 }
 
-/* --- SPONSOR CARD "PREMIUM GLASS" --- */
+//* =========================================
+   SEZIONE SPONSOR - FULL IMAGE STYLE
+   ========================================= */
+
+/* 1. STILE BASE PER TUTTE LE CARD (Banner & Standard) */
+.sponsor-banner, 
 .sponsor-card {
-    /* Sfondo "Latte" semitrasparente: elegante e leggibile per loghi scuri */
-    background: rgba(255, 255, 255, 0.85) !important; 
+    display: block;
+    width: 100%;
     
-    /* Effetto sfocatura dietro al vetro */
-    backdrop-filter: blur(10px);
-    -webkit-backdrop-filter: blur(10px);
+    /* ALTEZZE FISSE (Importante per l'allineamento) */
+    /* Il banner grande e le card piccole avranno la stessa altezza visiva */
+    height: 260px; 
+
+    /* NESSUNO SPAZIO VUOTO */
+    padding: 0 !important;
     
-    padding: 40px; /* Più spazio interno (whitespace = lusso) */
-    border-radius: 16px; /* Angoli ben arrotondati */
-    margin-bottom: 30px;
+    /* BORDI E STILE */
+    border-radius: 16px;
+    overflow: hidden; /* Taglia l'immagine che esce dai bordi */
+    background-color: #000; /* Sfondo di sicurezza */
+    border: 1px solid rgba(255, 255, 255, 0.3);
+    box-shadow: 0 10px 30px rgba(0,0,0,0.4);
     
-    /* Flexbox per centrare tutto */
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    justify-content: center;
-    min-height: 220px; /* Card importante */
-    
-    /* Bordo sottile semitrasparente */
-    border: 1px solid rgba(255, 255, 255, 0.5);
-    
-    /* Transizione fluida */
-    transition: all 0.4s ease;
-    
-    /* Ombra iniziale morbida */
-    box-shadow: 0 10px 30px rgba(0,0,0,0.3);
-    
-    /* ANIMAZIONE INGRESSO (Definita sotto) */
+    /* ANIMAZIONE */
     opacity: 0;
     animation: fadeInUp 0.8s ease-out forwards;
+    transition: all 0.3s ease;
+    
+    /* RIMUOVE DECORAZIONI TESTO */
+    text-decoration: none;
 }
 
-/* Delay per l'animazione: il secondo sponsor arriva dopo il primo */
+/* 2. GESTIONE IMMAGINE (RIEMPITURA TOTALE) */
+.sponsor-banner img, 
+.sponsor-card img {
+    width: 100%;
+    height: 100%;
+    
+    /* LA REGOLA MAGICA: */
+    /* 'cover' fa sì che l'immagine riempia tutto il box senza deformarsi. */
+    /* Se le proporzioni non sono identiche, taglia l'eccesso ai lati. */
+    object-fit: cover; 
+    object-position: center;
+    
+    margin: 0 !important;
+    display: block;
+    opacity: 1 !important;
+}
+
+/* 3. EFFETTO HOVER (Zoom delicato) */
+.sponsor-banner:hover, 
+.sponsor-card:hover {
+    transform: translateY(-5px);
+    border-color: #AAF0D1; /* Verde Menta */
+    box-shadow: 0 15px 40px rgba(170, 240, 209, 0.25);
+}
+
+/* 4. NASCONDIAMO I TITOLI (H3) */
+/* Visto che l'immagine copre tutto, il testo scritto sopra darebbe fastidio */
+.sponsor-banner h3, 
+.sponsor-card h3 {
+    display: none;
+}
+
+/* 5. GESTIONE RITARDI ANIMAZIONE */
 .sponsor-delay-1 { animation-delay: 0.2s; }
 .sponsor-delay-2 { animation-delay: 0.4s; }
+.sponsor-delay-3 { animation-delay: 0.6s; }
 
-/* HOVER EFFECT: La card si alza e si illumina di Verde Menta */
-.sponsor-card:hover {
-    transform: translateY(-10px); /* Sale verso l'alto */
-    background: rgba(255, 255, 255, 0.95) !important; /* Diventa quasi solido */
-    border-color: #AAF0D1; /* Bordo verde */
-    
-    /* GLOW VERDE RAFFINATO */
-    box-shadow: 0 15px 40px rgba(170, 240, 209, 0.3);
+/* 6. ADATTAMENTO MOBILE */
+@media (max-width: 768px) {
+    .sponsor-banner, 
+    .sponsor-card {
+        height: 180px; /* Su cellulare sono più bassi */
+        margin-bottom: 20px;
+    }
 }
 
-/* Immagini dentro la card */
-.sponsor-card img {
-    max-width: 100%;
-    height: auto;
-    max-height: 80px; /* Logo contenuto ed elegante */
-    object-fit: contain;
-    margin-bottom: 20px;
-    filter: none !important;
-    opacity: 0.9; /* Leggermente meno "sparato" per eleganza */
-    transition: 0.3s;
-}
-
-/* Quando passi il mouse, il logo diventa nitido al 100% */
-.sponsor-card:hover img {
-    opacity: 1;
-    transform: scale(1.05); /* Zoom impercettibile */
-}
-
-/* Titolo dello sponsor */
-.sponsor-card h3 {
-    font-family: 'Outfit', sans-serif;
-    color: #111; /* Nero profondo per contrasto */
-    font-weight: 300; /* Font sottile */
-    letter-spacing: 2px; /* Spaziato */
-    margin: 0;
-    font-size: 0.9rem;
-    text-transform: uppercase;
-}
-
-/* Animazione di entrata */
-@keyframes fadeInUp {
-    from { opacity: 0; transform: translateY(40px); }
-    to { opacity: 1; transform: translateY(0); }
-}
 
 /* Stili Testo (MINIMAL) */
 h1 {
@@ -310,61 +307,3 @@ footer a:hover { color: #AAF0D1; }
     }
 }
 
-/* --- SPONSOR BANNER (PERFETTO) --- */
-.sponsor-banner {
-    display: block;
-    width: 100%;
-    
-    /* ALTEZZA FISSA "SENSATA" */
-    height: 260px; /* Abbastanza alto da essere importante, ma panoramico */
-    
-    /* STILE ESTERNO */
-    padding: 0 !important;
-    border-radius: 16px; 
-    overflow: hidden; /* Taglia l'immagine che esce dai bordi */
-    background: #000; /* Sfondo nero di sicurezza */
-   
-    /* Bordo e Ombra coerenti con gli altri */
-    border: 1px solid rgba(255, 255, 255, 0.4);
-    box-shadow: 0 10px 30px rgba(0,0,0,0.4);
-    
-    /* Animazione Entrata */
-    opacity: 0;
-    animation: fadeInUp 0.8s ease-out forwards;
-    transition: all 0.3s ease;
-}
-
-/* L'IMMAGINE DENTRO */
-/* --- L'IMMAGINE DENTRO IL BANNER --- */
-.sponsor-banner img {
-    width: 100%;
-    height: 100%;
-    
-    /* CAMBIAMENTO QUI: */
-    /* 'contain' mostra TUTTA l'immagine dentro il box, senza tagliarla. */
-    /* Se le proporzioni non combaciano, vedrai lo sfondo nero ai lati. */
-    object-fit: contain;     
-    object-position: center; /* Centrata perfettamente */
-    
-    margin: 0 !important;
-    display: block;
-    
-    /* Assicura che sia sempre nitida */
-    opacity: 1 !important; 
-}
-
-/* HOVER */
-.sponsor-banner:hover {
-    transform: translateY(-5px);
-    border-color: #AAF0D1; /* Verde Menta */
-    box-shadow: 0 15px 40px rgba(170, 240, 209, 0.25);
-}
-
-.sponsor-banner h3 { display: none; }
-
-/* Mobile: riduciamo leggermente l'altezza per non farlo sembrare un quadrato */
-@media (max-width: 768px) {
-    .sponsor-banner {
-        height: 180px; 
-    }
-}
