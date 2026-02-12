@@ -310,43 +310,55 @@ footer a:hover { color: #AAF0D1; }
     }
 }
 
-/* --- MAIN SPONSOR BANNER (SLANCIATO) --- */
-.sponsor-card-full {
-    /* Forziamo un'altezza contenuta per farlo sembrare un banner */
-    height: 250px !important; 
-    min-height: 0 !important; /* Ignora l'altezza minima delle altre card */
+/* --- SPONSOR BANNER (PERFETTO) --- */
+.sponsor-banner {
+    display: block;
+    width: 100%;
     
-    padding: 0 !important; 
-    overflow: hidden;
-    background: transparent !important;
-    border-radius: 16px;
+    /* ALTEZZA FISSA "SENSATA" */
+    height: 260px; /* Abbastanza alto da essere importante, ma panoramico */
     
-    /* Manteniamo l'ombra e il bordo per coerenza */
-    box-shadow: 0 5px 15px rgba(0,0,0,0.3);
+    /* STILE ESTERNO */
+    padding: 0 !important;
+    border-radius: 16px; 
+    overflow: hidden; /* Taglia l'immagine che esce dai bordi */
+    background: #000; /* Sfondo nero di sicurezza */
     
+    /* Bordo e Ombra coerenti con gli altri */
+    border: 1px solid rgba(255, 255, 255, 0.4);
+    box-shadow: 0 10px 30px rgba(0,0,0,0.4);
     
-    /* Animazione */
-    transition: all 0.3s ease;
+    /* Animazione Entrata */
     opacity: 0;
     animation: fadeInUp 0.8s ease-out forwards;
+    transition: all 0.3s ease;
 }
 
-/* L'immagine riempie la striscia senza deformarsi */
-.sponsor-card-full img {
+/* L'IMMAGINE DENTRO */
+.sponsor-banner img {
     width: 100%;
     height: 100%;
-    object-fit: cover; /* Taglia sopra/sotto per riempire la striscia */
-    object-position: center; /* Centra l'immagine */
+    
+    /* QUESTA È LA REGOLA FONDAMENTALE: */
+    object-fit: cover;     /* Riempie il box tagliando l'eccesso, SENZA deformare */
+    object-position: center; /* L'immagine resta centrata nel box */
+    
     margin: 0 !important;
-    border-radius: 0 !important; /* Il bordo lo gestisce il contenitore */
+    display: block;
 }
 
-/* Hover: leggero zoom e luminosità */
-.sponsor-card-full:hover {
-    transform: translateY(-3px);
-    filter: brightness(1.1);
-    border-color: #AAF0D1;
+/* HOVER */
+.sponsor-banner:hover {
+    transform: translateY(-5px);
+    border-color: #AAF0D1; /* Verde Menta */
+    box-shadow: 0 15px 40px rgba(170, 240, 209, 0.25);
 }
 
-/* Nasconde il testo H3 */
-.sponsor-card-full h3 { display: none; }
+.sponsor-banner h3 { display: none; }
+
+/* Mobile: riduciamo leggermente l'altezza per non farlo sembrare un quadrato */
+@media (max-width: 768px) {
+    .sponsor-banner {
+        height: 180px; 
+    }
+}
