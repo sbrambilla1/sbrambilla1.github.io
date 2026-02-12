@@ -313,7 +313,7 @@ footer a:hover { color: #AAF0D1; }
 /* --- MAIN SPONSOR BANNER (SLANCIATO) --- */
 .sponsor-card-full {
     /* Forziamo un'altezza contenuta per farlo sembrare un banner */
-    height: 160px !important; 
+    height: 200px !important; 
     min-height: 0 !important; /* Ignora l'altezza minima delle altre card */
     
     padding: 0 !important; 
