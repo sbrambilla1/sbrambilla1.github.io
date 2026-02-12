@@ -109,7 +109,7 @@ section, .container, .wrapper, .main-section {
     padding: 0 !important;
     
     /* BORDI E STILE */
-    border-radius: 16px;
+    border-radius: 25px;
     overflow: hidden; /* Taglia l'immagine che esce dai bordi */
     background-color: #000; /* Sfondo di sicurezza */
     border: 1px solid rgba(255, 255, 255, 0.3);
