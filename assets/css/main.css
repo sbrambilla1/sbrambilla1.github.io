@@ -323,7 +323,7 @@ footer a:hover { color: #AAF0D1; }
     
     /* Manteniamo l'ombra e il bordo per coerenza */
     box-shadow: 0 5px 15px rgba(0,0,0,0.3);
-    border: 1px solid rgba(255, 255, 255, 0.5);
+    
     
     /* Animazione */
     transition: all 0.3s ease;
