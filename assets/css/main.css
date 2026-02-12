@@ -323,7 +323,7 @@ footer a:hover { color: #AAF0D1; }
     border-radius: 16px; 
     overflow: hidden; /* Taglia l'immagine che esce dai bordi */
     background: #000; /* Sfondo nero di sicurezza */
-    
+   
     /* Bordo e Ombra coerenti con gli altri */
     border: 1px solid rgba(255, 255, 255, 0.4);
     box-shadow: 0 10px 30px rgba(0,0,0,0.4);
@@ -335,16 +335,22 @@ footer a:hover { color: #AAF0D1; }
 }
 
 /* L'IMMAGINE DENTRO */
+/* --- L'IMMAGINE DENTRO IL BANNER --- */
 .sponsor-banner img {
     width: 100%;
     height: 100%;
     
-    /* QUESTA È LA REGOLA FONDAMENTALE: */
-    object-fit: cover;     /* Riempie il box tagliando l'eccesso, SENZA deformare */
-    object-position: center; /* L'immagine resta centrata nel box */
+    /* CAMBIAMENTO QUI: */
+    /* 'contain' mostra TUTTA l'immagine dentro il box, senza tagliarla. */
+    /* Se le proporzioni non combaciano, vedrai lo sfondo nero ai lati. */
+    object-fit: contain;     
+    object-position: center; /* Centrata perfettamente */
     
     margin: 0 !important;
     display: block;
+    
+    /* Assicura che sia sempre nitida */
+    opacity: 1 !important; 
 }
 
 /* HOVER */
