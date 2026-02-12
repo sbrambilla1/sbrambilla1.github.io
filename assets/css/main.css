@@ -91,19 +91,87 @@ section, .container, .wrapper, .main-section {
     border-color: #AAF0D1; 
 }
 
-/* SPONSOR CARD */
+/* --- SPONSOR CARD "PREMIUM GLASS" --- */
 .sponsor-card {
-    background-color: #fff !important; 
-    padding: 20px;
-    border-radius: 6px;
-    margin-bottom: 25px;
-    text-align: center;
+    /* Sfondo "Latte" semitrasparente: elegante e leggibile per loghi scuri */
+    background: rgba(255, 255, 255, 0.85) !important; 
+    
+    /* Effetto sfocatura dietro al vetro */
+    backdrop-filter: blur(10px);
+    -webkit-backdrop-filter: blur(10px);
+    
+    padding: 40px; /* Più spazio interno (whitespace = lusso) */
+    border-radius: 16px; /* Angoli ben arrotondati */
+    margin-bottom: 30px;
+    
+    /* Flexbox per centrare tutto */
     display: flex;
     flex-direction: column;
     align-items: center;
     justify-content: center;
-    min-height: 160px;
-    box-shadow: 0 2px 5px rgba(0,0,0,0.05);
+    min-height: 220px; /* Card importante */
+    
+    /* Bordo sottile semitrasparente */
+    border: 1px solid rgba(255, 255, 255, 0.5);
+    
+    /* Transizione fluida */
+    transition: all 0.4s ease;
+    
+    /* Ombra iniziale morbida */
+    box-shadow: 0 10px 30px rgba(0,0,0,0.3);
+    
+    /* ANIMAZIONE INGRESSO (Definita sotto) */
+    opacity: 0;
+    animation: fadeInUp 0.8s ease-out forwards;
+}
+
+/* Delay per l'animazione: il secondo sponsor arriva dopo il primo */
+.sponsor-delay-1 { animation-delay: 0.2s; }
+.sponsor-delay-2 { animation-delay: 0.4s; }
+
+/* HOVER EFFECT: La card si alza e si illumina di Verde Menta */
+.sponsor-card:hover {
+    transform: translateY(-10px); /* Sale verso l'alto */
+    background: rgba(255, 255, 255, 0.95) !important; /* Diventa quasi solido */
+    border-color: #AAF0D1; /* Bordo verde */
+    
+    /* GLOW VERDE RAFFINATO */
+    box-shadow: 0 15px 40px rgba(170, 240, 209, 0.3);
+}
+
+/* Immagini dentro la card */
+.sponsor-card img {
+    max-width: 100%;
+    height: auto;
+    max-height: 80px; /* Logo contenuto ed elegante */
+    object-fit: contain;
+    margin-bottom: 20px;
+    filter: none !important;
+    opacity: 0.9; /* Leggermente meno "sparato" per eleganza */
+    transition: 0.3s;
+}
+
+/* Quando passi il mouse, il logo diventa nitido al 100% */
+.sponsor-card:hover img {
+    opacity: 1;
+    transform: scale(1.05); /* Zoom impercettibile */
+}
+
+/* Titolo dello sponsor */
+.sponsor-card h3 {
+    font-family: 'Outfit', sans-serif;
+    color: #111; /* Nero profondo per contrasto */
+    font-weight: 300; /* Font sottile */
+    letter-spacing: 2px; /* Spaziato */
+    margin: 0;
+    font-size: 0.9rem;
+    text-transform: uppercase;
+}
+
+/* Animazione di entrata */
+@keyframes fadeInUp {
+    from { opacity: 0; transform: translateY(40px); }
+    to { opacity: 1; transform: translateY(0); }
 }
 
 /* Stili Testo (MINIMAL) */
