@@ -310,35 +310,43 @@ footer a:hover { color: #AAF0D1; }
     }
 }
 
-/* --- VARIANTE: SPONSOR CARD "FULL IMAGE" (Per il Main Sponsor) --- */
-
-/* 1. Modifiche al contenitore della card */
+/* --- MAIN SPONSOR BANNER (SLANCIATO) --- */
 .sponsor-card-full {
-    padding: 0 !important; /* Toglie lo spazio interno: l'immagine tocca i bordi */
-    overflow: hidden; /* Assicura che l'immagine non esca dai bordi arrotondati */
-    background: transparent !important; /* Toglie lo sfondo "latte" */
-    backdrop-filter: none !important; /* Toglie la sfocatura */
-    /* Manteniamo il bordo sottile e l'ombra per coerenza */
+    /* Forziamo un'altezza contenuta per farlo sembrare un banner */
+    height: 140px !important; 
+    min-height: 0 !important; /* Ignora l'altezza minima delle altre card */
+    
+    padding: 0 !important; 
+    overflow: hidden;
+    background: transparent !important;
+    border-radius: 16px;
+    
+    /* Manteniamo l'ombra e il bordo per coerenza */
+    box-shadow: 0 5px 15px rgba(0,0,0,0.3);
+    border: 1px solid rgba(255, 255, 255, 0.5);
+    
+    /* Animazione */
+    transition: all 0.3s ease;
+    opacity: 0;
+    animation: fadeInUp 0.8s ease-out forwards;
 }
 
-/* 2. Modifiche all'immagine dentro questa card specifica */
+/* L'immagine riempie la striscia senza deformarsi */
 .sponsor-card-full img {
-    width: 100%;   /* Larghezza totale */
-    height: 100%;  /* Altezza totale */
-    max-height: none !important; /* Rimuove il limite di altezza precedente */
-    object-fit: cover; /* MAGIA: L'immagine riempie tutto lo spazio tagliando gli eccessi senza deformarsi */
-    margin-bottom: 0; /* Toglie lo spazio sotto */
-    border-radius: 16px; /* Segue la curva della card */
-    opacity: 1 !important; /* Sempre nitida */
+    width: 100%;
+    height: 100%;
+    object-fit: cover; /* Taglia sopra/sotto per riempire la striscia */
+    object-position: center; /* Centra l'immagine */
+    margin: 0 !important;
+    border-radius: 0 !important; /* Il bordo lo gestisce il contenitore */
 }
 
-/* 3. Nascondiamo il titolo (h3) perché l'immagine parla da sola */
-.sponsor-card-full h3 {
-    display: none;
-}
-
-/* 4. Hover specifico per il full banner */
+/* Hover: leggero zoom e luminosità */
 .sponsor-card-full:hover {
-    /* Aumentiamo leggermente la luminosità o il contrasto al passaggio */
-    filter: brightness(1.1); 
+    transform: translateY(-3px);
+    filter: brightness(1.1);
+    border-color: #AAF0D1;
 }
+
+/* Nasconde il testo H3 */
+.sponsor-card-full h3 { display: none; }
