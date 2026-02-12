@@ -309,3 +309,36 @@ footer a:hover { color: #AAF0D1; }
         transform: translateY(0); /* Arriva al centro */
     }
 }
+
+/* --- VARIANTE: SPONSOR CARD "FULL IMAGE" (Per il Main Sponsor) --- */
+
+/* 1. Modifiche al contenitore della card */
+.sponsor-card-full {
+    padding: 0 !important; /* Toglie lo spazio interno: l'immagine tocca i bordi */
+    overflow: hidden; /* Assicura che l'immagine non esca dai bordi arrotondati */
+    background: transparent !important; /* Toglie lo sfondo "latte" */
+    backdrop-filter: none !important; /* Toglie la sfocatura */
+    /* Manteniamo il bordo sottile e l'ombra per coerenza */
+}
+
+/* 2. Modifiche all'immagine dentro questa card specifica */
+.sponsor-card-full img {
+    width: 100%;   /* Larghezza totale */
+    height: 100%;  /* Altezza totale */
+    max-height: none !important; /* Rimuove il limite di altezza precedente */
+    object-fit: cover; /* MAGIA: L'immagine riempie tutto lo spazio tagliando gli eccessi senza deformarsi */
+    margin-bottom: 0; /* Toglie lo spazio sotto */
+    border-radius: 16px; /* Segue la curva della card */
+    opacity: 1 !important; /* Sempre nitida */
+}
+
+/* 3. Nascondiamo il titolo (h3) perché l'immagine parla da sola */
+.sponsor-card-full h3 {
+    display: none;
+}
+
+/* 4. Hover specifico per il full banner */
+.sponsor-card-full:hover {
+    /* Aumentiamo leggermente la luminosità o il contrasto al passaggio */
+    filter: brightness(1.1); 
+}
