@@ -92,7 +92,7 @@ section, .container, .wrapper, .main-section {
 }
 
 /* =========================================
-   SPONSOR: STILE UNIFICATO (SOLO IMMAGINI)
+   SPONSOR: FIX DEFINITIVO (NO SCRITTE)
    ========================================= */
 
 .sponsor-box {
@@ -100,50 +100,55 @@ section, .container, .wrapper, .main-section {
     width: 100%;
     position: relative;
     
-    /* STILE IDENTICO PER TUTTI */
+    /* STRUTTURA */
     padding: 0 !important;       /* Nessun margine interno */
     border-radius: 30px;         /* Angoli molto arrotondati */
-    overflow: hidden;            /* Maschera l'immagine negli angoli */
-    background-color: #000;      /* Sfondo di sicurezza */
-    border: 1px solid rgba(255, 255, 255, 0.2); /* Bordo sottile elegante */
+    overflow: hidden;            /* Maschera tutto ciò che esce */
+    background-color: #000;      /* Sfondo nero (invisibile se l'img copre tutto) */
+    border: 1px solid rgba(255, 255, 255, 0.2);
+    text-decoration: none;       /* Rimuove sottolineature */
     
     /* ANIMAZIONE */
     transition: all 0.3s ease;
     box-shadow: 0 10px 25px rgba(0,0,0,0.3);
+    
+    /* Assicuriamoci che non ci siano spazi strani sotto l'immagine */
+    line-height: 0;
 }
 
-/* GESTIONE ALTEZZE */
-/* Banner Largo */
-.box-large {
-    height: 280px; 
-}
-/* Card Piccole */
-.box-small {
-    height: 200px;
-}
+/* ALTEZZE */
+.box-large { height: 280px; } /* PC */
+.box-small { height: 200px; } /* PC */
 
-/* IMMAGINE FULL (Copre tutto, niente bordi neri) */
+/* L'IMMAGINE DEVE COMANDARE */
 .sponsor-box img {
     width: 100%;
     height: 100%;
-    object-fit: cover;       /* Riempie il box tagliando l'eccesso */
-    object-position: center; /* Centrata */
+    
+    /* FONDAMENTALE: 'cover' forza l'immagine a coprire ogni pixel del box */
+    /* Niente strisce nere sopra o sotto */
+    object-fit: cover;       
+    object-position: center; 
+    
     display: block;
-    opacity: 1 !important;   /* Assicura che sia ben visibile */
+    border: none;
+    margin: 0;
+    padding: 0;
 }
 
-/* === FONDAMENTALE: NASCONDE TUTTE LE SCRITTE === */
-/* Questo rimuove "Partners", "Volt Padel", ecc. dentro i box */
+/* NASCONDI QUALSIASI TESTO O CAPTION RIMASTO */
 .sponsor-box h3, 
-.sponsor-box p,
-.sponsor-box .overlay {
+.sponsor-box p, 
+.sponsor-box div, 
+.sponsor-box span,
+.caption {
     display: none !important;
 }
 
-/* HOVER EFFECT */
+/* HOVER */
 .sponsor-box:hover {
     transform: translateY(-5px);
-    border-color: #AAF0D1; /* Verde Menta */
+    border-color: #AAF0D1;
     box-shadow: 0 15px 35px rgba(170, 240, 209, 0.25);
 }
 
