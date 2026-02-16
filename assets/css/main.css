@@ -92,68 +92,65 @@ section, .container, .wrapper, .main-section {
 }
 
 /* =========================================
-   SPONSOR: LAYOUT FLUIDO & ARROTONDATO
+   SPONSOR: STILE UNIFICATO (SOLO IMMAGINI)
    ========================================= */
 
-/* STILE BASE CARD (Valido per tutti) */
 .sponsor-box {
     display: block;
     width: 100%;
     position: relative;
     
-    /* ARROTONDAMENTO FORTE */
-    border-radius: 30px; 
-    overflow: hidden; /* Maschera l'immagine */
-    
-    /* SFONDO E BORDI */
-    background-color: #000;
-    border: 1px solid rgba(255, 255, 255, 0.2);
-    box-shadow: 0 10px 25px rgba(0,0,0,0.3);
+    /* STILE IDENTICO PER TUTTI */
+    padding: 0 !important;       /* Nessun margine interno */
+    border-radius: 30px;         /* Angoli molto arrotondati */
+    overflow: hidden;            /* Maschera l'immagine negli angoli */
+    background-color: #000;      /* Sfondo di sicurezza */
+    border: 1px solid rgba(255, 255, 255, 0.2); /* Bordo sottile elegante */
     
     /* ANIMAZIONE */
     transition: all 0.3s ease;
-    opacity: 0; 
-    animation: fadeInUp 0.8s ease-out forwards;
+    box-shadow: 0 10px 25px rgba(0,0,0,0.3);
 }
 
-/* 1. BANNER GRANDE (Top) */
+/* GESTIONE ALTEZZE */
+/* Banner Largo */
 .box-large {
-    height: 280px; /* Alto e importante su PC */
+    height: 280px; 
 }
-
-/* 2. CARD PICCOLE (Bottom) */
+/* Card Piccole */
 .box-small {
-    height: 200px; /* Un po' più basse */
+    height: 200px;
 }
 
-/* IMMAGINE RIEMPITIVA (Full Bleed) */
+/* IMMAGINE FULL (Copre tutto, niente bordi neri) */
 .sponsor-box img {
     width: 100%;
     height: 100%;
-    object-fit: cover; /* Riempie tutto senza deformare */
-    object-position: center;
+    object-fit: cover;       /* Riempie il box tagliando l'eccesso */
+    object-position: center; /* Centrata */
     display: block;
+    opacity: 1 !important;   /* Assicura che sia ben visibile */
 }
 
-/* HOVER (Zoom e Luce) */
+/* === FONDAMENTALE: NASCONDE TUTTE LE SCRITTE === */
+/* Questo rimuove "Partners", "Volt Padel", ecc. dentro i box */
+.sponsor-box h3, 
+.sponsor-box p,
+.sponsor-box .overlay {
+    display: none !important;
+}
+
+/* HOVER EFFECT */
 .sponsor-box:hover {
     transform: translateY(-5px);
-    border-color: #AAF0D1;
+    border-color: #AAF0D1; /* Verde Menta */
     box-shadow: 0 15px 35px rgba(170, 240, 209, 0.25);
 }
 
-/* Ritardi */
-.delay-1 { animation-delay: 0.1s; }
-.delay-2 { animation-delay: 0.3s; }
-
-/* === ADATTAMENTO MOBILE (Responsiveness) === */
+/* MOBILE */
 @media (max-width: 768px) {
-    /* Su mobile le altezze si riducono per stare nello schermo */
     .box-large { height: 180px; }
     .box-small { height: 140px; }
-    
-    /* Riduciamo un po' l'arrotondamento su mobile */
-    .sponsor-box { border-radius: 20px; }
 }
 
 /* Stili Testo (MINIMAL) */
