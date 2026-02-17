@@ -173,7 +173,7 @@ h1 {
     margin-top: 15px;
     margin-bottom: 10px;
     line-height: 1.1;
-    letter-spacing: -1px; /* Lettere vicine per look moderno */
+    letter-spacing: 1px; 
 }
 
 h2, h3 {
