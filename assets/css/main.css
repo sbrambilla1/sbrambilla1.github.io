@@ -1,15 +1,17 @@
-/* --- 1. FONTS & BASE (OUTFIT - LIGHT & ANIMATED) --- */
+/* =========================================
+   1. FONTS & BASE (OUTFIT - BOLD & MODERN)
+   ========================================= */
 @import url("https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css");
-@import url("https://fonts.googleapis.com/css2?family=Outfit:wght@200;300;400;500&display=swap");
+/* Importiamo pesi più "spessi": 400 (Regular), 500 (Medium), 700 (Bold), 800 (ExtraBold) */
+@import url("https://fonts.googleapis.com/css2?family=Outfit:wght@400;500;700;800&display=swap");
 
 body {
     font-family: 'Outfit', sans-serif; 
-    font-weight: 300; /* Light */
+    font-weight: 400; /* Base più solida (prima era 300) */
     font-size: 16px;
     line-height: 1.6;
-    letter-spacing: 0.5px;
     
-    /* SFONDO BANNER */
+    /* SFONDO */
     background-image: url('../../images/banner.png');
     background-size: cover;       
     background-position: center;  
@@ -158,26 +160,37 @@ section, .container, .wrapper, .main-section {
     .box-small { height: 140px; }
 }
 
-/* Stili Testo (MINIMAL) */
+
+/* =========================================
+   3. TYPOGRAPHY (TITOLI SPESSI)
+   ========================================= */
 h1 {
     font-family: 'Outfit', sans-serif;
-    font-weight: 300; /* LIGHT */
-    font-size: 2.5rem; 
+    font-weight: 800; /* MASSICCIO */
+    font-size: 3rem; 
     color: #fff;
     text-transform: uppercase;
-    text-shadow: 0 1px 2px rgba(0,0,0,0.5);
     margin-top: 15px;
     margin-bottom: 10px;
-    line-height: 1.2;
-    letter-spacing: 3px; 
+    line-height: 1.1;
+    letter-spacing: -1px; /* Lettere vicine per look moderno */
 }
 
 h2, h3 {
     font-family: 'Outfit', sans-serif;
     text-transform: uppercase;
     color: #fff;
-    font-weight: 400; 
-    letter-spacing: 1px;
+    font-weight: 700; /* Bold */
+    letter-spacing: 0.5px;
+}
+
+.subtitle {
+    font-weight: 500; /* Medium */
+    color: #ddd;
+    text-transform: uppercase;
+    letter-spacing: 2px;
+    font-size: 1rem;
+    margin-bottom: 30px;
 }
 
 .box-feature h3 { 
