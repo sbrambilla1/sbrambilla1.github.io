@@ -306,4 +306,102 @@ footer a:hover { color: #AAF0D1; }
         transform: translateY(0); /* Arriva al centro */
     }
 }
+/* =========================================
+   7. INIZIATIVE: NEVER-A-WASTE
+   ========================================= */
+
+/* Il box del contatore numerico */
+.counter-box {
+    margin: 40px 0 60px 0;
+    padding: 30px;
+    background: rgba(0, 0, 0, 0.5);
+    border-radius: 30px;
+    border: 1px solid rgba(170, 240, 209, 0.2); /* Bordo verde leggero */
+    display: inline-block;
+    min-width: 60%;
+}
+
+.huge-number {
+    font-size: 5rem;
+    font-weight: 800;
+    color: #AAF0D1; /* Verde Menta */
+    line-height: 1;
+    margin-bottom: 10px;
+    text-shadow: 0 0 20px rgba(170, 240, 209, 0.4); /* Effetto glow */
+}
+
+.counter-label {
+    font-size: 1.2rem;
+    font-weight: 500;
+    color: #ddd;
+    text-transform: uppercase;
+    letter-spacing: 2px;
+    margin: 0;
+}
+
+/* Card per gli step del processo */
+.process-card {
+    background: rgba(20, 20, 20, 0.8);
+    border: 1px solid rgba(255, 255, 255, 0.1);
+    border-radius: 25px;
+    padding: 40px 20px;
+    height: 100%;
+    transition: all 0.3s ease;
+    text-align: center;
+}
+
+.process-card:hover {
+    transform: translateY(-10px);
+    border-color: #AAF0D1;
+    box-shadow: 0 15px 30px rgba(170, 240, 209, 0.15);
+}
+
+.icon-circle {
+    width: 80px;
+    height: 80px;
+    background: #AAF0D1;
+    color: #000;
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 2rem;
+    margin: 0 auto 20px auto;
+    transition: all 0.3s ease;
+}
+
+.process-card:hover .icon-circle {
+    transform: scale(1.1);
+    background: #fff;
+    color: #AAF0D1;
+}
+
+/* Griglia Immagini Finali (Design) */
+.design-img-box {
+    width: 100%;
+    height: 350px; /* Altezza fissa per farle tutte uguali */
+    border-radius: 25px;
+    overflow: hidden;
+    border: 1px solid rgba(255, 255, 255, 0.2);
+    box-shadow: 0 10px 25px rgba(0,0,0,0.3);
+}
+
+.design-img-box img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover; /* Riempie il box perfettamente */
+    transition: transform 0.5s ease;
+}
+
+.design-img-box:hover img {
+    transform: scale(1.08); /* Leggero zoom quando ci passi sopra */
+}
+
+/* Mobile Adjustments */
+@media (max-width: 768px) {
+    .huge-number { font-size: 3.5rem; }
+    .counter-box { width: 100%; padding: 20px; }
+    .design-img-box { height: 250px; }
+}
+
 
