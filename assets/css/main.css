@@ -403,5 +403,21 @@ footer a:hover { color: #AAF0D1; }
     .counter-box { width: 100%; padding: 20px; }
     .design-img-box { height: 250px; }
 }
+/* FORZA VISIBILITÀ ICONE */
+.fa-solid, .fas {
+    font-family: "Font Awesome 6 Free" !important;
+    font-weight: 900 !important;
+    display: inline-block !important;
+    font-style: normal !important;
+    font-variant: normal !important;
+    text-rendering: auto !important;
+    -webkit-font-smoothing: antialiased !important;
+    opacity: 1 !important;
+    visibility: visible !important;
+}
+
+.icon-circle i {
+    color: #000 !important; /* Forza il colore nero sull'icona dentro il cerchio verde */
+}
 
 
