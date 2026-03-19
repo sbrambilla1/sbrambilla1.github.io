@@ -504,3 +504,74 @@ footer a:hover { color: #AAF0D1; }
     .event-poster-box { border-radius: 20px; }
 }
 
+/* STILE LOGO CLICCABILE */
+.navbar-brand {
+    cursor: pointer;
+    font-weight: 800;
+    font-size: 1.8rem;
+    letter-spacing: 2px;
+    transition: transform 0.3s ease;
+}
+.navbar-brand:hover {
+    transform: scale(1.05);
+}
+
+/* OVERLAY MENU */
+.overlay-menu {
+    height: 100%;
+    width: 0; /* Parte da larghezza 0 */
+    position: fixed;
+    z-index: 10000;
+    top: 0;
+    left: 0;
+    background-color: rgba(0,0,0,0.98); /* Quasi nero totale */
+    overflow-x: hidden;
+    transition: 0.5s cubic-bezier(0.77, 0, 0.175, 1); /* Animazione fluida */
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+}
+
+.overlay-content {
+    position: relative;
+    width: 100%;
+    text-align: center;
+}
+
+.overlay-menu a {
+    padding: 15px;
+    text-decoration: none;
+    font-size: 3rem; /* Link giganti */
+    font-weight: 800;
+    color: #fff;
+    display: block;
+    text-transform: uppercase;
+    transition: 0.3s;
+    font-family: 'Outfit', sans-serif;
+}
+
+.overlay-menu a:hover {
+    color: #AAF0D1;
+    letter-spacing: 5px; /* Effetto espansione al passaggio */
+}
+
+.overlay-menu .closebtn {
+    position: absolute;
+    top: 20px;
+    right: 45px;
+    font-size: 60px;
+    color: #AAF0D1;
+}
+
+.menu-footer {
+    margin-top: 50px;
+    color: rgba(255,255,255,0.2);
+    font-weight: 700;
+    letter-spacing: 10px;
+}
+
+/* Rimpicciolisci i link su mobile */
+@media (max-width: 768px) {
+    .overlay-menu a { font-size: 2rem; }
+}
