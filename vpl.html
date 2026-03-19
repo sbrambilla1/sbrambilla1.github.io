@@ -9,21 +9,24 @@
 </head>
 <body>
 
-    <div class="container">
-        <header class="league-header">
+    <header class="league-header" onclick="toggleMenu()">
+        <div class="header-content">
+            <span class="volt-bar"></span>
             <h1>VOLT PADEL <span class="volt-accent">LEAGUE</span></h1>
-        </header>
+        </div>
+    </header>
 
-<div id="sideMenu" class="menu-overlay">
-    <a href="javascript:void(0)" class="close-btn" onclick="toggleMenu()">&times;</a>
-    <div class="menu-content">
-        <a href="index.html">HOME</a>
-        <a href="eventi.html">EVENTI</a> <a href="sponsor.html">SPONSOR</a>
-        <a href="community.html">COMMUNITY</a>
+    <div id="sideMenu" class="menu-overlay">
+        <span class="close-btn" onclick="event.stopPropagation(); toggleMenu()">&times;</span>
+        <nav class="menu-links">
+            <a href="index.html">HOME</a>
+            <a href="index.html#eventi">EVENTI</a>
+            <a href="sponsor.html">SPONSOR</a>
+            <a href="community.html">COMMUNITY</a>
+        </nav>
     </div>
-</div>
-  
 
+    <div class="container">
         <nav class="tabs-nav">
             <button class="tab-btn active" onclick="switchTab(event, 'info')">Info & Regolamento</button>
             <button class="tab-btn" onclick="switchTab(event, 'ranking')">Classifica</button>
@@ -34,12 +37,14 @@
                 <div class="pdf-box">
                     <div class="pdf-text">
                         <h3>REGOLAMENTO UFFICIALE</h3>
-                        <p>Consulta il regolamento della Volt Padel League.</p>
+                        <p>Consulta le regole della Volt Padel League.</p>
                     </div>
-                    <a href="/assets/regolamento.pdf" target="_blank" class="btn-pdf">Apri PDF</a>
+                    <a href="regolamento.pdf" target="_blank" class="btn-pdf">APRI PDF</a>
                 </div>
-                
-                
+                <div class="note-box">
+                    <h4>NOTE</h4>
+                    <p>Le iscrizioni sono gestite tramite i canali ufficiali Volt. Le partite seguono il calendario aggiornato stagionale.</p>
+                </div>
             </div>
         </section>
 
@@ -49,23 +54,29 @@
                     <thead>
                         <tr>
                             <th>#</th>
-                            <th>PLAYER</th>
+                            <th>TEAM</th>
                             <th>PUNTI</th>
-                           
+                            <th>G</th>
+                            <th>V</th>
+                            <th>P</th>
                         </tr>
                     </thead>
                     <tbody>
                         <tr>
                             <td class="rank-number">01</td>
-                            <td><strong></strong></td>
+                            <td><strong>ROSSI / BIANCHI</strong></td>
                             <td class="pts-cell">18</td>
-                           
+                            <td>6</td>
+                            <td>6</td>
+                            <td>0</td>
                         </tr>
                         <tr>
                             <td class="rank-number">02</td>
-                            <td><strong></strong></td>
+                            <td><strong>VERDI / NERI</strong></td>
                             <td class="pts-cell">15</td>
-                           
+                            <td>6</td>
+                            <td>5</td>
+                            <td>1</td>
                         </tr>
                     </tbody>
                 </table>
@@ -74,10 +85,12 @@
     </div>
 
     <script>
+        // Funzione per il Menu Hamburger
         function toggleMenu() {
-        const menu = document.getElementById("sideMenu");
-        menu.classList.toggle("open");
-    }
+            document.getElementById("sideMenu").classList.toggle("open");
+        }
+
+        // Funzione per i Tab
         function switchTab(event, tabId) {
             const contents = document.querySelectorAll('.tab-content');
             contents.forEach(c => c.classList.remove('active'));
