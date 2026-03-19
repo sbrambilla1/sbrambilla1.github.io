@@ -5,131 +5,100 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Volt Padel League | NEVERA SPORTS</title>
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;700;900&display=swap" rel="stylesheet">
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
     
     <style>
-        /* --- RESET & BASICS --- */
+        /* --- RESET & LAYOUT --- */
         * { box-sizing: border-box; margin: 0; padding: 0; }
         
         body {
             font-family: 'Inter', sans-serif;
             color: white;
-            /* SFONDO PERSONALIZZATO */
-            background-image: linear-gradient(rgba(0,0,0,0.6), rgba(0,0,0,0.8)), url('images/vballs.png');
+            background-image: linear-gradient(rgba(0,0,0,0.4), rgba(0,0,0,0.7)), url('images/vballs.png');
             background-size: cover;
             background-position: center;
             background-attachment: fixed;
             background-color: #000;
-            min-height: 100vh;
+            
+            /* Queste 3 righe spingono il footer in fondo */
+            display: flex;
+            flex-direction: column;
+            min-height: 100vh; 
         }
 
-        /* --- HEADER & LOGO --- */
+        /* --- HEADER --- */
         .league-header {
-            position: fixed;
-            top: 0; width: 100%;
-            padding: 30px 0;
-            background: linear-gradient(to bottom, rgba(0,0,0,0.9) 0%, transparent 100%);
-            z-index: 1000;
+            padding: 40px 0;
+            text-align: center;
+        }
+        .logo-trigger { height: 80px; width: auto; cursor: pointer; transition: 0.3s; }
+        .logo-trigger:hover { transform: scale(1.1); filter: drop-shadow(0 0 15px #CEFF05); }
+
+        /* --- CONTENUTO (Si espande per occupare lo spazio) --- */
+        .main-content { 
+            flex: 1; /* Fondamentale: occupa tutto lo spazio verticale vuoto */
+            width: 100%;
+            max-width: 900px;
+            margin: 0 auto;
+            padding: 20px;
             text-align: center;
         }
 
-        .logo-nav-container { display: inline-block; cursor: pointer; transition: 0.3s; }
-        .logo-trigger { 
-            height: 80px; width: auto; transition: 0.3s;
-            filter: drop-shadow(0 0 0px rgba(206, 255, 5, 0));
-        }
+        .nv-title { font-weight: 900; letter-spacing: 10px; text-transform: uppercase; font-size: 3rem; margin-bottom: 40px; }
 
-        /* Effetto Hover Giallo Volt */
-        .logo-nav-container:hover .logo-trigger {
-            transform: scale(1.08);
-            filter: drop-shadow(0 0 20px rgba(206, 255, 5, 0.8));
-        }
-
-        /* --- MENU OVERLAY --- */
-        .nv-menu {
-            height: 100%; width: 0; position: fixed; z-index: 9999;
-            top: 0; left: 0; background-color: rgba(0,0,0,0.98); overflow: hidden;
-            transition: 0.5s cubic-bezier(0.7, 0, 0.3, 1); 
-            display: flex; align-items: center; justify-content: center;
-        }
-        .nv-links a { font-size: 2.5rem; color: #fff; text-decoration: none; display: block; margin: 25px; font-weight: 900; text-transform: uppercase; letter-spacing: 5px; }
-        .nv-links a:hover { color: #CEFF05; }
-        .nv-close { position: absolute; top: 30px; right: 45px; font-size: 50px; color: #fff; text-decoration: none; }
-
-        /* --- MAIN CONTENT --- */
-        .container { width: 100%; max-width: 1000px; margin: 0 auto; padding: 180px 20px 80px 20px; text-align: center; }
-        .nv-title { font-weight: 900; letter-spacing: 10px; text-transform: uppercase; font-size: 3.5rem; margin-bottom: 0; }
-        .nv-subtitle { color: #CEFF05; letter-spacing: 5px; text-transform: uppercase; margin-bottom: 50px; font-weight: 800; text-shadow: 0 0 15px rgba(206, 255, 5, 0.3); }
-
-        /* --- TABS --- */
+        /* TABS */
         .tabs-nav { display: flex; justify-content: center; gap: 15px; margin-bottom: 40px; }
         .tab-btn {
-            background: rgba(255, 255, 255, 0.05); border: 1px solid rgba(255, 255, 255, 0.1);
+            background: rgba(255, 255, 255, 0.1); border: 1px solid rgba(255, 255, 255, 0.2);
             color: white; padding: 12px 30px; border-radius: 50px;
-            font-weight: 700; text-transform: uppercase; letter-spacing: 1px; cursor: pointer; transition: 0.3s;
+            font-weight: 700; text-transform: uppercase; cursor: pointer; transition: 0.3s;
+            backdrop-filter: blur(5px);
         }
         .tab-btn.active { background: #CEFF05; color: #000; border-color: #CEFF05; box-shadow: 0 0 20px rgba(206, 255, 5, 0.4); }
 
-        .tab-content { display: none; animation: fadeIn 0.5s ease; }
-        .tab-content.active { display: block; }
+        .tab-content { display: none; }
+        .tab-content.active { display: block; animation: fadeIn 0.5s ease; }
 
-        /* PDF BOX */
-        .pdf-box {
-            background: rgba(0, 0, 0, 0.6); backdrop-filter: blur(10px);
-            border: 1px solid rgba(206, 255, 5, 0.3); border-radius: 20px;
-            padding: 35px; max-width: 600px; margin: 0 auto;
-            display: flex; align-items: center; justify-content: space-between; text-align: left;
+        /* BOX GLASS STYLE */
+        .glass-box {
+            background: rgba(0, 0, 0, 0.5); 
+            backdrop-filter: blur(15px);
+            border: 1px solid rgba(206, 255, 5, 0.2); 
+            border-radius: 20px;
+            padding: 40px;
+            margin-bottom: 50px;
         }
+
         .btn-pdf {
-            background: #CEFF05; color: black; padding: 12px 25px; border-radius: 50px;
-            text-decoration: none; font-weight: 800; text-transform: uppercase; transition: 0.3s; font-size: 0.8rem;
+            background: #CEFF05; color: black; padding: 12px 30px; border-radius: 50px;
+            text-decoration: none; font-weight: 900; text-transform: uppercase; display: inline-block;
         }
-        .btn-pdf:hover { background: white; transform: scale(1.05); }
 
-        /* TABLE */
-        .table-wrapper {
-            background: rgba(0, 0, 0, 0.6); backdrop-filter: blur(10px);
-            border-radius: 20px; overflow: hidden; border: 1px solid rgba(255, 255, 255, 0.1);
-        }
+        /* TABELLA */
         table { width: 100%; border-collapse: collapse; }
-        th { background: rgba(206, 255, 5, 0.1); color: #CEFF05; padding: 20px; text-transform: uppercase; letter-spacing: 2px; }
-        td { padding: 18px 20px; border-bottom: 1px solid rgba(255, 255, 255, 0.05); font-size: 1.1rem; }
-        .rank-number { color: #CEFF05; font-weight: 900; }
-        .pts-cell { font-weight: 800; color: #CEFF05; }
+        th { color: #CEFF05; padding: 15px; border-bottom: 2px solid rgba(206, 255, 5, 0.3); }
+        td { padding: 15px; border-bottom: 1px solid rgba(255, 255, 255, 0.1); }
 
-        /* --- FOOTER --- */
-        .nv-footer { padding: 60px 0; text-align: center; border-top: 1px solid rgba(255,255,255,0.05); background: rgba(0,0,0,0.8); }
-
-        @keyframes fadeIn { from { opacity: 0; transform: translateY(10px); } to { opacity: 1; transform: translateY(0); } }
-
-        @media (max-width: 768px) {
-            .nv-title { font-size: 2.2rem; }
-            .tabs-nav { flex-direction: column; align-items: center; }
-            .pdf-box { flex-direction: column; text-align: center; gap: 20px; }
+        /* --- FOOTER (Spostato in basso) --- */
+        .nv-footer { 
+            padding: 50px 0;
+            text-align: center;
+            background: rgba(0,0,0,0.6); /* Leggero scurimento per leggibilità */
+            backdrop-filter: blur(5px);
+            width: 100%;
         }
+        .footer-text { opacity: 0.5; letter-spacing: 4px; font-size: 0.7rem; }
+
+        @keyframes fadeIn { from { opacity: 0; } to { opacity: 1; } }
     </style>
 </head>
 <body>
 
     <header class="league-header">
-        <div class="logo-nav-container" onclick="openM()">
-            <img src="images/logo.png" alt="Nevera Logo" class="logo-trigger">
-        </div>
+        <img src="images/logo.png" alt="Nevera Logo" class="logo-trigger" onclick="location.href='index.html'">
     </header>
 
-    <div id="m" class="nv-menu">
-        <a href="javascript:void(0)" class="nv-close" onclick="closeM()">&times;</a>
-        <div class="nv-links text-center">
-            <a href="index.html">HOME</a>
-            <a href="eventi.html">EVENTI</a>
-            <a href="sponsor.html">SPONSOR</a>
-            <a href="community.html">COMMUNITY</a>
-        </div>
-    </div>
-
-    <div class="container">
+    <div class="main-content">
         <h1 class="nv-title">VOLT PADEL LEAGUE</h1>
-     
 
         <nav class="tabs-nav">
             <button class="tab-btn active" onclick="switchTab(event, 'info')">Info & Regolamento</button>
@@ -137,29 +106,27 @@
         </nav>
 
         <section id="info" class="tab-content active">
-            <div class="pdf-box">
-                <div class="pdf-text">
-                    <h3>REGOLAMENTO UFFICIALE</h3>
-                    <p>Scarica il regolamento tecnico del torneo.</p>
-                </div>
-                <a href="assets/regolamento.pdf" target="_blank" class="btn-pdf">APRI PDF</a>
+            <div class="glass-box">
+                <h3 style="margin-bottom: 15px;">REGOLAMENTO UFFICIALE</h3>
+                <p style="margin-bottom: 25px; opacity: 0.8;">Scopri il regolamento della Volt Padel League.</p>
+                <a href="assets/regolamento.pdf" target="_blank" class="btn-pdf">APRI</a>
             </div>
         </section>
 
         <section id="ranking" class="tab-content">
-            <div class="table-wrapper">
+            <div class="glass-box">
                 <table>
                     <thead>
                         <tr>
                             <th>#</th>
-                            <th>PLAYER</th>
+                            <th>GIOCATORE</th>
                             <th>PUNTI</th>
                         </tr>
                     </thead>
                     <tbody>
-                        <tr><td class="rank-number">01</td><td><strong></strong></td><td class="pts-cell">1000</td></tr>
-                        <tr><td class="rank-number">02</td><td><strong></strong></td><td class="pts-cell">750</td></tr>
-                        <tr><td class="rank-number">03</td><td><strong></strong></td><td class="pts-cell">500</td></tr>
+                        <tr><td style="color: #CEFF05;">01</td><td></td><td style="color: #CEFF05;">1000</td></tr>
+                        <tr><td style="color: #CEFF05;">02</td><td></td><td style="color: #CEFF05;">750</td></tr>
+                        <tr><td style="color: #CEFF05;">03</td><td></td><td style="color: #CEFF05;">500</td></tr>
                     </tbody>
                 </table>
             </div>
@@ -167,13 +134,10 @@
     </div>
 
     <footer class="nv-footer">
-        <p style="opacity: 0.4; letter-spacing: 2px; font-size: 0.8rem;">&copy; 2026 NEVERA SPORTS | BORN UNDER PRESSURE</p>
+        <p class="footer-text">&copy; 2026 NEVERA SPORTS | BORN UNDER PRESSURE</p>
     </footer>
 
     <script>
-        function openM() { document.getElementById("m").style.width = "100%"; }
-        function closeM() { document.getElementById("m").style.width = "0"; }
-
         function switchTab(event, tabId) {
             const contents = document.querySelectorAll('.tab-content');
             contents.forEach(c => c.classList.remove('active'));
