@@ -8,168 +8,150 @@
 
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    
     <link rel="stylesheet" href="assets/css/main.css">
 
     <style>
-        /* RESET E SFONDO */
+        /* RESET AGGRESSIVO PER EVITARE IL NERO */
         html, body {
             background-color: #000 !important;
-            margin: 0;
-            padding: 0;
-            color: #fff;
-            min-height: 100%;
+            margin: 0 !important;
+            padding: 0 !important;
+            height: 100% !important;
+            width: 100% !important;
+            display: block !important;
+            overflow-x: hidden !important;
         }
 
-        /* NAVBAR FISSA */
-        .navbar {
-            background: transparent !important;
+        /* NAVBAR SEMPRE VISIBILE */
+        .nav-fix {
+            position: fixed;
+            top: 0;
+            width: 100%;
             padding: 20px 0;
-            z-index: 2000 !important; /* Molto alto per stare sopra a tutto */
+            z-index: 5000;
+            text-align: center;
+            background: transparent;
         }
 
-        .main-logo {
-            height: 45px !important;
-            width: auto;
+        .logo-trigger {
+            height: 45px;
             cursor: pointer;
             transition: 0.3s;
         }
 
-        /* MENU OVERLAY */
-        #myNav {
+        /* MENU OVERLAY - Cambiato nome in 'overlay-nevera' per evitare conflitti */
+        .overlay-nevera {
             height: 100%;
-            width: 0; /* Parte chiuso */
+            width: 0; /* DEVE ESSERE 0 */
             position: fixed;
             z-index: 9999;
             top: 0;
             left: 0;
             background-color: #000;
             overflow-x: hidden;
-            transition: 0.5s cubic-bezier(0.7, 0, 0.3, 1);
+            transition: 0.5s;
             display: flex;
             align-items: center;
             justify-content: center;
         }
 
-        .overlay-content a {
-            font-size: 3rem;
+        .links-nevera a {
+            font-size: 2.5rem;
             font-weight: 800;
             color: #fff;
             text-decoration: none;
             display: block;
-            margin: 15px 0;
+            margin: 20px 0;
             text-align: center;
         }
 
-        .overlay-content a:hover { color: #AAF0D1; }
-
-        .closebtn {
+        .close-nevera {
             position: absolute;
             top: 30px;
             right: 45px;
-            font-size: 60px;
+            font-size: 50px;
             color: #fff;
             text-decoration: none;
         }
 
         /* CONTENUTO PAGINA */
-        .main-container {
-            padding-top: 120px; /* Spazio per non finire sotto la navbar */
+        .content-wrapper {
+            padding-top: 120px;
+            position: relative;
+            z-index: 10; /* Sopra lo sfondo, sotto il menu */
+            color: white;
             text-align: center;
         }
 
         .section-title {
             font-weight: 900;
             letter-spacing: 5px;
-            text-transform: uppercase;
             margin-bottom: 10px;
+            text-transform: uppercase;
         }
 
-        .divider {
+        .mint-line {
             width: 60px;
             height: 2px;
             background-color: #AAF0D1;
             margin: 0 auto 50px auto;
         }
 
-        /* BOX SPONSOR */
         .sponsor-card {
             background: rgba(255, 255, 255, 0.05);
             border: 1px solid rgba(255, 255, 255, 0.1);
             border-radius: 20px;
-            padding: 40px;
-            text-decoration: none;
+            padding: 30px;
             display: block;
+            text-decoration: none;
             transition: 0.3s;
             margin-bottom: 20px;
         }
 
         .sponsor-card:hover {
-            transform: translateY(-10px);
+            transform: translateY(-5px);
             border-color: #AAF0D1;
-            background: rgba(255, 255, 255, 0.08);
         }
 
         .sponsor-card img {
-            max-width: 100%;
-            height: auto;
-            max-height: 100px;
-            margin-bottom: 20px;
+            max-height: 70px;
+            margin-bottom: 15px;
         }
 
         .sponsor-card h3 {
             color: #fff;
-            font-size: 1.2rem;
+            font-size: 1rem;
             letter-spacing: 2px;
             margin: 0;
-        }
-
-        /* BANNER VOLT */
-        .volt-banner {
-            border-radius: 20px;
-            overflow: hidden;
-            margin-bottom: 40px;
-            display: block;
-        }
-
-        .volt-banner img {
-            width: 100%;
-            height: auto;
-        }
-
-        @media (max-width: 768px) {
-            .overlay-content a { font-size: 2rem; }
-            .section-title { font-size: 1.5rem; }
         }
     </style>
 </head>
 <body>
 
-    <nav class="navbar fixed-top">
-        <div class="container justify-content-center">
-            <img src="images/logo.png" alt="Nevera Logo" class="main-logo" onclick="openNav()">
-        </div>
-    </nav>
+    <div class="nav-fix">
+        <img src="images/logo.png" alt="Nevera" class="logo-trigger" onclick="toggleMenu(1)">
+    </div>
 
-    <div id="myNav">
-        <a href="javascript:void(0)" class="closebtn" onclick="closeNav()">&times;</a>
-        <div class="overlay-content">
-            <a href="index.html" onclick="closeNav()">HOME</a>
-            <a href="eventi.html" onclick="closeNav()">EVENTI</a>
-            <a href="sponsor.html" onclick="closeNav()">SPONSOR</a>
-            <a href="community.html" onclick="closeNav()">COMMUNITY</a>
-            <a href="iniziative.html" onclick="closeNav()">INIZIATIVE</a>
+    <div id="neveraMenu" class="overlay-nevera">
+        <a href="javascript:void(0)" class="close-nevera" onclick="toggleMenu(0)">&times;</a>
+        <div class="links-nevera">
+            <a href="index.html">HOME</a>
+            <a href="eventi.html">EVENTI</a>
+            <a href="sponsor.html">SPONSOR</a>
+            <a href="community.html">COMMUNITY</a>
+            <a href="iniziative.html">INIZIATIVE</a>
         </div>
     </div>
 
-    <div class="main-container container">
-        
+    <div class="content-wrapper container">
         <h1 class="section-title">PARTNERS</h1>
-        <div class="divider"></div>
+        <div class="mint-line"></div>
 
-        <div class="row justify-content-center">
+        <div class="row justify-content-center mb-5">
             <div class="col-lg-10 col-12">
-                <a href="https://www.voltpadel.com" target="_blank" class="volt-banner">
-                    <img src="images/volt-padel-banner.webp" alt="Volt Padel">
+                <a href="https://www.voltpadel.com" target="_blank" style="display:block; border-radius: 20px; overflow:hidden;">
+                    <img src="images/volt-padel-banner.webp" class="img-fluid" alt="Volt Padel">
                 </a>
             </div>
         </div>
@@ -177,31 +159,22 @@
         <div class="row justify-content-center g-4">
             <div class="col-lg-5 col-md-6">
                 <a href="https://www.orya.it" target="_blank" class="sponsor-card">
-                    <img src="images/orya.png" alt="ORYA Logo">
+                    <img src="images/orya.png" alt="Orya">
                     <h3>ORYA</h3>
                 </a>
             </div>
             <div class="col-lg-5 col-md-6">
                 <a href="https://www.swappadel.it/" target="_blank" class="sponsor-card">
-                    <img src="images/SWAP.png" alt="SWAP PADEL">
+                    <img src="images/SWAP.png" alt="Swap">
                     <h3>SWAP PADEL</h3>
                 </a>
             </div>
         </div>
-
-        <p class="mt-5" style="opacity: 0.3; letter-spacing: 4px; font-size: 0.7rem;">BORN UNDER PRESSURE</p>
     </div>
 
     <script>
-        // Queste funzioni DEVONO essere qui per funzionare sicuramente
-        function openNav() {
-            console.log("Menu Aperto");
-            document.getElementById("myNav").style.width = "100%";
-        }
-
-        function closeNav() {
-            console.log("Menu Chiuso");
-            document.getElementById("myNav").style.width = "0%";
+        function toggleMenu(show) {
+            document.getElementById("neveraMenu").style.width = show ? "100%" : "0";
         }
     </script>
 
