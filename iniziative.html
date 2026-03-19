@@ -1,49 +1,37 @@
 <!DOCTYPE HTML>
 <html lang="it">
 <head>
-    <title>INIZIATIVE - NEVERA SPORTS</title>
+    <title>INIZIATIVE | NEVER-A-WASTE</title>
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1" />
     <link rel="icon" type="image/png" href="images/favicon.png">
 
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
-    <link rel="stylesheet" href="assets/css/main.css">
+    <link rel="stylesheet" href="assets/css/main.css" />
 
     <style>
-        /* RESET GLOBALE */
+        /* RESET E SFONDO */
         html, body {
             background-color: #000 !important;
-            margin: 0;
-            padding: 0;
+            margin: 0; padding: 0;
             overflow-x: hidden;
             font-family: sans-serif;
+            color: #fff;
         }
 
-        /* NAVBAR E LOGO TRIGGER MENU */
+        /* NAVBAR E LOGO MENU (80px) */
         .nav-fix {
             position: fixed;
-            top: 0;
-            width: 100%;
-            padding: 40px 0; 
-            z-index: 5000;
+            top: 0; width: 100%;
+            padding: 40px 0; z-index: 5000;
             text-align: center;
         }
-
-        .logo-nav-container {
-            display: inline-block;
-            cursor: pointer;
-            transition: all 0.3s ease;
-        }
-
+        .logo-nav-container { display: inline-block; cursor: pointer; transition: 0.3s; }
         .logo-trigger { 
-            height: 80px; 
-            width: auto;
-            transition: all 0.3s ease;
+            height: 80px; width: auto; transition: 0.3s;
             filter: drop-shadow(0 0 0px rgba(170, 240, 209, 0));
         }
-
-        /* Effetto Hover Logo: Glow Menta + Zoom */
         .logo-nav-container:hover .logo-trigger {
             transform: scale(1.08);
             filter: drop-shadow(0 0 20px rgba(170, 240, 209, 0.8));
@@ -56,63 +44,62 @@
             transition: 0.5s cubic-bezier(0.7, 0, 0.3, 1); 
             display: flex; align-items: center; justify-content: center;
         }
-        .nv-links a { 
-            font-size: 2.5rem; color: #fff; text-decoration: none; 
-            display: block; margin: 20px; font-weight: 800; text-align: center;
-        }
+        .nv-links a { font-size: 2.5rem; color: #fff; text-decoration: none; display: block; margin: 20px; font-weight: 800; }
         .nv-links a:hover { color: #AAF0D1; }
         .nv-close { position: absolute; top: 30px; right: 45px; font-size: 50px; color: #fff; text-decoration: none; }
 
-        /* CONTENUTO PAGINA */
-        .nv-content { 
-            padding-top: 220px; 
-            color: white; 
-            text-align: center; 
-        }
-        .nv-title { font-weight: 900; letter-spacing: 5px; text-transform: uppercase; margin-bottom: 10px; }
+        /* CONTENUTO */
+        .nv-content { padding-top: 220px; text-align: center; }
+        .huge-number { font-size: 5rem; font-weight: 900; color: #AAF0D1; line-height: 1; margin-bottom: 10px; }
+        .counter-label { letter-spacing: 3px; opacity: 0.7; text-transform: uppercase; font-size: 0.9rem; }
+        
+        .section-title { font-weight: 900; letter-spacing: 5px; text-transform: uppercase; margin: 60px 0 10px 0; }
         .nv-line { width: 60px; height: 2px; background-color: #AAF0D1; margin: 0 auto 50px auto; }
 
-        /* STRUTTURA BANNER INIZIATIVE */
-        .nv-card {
-            display: block;
-            border-radius: 20px;
-            overflow: hidden;
-            border: 1px solid rgba(255, 255, 255, 0.1);
+        /* CARDS PROCESSO */
+        .process-card {
             background: rgba(255, 255, 255, 0.05);
-            transition: all 0.4s cubic-bezier(0.165, 0.84, 0.44, 1);
-            padding: 0 !important; 
-            text-decoration: none;
-            position: relative;
-            margin-bottom: 30px;
-        }
-
-        .nv-card:hover {
-            transform: translateY(-10px);
-            border-color: #AAF0D1 !important;
-            box-shadow: 0 15px 40px rgba(170, 240, 209, 0.2);
-        }
-
-        .nv-card img {
-            width: 100%;
+            border: 1px solid rgba(255, 255, 255, 0.1);
+            padding: 40px 30px;
+            border-radius: 20px;
             height: 100%;
-            display: block;
-            object-fit: cover; 
-            transition: transform 0.6s ease;
+            transition: 0.3s;
         }
-        
-        .nv-card:hover img {
-            transform: scale(1.05); 
+        .process-card:hover { border-color: #AAF0D1; transform: translateY(-10px); }
+        .icon-circle {
+            width: 70px; height: 70px; background: #AAF0D1; color: #000;
+            border-radius: 50%; display: flex; align-items: center; justify-content: center;
+            margin: 0 auto 20px auto; font-size: 1.5rem;
         }
+        .process-card h3 { font-weight: 800; text-transform: uppercase; font-size: 1.2rem; margin-bottom: 15px; }
+        .process-card p { opacity: 0.8; font-size: 0.95rem; line-height: 1.6; }
 
-        /* Aspect ratio per i banner delle iniziative (più panoramici) */
-        .nv-card-wide {
-            aspect-ratio: 21 / 9;
+        /* DESIGN IMAGES */
+        .design-img-box {
+            border-radius: 20px; overflow: hidden;
+            border: 1px solid rgba(255, 255, 255, 0.1);
+            aspect-ratio: 1/1; margin-bottom: 20px;
         }
+        .design-img-box img { 
+            width: 100%; height: 100%; object-fit: cover; 
+            transition: 0.5s; 
+        }
+        .design-img-box:hover img { transform: scale(1.1); }
+
+        /* BOTTONE */
+        .btn-nevera {
+            background-color: #AAF0D1; color: #000;
+            padding: 18px 45px; border-radius: 50px;
+            text-decoration: none; font-weight: 800;
+            text-transform: uppercase; display: inline-block;
+            transition: 0.3s; border: none; margin-top: 40px;
+        }
+        .btn-nevera:hover { background-color: #fff; transform: scale(1.05); color: #000; }
 
         @media (max-width: 768px) {
+            .huge-number { font-size: 3.5rem; }
             .nv-content { padding-top: 180px; }
             .logo-trigger { height: 60px; }
-            .nv-card-wide { aspect-ratio: 16 / 9; }
         }
     </style>
 </head>
@@ -136,30 +123,93 @@
     </div>
 
     <div class="nv-content container">
-        <h1 class="nv-title">INIZIATIVE</h1>
+        
+        <h1 class="section-title" style="margin-top: 0;">NEVER-A-WASTE</h1>
+        <p style="letter-spacing: 4px; opacity: 0.6; margin-bottom: 40px;">UNA SECONDA VITA AL GIOCO</p>
+
+        <div class="mb-5">
+            <div class="huge-number" id="ballCounter" data-target="30000000">0</div>
+            <p class="counter-label">Palline utilizzate ogni anno</p>
+        </div>
+
+        <h2 class="section-title">IL NOSTRO PROCESSO</h2>
         <div class="nv-line"></div>
 
-        <div class="row justify-content-center">
-            <div class="col-lg-10 col-12">
-                <a href="#" class="nv-card nv-card-wide">
-                    <img src="images/iniziative-social.png" alt="Nevera Social">
-                </a>
+        <div class="row g-4 justify-content-center">
+            <div class="col-lg-4 col-md-6">
+                <div class="process-card">
+                    <div class="icon-circle"><i class="fa-solid fa-box-open"></i></div>
+                    <h3>Raccogliamo</h3>
+                    <p>Posizioniamo i nostri box di raccolta nei centri sportivi partner. Quando sono pieni, effettuiamo il ritiro.</p>
+                </div>
             </div>
-
-            <div class="col-lg-10 col-12">
-                <a href="#" class="nv-card nv-card-wide">
-                    <img src="images/iniziative-academy.png" alt="Nevera Academy">
-                </a>
+            <div class="col-lg-4 col-md-6">
+                <div class="process-card">
+                    <div class="icon-circle"><i class="fa-solid fa-recycle"></i></div>
+                    <h3>Trasformiamo</h3>
+                    <p>Le palline vengono pulite, trattate e lavorate nei nostri laboratori per prepararle alla loro nuova forma.</p>
+                </div>
+            </div>
+            <div class="col-lg-4 col-md-6">
+                <div class="process-card">
+                    <div class="icon-circle"><i class="fa-solid fa-bolt"></i></div>
+                    <h3>Creiamo</h3>
+                    <p>Nascono nuovi complementi d'arredo unici, dal design moderno ed ecosostenibile, pronti per il tuo club.</p>
+                </div>
             </div>
         </div>
 
-        <p class="mt-5 mb-5" style="opacity: 0.3; letter-spacing: 5px; font-size: 0.7rem;">BORN UNDER PRESSURE</p>
+        <a href="mailto:info@neverasports.it" class="btn-nevera">
+            <i class="fa-solid fa-envelope me-2"></i> Richiedi Informazioni
+        </a>
+
+        <h2 class="section-title">IL DESIGN</h2>
+        <div class="nv-line"></div>
+
+        <div class="row g-4 mb-5">
+            <div class="col-lg-4 col-md-6">
+                <div class="design-img-box">
+                    <img src="images/design_1.jpeg" alt="Design 1">
+                </div>
+            </div>
+            <div class="col-lg-4 col-md-6">
+                <div class="design-img-box">
+                    <img src="images/design_2.jpeg" alt="Design 2">
+                </div>
+            </div>
+            <div class="col-lg-4 col-md-6">
+                <div class="design-img-box">
+                    <img src="images/design_3.jpeg" alt="Design 3">
+                </div>
+            </div>
+        </div>
+
+        <p class="mt-5 mb-5" style="opacity: 0.3; letter-spacing: 5px; font-size: 0.7rem;">&copy; 2026 NEVERA SPORTS. Tutti i diritti riservati.</p>
     </div>
 
     <script>
         function openM() { document.getElementById("m").style.width = "100%"; }
         function closeM() { document.getElementById("m").style.width = "0"; }
-    </script>
 
+        // SCRIPT CONTATORE
+        document.addEventListener("DOMContentLoaded", () => {
+            const counter = document.getElementById('ballCounter');
+            const target = +counter.getAttribute('data-target');
+            const duration = 2500;
+            const stepTime = 30;
+            
+            let current = 0;
+            const increment = target / (duration / stepTime);
+
+            const timer = setInterval(() => {
+                current += increment;
+                if (current >= target) {
+                    current = target;
+                    clearInterval(timer);
+                }
+                counter.innerText = Math.floor(current).toLocaleString('it-IT') + "+";
+            }, stepTime);
+        });
+    </script>
 </body>
 </html>
