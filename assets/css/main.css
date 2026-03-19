@@ -504,79 +504,35 @@ footer a:hover { color: #AAF0D1; }
     .event-poster-box { border-radius: 20px; }
 }
 
-/* --- OVERLAY MENU STYLE --- */
+/* --- OVERLAY MENU (VERSIONE BLINDATA) --- */
 .full-screen-overlay {
     height: 100%;
-    width: 0; /* Inizia chiuso */
+    width: 100%; /* Larghezza sempre 100% */
     position: fixed;
-    z-index: 10001; /* Sopra a tutto il contenuto della pagina */
+    z-index: 10001;
     top: 0;
     left: 0;
-    background-color: #000000; /* Nero come nel video */
-    overflow-x: hidden;
-    transition: 0.5s cubic-bezier(0.7, 0, 0.3, 1); /* Animazione fluida */
-    display: flex;
-    align-items: center;
-    justify-content: center;
+    background-color: #000; /* Nero totale */
+    
+    /* STATO INIZIALE: TOTALMENTE INVISIBILE */
+    opacity: 0;
+    visibility: hidden;
+    transition: all 0.5s cubic-bezier(0.7, 0, 0.3, 1);
 }
 
-.overlay-content {
-    position: relative;
-    width: 100%;
-    text-align: center;
+/* Quando aggiungiamo la classe "open" via JS, il velo appare */
+.full-screen-overlay.open {
+    opacity: 1;
+    visibility: visible;
 }
 
-.overlay-content a {
-    padding: 15px;
-    text-decoration: none;
-    font-size: 3.5rem; /* Testo gigante */
-    font-weight: 800;
-    color: #ffffff;
-    display: block;
-    transition: 0.3s;
-    letter-spacing: 2px;
+/* Rimuovi eventuali altri overlay che avevamo creato per errore */
+.hero-black-overlay, .black-mask {
+    display: none !important;
 }
 
-.overlay-content a:hover {
-    color: #AAF0D1; /* Verde menta al passaggio */
-    letter-spacing: 5px;
-}
-
-.closebtn {
-    position: absolute;
-    top: 20px;
-    right: 45px;
-    font-size: 60px;
-    color: #ffffff;
-    text-decoration: none;
-    transition: 0.3s;
-}
-
-.closebtn:hover {
-    color: #AAF0D1;
-}
-
-/* Adattamento per Smartphone */
-@media (max-width: 768px) {
-    .overlay-content a {
-        font-size: 2.2rem;
-    }
-    .closebtn {
-        right: 25px;
-        font-size: 45px;
-    }
-}
-/* RIDUZIONE GRANDEZZA LOGO NAVBAR */
-.nav-logo {
-    height: 40px; /* Era 60px o 50px, abbassalo a 40px o 35px per renderlo più discreto */
-    width: auto;  /* Mantiene le proporzioni corrette */
-    transition: transform 0.3s ease;
-    cursor: pointer;
-}
-
-/* Regolazione per Mobile (ancora più piccolo) */
-@media (max-width: 768px) {
-    .nav-logo {
-        height: 30px; 
-    }
+/* Assicurati che il contenuto sotto sia luminoso */
+.hero-events-wrapper, .main-content {
+    background-color: transparent !important;
+    filter: none !important;
 }
