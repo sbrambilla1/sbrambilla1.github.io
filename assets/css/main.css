@@ -504,74 +504,65 @@ footer a:hover { color: #AAF0D1; }
     .event-poster-box { border-radius: 20px; }
 }
 
-/* NAVBAR PRINCIPALE */
-.navbar {
-    background: transparent !important;
-    padding: 20px 0;
-}
-
-.navbar-brand {
-    font-family: 'Outfit', sans-serif;
-    font-weight: 800;
-    font-size: 1.5rem;
-    color: #fff !important;
-    letter-spacing: 2px;
-    cursor: pointer;
-}
-
-/* OVERLAY MENU */
+/* --- OVERLAY MENU STYLE --- */
 .full-screen-overlay {
     height: 100%;
-    width: 0; /* Inizia invisibile */
+    width: 0; /* Inizia chiuso */
     position: fixed;
-    z-index: 10001; /* Sopra tutto */
+    z-index: 10001; /* Sopra a tutto il contenuto della pagina */
     top: 0;
     left: 0;
-    background-color: #000; /* Nero come nel video */
+    background-color: #000000; /* Nero come nel video */
     overflow-x: hidden;
-    transition: 0.5s cubic-bezier(0.7, 0, 0.3, 1);
+    transition: 0.5s cubic-bezier(0.7, 0, 0.3, 1); /* Animazione fluida */
     display: flex;
     align-items: center;
     justify-content: center;
 }
 
 .overlay-content {
-    text-align: center;
+    position: relative;
     width: 100%;
+    text-align: center;
 }
 
 .overlay-content a {
-    padding: 10px;
+    padding: 15px;
     text-decoration: none;
-    font-size: 3.5rem; /* Font gigante */
+    font-size: 3.5rem; /* Testo gigante */
     font-weight: 800;
-    color: #fff;
+    color: #ffffff;
     display: block;
     transition: 0.3s;
     letter-spacing: 2px;
 }
 
 .overlay-content a:hover {
-    color: #AAF0D1; /* Effetto verde menta al passaggio */
+    color: #AAF0D1; /* Verde menta al passaggio */
+    letter-spacing: 5px;
 }
 
-/* TASTO CHIUDI (X) */
-.full-screen-overlay .closebtn {
+.closebtn {
     position: absolute;
     top: 20px;
     right: 45px;
     font-size: 60px;
-    color: #AAF0D1;
+    color: #ffffff;
     text-decoration: none;
+    transition: 0.3s;
 }
 
-/* RESPONSIVE PER TELEFONO */
+.closebtn:hover {
+    color: #AAF0D1;
+}
+
+/* Adattamento per Smartphone */
 @media (max-width: 768px) {
     .overlay-content a {
         font-size: 2.2rem;
     }
-    .full-screen-overlay .closebtn {
+    .closebtn {
         right: 25px;
-        font-size: 50px;
+        font-size: 45px;
     }
 }
