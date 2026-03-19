@@ -36,6 +36,23 @@
         background-repeat: no-repeat;
         z-index: -1; /* Mette l'immagine dietro a tutto */
     }
+    /* --- FIX PER IPAD/IPHONE (Sfondo Fisso Universale) --- */
+    .bg-fixed-layer {
+        position: fixed;
+        top: 0;
+        left: 0;
+        width: 100%;
+        height: 100%;
+        /* SOSTITUISCI IL NOME DEL FILE QUI SOTTO */
+        background-image: linear-gradient(rgba(0,0,0,0.6), rgba(0,0,0,0.8)), url('images/homebg.jpg');
+        background-size: cover;
+        background-position: center;
+        background-repeat: no-repeat;
+        z-index: -1; /* Resta dietro a tutto */
+        /* Questo trucco evita il bug di Safari iOS */
+        transform: translateZ(0); 
+        -webkit-transform: translateZ(0);
+    }
 
     /* --- NAVBAR & LOGO --- */
     .nav-fix {
@@ -101,6 +118,7 @@
 </head>
 <body>
 
+    <div class="bg-fixed-layer">
     <div class="nav-fix">
         <div class="logo-nav-container" onclick="openM()">
             <img src="images/logo.png" alt="Nevera Logo" class="logo-trigger">
@@ -149,7 +167,7 @@
             </div>
         </div>
     </div>
-
+</div>
     <footer class="nv-footer">
         <div class="container">
             <div class="row g-5">
