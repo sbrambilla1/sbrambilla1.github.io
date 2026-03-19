@@ -504,42 +504,45 @@ footer a:hover { color: #AAF0D1; }
     .event-poster-box { border-radius: 20px; }
 }
 
-/* RESET TOTALE OVERLAY */
+/* --- IL MENU (Nascondilo bene) --- */
 .full-screen-overlay {
     height: 100%;
-    width: 0; /* Parte da zero larghezza */
+    width: 0; /* Parte da larghezza ZERO */
     position: fixed;
-    z-index: 99999; /* Numero altissimo per stare sopra a tutto */
+    z-index: 99999; /* Sopra a tutto */
     top: 0;
     left: 0;
-    background-color: #000000 !important; /* Nero puro */
+    background-color: #000000; /* Nero pieno nel menu */
     overflow-x: hidden;
-    transition: 0.5s ease;
+    transition: 0.5s cubic-bezier(0.7, 0, 0.3, 1);
     display: flex;
     align-items: center;
     justify-content: center;
 }
 
-/* RIMUOVI IL VELO DA TUTTE LE PAGINE */
-body, .hero-events-wrapper, .content-wrapper, main, .container-fluid {
-    background-color: transparent !important; /* Rende tutto trasparente per mostrare lo sfondo */
-    filter: none !important; /* Toglie eventuali oscuramenti */
+/* --- PULIZIA PAGINA (Togli il velo nero) --- */
+body, .hero-events-wrapper, .content-wrapper {
+    background: none !important; /* Rimuove sfondi neri extra */
+    filter: none !important;     /* Rimuove scurimenti */
 }
 
-/* Assicurati che l'immagine di sfondo sia visibile */
-body {
-    background-image: url('../images/sfondo-padel.jpg'); /* Il tuo sfondo principale */
-    background-size: cover;
-    background-attachment: fixed;
-    background-color: #111; /* Grigio molto scuro di sicurezza, non nero coprente */
+/* --- LOGO GIGANTE CLICCABILE --- */
+.hero-logo-img {
+    height: 120px; /* Regola la grandezza qui */
+    cursor: pointer;
+    transition: transform 0.3s ease;
+    z-index: 100;
+    position: relative;
 }
 
-/* Il contenuto del menu */
-.overlay-content a {
-    font-size: 3rem;
-    font-weight: 800;
+.hero-logo-img:hover {
+    transform: scale(1.05);
+}
+
+/* --- TITOLO SOTTO IL LOGO --- */
+.hero-subtitle {
     color: white;
-    text-decoration: none;
-    display: block;
-    margin: 15px 0;
+    font-weight: 800;
+    letter-spacing: 3px;
+    margin-top: 15px;
 }
