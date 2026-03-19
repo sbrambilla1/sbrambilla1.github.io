@@ -1,0 +1,108 @@
+<!DOCTYPE HTML>
+<html lang="it">
+<head>
+    <title>NEVERA - VOLT PADEL LEAGUE</title>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <link rel="icon" type="image/png" href="images/favicon.png">
+
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+    
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+
+    <link rel="stylesheet" href="assets/css/main.css">
+</head>
+<body>
+
+    <nav class="navbar navbar-expand-lg navbar-dark fixed-top">
+        <div class="container">
+            <a class="navbar-brand" href="index.html">NEVERA SPORTS</a>
+            <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav">
+                <span class="navbar-toggler-icon"></span>
+            </button>
+            <div class="collapse navbar-collapse justify-content-end" id="navbarNav">
+                <ul class="navbar-nav">
+                    <li class="nav-item"><a class="nav-link" href="index.html">Home</a></li>
+                    <li class="nav-item"><a class="nav-link active" href="eventi.html">Eventi</a></li>
+                    <li class="nav-item"><a class="nav-link" href="community.html">Community</a></li>
+                    <li class="nav-item"><a class="nav-link" href="sponsor.html">Sponsor</a></li>
+                    <li class="nav-item"><a class="nav-link" href="iniziative.html">Iniziative</a></li>
+                </ul>
+            </div>
+        </div>
+    </nav>
+
+    <section id="VPL">
+        <div class="container">
+            <h1>VOLT PADEL LEAGUE <span class="volt-accent">unleash the tension</span></h1>
+                 
+               <nav class="tabs-nav">
+            <button class="tab-btn active" onclick="switchTab(event, 'info')">Info & Regolamento</button>
+              <button class="tab-btn" onclick="switchTab(event, 'ranking')">Ranking</button>
+        	</nav>
+
+        <section id="info" class="tab-content active">
+            <div class="info-layout">
+                <div class="pdf-box">
+                    <div class="pdf-text">
+                        <h3>REGOLAMENTO UFFICIALE</h3>
+                        <p>Consulta il regolamento della Volt Padel League.</p>
+                    </div>
+                    <a href="/assets/regolamento.pdf" target="_blank" class="btn-pdf">Apri PDF</a>
+                </div>
+                
+                
+            </div>
+        </section>
+
+        <section id="ranking" class="tab-content">
+            <div class="table-wrapper">
+                <table>
+                    <thead>
+                        <tr>
+                            <th>#</th>
+                            <th>PLAYER</th>
+                            <th>PUNTI</th>
+                          
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td class="rank-number">01</td>
+                            <td><strong>ROSSI</strong></td>
+                            <td class="pts-cell">1000</td>
+                            
+                        </tr>
+                        <tr>
+                            <td class="rank-number">02</td>
+                            <td><strong>FUMAGALLI</strong></td>
+                            <td class="pts-cell">700</td>
+                            <td>6</td>
+                            <td>5</td>
+                            <td>1</td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+        </section>
+    </div>
+    </section>
+
+    <footer>
+        <div class="container">
+            <p class="mb-0">&copy; 2026 NEVERA SPORTS</p>
+        </div>
+    </footer>
+
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js">
+function switchTab(event, tabId) {
+            const contents = document.querySelectorAll('.tab-content');
+            contents.forEach(c => c.classList.remove('active'));
+            const buttons = document.querySelectorAll('.tab-btn');
+            buttons.forEach(b => b.classList.remove('active'));
+            document.getElementById(tabId).classList.add('active');
+            event.currentTarget.classList.add('active');
+        }</script>
+
+</body>
+</html>
