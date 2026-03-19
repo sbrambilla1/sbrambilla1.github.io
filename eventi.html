@@ -9,60 +9,55 @@
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
     <link rel="stylesheet" href="assets/css/main.css">
-</head>
-<body>
 
-    <nav class="navbar fixed-top bg-transparent">
-        <div class="container justify-content-center">
-            <a class="navbar-brand" href="javascript:void(0)" onclick="openNav()">
-                <img src="images/logo.png" alt="Nevera Logo" class="main-logo" style="height: 50px; cursor: pointer;">
-            </a>
-        </div>
-    </nav>
-
-    <div id="myNav" class="full-screen-overlay">
-        <a href="javascript:void(0)" class="closebtn" onclick="closeNav()">&times;</a>
-        <div class="overlay-content">
-            <a href="index.html" onclick="closeNav()">HOME</a>
-            <a href="eventi.html" onclick="closeNav()">EVENTI</a>
-            <a href="sponsor.html" onclick="closeNav()">SPONSOR</a>
-            <a href="community.html" onclick="closeNav()">COMMUNITY</a>
-            <a href="iniziative.html" onclick="closeNav()">INIZIATIVE</a>
-        </div>
-    </div> 
-
-    <section class="py-5">
-        <div class="container">
-            <div class="row g-4 justify-content-center"> 
-                <div class="col-12 col-lg-10">
-                    <a href="vpl.html" class="event-poster-box featured-event">
-                        <img src="images/vplcs.png" alt="VOLT PADEL LEAGUE" class="img-fluid w-100">
-                        <div class="poster-overlay">
-                            <span class="btn-detail">INFO & REGOLAMENTO</span>
-                        </div>
-                    </a>
-                </div>
-            </div>
-        </div>
-    </section>
-
-    <footer class="text-center py-4">
-        <div class="container">
-            <p class="mb-0 text-secondary">&copy; 2026 NEVERA SPORTS</p>
-        </div>
-    </footer>
-
-    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
-    <script>
-        function openNav() {
-            console.log("Apertura menu");
-            document.getElementById("myNav").style.width = "100%";
+    <style>
+        /* Sfondo pagina pulito */
+        body {
+            background-color: #000;
+            margin: 0;
+            padding: 0;
+            overflow-x: hidden;
         }
 
-        function closeNav() {
-            console.log("Chiusura menu");
-            document.getElementById("myNav").style.width = "0%";
+        /* Navbar trasparente col logo piccolo */
+        .navbar {
+            background: transparent !important;
+            padding: 20px 0;
+            z-index: 1000;
         }
-    </script>
-</body>
-</html>
+
+        .main-logo {
+            height: 45px; /* Dimensione contenuta per non disturbare */
+            width: auto;
+            cursor: pointer;
+            transition: transform 0.3s ease;
+        }
+
+        .main-logo:hover {
+            transform: scale(1.1);
+        }
+
+        /* Overlay Menu */
+        .full-screen-overlay {
+            height: 100%;
+            width: 0;
+            position: fixed;
+            z-index: 9999;
+            top: 0;
+            left: 0;
+            background-color: #000;
+            overflow-x: hidden;
+            transition: 0.5s cubic-bezier(0.7, 0, 0.3, 1);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+
+        .overlay-content a {
+            font-size: 3rem;
+            font-weight: 800;
+            color: #fff;
+            text-decoration: none;
+            display: block;
+            margin: 15px 0;
+            transition
