@@ -11,82 +11,64 @@
     <link rel="stylesheet" href="assets/css/main.css">
 
     <style>
-        /* RESET E SFONDO */
+        /* RESET GLOBALE */
         html, body {
             background-color: #000 !important;
             margin: 0;
             padding: 0;
             overflow-x: hidden;
+            font-family: sans-serif;
         }
 
-        /* NAVBAR - LOGO MENU INGRANDITO E ANIMATO */
+        /* NAVBAR E LOGO TRIGGER MENU */
         .nav-fix {
             position: fixed;
             top: 0;
             width: 100%;
-            padding: 30px 0; /* Un po' di spazio extra sopra e sotto */
+            padding: 30px 0;
             z-index: 5000;
             text-align: center;
-            display: flex;
-            justify-content: center;
-            align-items: center;
         }
-        
-        /* Contenitore per il logo per gestire l'animazione del bordo */
+
         .logo-nav-container {
-            position: relative;
+            display: inline-block;
             cursor: pointer;
-            padding: 10px; /* Spazio per il bordo animato */
-            border-radius: 50%;
-            transition: all 0.4s ease;
+            transition: all 0.3s ease;
         }
 
         .logo-trigger { 
-            height: 65px; /* Grandezza del logo menu */
+            height: 65px; /* Logo grande */
             width: auto;
-            display: block;
-            position: relative;
-            z-index: 2;
+            transition: all 0.3s ease;
+            filter: drop-shadow(0 0 0px rgba(170, 240, 209, 0));
         }
 
-        /* --- L'EFFETTO HOVER "SCOPRI IL MENU" --- */
-        .logo-nav-container::before {
-            content: '';
-            position: absolute;
-            inset: -5px; /* Leggermente più grande del logo */
-            border: 2px solid #AAF0D1; /* Bordo menta luminoso */
-            border-radius: 50%;
-            opacity: 0;
-            transform: scale(0.8);
-            transition: 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275);
-            box-shadow: 0 0 20px rgba(170, 240, 209, 0.3); /* Leggero bagliore */
-        }
-
-        .logo-nav-container:hover {
-            transform: scale(1.05); /* Piccolo zoom del contenitore */
-        }
-
-        .logo-nav-container:hover::before {
-            opacity: 1; /* Il bordo appare */
-            transform: scale(1); /* Torna a grandezza naturale */
+        /* Effetto Hover sul Logo Menu: Glow Menta + Zoom */
+        .logo-nav-container:hover .logo-trigger {
+            transform: scale(1.1);
+            filter: drop-shadow(0 0 15px rgba(170, 240, 209, 0.8));
         }
 
         /* MENU OVERLAY */
         .nv-menu {
             height: 100%; width: 0; position: fixed; z-index: 9999;
             top: 0; left: 0; background-color: #000; overflow: hidden;
-            transition: 0.5s; display: flex; align-items: center; justify-content: center;
+            transition: 0.5s cubic-bezier(0.7, 0, 0.3, 1); 
+            display: flex; align-items: center; justify-content: center;
         }
-        .nv-links a { font-size: 2.5rem; color: #fff; text-decoration: none; display: block; margin: 20px; font-weight: 800; }
+        .nv-links a { 
+            font-size: 2.5rem; color: #fff; text-decoration: none; 
+            display: block; margin: 20px; font-weight: 800; text-align: center;
+        }
         .nv-links a:hover { color: #AAF0D1; }
         .nv-close { position: absolute; top: 30px; right: 45px; font-size: 50px; color: #fff; text-decoration: none; }
 
-        /* CONTENUTO */
-        .nv-content { padding-top: 180px; color: white; text-align: center; } /* Aumentato padding per il logo più grande */
-        .nv-title { font-weight: 900; letter-spacing: 5px; text-transform: uppercase; }
+        /* CONTENUTO PAGINA */
+        .nv-content { padding-top: 180px; color: white; text-align: center; }
+        .nv-title { font-weight: 900; letter-spacing: 5px; text-transform: uppercase; margin-bottom: 10px; }
         .nv-line { width: 60px; height: 2px; background-color: #AAF0D1; margin: 0 auto 50px auto; }
 
-        /* --- LOGICA BANNER --- */
+        /* STRUTTURA BANNER (CARD) */
         .nv-card {
             display: block;
             border-radius: 20px;
@@ -99,31 +81,35 @@
             position: relative;
         }
 
+        /* Effetto Hover sui Banner: Sale, Bordo Menta e Bagliore */
         .nv-card:hover {
             transform: translateY(-10px);
             border-color: #AAF0D1 !important;
             box-shadow: 0 15px 40px rgba(170, 240, 209, 0.2);
         }
 
+        /* Immagine che riempie il banner */
         .nv-card img {
             width: 100%;
             height: 100%;
             display: block;
-            object-fit: cover; 
+            object-fit: cover; /* Taglia l'eccesso per riempire il box */
             transition: transform 0.6s ease;
         }
         
         .nv-card:hover img {
-            transform: scale(1.03); 
+            transform: scale(1.05); /* Zoom leggero dell'immagine interna */
         }
 
+        /* Proporzioni per i partner piccoli (Orya/Swap) */
         .nv-card-partner {
             aspect-ratio: 3 / 2;
         }
 
         @media (max-width: 768px) {
-            .nv-content { padding-top: 160px; }
-            .logo-trigger { height: 50px; } /* Più piccolo su mobile */
+            .nv-content { padding-top: 150px; }
+            .logo-trigger { height: 50px; }
+            .nv-links a { font-size: 1.8rem; }
         }
     </style>
 </head>
@@ -131,13 +117,13 @@
 
     <div class="nav-fix">
         <div class="logo-nav-container" onclick="openM()">
-            <img src="images/logo.png" alt="Nevera Menu Trigger" class="logo-trigger">
+            <img src="images/logo.png" alt="Nevera Menu" class="logo-trigger">
         </div>
     </div>
 
     <div id="m" class="nv-menu">
         <a href="javascript:void(0)" class="nv-close" onclick="closeM()">&times;</a>
-        <div class="nv-links text-center">
+        <div class="nv-links">
             <a href="index.html" onclick="closeM()">HOME</a>
             <a href="eventi.html" onclick="closeM()">EVENTI</a>
             <a href="sponsor.html" onclick="closeM()">SPONSOR</a>
@@ -151,9 +137,9 @@
         <div class="nv-line"></div>
 
         <div class="row justify-content-center mb-5">
-            <div class="col-lg-10">
+            <div class="col-lg-10 col-12">
                 <a href="https://www.voltpadel.com" target="_blank" class="nv-card">
-                    <img src="images/volt-padel-banner.webp" alt="Volt">
+                    <img src="images/volt-padel-banner.webp" alt="Volt Padel">
                 </a>
             </div>
         </div>
@@ -166,15 +152,22 @@
             </div>
             <div class="col-lg-5 col-md-6">
                 <a href="https://www.swappadel.it/" target="_blank" class="nv-card nv-card-partner">
-                    <img src="images/SWAP.png" alt="Swap">
+                    <img src="images/SWAP.png" alt="Swap Padel">
                 </a>
             </div>
         </div>
+
+        <p class="mt-5 mb-5" style="opacity: 0.3; letter-spacing: 5px; font-size: 0.7rem;">BORN UNDER PRESSURE</p>
     </div>
 
     <script>
-        function openM() { document.getElementById("m").style.width = "100%"; }
-        function closeM() { document.getElementById("m").style.width = "0"; }
+        function openM() { 
+            document.getElementById("m").style.width = "100%"; 
+        }
+        function closeM() { 
+            document.getElementById("m").style.width = "0"; 
+        }
     </script>
+
 </body>
 </html>
