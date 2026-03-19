@@ -12,23 +12,25 @@
 </head>
 <body>
 
-    <nav class="navbar navbar-expand-lg navbar-dark fixed-top">
-        <div class="container">
-            <a class="navbar-brand" href="index.html">NEVERA SPORTS</a>
-            <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav">
-                <span class="navbar-toggler-icon"></span>
-            </button>
-            <div class="collapse navbar-collapse justify-content-end" id="navbarNav">
-                <ul class="navbar-nav">
-                    <li class="nav-item"><a class="nav-link active" href="index.html">Home</a></li>
-                    <li class="nav-item"><a class="nav-link" href="eventi.html">Eventi</a></li>
-                    <li class="nav-item"><a class="nav-link" href="community.html">Community</a></li>
-                    <li class="nav-item"><a class="nav-link" href="sponsor.html">Sponsor</a></li>
-                    <li class="nav-item"><a class="nav-link" href="iniziative.html">Iniziative</a></li>
-                </ul>
-            </div>
-        </div>
-    </nav>
+    <nav class="navbar fixed-top">
+    <div class="container justify-content-center">
+        <a class="navbar-brand m-0" href="javascript:void(0)" onclick="toggleMenu()">
+            NEVERA <span style="color: #AAF0D1;">SPORTS</span>
+        </a>
+    </div>
+</nav>
+
+<div id="fullScreenMenu" class="overlay-menu">
+    <a href="javascript:void(0)" class="closebtn" onclick="toggleMenu()">&times;</a>
+    <div class="overlay-content">
+        <a href="index.html" onclick="toggleMenu()">Home</a>
+        <a href="eventi.html" onclick="toggleMenu()">Eventi</a>
+        <a href="community.html" onclick="toggleMenu()">Community</a>
+        <a href="sponsor.html" onclick="toggleMenu()">Sponsor</a>
+        <a href="iniziative.html" onclick="toggleMenu()">Iniziative</a>
+        <div class="menu-footer">NEVER-A-WASTE</div>
+    </div>
+</div>
 
     <section id="header-hero">
         <div class="container">
@@ -72,8 +74,18 @@
             40% {transform: translateY(-10px);}
             60% {transform: translateY(-5px);}
         }
+        
     </style>
-
+<script>
+function toggleMenu() {
+    var menu = document.getElementById("fullScreenMenu");
+    if (menu.style.width === "100%") {
+        menu.style.width = "0%";
+    } else {
+        menu.style.width = "100%";
+    }
+}
+</script>
 </body>
 </html>
 
