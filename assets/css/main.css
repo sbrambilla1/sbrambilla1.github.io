@@ -504,35 +504,42 @@ footer a:hover { color: #AAF0D1; }
     .event-poster-box { border-radius: 20px; }
 }
 
-/* --- OVERLAY MENU (VERSIONE BLINDATA) --- */
+/* RESET TOTALE OVERLAY */
 .full-screen-overlay {
     height: 100%;
-    width: 100%; /* Larghezza sempre 100% */
+    width: 0; /* Parte da zero larghezza */
     position: fixed;
-    z-index: 10001;
+    z-index: 99999; /* Numero altissimo per stare sopra a tutto */
     top: 0;
     left: 0;
-    background-color: #000; /* Nero totale */
-    
-    /* STATO INIZIALE: TOTALMENTE INVISIBILE */
-    opacity: 0;
-    visibility: hidden;
-    transition: all 0.5s cubic-bezier(0.7, 0, 0.3, 1);
+    background-color: #000000 !important; /* Nero puro */
+    overflow-x: hidden;
+    transition: 0.5s ease;
+    display: flex;
+    align-items: center;
+    justify-content: center;
 }
 
-/* Quando aggiungiamo la classe "open" via JS, il velo appare */
-.full-screen-overlay.open {
-    opacity: 1;
-    visibility: visible;
+/* RIMUOVI IL VELO DA TUTTE LE PAGINE */
+body, .hero-events-wrapper, .content-wrapper, main, .container-fluid {
+    background-color: transparent !important; /* Rende tutto trasparente per mostrare lo sfondo */
+    filter: none !important; /* Toglie eventuali oscuramenti */
 }
 
-/* Rimuovi eventuali altri overlay che avevamo creato per errore */
-.hero-black-overlay, .black-mask {
-    display: none !important;
+/* Assicurati che l'immagine di sfondo sia visibile */
+body {
+    background-image: url('../images/sfondo-padel.jpg'); /* Il tuo sfondo principale */
+    background-size: cover;
+    background-attachment: fixed;
+    background-color: #111; /* Grigio molto scuro di sicurezza, non nero coprente */
 }
 
-/* Assicurati che il contenuto sotto sia luminoso */
-.hero-events-wrapper, .main-content {
-    background-color: transparent !important;
-    filter: none !important;
+/* Il contenuto del menu */
+.overlay-content a {
+    font-size: 3rem;
+    font-weight: 800;
+    color: white;
+    text-decoration: none;
+    display: block;
+    margin: 15px 0;
 }
