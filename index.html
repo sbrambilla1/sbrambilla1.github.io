@@ -12,9 +12,9 @@
 </head>
 <body>
 
-    <nav class="navbar fixed-top">
+  <nav class="navbar fixed-top">
     <div class="container justify-content-center">
-        <a class="navbar-brand" href="javascript:void(0)" onclick="openNav()">
+        <a class="navbar-brand" href="javascript:void(0)" onclick="openNav()" style="cursor: pointer !important; z-index: 10002;">
             NEVERA SPORTS
         </a>
     </div>
@@ -24,11 +24,11 @@
     <a href="javascript:void(0)" class="closebtn" onclick="closeNav()">&times;</a>
     
     <div class="overlay-content">
-        <a href="index.html">HOME</a>
-        <a href="eventi.html">EVENTI</a>
-        <a href="sponsor.html">SPONSOR</a>
-        <a href="community.html">COMMUNITY</a>
-        <a href="iniziative.html">INIZIATIVE</a>
+        <a href="index.html" onclick="closeNav()">HOME</a>
+        <a href="eventi.html" onclick="closeNav()">EVENTI</a>
+        <a href="sponsor.html" onclick="closeNav()">SPONSOR</a>
+        <a href="community.html" onclick="closeNav()">COMMUNITY</a>
+        <a href="iniziative.html" onclick="closeNav()">INIZIATIVE</a>
     </div>
 </div>
 
@@ -77,14 +77,15 @@
         
     </style>
 <script>
-function toggleMenu() {
-    var menu = document.getElementById("fullScreenMenu");
-    if (menu.style.width === "100%") {
-        menu.style.width = "0%";
-    } else {
-        menu.style.width = "100%";
+    function openNav() {
+        console.log("Comando apertura ricevuto");
+        document.getElementById("myNav").style.width = "100%";
     }
-}
+
+    function closeNav() {
+        console.log("Comando chiusura ricevuto");
+        document.getElementById("myNav").style.width = "0%";
+    }
 </script>
 </body>
 </html>
