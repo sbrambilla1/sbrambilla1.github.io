@@ -11,95 +11,40 @@
     <link rel="stylesheet" href="assets/css/main.css">
 
     <style>
-        body {
+        /* RESET E SFONDO */
+        html, body {
             background-color: #000 !important;
             margin: 0;
+            padding: 0;
             color: #fff;
+            min-height: 100%;
         }
 
-        /* NAVBAR */
+        /* NAVBAR FISSA */
         .navbar {
             background: transparent !important;
             padding: 20px 0;
-            z-index: 1000;
+            z-index: 2000 !important; /* Molto alto per stare sopra a tutto */
         }
 
         .main-logo {
-            height: 45px;
+            height: 45px !important;
+            width: auto;
             cursor: pointer;
             transition: 0.3s;
         }
 
-        /* CONTENITORE SPONSOR */
-        .sponsor-section {
-            padding-top: 140px; /* Spazio per la navbar */
-            padding-bottom: 80px;
-        }
-
-        .section-title {
-            font-weight: 900;
-            letter-spacing: 5px;
-            margin-bottom: 10px;
-        }
-
-        .divider {
-            width: 60px;
-            height: 2px;
-            background-color: #AAF0D1;
-            margin: 0 auto 50px auto;
-        }
-
-        /* BOX SPONSOR */
-        .sponsor-box {
-            display: block;
-            text-decoration: none;
-            transition: transform 0.3s ease;
-            background: rgba(255, 255, 255, 0.03);
-            border-radius: 20px;
-            border: 1px solid rgba(255, 255, 255, 0.1);
-            overflow: hidden;
-        }
-
-        .sponsor-box:hover {
-            transform: translateY(-10px);
-            border-color: #AAF0D1;
-        }
-
-        .sponsor-box img {
-            width: 100%;
-            height: auto;
-            display: block;
-        }
-
-        .partner-card {
-            padding: 40px;
-            text-align: center;
-        }
-
-        .partner-card img {
-            max-height: 80px;
-            width: auto;
-            margin: 0 auto 20px auto;
-        }
-
-        .partner-card h3 {
-            font-size: 1.2rem;
-            font-weight: 700;
-            color: #fff;
-            margin: 0;
-            letter-spacing: 2px;
-        }
-
-        /* OVERLAY MENU */
-        .full-screen-overlay {
+        /* MENU OVERLAY */
+        #myNav {
             height: 100%;
-            width: 0;
+            width: 0; /* Parte chiuso */
             position: fixed;
             z-index: 9999;
             top: 0;
             left: 0;
             background-color: #000;
-            transition: 0.5s;
+            overflow-x: hidden;
+            transition: 0.5s cubic-bezier(0.7, 0, 0.3, 1);
             display: flex;
             align-items: center;
             justify-content: center;
@@ -112,10 +57,153 @@
             text-decoration: none;
             display: block;
             margin: 15px 0;
+            text-align: center;
         }
+
+        .overlay-content a:hover { color: #AAF0D1; }
 
         .closebtn {
             position: absolute;
             top: 30px;
             right: 45px;
-            font-size:
+            font-size: 60px;
+            color: #fff;
+            text-decoration: none;
+        }
+
+        /* CONTENUTO PAGINA */
+        .main-container {
+            padding-top: 120px; /* Spazio per non finire sotto la navbar */
+            text-align: center;
+        }
+
+        .section-title {
+            font-weight: 900;
+            letter-spacing: 5px;
+            text-transform: uppercase;
+            margin-bottom: 10px;
+        }
+
+        .divider {
+            width: 60px;
+            height: 2px;
+            background-color: #AAF0D1;
+            margin: 0 auto 50px auto;
+        }
+
+        /* BOX SPONSOR */
+        .sponsor-card {
+            background: rgba(255, 255, 255, 0.05);
+            border: 1px solid rgba(255, 255, 255, 0.1);
+            border-radius: 20px;
+            padding: 40px;
+            text-decoration: none;
+            display: block;
+            transition: 0.3s;
+            margin-bottom: 20px;
+        }
+
+        .sponsor-card:hover {
+            transform: translateY(-10px);
+            border-color: #AAF0D1;
+            background: rgba(255, 255, 255, 0.08);
+        }
+
+        .sponsor-card img {
+            max-width: 100%;
+            height: auto;
+            max-height: 100px;
+            margin-bottom: 20px;
+        }
+
+        .sponsor-card h3 {
+            color: #fff;
+            font-size: 1.2rem;
+            letter-spacing: 2px;
+            margin: 0;
+        }
+
+        /* BANNER VOLT */
+        .volt-banner {
+            border-radius: 20px;
+            overflow: hidden;
+            margin-bottom: 40px;
+            display: block;
+        }
+
+        .volt-banner img {
+            width: 100%;
+            height: auto;
+        }
+
+        @media (max-width: 768px) {
+            .overlay-content a { font-size: 2rem; }
+            .section-title { font-size: 1.5rem; }
+        }
+    </style>
+</head>
+<body>
+
+    <nav class="navbar fixed-top">
+        <div class="container justify-content-center">
+            <img src="images/logo.png" alt="Nevera Logo" class="main-logo" onclick="openNav()">
+        </div>
+    </nav>
+
+    <div id="myNav">
+        <a href="javascript:void(0)" class="closebtn" onclick="closeNav()">&times;</a>
+        <div class="overlay-content">
+            <a href="index.html" onclick="closeNav()">HOME</a>
+            <a href="eventi.html" onclick="closeNav()">EVENTI</a>
+            <a href="sponsor.html" onclick="closeNav()">SPONSOR</a>
+            <a href="community.html" onclick="closeNav()">COMMUNITY</a>
+            <a href="iniziative.html" onclick="closeNav()">INIZIATIVE</a>
+        </div>
+    </div>
+
+    <div class="main-container container">
+        
+        <h1 class="section-title">PARTNERS</h1>
+        <div class="divider"></div>
+
+        <div class="row justify-content-center">
+            <div class="col-lg-10 col-12">
+                <a href="https://www.voltpadel.com" target="_blank" class="volt-banner">
+                    <img src="images/volt-padel-banner.webp" alt="Volt Padel">
+                </a>
+            </div>
+        </div>
+
+        <div class="row justify-content-center g-4">
+            <div class="col-lg-5 col-md-6">
+                <a href="https://www.orya.it" target="_blank" class="sponsor-card">
+                    <img src="images/orya.png" alt="ORYA Logo">
+                    <h3>ORYA</h3>
+                </a>
+            </div>
+            <div class="col-lg-5 col-md-6">
+                <a href="https://www.swappadel.it/" target="_blank" class="sponsor-card">
+                    <img src="images/SWAP.png" alt="SWAP PADEL">
+                    <h3>SWAP PADEL</h3>
+                </a>
+            </div>
+        </div>
+
+        <p class="mt-5" style="opacity: 0.3; letter-spacing: 4px; font-size: 0.7rem;">BORN UNDER PRESSURE</p>
+    </div>
+
+    <script>
+        // Queste funzioni DEVONO essere qui per funzionare sicuramente
+        function openNav() {
+            console.log("Menu Aperto");
+            document.getElementById("myNav").style.width = "100%";
+        }
+
+        function closeNav() {
+            console.log("Menu Chiuso");
+            document.getElementById("myNav").style.width = "0%";
+        }
+    </script>
+
+</body>
+</html>
