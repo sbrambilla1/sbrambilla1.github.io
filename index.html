@@ -1,4 +1,3 @@
-
 <!DOCTYPE HTML>
 <html lang="it">
 <head>
@@ -11,100 +10,94 @@
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
     
     <style>
-        /* --- 1. RESET, LAYOUT & SFONDO HOME --- */
-        html, body {
-            margin: 0; padding: 0;
-            overflow-x: hidden;
-            font-family: 'Inter', sans-serif;
-            color: white;
-            
-            /* --- IMPOSTA QUI LA TUA IMMAGINE DI SFONDO PER LA HOME --- */
-            /* Sostituisci 'images/home-bg.jpg' con il nome reale del tuo file */
-            background-image: linear-gradient(rgba(0,0,0,0.6), rgba(0,0,0,0.7)), url('images/homebg.jpg');
-            
-            background-size: cover;
-            background-position: center;
-            background-attachment: fixed; /* L'immagine resta ferma mentre scorri */
-            background-color: #000; /* Fallback nero */
-            
-            /* Flexbox per spingere il footer in basso */
-            display: flex;
-            flex-direction: column;
-            min-height: 100vh;
-        }
+    /* --- RESET & LAYOUT --- */
+    html, body {
+        margin: 0; padding: 0;
+        width: 100%;
+        min-height: 100vh;
+        background-color: #000 !important; /* Forza il nero se l'immagine fallisce */
+        font-family: 'Inter', sans-serif;
+        color: white;
+        display: flex;
+        flex-direction: column;
+        overflow-x: hidden;
+    }
 
-        /* --- 2. NAVBAR & LOGO (80px) --- */
-        .nav-fix {
-            position: fixed;
-            top: 0; width: 100%;
-            padding: 40px 0; z-index: 5000;
-            text-align: center;
-            background: linear-gradient(to bottom, rgba(0,0,0,0.8) 0%, transparent 100%);
-        }
-        .logo-nav-container { display: inline-block; cursor: pointer; transition: 0.3s; }
-        .logo-trigger { 
-            height: 80px; width: auto; transition: 0.3s;
-            filter: drop-shadow(0 0 0px rgba(170, 240, 209, 0));
-        }
-        .logo-nav-container:hover .logo-trigger {
-            transform: scale(1.08);
-            filter: drop-shadow(0 0 20px rgba(170, 240, 209, 0.6));
-        }
+    /* --- BACKGROUND IMAGE --- */
+    body::before {
+        content: "";
+        position: fixed;
+        top: 0; left: 0;
+        width: 100%; height: 100%;
+        /* ATTENZIONE: Controlla che il nome del file sia identico a quello nella cartella */
+        background-image: linear-gradient(rgba(0,0,0,0.6), rgba(0,0,0,0.8)), url('images/home-bg.jpg');
+        background-size: cover;
+        background-position: center;
+        background-repeat: no-repeat;
+        z-index: -1; /* Mette l'immagine dietro a tutto */
+    }
 
-        /* --- 3. MENU OVERLAY --- */
-        .nv-menu {
-            height: 100%; width: 0; position: fixed; z-index: 9999;
-            top: 0; left: 0; background-color: rgba(0,0,0,0.98); overflow: hidden;
-            transition: 0.5s cubic-bezier(0.7, 0, 0.3, 1); 
-            display: flex; align-items: center; justify-content: center;
-        }
-        .nv-links a { 
-            font-size: 2.5rem; color: #fff; text-decoration: none; 
-            display: block; margin: 25px; font-weight: 900; 
-            text-transform: uppercase; letter-spacing: 5px; transition: 0.3s;
-        }
-        .nv-links a:hover { color: #AAF0D1; transform: scale(1.1); }
-        .nv-close { position: absolute; top: 30px; right: 45px; font-size: 50px; color: #fff; text-decoration: none; }
+    /* --- NAVBAR & LOGO --- */
+    .nav-fix {
+        position: fixed;
+        top: 0; width: 100%;
+        padding: 40px 0; z-index: 5000;
+        text-align: center;
+        background: linear-gradient(to bottom, rgba(0,0,0,0.8) 0%, transparent 100%);
+    }
+    .logo-trigger { height: 80px; width: auto; cursor: pointer; transition: 0.3s; }
+    .logo-trigger:hover { transform: scale(1.08); filter: drop-shadow(0 0 20px rgba(170, 240, 209, 0.6)); }
 
-        /* --- 4. CONTENUTO CENTRALE --- */
-        .main-wrapper { padding-top: 220px; min-height: 80vh; text-align: center; }
-        .nv-title { font-weight: 900; letter-spacing: 8px; text-transform: uppercase; font-size: 3.5rem; }
-        .nv-subtitle { color: #AAF0D1; letter-spacing: 4px; text-transform: uppercase; margin-bottom: 40px; }
-        .nv-line { width: 60px; height: 2px; background-color: #AAF0D1; margin: 0 auto 50px auto; }
+    /* --- MENU OVERLAY --- */
+    .nv-menu {
+        height: 100%; width: 0; position: fixed; z-index: 9999;
+        top: 0; left: 0; background-color: rgba(0,0,0,0.98); overflow: hidden;
+        transition: 0.5s cubic-bezier(0.7, 0, 0.3, 1); 
+        display: flex; align-items: center; justify-content: center;
+    }
+    .nv-links a { font-size: 2.5rem; color: #fff; text-decoration: none; display: block; margin: 25px; font-weight: 900; text-transform: uppercase; letter-spacing: 5px; }
+    .nv-links a:hover { color: #AAF0D1; }
+    .nv-close { position: absolute; top: 30px; right: 45px; font-size: 50px; color: #fff; text-decoration: none; }
 
-        /* Card Stile Home */
-        .home-card {
-            display: block; background: rgba(255,255,255,0.03); border: 1px solid rgba(255,255,255,0.1);
-            border-radius: 20px; padding: 40px 20px; text-decoration: none !important; transition: 0.4s; height: 100%;
-        }
-        .home-card:hover { border-color: #AAF0D1; background: rgba(170, 240, 209, 0.05); transform: translateY(-10px); }
-        .home-card i { font-size: 2.5rem; color: #fff; margin-bottom: 20px; transition: 0.3s; }
-        .home-card:hover i { color: #AAF0D1; }
-        .home-card h3 { font-size: 1rem; font-weight: 800; color: #fff; text-transform: uppercase; letter-spacing: 2px; }
+    /* --- CONTENT --- */
+    .main-wrapper { 
+        padding-top: 220px; 
+        flex: 1;
+        display: flex;
+        flex-direction: column;
+        justify-content: center;
+        align-items: center;
+        text-align: center;
+    }
+    
+    .nv-title { font-weight: 900; letter-spacing: 12px; text-transform: uppercase; font-size: 4rem; margin-bottom: 5px; }
+    .nv-subtitle { color: #AAF0D1; letter-spacing: 5px; text-transform: uppercase; margin-bottom: 60px; font-size: 1.2rem; font-weight: 700; }
 
-        /* --- 5. FOOTER & FORM --- */
-        .nv-footer { background-color: #080808; padding: 80px 0 30px 0; border-top: 1px solid rgba(255,255,255,0.05); margin-top: 100px; }
-        .contact-form-box { background: rgba(255,255,255,0.02); padding: 40px; border-radius: 20px; border: 1px solid rgba(255,255,255,0.05); }
-        .nv-input { 
-            width: 100%; background: rgba(255,255,255,0.05); border: 1px solid rgba(255,255,255,0.1); 
-            border-radius: 12px; padding: 15px; color: white; outline: none; transition: 0.3s; margin-bottom: 15px;
-        }
-        .nv-input:focus { border-color: #AAF0D1; background: rgba(170, 240, 209, 0.05); }
-        .nv-btn-submit { 
-            background: #AAF0D1; color: #000; border: none; padding: 12px 40px; 
-            border-radius: 50px; font-weight: 800; text-transform: uppercase; cursor: pointer; transition: 0.3s;
-        }
-        .nv-btn-submit:hover { background: white; transform: scale(1.05); }
-        .footer-bottom { margin-top: 60px; opacity: 0.3; font-size: 0.7rem; text-align: center; letter-spacing: 3px; }
+    /* --- CARDS CON EFFETTO VETRO --- */
+    .home-card {
+        display: block; 
+        background: rgba(255, 255, 255, 0.05);
+        backdrop-filter: blur(10px);
+        -webkit-backdrop-filter: blur(10px);
+        border: 1px solid rgba(255, 255, 255, 0.1);
+        border-radius: 20px; 
+        padding: 40px 20px; 
+        text-decoration: none !important; 
+        transition: 0.4s;
+    }
+    .home-card:hover { border-color: #AAF0D1; transform: translateY(-10px); background: rgba(170, 240, 209, 0.05); }
+    .home-card i { font-size: 2.5rem; color: #fff; margin-bottom: 20px; }
+    .home-card h3 { font-size: 0.9rem; font-weight: 800; color: #fff; text-transform: uppercase; letter-spacing: 2px; }
 
-        /* --- RESPONSIVE --- */
-        @media (max-width: 768px) {
-            .nv-title { font-size: 2rem; }
-            .logo-trigger { height: 60px; }
-            .main-wrapper { padding-top: 180px; }
-            .nv-links a { font-size: 1.8rem; }
-        }
-    </style>
+    /* --- FOOTER --- */
+    .nv-footer { padding: 40px 0; text-align: center; background: transparent; }
+    .footer-bottom { opacity: 0.3; font-size: 0.7rem; letter-spacing: 4px; text-transform: uppercase; }
+
+    @media (max-width: 768px) {
+        .nv-title { font-size: 2.2rem; }
+        .logo-trigger { height: 60px; }
+    }
+</style>
 </head>
 <body>
 
