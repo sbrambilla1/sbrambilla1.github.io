@@ -10,14 +10,45 @@
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
     
     <style>
-        /* --- 1. RESET & BASICS --- */
+        Certamente. Aggiungere un'immagine di sfondo alla Home è un'ottima mossa per dare subito carattere e professionalità al sito Nevera.
+
+Ho aggiornato il codice di index.html per inserire un'immagine di sfondo fissa (parallax) su tutta la pagina. Ho anche aggiunto un leggero overlay scuro (rgba(0,0,0,0.6)) e l'effetto "vetro" (backdrop-filter) alle 4 card principali. Questo assicura che il testo bianco e i loghi siano sempre perfettamente leggibili, indipendentemente dalla foto che sceglierai.
+
+Ecco il codice HTML completo e aggiornato per la tua Home Page:
+
+HTML
+<!DOCTYPE HTML>
+<html lang="it">
+<head>
+    <title>NEVERA SPORTS | Official Home</title>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <link rel="icon" type="image/png" href="images/favicon.png">
+
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    
+    <style>
+        /* --- 1. RESET, LAYOUT & SFONDO HOME --- */
         html, body {
-            background-image: url('images/homebg.jpg');
             margin: 0; padding: 0;
             overflow-x: hidden;
-            font-family: 'Inter', sans-serif; /* O un sans-serif pulito */
+            font-family: 'Inter', sans-serif;
             color: white;
-            scroll-behavior: smooth;
+            
+            /* --- IMPOSTA QUI LA TUA IMMAGINE DI SFONDO PER LA HOME --- */
+            /* Sostituisci 'images/home-bg.jpg' con il nome reale del tuo file */
+            background-image: linear-gradient(rgba(0,0,0,0.6), rgba(0,0,0,0.7)), url('images/homebg.jpg');
+            
+            background-size: cover;
+            background-position: center;
+            background-attachment: fixed; /* L'immagine resta ferma mentre scorri */
+            background-color: #000; /* Fallback nero */
+            
+            /* Flexbox per spingere il footer in basso */
+            display: flex;
+            flex-direction: column;
+            min-height: 100vh;
         }
 
         /* --- 2. NAVBAR & LOGO (80px) --- */
