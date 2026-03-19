@@ -53,8 +53,8 @@
         .nv-title { font-weight: 900; letter-spacing: 5px; text-transform: uppercase; margin-bottom: 10px; }
         .nv-line { width: 60px; height: 2px; background-color: #AAF0D1; margin: 0 auto 50px auto; }
 
-        /* BANNER EVENTI (CARD) */
-        .nv-card {
+        /* BANNER EVENTO VERTICALE (CARD) */
+        .nv-card-vertical {
             display: block;
             border-radius: 20px;
             overflow: hidden;
@@ -64,29 +64,32 @@
             padding: 0 !important; 
             text-decoration: none;
             position: relative;
-            margin-bottom: 40px;
+            /* Definisce le proporzioni verticali (es. 2/3 o 3/4) */
+            aspect-ratio: 2 / 3; 
+            /* Centra il banner verticalmente se lo schermo è molto alto */
+            max-height: 80vh; 
+            margin: 0 auto 40px auto; /* Centra orizzontalmente */
         }
 
-        .nv-card:hover {
+        .nv-card-vertical:hover {
             transform: translateY(-10px);
             border-color: #AAF0D1 !important;
             box-shadow: 0 15px 40px rgba(170, 240, 209, 0.2);
         }
 
-        .nv-card img {
+        .nv-card-vertical img {
             width: 100%;
             height: 100%;
             display: block;
-            object-fit: cover; 
+            object-fit: cover; /* Riempie il box verticale senza schiacciarsi */
             transition: transform 0.6s ease;
-            aspect-ratio: 21 / 9; /* Banner panoramico per gli eventi */
         }
         
-        .nv-card:hover img {
+        .nv-card-vertical:hover img {
             transform: scale(1.05); 
         }
 
-        /* Badge "Prossimamente" o "Live" */
+        /* Badge "Live" o "Presto Disponibile" */
         .event-badge {
             position: absolute;
             top: 20px;
@@ -101,10 +104,12 @@
             z-index: 5;
         }
 
+        /* Mobile Responsive */
         @media (max-width: 768px) {
             .nv-content { padding-top: 180px; }
             .logo-trigger { height: 60px; }
-            .nv-card img { aspect-ratio: 16 / 9; }
+            /* Su mobile, il banner può essere meno alto per mostrare il titolo sopra */
+            .nv-card-vertical { aspect-ratio: 3 / 4; max-height: 70vh;}
         }
     </style>
 </head>
@@ -128,22 +133,16 @@
     </div>
 
     <div class="nv-content container">
-        <h1 class="nv-title">PROSSIMI EVENTI</h1>
+        <h1 class="nv-title">EVENTO IN PRIMO PIANO</h1>
         <div class="nv-line"></div>
 
         <div class="row justify-content-center">
             
-            <div class="col-lg-10 col-12">
-                <a href="#" class="nv-card">
+            <div class="col-xl-6 col-lg-7 col-md-9 col-12">
+                <a href="#" class="nv-card-vertical">
                     <div class="event-badge">Presto Disponibile</div>
-                    <img src="images/evento-torneo-1.jpg" alt="Evento Nevera 1">
-                </a>
-            </div>
-
-            <div class="col-lg-10 col-12">
-                <a href="#" class="nv-card">
-                    <div class="event-badge">Coming Soon</div>
-                    <img src="images/evento-torneo-2.jpg" alt="Evento Nevera 2">
+                    
+                    <img src="images/evento-verticale.jpg" alt="Evento Nevera Verticale">
                 </a>
             </div>
 
