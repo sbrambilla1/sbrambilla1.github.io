@@ -40,10 +40,10 @@
             transition: 0.3s;
         }
 
-        /* MENU OVERLAY - Cambiato nome in 'overlay-nevera' per evitare conflitti */
+        /* MENU OVERLAY - 'overlay-nevera' per evitare conflitti */
         .overlay-nevera {
             height: 100%;
-            width: 0; /* DEVE ESSERE 0 */
+            width: 0; /* Parte chiuso */
             position: fixed;
             z-index: 9999;
             top: 0;
@@ -66,6 +66,10 @@
             text-align: center;
         }
 
+        .links-nevera a:hover {
+            color: #AAF0D1;
+        }
+
         .close-nevera {
             position: absolute;
             top: 30px;
@@ -79,7 +83,7 @@
         .content-wrapper {
             padding-top: 120px;
             position: relative;
-            z-index: 10; /* Sopra lo sfondo, sotto il menu */
+            z-index: 10;
             color: white;
             text-align: center;
         }
@@ -98,15 +102,22 @@
             margin: 0 auto 50px auto;
         }
 
+        /* --- MODIFICA SPONSOR CARD PER RIEMPIMENTO --- */
         .sponsor-card {
             background: rgba(255, 255, 255, 0.05);
             border: 1px solid rgba(255, 255, 255, 0.1);
             border-radius: 20px;
-            padding: 30px;
+            /* Rimosso padding interno per far toccare i bordi all'immagine */
+            padding: 0 !important; 
             display: block;
             text-decoration: none;
-            transition: 0.3s;
+            transition: transform 0.3s ease, border-color 0.3s ease;
             margin-bottom: 20px;
+            overflow: hidden; /* Mantiene l'immagine dentro i bordi arrotondati */
+            position: relative;
+            /* Definiamo un'altezza o un aspect-ratio se vogliamo card uniformi, 
+               altrimenti l'altezza dipenderà dall'immagine ritagliata */
+            aspect-ratio: 3 / 2; /* Esempio: card rettangolari uniformi */
         }
 
         .sponsor-card:hover {
@@ -114,16 +125,33 @@
             border-color: #AAF0D1;
         }
 
+        /* --- MODIFICA IMMAGINE PER RIEMPIMENTO --- */
         .sponsor-card img {
-            max-height: 70px;
-            margin-bottom: 15px;
+            width: 100% !important;
+            height: 100% !important;
+            /* FONDAMENTALE: Copre l'intera area ritagliando l'eccesso senza deformare */
+            object-fit: cover !important; 
+            object-position: center !important; /* Centra l'immagine nel ritaglio */
+            display: block !important;
         }
 
+        /* Testo opzionale sopra l'immagine (se serve) */
         .sponsor-card h3 {
+            position: absolute;
+            bottom: 15px;
+            left: 20px;
             color: #fff;
-            font-size: 1rem;
+            font-size: 1.2rem;
             letter-spacing: 2px;
             margin: 0;
+            background: rgba(0,0,0,0.5); /* Sfondo scuro per leggibilità */
+            padding: 5px 10px;
+            border-radius: 5px;
+            display: none; /* Nascosto di default, mostralo se vuoi il testo sopra */
+        }
+
+        .sponsor-card:hover h3 {
+            display: block;
         }
     </style>
 </head>
@@ -136,11 +164,11 @@
     <div id="neveraMenu" class="overlay-nevera">
         <a href="javascript:void(0)" class="close-nevera" onclick="toggleMenu(0)">&times;</a>
         <div class="links-nevera">
-            <a href="index.html">HOME</a>
-            <a href="eventi.html">EVENTI</a>
-            <a href="sponsor.html">SPONSOR</a>
-            <a href="community.html">COMMUNITY</a>
-            <a href="iniziative.html">INIZIATIVE</a>
+            <a href="index.html" onclick="toggleMenu(0)">HOME</a>
+            <a href="eventi.html" onclick="toggleMenu(0)">EVENTI</a>
+            <a href="sponsor.html" onclick="toggleMenu(0)">SPONSOR</a>
+            <a href="community.html" onclick="toggleMenu(0)">COMMUNITY</a>
+            <a href="iniziative.html" onclick="toggleMenu(0)">INIZIATIVE</a>
         </div>
     </div>
 
@@ -151,7 +179,7 @@
         <div class="row justify-content-center mb-5">
             <div class="col-lg-10 col-12">
                 <a href="https://www.voltpadel.com" target="_blank" style="display:block; border-radius: 20px; overflow:hidden;">
-                    <img src="images/volt-padel-banner.webp" class="img-fluid" alt="Volt Padel">
+                    <img src="images/volt-padel-banner.webp" class="img-fluid w-100" alt="Volt Padel">
                 </a>
             </div>
         </div>
@@ -160,7 +188,7 @@
             <div class="col-lg-5 col-md-6">
                 <a href="https://www.orya.it" target="_blank" class="sponsor-card">
                     <img src="images/orya.png" alt="Orya">
-                    <h3>ORYA</h3>
+                    <h3>ORYA</h3> 
                 </a>
             </div>
             <div class="col-lg-5 col-md-6">
