@@ -566,3 +566,17 @@ footer a:hover { color: #AAF0D1; }
         font-size: 45px;
     }
 }
+/* RIDUZIONE GRANDEZZA LOGO NAVBAR */
+.nav-logo {
+    height: 40px; /* Era 60px o 50px, abbassalo a 40px o 35px per renderlo più discreto */
+    width: auto;  /* Mantiene le proporzioni corrette */
+    transition: transform 0.3s ease;
+    cursor: pointer;
+}
+
+/* Regolazione per Mobile (ancora più piccolo) */
+@media (max-width: 768px) {
+    .nav-logo {
+        height: 30px; 
+    }
+}
