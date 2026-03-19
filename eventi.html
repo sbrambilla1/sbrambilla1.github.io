@@ -7,62 +7,66 @@
     <link rel="icon" type="image/png" href="images/favicon.png">
 
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
     <link rel="stylesheet" href="assets/css/main.css">
 
     <style>
-        /* RESET E STRUTTURA */
+        /* RESET TOTALE */
         html, body {
             height: 100%;
             background-color: #000 !important;
             margin: 0;
-            padding: 0;
-            overflow: hidden; /* Evita lo scroll se il banner è centrato */
+            overflow: hidden; /* Blocca lo scroll per centrare tutto */
         }
 
         /* NAVBAR */
         .navbar {
             background: transparent !important;
             z-index: 1000;
+            padding: 20px 0;
         }
 
         .main-logo {
             height: 45px;
             cursor: pointer;
-            transition: 0.3s;
         }
 
-        /* WRAPPER PER CENTRATURA VERTICALE */
+        /* CENTRATURA DEL POSTER */
         .wrapper-centrato {
             display: flex;
             align-items: center;
             justify-content: center;
-            height: 100vh; /* Tutta l'altezza dello schermo */
+            height: 100vh;
             width: 100%;
-            padding: 80px 20px 40px 20px; /* Spazio per navbar e footer */
+            padding: 20px;
         }
 
-        /* IL BANNER VERTICALE */
+        /* IL TRUCCO PER IL POSTER VERTICALE */
         .event-poster-box {
             display: block;
-            height: 100%; /* Si adatta all'altezza del wrapper */
-            max-height: 750px; /* Limite massimo per non farlo sgranare su desktop */
-            aspect-ratio: 9 / 16; /* Forza il formato verticale */
+            /* Definiamo noi la forma verticale */
+            width: 400px;         /* Larghezza stretta */
+            height: 600px;        /* Altezza lunga */
+            max-width: 90vw;      /* Non esce dallo schermo su mobile */
+            max-height: 70vh;     /* Non esce dallo schermo in altezza */
+            
             border-radius: 20px;
             overflow: hidden;
-            box-shadow: 0 0 40px rgba(170, 240, 209, 0.15);
-            transition: transform 0.4s ease;
+            box-shadow: 0 0 50px rgba(170, 240, 209, 0.2);
+            border: 1px solid rgba(255,255,255,0.1);
+            transition: transform 0.3s ease;
         }
 
         .event-poster-box:hover {
-            transform: scale(1.02);
+            transform: scale(1.03);
         }
 
         .event-poster-box img {
             width: 100%;
             height: 100%;
-            object-fit: cover; /* Riempie il box senza deformarsi */
-            display: block;
+            /* FONDAMENTALE: Taglia i lati dell'immagine se è orizzontale 
+               per farla stare nel rettangolo verticale senza deformarsi */
+            object-fit: cover; 
+            object-position: center;
         }
 
         /* MENU OVERLAY */
@@ -74,7 +78,6 @@
             top: 0;
             left: 0;
             background-color: #000;
-            overflow-x: hidden;
             transition: 0.5s;
             display: flex;
             align-items: center;
@@ -83,11 +86,11 @@
 
         .overlay-content a {
             font-size: 3rem;
-            font-weight: 800;
             color: #fff;
             text-decoration: none;
-            display: block;
+            font-weight: 800;
             margin: 15px 0;
+            display: block;
         }
 
         .closebtn {
@@ -101,11 +104,9 @@
 
         @media (max-width: 768px) {
             .event-poster-box {
-                width: 85%; /* Su mobile occupa più larghezza */
-                height: auto;
-                aspect-ratio: 9 / 16;
+                width: 85%;
+                height: 500px;
             }
-            .overlay-content a { font-size: 2rem; }
         }
     </style>
 </head>
@@ -122,11 +123,11 @@
     <div id="myNav" class="full-screen-overlay">
         <a href="javascript:void(0)" class="closebtn" onclick="closeNav()">&times;</a>
         <div class="overlay-content text-center">
-            <a href="index.html">HOME</a>
-            <a href="eventi.html">EVENTI</a>
-            <a href="sponsor.html">SPONSOR</a>
-            <a href="community.html">COMMUNITY</a>
-            <a href="iniziative.html">INIZIATIVE</a>
+            <a href="index.html" onclick="closeNav()">HOME</a>
+            <a href="eventi.html" onclick="closeNav()">EVENTI</a>
+            <a href="sponsor.html" onclick="closeNav()">SPONSOR</a>
+            <a href="community.html" onclick="closeNav()">COMMUNITY</a>
+            <a href="iniziative.html" onclick="closeNav()">INIZIATIVE</a>
         </div>
     </div>
 
@@ -137,12 +138,8 @@
     </div>
 
     <script>
-        function openNav() {
-            document.getElementById("myNav").style.width = "100%";
-        }
-        function closeNav() {
-            document.getElementById("myNav").style.width = "0%";
-        }
+        function openNav() { document.getElementById("myNav").style.width = "100%"; }
+        function closeNav() { document.getElementById("myNav").style.width = "0%"; }
     </script>
 
 </body>
