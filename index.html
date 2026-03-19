@@ -77,15 +77,15 @@
         
     </style>
 <script>
-    function openNav() {
-        console.log("Comando apertura ricevuto");
-        document.getElementById("myNav").style.width = "100%";
-    }
+function openNav() {
+    console.log("Menu aperto");
+    document.getElementById("myNav").classList.add("open");
+}
 
-    function closeNav() {
-        console.log("Comando chiusura ricevuto");
-        document.getElementById("myNav").style.width = "0%";
-    }
+function closeNav() {
+    console.log("Menu chiuso");
+    document.getElementById("myNav").classList.remove("open");
+}
 </script>
 </body>
 </html>
