@@ -1,7 +1,7 @@
 <!DOCTYPE HTML>
 <html lang="it">
 <head>
-    <title>NEVERA SPORTS</title>
+    <title>NEVERA SPORTS | HOME</title>
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1" />
     <link rel="icon" type="image/png" href="images/favicon.png">
@@ -11,156 +11,203 @@
     <link rel="stylesheet" href="assets/css/main.css">
 
     <style>
-        /* --- RESET VELO NERO --- */
-        body {
-            background-color: #000; /* O il colore del tuo sfondo */
-            margin: 0;
+        /* RESET GLOBALE */
+        html, body {
+            background-color: #000 !important;
+            margin: 0; padding: 0;
             overflow-x: hidden;
-        }
-
-        /* --- NAVBAR --- */
-        .navbar {
-            background: transparent !important;
-            padding: 20px 0;
-            z-index: 1000;
-        }
-
-        .main-logo {
-            height: 50px; /* Dimensione logo menu */
-            width: auto;
-            cursor: pointer;
-            transition: transform 0.3s ease;
-        }
-        
-        .main-logo:hover {
-            transform: scale(1.1);
-        }
-
-        /* --- OVERLAY MENU (FIXED) --- */
-        .full-screen-overlay {
+            font-family: sans-serif;
+            color: white;
             height: 100%;
-            width: 100%;
+        }
+
+        /* NAVBAR E LOGO TRIGGER MENU (80px) */
+        .nav-fix {
             position: fixed;
-            z-index: 9999;
-            top: 0;
-            left: 0;
-            background-color: rgba(0,0,0,0.98);
-            
-            /* Inizia invisibile e spostato */
-            opacity: 0;
-            visibility: hidden;
-            transform: translateY(-100%); 
-            transition: all 0.5s cubic-bezier(0.7, 0, 0.3, 1);
-            
+            top: 0; width: 100%;
+            padding: 40px 0; z-index: 5000;
+            text-align: center;
+        }
+        .logo-nav-container { display: inline-block; cursor: pointer; transition: 0.3s; }
+        .logo-trigger { 
+            height: 80px; width: auto; transition: 0.3s;
+            filter: drop-shadow(0 0 0px rgba(170, 240, 209, 0));
+        }
+        .logo-nav-container:hover .logo-trigger {
+            transform: scale(1.08);
+            filter: drop-shadow(0 0 20px rgba(170, 240, 209, 0.8));
+        }
+
+        /* MENU OVERLAY */
+        .nv-menu {
+            height: 100%; width: 0; position: fixed; z-index: 9999;
+            top: 0; left: 0; background-color: #000; overflow: hidden;
+            transition: 0.5s cubic-bezier(0.7, 0, 0.3, 1); 
+            display: flex; align-items: center; justify-content: center;
+        }
+        .nv-links a { font-size: 2.5rem; color: #fff; text-decoration: none; display: block; margin: 20px; font-weight: 800; }
+        .nv-links a:hover { color: #AAF0D1; }
+        .nv-close { position: absolute; top: 30px; right: 45px; font-size: 50px; color: #fff; text-decoration: none; }
+
+        /* HERO SECTION */
+        .home-content {
+            min-height: 100vh;
             display: flex;
-            align-items: center;
+            flex-direction: column;
             justify-content: center;
-        }
-
-        /* Classe che attiva il menu */
-        .full-screen-overlay.open {
-            opacity: 1;
-            visibility: visible;
-            transform: translateY(0);
-        }
-
-        .overlay-content a {
-            font-size: 3rem;
-            font-weight: 800;
-            color: white;
-            text-decoration: none;
-            display: block;
-            margin: 15px 0;
-            transition: 0.3s;
+            align-items: center;
+            padding-top: 100px;
             text-align: center;
         }
 
-        .overlay-content a:hover {
+        .hero-title {
+            font-size: 4rem;
+            font-weight: 900;
+            letter-spacing: 10px;
+            text-transform: uppercase;
+            margin-bottom: 5px;
+            animation: fadeInDown 1s ease-out;
+        }
+
+        .hero-subtitle {
+            font-size: 1.2rem;
+            letter-spacing: 5px;
             color: #AAF0D1;
+            text-transform: uppercase;
+            margin-bottom: 60px;
+            opacity: 0.8;
+            animation: fadeInUp 1.2s ease-out;
         }
 
-        .closebtn {
-            position: absolute;
-            top: 30px;
-            right: 45px;
-            font-size: 60px;
-            color: white;
-            text-decoration: none;
+        /* CARD NAVIGAZIONE HOME */
+        .home-grid {
+            max-width: 1000px;
+            width: 100%;
+            padding: 0 20px;
         }
 
-        /* Contenuto Pagina */
-        .hero-section {
-            padding: 150px 0 100px;
-            text-align: center;
-            color: white;
+        .home-card {
+            display: block;
+            background: rgba(255, 255, 255, 0.03);
+            border: 1px solid rgba(255, 255, 255, 0.1);
+            border-radius: 20px;
+            padding: 40px 20px;
+            text-decoration: none !important;
+            transition: all 0.4s ease;
+            height: 100%;
         }
 
-        @keyframes bounce {
-            0%, 20%, 50%, 80%, 100% {transform: translateY(0);}
-            40% {transform: translateY(-10px);}
-            60% {transform: translateY(-5px);}
+        .home-card i {
+            font-size: 2rem;
+            color: #fff;
+            margin-bottom: 20px;
+            transition: 0.3s;
+        }
+
+        .home-card h3 {
+            font-size: 1.1rem;
+            font-weight: 800;
+            color: #fff;
+            letter-spacing: 3px;
+            text-transform: uppercase;
+            margin: 0;
+        }
+
+        .home-card:hover {
+            transform: translateY(-10px);
+            border-color: #AAF0D1;
+            background: rgba(170, 240, 209, 0.05);
+            box-shadow: 0 15px 40px rgba(170, 240, 209, 0.15);
+        }
+
+        .home-card:hover i {
+            color: #AAF0D1;
+            transform: scale(1.2);
+        }
+
+        /* ANIMAZIONI */
+        @keyframes fadeInDown {
+            from { opacity: 0; transform: translateY(-30px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+        @keyframes fadeInUp {
+            from { opacity: 0; transform: translateY(30px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+
+        @media (max-width: 768px) {
+            .hero-title { font-size: 2.2rem; letter-spacing: 5px; }
+            .hero-subtitle { font-size: 0.8rem; }
+            .logo-trigger { height: 65px; }
+            .home-card { padding: 30px 10px; }
         }
     </style>
 </head>
 <body>
 
-<div id="myNav" class="full-screen-overlay">
-    <a href="javascript:void(0)" class="closebtn" onclick="closeNav()">&times;</a>
-    <div class="overlay-content">
-        <a href="index.html" onclick="closeNav()">HOME</a>
-        <a href="eventi.html" onclick="closeNav()">EVENTI</a>
-        <a href="sponsor.html" onclick="closeNav()">SPONSOR</a>
-        <a href="community.html" onclick="closeNav()">COMMUNITY</a>
-        <a href="iniziative.html" onclick="closeNav()">INIZIATIVE</a>
+    <div class="nav-fix">
+        <div class="logo-nav-container" onclick="openM()">
+            <img src="images/logo.png" alt="Nevera Sports Logo" class="logo-trigger">
+        </div>
     </div>
-</div>
 
-<nav class="navbar fixed-top">
-    <div class="container justify-content-center">
-        <a class="navbar-brand" href="javascript:void(0)" onclick="openNav()">
-            <img src="images/logo.png" alt="Nevera Logo" class="main-logo">
-        </a>
+    <div id="m" class="nv-menu">
+        <a href="javascript:void(0)" class="nv-close" onclick="closeM()">&times;</a>
+        <div class="nv-links text-center">
+            <a href="index.html" onclick="closeM()">HOME</a>
+            <a href="eventi.html" onclick="closeM()">EVENTI</a>
+            <a href="sponsor.html" onclick="closeM()">SPONSOR</a>
+            <a href="community.html" onclick="closeM()">COMMUNITY</a>
+            <a href="iniziative.html" onclick="closeM()">INIZIATIVE</a>
+        </div>
     </div>
-</nav>
 
-<div class="hero-section">
-    <div class="container">
-        <h1 class="display-1 fw-bold">NEVERA SPORTS</h1>
-        <p class="fs-4" style="color: #AAF0D1; letter-spacing: 5px;">BORN UNDER PRESSURE</p>
+    <div class="home-content container">
         
-        <div style="margin-top: 50px; opacity: 0.7; animation: bounce 2s infinite;">
-            <i class="fa-solid fa-chevron-down" style="color: #AAF0D1; font-size: 1.5rem;"></i>
+        <h1 class="hero-title">NEVERA</h1>
+        <p class="hero-subtitle">Born Under Pressure</p>
+
+        <div class="home-grid">
+            <div class="row g-4 justify-content-center">
+                
+                <div class="col-6 col-md-3">
+                    <a href="eventi.html" class="home-card">
+                        <i class="fa-solid fa-calendar-star"></i>
+                        <h3>Eventi</h3>
+                    </a>
+                </div>
+
+                <div class="col-6 col-md-3">
+                    <a href="community.html" class="home-card">
+                        <i class="fa-solid fa-users"></i>
+                        <h3>Community</h3>
+                    </a>
+                </div>
+
+                <div class="col-6 col-md-3">
+                    <a href="sponsor.html" class="home-card">
+                        <i class="fa-solid fa-handshake"></i>
+                        <h3>Sponsor</h3>
+                    </a>
+                </div>
+
+                <div class="col-6 col-md-3">
+                    <a href="iniziative.html" class="home-card">
+                        <i class="fa-solid fa-lightbulb"></i>
+                        <h3>Iniziative</h3>
+                    </a>
+                </div>
+
+            </div>
         </div>
+
+        <p class="mt-auto mb-5" style="opacity: 0.3; letter-spacing: 5px; font-size: 0.7rem;">&copy; 2026 NEVERA SPORTS</p>
     </div>
-</div>
 
-<footer id="footer" class="py-5 text-center">
-    <div class="container">
-        <div class="row justify-content-center mb-4">
-            <div class="col-auto"><a href="eventi.html" class="text-white mx-3 fw-bold text-decoration-none">EVENTI</a></div>
-            <div class="col-auto"><a href="community.html" class="text-white mx-3 fw-bold text-decoration-none">COMMUNITY</a></div>
-            <div class="col-auto"><a href="sponsor.html" class="text-white mx-3 fw-bold text-decoration-none">SPONSOR</a></div>
-            <div class="col-auto"><a href="iniziative.html" class="text-white mx-3 fw-bold text-decoration-none">INIZIATIVE</a></div>
-        </div>
-        <div class="social-links">
-            <a href="https://www.instagram.com/neverasports.it/" class="text-white mx-2"><i class="fab fa-instagram fa-lg"></i></a>
-            <a href="https://t.me/neverasports" class="text-white mx-2"><i class="fab fa-telegram fa-lg"></i></a>
-            <a href="mailto:info@neverasports.it" class="text-white mx-2"><i class="fa-solid fa-envelope fa-lg"></i></a>
-        </div>
-        <p class="mt-4" style="font-size: 0.8rem; color: #666;">&copy; 2026 NEVERA SPORTS</p>
-    </div>
-</footer>
-
-<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
-<script>
-function openNav() {
-    document.getElementById("myNav").classList.add("open");
-}
-
-function closeNav() {
-    document.getElementById("myNav").classList.remove("open");
-}
-</script>
+    <script>
+        function openM() { document.getElementById("m").style.width = "100%"; }
+        function closeM() { document.getElementById("m").style.width = "0"; }
+    </script>
 
 </body>
 </html>
