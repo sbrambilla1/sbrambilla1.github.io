@@ -102,56 +102,17 @@
             margin: 0 auto 50px auto;
         }
 
-        /* --- MODIFICA SPONSOR CARD PER RIEMPIMENTO --- */
-        .sponsor-card {
-            background: rgba(255, 255, 255, 0.05);
-            border: 1px solid rgba(255, 255, 255, 0.1);
-            border-radius: 20px;
-            /* Rimosso padding interno per far toccare i bordi all'immagine */
-            padding: 0 !important; 
+        /* Stile di base per le card per gestire l'hover via CSS */
+        .sponsor-card-base {
             display: block;
             text-decoration: none;
             transition: transform 0.3s ease, border-color 0.3s ease;
             margin-bottom: 20px;
-            overflow: hidden; /* Mantiene l'immagine dentro i bordi arrotondati */
-            position: relative;
-            /* Definiamo un'altezza o un aspect-ratio se vogliamo card uniformi, 
-               altrimenti l'altezza dipenderà dall'immagine ritagliata */
-            aspect-ratio: 3 / 2; /* Esempio: card rettangolari uniformi */
         }
 
-        .sponsor-card:hover {
+        .sponsor-card-base:hover {
             transform: translateY(-5px);
-            border-color: #AAF0D1;
-        }
-
-        /* --- MODIFICA IMMAGINE PER RIEMPIMENTO --- */
-        .sponsor-card img {
-            width: 100% !important;
-            height: 100% !important;
-            /* FONDAMENTALE: Copre l'intera area ritagliando l'eccesso senza deformare */
-            object-fit: cover !important; 
-            object-position: center !important; /* Centra l'immagine nel ritaglio */
-            display: block !important;
-        }
-
-        /* Testo opzionale sopra l'immagine (se serve) */
-        .sponsor-card h3 {
-            position: absolute;
-            bottom: 15px;
-            left: 20px;
-            color: #fff;
-            font-size: 1.2rem;
-            letter-spacing: 2px;
-            margin: 0;
-            background: rgba(0,0,0,0.5); /* Sfondo scuro per leggibilità */
-            padding: 5px 10px;
-            border-radius: 5px;
-            display: none; /* Nascosto di default, mostralo se vuoi il testo sopra */
-        }
-
-        .sponsor-card:hover h3 {
-            display: block;
+            border-color: #AAF0D1 !important; /* Sovrascrive lo stile inline di base */
         }
     </style>
 </head>
@@ -185,18 +146,25 @@
         </div>
 
         <div class="row justify-content-center g-4">
+            
             <div class="col-lg-5 col-md-6">
-                <a href="https://www.orya.it" target="_blank" class="sponsor-card">
-                    <img src="images/orya.png" alt="Orya">
-                    <h3>ORYA</h3> 
+                <a href="https://www.orya.it" target="_blank" class="sponsor-card-base" 
+                   style="background: rgba(255, 255, 255, 0.05); border: 1px solid rgba(255, 255, 255, 0.1); border-radius: 20px; padding: 0 !important; overflow: hidden; position: relative; aspect-ratio: 3 / 2;">
+                    
+                    <img src="images/orya.png" alt="Orya" 
+                         style="width: 100% !important; height: 100% !important; object-fit: cover !important; object-position: center !important; display: block !important;">
                 </a>
             </div>
+            
             <div class="col-lg-5 col-md-6">
-                <a href="https://www.swappadel.it/" target="_blank" class="sponsor-card">
-                    <img src="images/SWAP.png" alt="Swap">
-                    <h3>SWAP PADEL</h3>
+                <a href="https://www.swappadel.it/" target="_blank" class="sponsor-card-base" 
+                   style="background: rgba(255, 255, 255, 0.05); border: 1px solid rgba(255, 255, 255, 0.1); border-radius: 20px; padding: 0 !important; overflow: hidden; position: relative; aspect-ratio: 3 / 2;">
+                    
+                    <img src="images/SWAP.png" alt="Swap" 
+                         style="width: 100% !important; height: 100% !important; object-fit: cover !important; object-position: center !important; display: block !important;">
                 </a>
             </div>
+            
         </div>
     </div>
 
