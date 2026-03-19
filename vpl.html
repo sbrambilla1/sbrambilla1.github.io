@@ -3,8 +3,9 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Volt Padel League | Board | NEVERA SPORTS</title>
+    <title>Volt Padel League | NEVERA SPORTS</title>
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;700;900&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
     
     <style>
         /* --- RESET & BASICS --- */
@@ -13,267 +14,97 @@
         body {
             font-family: 'Inter', sans-serif;
             color: white;
-            
-            background-image: linear-gradient(rgba(0,0,0,0.5), rgba(0,0,0,0.8)), url('images/vballs.png');
+            /* SFONDO PERSONALIZZATO */
+            background-image: linear-gradient(rgba(0,0,0,0.6), rgba(0,0,0,0.8)), url('images/vballs.png');
             background-size: cover;
             background-position: center;
-            background-attachment: fixed; /* Lo sfondo resta fermo mentre scorri */
-            background-color: #000; /* Fallback se l'immagine non carica */
+            background-attachment: fixed;
+            background-color: #000;
             min-height: 100vh;
-            display: flex;
-            flex-direction: column;
         }
 
-        .container {
-            width: 100%;
-            max-width: 1200px;
-            margin: 0 auto;
-            padding: 0 20px;
-            flex-grow: 1; /* Spinge il footer in basso */
-            padding-bottom: 80px;
-        }
-
-        /* --- HEADER CON NUOVO LOGO NEVERA (80px) --- */
+        /* --- HEADER & LOGO --- */
         .league-header {
             position: fixed;
-            top: 0;
-            width: 100%;
-            padding: 30px 0; /* Spazio per il logo grande */
-            background: linear-gradient(to bottom, rgba(0,0,0,0.8) 0%, transparent 100%);
+            top: 0; width: 100%;
+            padding: 30px 0;
+            background: linear-gradient(to bottom, rgba(0,0,0,0.9) 0%, transparent 100%);
             z-index: 1000;
             text-align: center;
         }
 
-        .logo-nav-container {
-            display: inline-block;
-            cursor: pointer;
-            transition: all 0.3s ease;
-        }
-
+        .logo-nav-container { display: inline-block; cursor: pointer; transition: 0.3s; }
         .logo-trigger { 
-            height: 80px; /* Nuovo Logo Grande */
-            width: auto;
-            transition: all 0.3s ease;
-            filter: drop-shadow(0 0 0px rgba(170, 240, 209, 0));
+            height: 80px; width: auto; transition: 0.3s;
+            filter: drop-shadow(0 0 0px rgba(206, 255, 5, 0));
         }
 
-        /* Effetto Hover sul Logo: Glow Menta + Zoom */
+        /* Effetto Hover Giallo Volt */
         .logo-nav-container:hover .logo-trigger {
             transform: scale(1.08);
-            filter: drop-shadow(0 0 15px rgba(170, 240, 209, 0.7));
+            filter: drop-shadow(0 0 20px rgba(206, 255, 5, 0.8));
         }
 
-        /* --- MENU OVERLAY (Coordianto) --- */
+        /* --- MENU OVERLAY --- */
         .nv-menu {
             height: 100%; width: 0; position: fixed; z-index: 9999;
             top: 0; left: 0; background-color: rgba(0,0,0,0.98); overflow: hidden;
             transition: 0.5s cubic-bezier(0.7, 0, 0.3, 1); 
             display: flex; align-items: center; justify-content: center;
         }
-        .nv-links a { 
-            font-size: 2.5rem; color: #fff; text-decoration: none; 
-            display: block; margin: 25px; font-weight: 900; 
-            text-transform: uppercase; letter-spacing: 5px; transition: 0.3s;
-        }
-        .nv-links a:hover { color: #AAF0D1; transform: scale(1.1); }
+        .nv-links a { font-size: 2.5rem; color: #fff; text-decoration: none; display: block; margin: 25px; font-weight: 900; text-transform: uppercase; letter-spacing: 5px; }
+        .nv-links a:hover { color: #CEFF05; }
         .nv-close { position: absolute; top: 30px; right: 45px; font-size: 50px; color: #fff; text-decoration: none; }
 
-        /* --- MAIN CONTENT & TABS --- */
-        .main-content {
-            padding-top: 180px; /* Spazio per l'header fisso */
-            text-align: center;
-        }
+        /* --- MAIN CONTENT --- */
+        .container { width: 100%; max-width: 1000px; margin: 0 auto; padding: 180px 20px 80px 20px; text-align: center; }
+        .nv-title { font-weight: 900; letter-spacing: 10px; text-transform: uppercase; font-size: 3.5rem; margin-bottom: 0; }
+        .nv-subtitle { color: #CEFF05; letter-spacing: 5px; text-transform: uppercase; margin-bottom: 50px; font-weight: 800; text-shadow: 0 0 15px rgba(206, 255, 5, 0.3); }
 
-        .nv-title {
-            font-weight: 900;
-            letter-spacing: 8px;
-            text-transform: uppercase;
-            font-size: 3rem;
-            margin-bottom: 5px;
-            animation: fadeInDown 1s ease-out;
-        }
-
-        .nv-subtitle {
-            color: #AAF0D1;
-            letter-spacing: 4px;
-            text-transform: uppercase;
-            margin-bottom: 50px;
-            font-size: 1.1rem;
-            opacity: 0.8;
-            animation: fadeInUp 1.2s ease-out;
-        }
-
-        /* TABS NAV */
-        .tabs-nav {
-            display: flex;
-            justify-content: center;
-            gap: 15px;
-            margin-bottom: 40px;
-        }
-
+        /* --- TABS --- */
+        .tabs-nav { display: flex; justify-content: center; gap: 15px; margin-bottom: 40px; }
         .tab-btn {
-            background: rgba(255, 255, 255, 0.05);
-            border: 1px solid rgba(255, 255, 255, 0.1);
-            color: white;
-            padding: 12px 25px;
-            border-radius: 50px;
-            font-weight: 700;
-            text-transform: uppercase;
-            letter-spacing: 1px;
-            transition: all 0.3s ease;
-            cursor: pointer;
+            background: rgba(255, 255, 255, 0.05); border: 1px solid rgba(255, 255, 255, 0.1);
+            color: white; padding: 12px 30px; border-radius: 50px;
+            font-weight: 700; text-transform: uppercase; letter-spacing: 1px; cursor: pointer; transition: 0.3s;
         }
+        .tab-btn.active { background: #CEFF05; color: #000; border-color: #CEFF05; box-shadow: 0 0 20px rgba(206, 255, 5, 0.4); }
 
-        .tab-btn:hover {
-            border-color: rgba(255,255,255,0.3);
-            background: rgba(255,255,255,0.1);
-        }
+        .tab-content { display: none; animation: fadeIn 0.5s ease; }
+        .tab-content.active { display: block; }
 
-        .tab-btn.active {
-            background: #AAF0D1;
-            color: #000;
-            border-color: #AAF0D1;
-            box-shadow: 0 5px 15px rgba(170, 240, 209, 0.2);
-        }
-        
-        /* CONTENUTO TAB */
-        .tab-content {
-            display: none;
-            animation: fadeIn 0.5s ease;
-        }
-
-        .tab-content.active {
-            display: block;
-        }
-
-        /* PDF BOX (Regolamento) */
+        /* PDF BOX */
         .pdf-box {
-            background: rgba(0, 0, 0, 0.7);
-            backdrop-filter: blur(10px);
-            border: 1px solid rgba(255, 255, 255, 0.1);
-            border-radius: 20px;
-            padding: 30px;
-            max-width: 600px;
-            margin: 0 auto;
-            display: flex;
-            align-items: center;
-            justify-content: space-between;
-            text-align: left;
+            background: rgba(0, 0, 0, 0.6); backdrop-filter: blur(10px);
+            border: 1px solid rgba(206, 255, 5, 0.3); border-radius: 20px;
+            padding: 35px; max-width: 600px; margin: 0 auto;
+            display: flex; align-items: center; justify-content: space-between; text-align: left;
         }
-
-        .pdf-text h3 {
-            font-weight: 800;
-            margin-bottom: 5px;
-            letter-spacing: 1px;
-        }
-
-        .pdf-text p {
-            opacity: 0.7;
-            font-size: 0.9rem;
-            margin: 0;
-        }
-
         .btn-pdf {
-            background: white;
-            color: black;
-            padding: 12px 25px;
-            border-radius: 50px;
-            text-decoration: none;
-            font-weight: 800;
-            text-transform: uppercase;
-            transition: 0.3s;
-            font-size: 0.8rem;
+            background: #CEFF05; color: black; padding: 12px 25px; border-radius: 50px;
+            text-decoration: none; font-weight: 800; text-transform: uppercase; transition: 0.3s; font-size: 0.8rem;
         }
+        .btn-pdf:hover { background: white; transform: scale(1.05); }
 
-        .btn-pdf:hover {
-            background: #AAF0D1;
-            transform: scale(1.05);
-        }
-
-        /* TABLE (Classifica) */
+        /* TABLE */
         .table-wrapper {
-            max-width: 800px;
-            margin: 0 auto;
-            background: rgba(0, 0, 0, 0.7);
-            backdrop-filter: blur(10px);
-            border-radius: 20px;
-            overflow: hidden;
-            border: 1px solid rgba(255, 255, 255, 0.1);
+            background: rgba(0, 0, 0, 0.6); backdrop-filter: blur(10px);
+            border-radius: 20px; overflow: hidden; border: 1px solid rgba(255, 255, 255, 0.1);
         }
+        table { width: 100%; border-collapse: collapse; }
+        th { background: rgba(206, 255, 5, 0.1); color: #CEFF05; padding: 20px; text-transform: uppercase; letter-spacing: 2px; }
+        td { padding: 18px 20px; border-bottom: 1px solid rgba(255, 255, 255, 0.05); font-size: 1.1rem; }
+        .rank-number { color: #CEFF05; font-weight: 900; }
+        .pts-cell { font-weight: 800; color: #CEFF05; }
 
-        table {
-            width: 100%;
-            border-collapse: collapse;
-        }
+        /* --- FOOTER --- */
+        .nv-footer { padding: 60px 0; text-align: center; border-top: 1px solid rgba(255,255,255,0.05); background: rgba(0,0,0,0.8); }
 
-        th {
-            background: rgba(255, 255, 255, 0.05);
-            color: #AAF0D1;
-            padding: 20px;
-            text-transform: uppercase;
-            letter-spacing: 2px;
-            font-weight: 700;
-            font-size: 0.9rem;
-        }
+        @keyframes fadeIn { from { opacity: 0; transform: translateY(10px); } to { opacity: 1; transform: translateY(0); } }
 
-        td {
-            padding: 18px 20px;
-            border-bottom: 1px solid rgba(255, 255, 255, 0.05);
-            font-size: 1.1rem;
-        }
-
-        .rank-number {
-            color: #AAF0D1;
-            font-weight: 900;
-            font-size: 1.2rem;
-        }
-
-        .pts-cell {
-            font-weight: 800;
-            color: #AAF0D1;
-        }
-
-        tr:last-child td {
-            border-bottom: none;
-        }
-
-        /* --- FOOTER COORDINATO --- */
-        .nv-footer {
-            background-color: rgba(0,0,0,0.9);
-            backdrop-filter: blur(10px);
-            padding: 60px 0 30px 0;
-            border-top: 1px solid rgba(255, 255, 255, 0.1);
-            text-align: center;
-        }
-
-        .footer-bottom {
-            margin-top: 40px;
-            opacity: 0.3;
-            font-size: 0.7rem;
-            letter-spacing: 3px;
-        }
-
-        /* ANIMAZIONI */
-        @keyframes fadeInDown {
-            from { opacity: 0; transform: translateY(-30px); }
-            to { opacity: 1; transform: translateY(0); }
-        }
-        @keyframes fadeInUp {
-            from { opacity: 0; transform: translateY(30px); }
-            to { opacity: 1; transform: translateY(0); }
-        }
-        @keyframes fadeIn {
-            from { opacity: 0; transform: translateY(10px); }
-            to { opacity: 1; transform: translateY(0); }
-        }
-
-        /* RESPONSIVE */
         @media (max-width: 768px) {
-            .nv-title { font-size: 2.2rem; letter-spacing: 5px; }
-            .nv-subtitle { font-size: 0.9rem; }
-            .logo-trigger { height: 60px; }
+            .nv-title { font-size: 2.2rem; }
             .tabs-nav { flex-direction: column; align-items: center; }
-            .tab-btn { width: 100%; max-width: 300px; }
             .pdf-box { flex-direction: column; text-align: center; gap: 20px; }
         }
     </style>
@@ -282,25 +113,23 @@
 
     <header class="league-header">
         <div class="logo-nav-container" onclick="openM()">
-            <img src="images/logo.png" alt="Nevera Sports Logo" class="logo-trigger">
+            <img src="images/logo.png" alt="Nevera Logo" class="logo-trigger">
         </div>
     </header>
 
     <div id="m" class="nv-menu">
         <a href="javascript:void(0)" class="nv-close" onclick="closeM()">&times;</a>
         <div class="nv-links text-center">
-            <a href="index.html" onclick="closeM()">HOME</a>
-            <a href="eventi.html" onclick="closeM()">EVENTI</a>
-            <a href="sponsor.html" onclick="closeM()">SPONSOR</a>
-            <a href="community.html" onclick="closeM()">COMMUNITY</a>
-            <a href="iniziative.html" onclick="closeM()">INIZIATIVE</a>
+            <a href="index.html">HOME</a>
+            <a href="eventi.html">EVENTI</a>
+            <a href="sponsor.html">SPONSOR</a>
+            <a href="community.html">COMMUNITY</a>
         </div>
     </div>
 
-    <div class="container main-content">
-        
+    <div class="container">
         <h1 class="nv-title">VOLT PADEL LEAGUE</h1>
-        
+     
 
         <nav class="tabs-nav">
             <button class="tab-btn active" onclick="switchTab(event, 'info')">Info & Regolamento</button>
@@ -311,7 +140,7 @@
             <div class="pdf-box">
                 <div class="pdf-text">
                     <h3>REGOLAMENTO UFFICIALE</h3>
-                    <p>Consulta le regole della Volt Padel League.</p>
+                    <p>Scarica il regolamento tecnico del torneo.</p>
                 </div>
                 <a href="assets/regolamento.pdf" target="_blank" class="btn-pdf">APRI PDF</a>
             </div>
@@ -329,10 +158,8 @@
                     </thead>
                     <tbody>
                         <tr><td class="rank-number">01</td><td><strong></strong></td><td class="pts-cell">1000</td></tr>
-                        <tr><td class="rank-number">02</td><td><strong></strong></td><td class="pts-cell">700</td></tr>
+                        <tr><td class="rank-number">02</td><td><strong></strong></td><td class="pts-cell">750</td></tr>
                         <tr><td class="rank-number">03</td><td><strong></strong></td><td class="pts-cell">500</td></tr>
-                        <tr><td class="rank-number">04</td><td><strong></strong></td><td class="pts-cell">450</td></tr>
-                        <tr><td class="rank-number">05</td><td><strong></strong></td><td class="pts-cell">200</td></tr>
                     </tbody>
                 </table>
             </div>
@@ -340,20 +167,13 @@
     </div>
 
     <footer class="nv-footer">
-        <div class="container text-center">
-            <p style="opacity: 0.6; font-size: 0.9rem;">info@neverasports.it</p>
-            <div class="footer-bottom">
-                &copy; 2026 NEVERA SPORTS. ALL RIGHTS RESERVED.
-            </div>
-        </div>
+        <p style="opacity: 0.4; letter-spacing: 2px; font-size: 0.8rem;">&copy; 2026 NEVERA SPORTS | BORN UNDER PRESSURE</p>
     </footer>
 
     <script>
-        // Funzione per il Menu Overlay (Coordinata)
         function openM() { document.getElementById("m").style.width = "100%"; }
         function closeM() { document.getElementById("m").style.width = "0"; }
 
-        // Funzione per i Tab (Originale)
         function switchTab(event, tabId) {
             const contents = document.querySelectorAll('.tab-content');
             contents.forEach(c => c.classList.remove('active'));
