@@ -11,15 +11,15 @@
     <link rel="stylesheet" href="assets/css/main.css">
 
     <style>
-        /* Sfondo pagina pulito */
-        body {
+        /* Sfondo e struttura base */
+        body, html {
+            height: 100%;
             background-color: #000;
             margin: 0;
-            padding: 0;
             overflow-x: hidden;
         }
 
-        /* Navbar trasparente col logo piccolo */
+        /* Navbar */
         .navbar {
             background: transparent !important;
             padding: 20px 0;
@@ -27,15 +27,12 @@
         }
 
         .main-logo {
-            height: 45px; /* Dimensione contenuta per non disturbare */
-            width: auto;
+            height: 45px;
             cursor: pointer;
             transition: transform 0.3s ease;
         }
 
-        .main-logo:hover {
-            transform: scale(1.1);
-        }
+        .main-logo:hover { transform: scale(1.1); }
 
         /* Overlay Menu */
         .full-screen-overlay {
@@ -46,7 +43,7 @@
             top: 0;
             left: 0;
             background-color: #000;
-            overflow-x: hidden;
+            overflow: hidden;
             transition: 0.5s cubic-bezier(0.7, 0, 0.3, 1);
             display: flex;
             align-items: center;
@@ -60,4 +57,32 @@
             text-decoration: none;
             display: block;
             margin: 15px 0;
-            transition
+        }
+
+        .closebtn {
+            position: absolute;
+            top: 30px;
+            right: 45px;
+            font-size: 60px;
+            color: #fff;
+            text-decoration: none;
+        }
+
+        /* --- CENTRATURA PERFETTA DEL BANNER --- */
+        .wrapper-centrato {
+            min-height: 100vh; /* Occupa tutta l'altezza dello schermo */
+            display: flex;
+            align-items: center; /* Centra verticalmente */
+            justify-content: center; /* Centra orizzontalmente */
+            padding: 80px 20px; /* Spazio di sicurezza per navbar e footer */
+        }
+
+        .event-poster-box {
+            position: relative;
+            display: block;
+            max-width: 1000px; /* Larghezza massima del banner */
+            width: 100%;
+            border-radius: 30px;
+            overflow: hidden;
+            box-shadow: 0 0 60px rgba(170, 240, 209, 0.1); /* Leggero bagliore color menta */
+            transition: transform 0.4s ease, box-shadow 0.4s
