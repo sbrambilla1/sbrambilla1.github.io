@@ -3,122 +3,120 @@
 <head>
     <title>NEVERA SPORTS | Official Home</title>
     <meta charset="utf-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=0" />
     <link rel="icon" type="image/png" href="images/favicon.png">
 
-    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;700;900&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
     
     <style>
-    /* --- RESET & LAYOUT --- */
-    html, body {
-        margin: 0; padding: 0;
-        width: 100%;
-        min-height: 100vh;
-        background-color: #000 !important; /* Forza il nero se l'immagine fallisce */
-        font-family: 'Inter', sans-serif;
-        color: white;
-        display: flex;
-        flex-direction: column;
-        overflow-x: hidden;
-    }
+        /* --- RESET & BASE --- */
+        html, body {
+            margin: 0; padding: 0;
+            width: 100%; height: 100%;
+            background-color: #000; /* Fallback nero */
+            font-family: 'Inter', sans-serif;
+            color: #fff;
+            overflow-x: hidden;
+        }
 
-    /* --- BACKGROUND IMAGE --- */
-    body::before {
-        content: "";
-        position: fixed;
-        top: 0; left: 0;
-        width: 100%; height: 100%;
-        /* ATTENZIONE: Controlla che il nome del file sia identico a quello nella cartella */
-        background-image: linear-gradient(rgba(0,0,0,0.6), rgba(0,0,0,0.8)), url('images/home-bg.jpg');
-        background-size: cover;
-        background-position: center;
-        background-repeat: no-repeat;
-        z-index: -1; /* Mette l'immagine dietro a tutto */
-    }
-    /* --- FIX PER IPAD/IPHONE (Sfondo Fisso Universale) --- */
-    .bg-fixed-layer {
-        position: fixed;
-        top: 0;
-        left: 0;
-        width: 100%;
-        height: 100%;
-        /* SOSTITUISCI IL NOME DEL FILE QUI SOTTO */
-        background-image: linear-gradient(rgba(0,0,0,0.6), rgba(0,0,0,0.8)), url('images/homebg.jpg');
-        background-size: cover;
-        background-position: center;
-        background-repeat: no-repeat;
-        z-index: -1; /* Resta dietro a tutto */
-        /* Questo trucco evita il bug di Safari iOS */
-        transform: translateZ(0); 
-        -webkit-transform: translateZ(0);
-    }
+        /* --- FIX SFONDO PER IPAD (Background Layer) --- */
+        .bg-layer {
+            position: fixed;
+            top: 0; left: 0;
+            width: 100%; height: 100%;
+            /* Assicurati che il nome del file sia esatto (occhio alle maiuscole) */
+            background-image: linear-gradient(rgba(0,0,0,0.5), rgba(0,0,0,0.7)), url('images/home-bg.jpg');
+            background-size: cover;
+            background-position: center;
+            background-repeat: no-repeat;
+            z-index: -1;
+            /* Forza l'accelerazione hardware per fluidità su iOS */
+            transform: translateZ(0);
+            -webkit-transform: translateZ(0);
+        }
 
-    /* --- NAVBAR & LOGO --- */
-    .nav-fix {
-        position: fixed;
-        top: 0; width: 100%;
-        padding: 40px 0; z-index: 5000;
-        text-align: center;
-        background: linear-gradient(to bottom, rgba(0,0,0,0.8) 0%, transparent 100%);
-    }
-    .logo-trigger { height: 80px; width: auto; cursor: pointer; transition: 0.3s; }
-    .logo-trigger:hover { transform: scale(1.08); filter: drop-shadow(0 0 20px rgba(170, 240, 209, 0.6)); }
+        /* --- NAVBAR & LOGO (80px) --- */
+        .nav-fix {
+            position: fixed;
+            top: 0; width: 100%;
+            padding: 30px 0; z-index: 5000;
+            text-align: center;
+            background: linear-gradient(to bottom, rgba(0,0,0,0.8), transparent);
+        }
+        .logo-trigger { 
+            height: 80px; width: auto; 
+            cursor: pointer; transition: 0.3s cubic-bezier(0.4, 0, 0.2, 1); 
+        }
+        .logo-trigger:hover { 
+            transform: scale(1.1); 
+            filter: drop-shadow(0 0 15px rgba(170, 240, 209, 0.6)); 
+        }
 
-    /* --- MENU OVERLAY --- */
-    .nv-menu {
-        height: 100%; width: 0; position: fixed; z-index: 9999;
-        top: 0; left: 0; background-color: rgba(0,0,0,0.98); overflow: hidden;
-        transition: 0.5s cubic-bezier(0.7, 0, 0.3, 1); 
-        display: flex; align-items: center; justify-content: center;
-    }
-    .nv-links a { font-size: 2.5rem; color: #fff; text-decoration: none; display: block; margin: 25px; font-weight: 900; text-transform: uppercase; letter-spacing: 5px; }
-    .nv-links a:hover { color: #AAF0D1; }
-    .nv-close { position: absolute; top: 30px; right: 45px; font-size: 50px; color: #fff; text-decoration: none; }
+        /* --- MENU OVERLAY --- */
+        .nv-menu {
+            height: 100%; width: 0; position: fixed; z-index: 9999;
+            top: 0; left: 0; background-color: rgba(0,0,0,0.98); 
+            overflow: hidden; transition: 0.5s cubic-bezier(0.7, 0, 0.3, 1); 
+            display: flex; align-items: center; justify-content: center;
+        }
+        .nv-links a { 
+            font-size: 2.2rem; color: #fff; text-decoration: none; display: block; 
+            margin: 20px; font-weight: 900; text-transform: uppercase; letter-spacing: 5px; 
+        }
+        .nv-links a:hover { color: #AAF0D1; }
+        .nv-close { position: absolute; top: 30px; right: 40px; font-size: 40px; color: #fff; text-decoration: none; }
 
-    /* --- CONTENT --- */
-    .main-wrapper { 
-        padding-top: 220px; 
-        flex: 1;
-        display: flex;
-        flex-direction: column;
-        justify-content: center;
-        align-items: center;
-        text-align: center;
-    }
-    
-    .nv-title { font-weight: 900; letter-spacing: 12px; text-transform: uppercase; font-size: 4rem; margin-bottom: 5px; }
-    .nv-subtitle { color: #AAF0D1; letter-spacing: 5px; text-transform: uppercase; margin-bottom: 60px; font-size: 1.2rem; font-weight: 700; }
+        /* --- MAIN WRAPPER --- */
+        .main-wrapper {
+            min-height: 100vh;
+            display: flex; flex-direction: column;
+            justify-content: center; align-items: center;
+            padding: 120px 20px 60px;
+            text-align: center;
+        }
+        .nv-title { font-weight: 900; letter-spacing: 12px; font-size: 4rem; text-transform: uppercase; margin-bottom: 0; }
+        .nv-subtitle { color: #AAF0D1; letter-spacing: 5px; text-transform: uppercase; font-size: 1.1rem; margin-bottom: 50px; }
 
-    /* --- CARDS CON EFFETTO VETRO --- */
-    .home-card {
-        display: block; 
-        background: rgba(255, 255, 255, 0.05);
-        backdrop-filter: blur(10px);
-        -webkit-backdrop-filter: blur(10px);
-        border: 1px solid rgba(255, 255, 255, 0.1);
-        border-radius: 20px; 
-        padding: 40px 20px; 
-        text-decoration: none !important; 
-        transition: 0.4s;
-    }
-    .home-card:hover { border-color: #AAF0D1; transform: translateY(-10px); background: rgba(170, 240, 209, 0.05); }
-    .home-card i { font-size: 2.5rem; color: #fff; margin-bottom: 20px; }
-    .home-card h3 { font-size: 0.9rem; font-weight: 800; color: #fff; text-transform: uppercase; letter-spacing: 2px; }
+        /* --- CARDS (Effetto Vetro compatibile iOS) --- */
+        .home-card {
+            display: flex; flex-direction: column; align-items: center; justify-content: center;
+            background: rgba(255, 255, 255, 0.06);
+            /* Importante: prefisso -webkit per iPad */
+            -webkit-backdrop-filter: blur(15px);
+            backdrop-filter: blur(15px);
+            border: 1px solid rgba(255, 255, 255, 0.1);
+            border-radius: 20px;
+            padding: 40px 20px;
+            text-decoration: none !important;
+            transition: 0.4s ease;
+            height: 100%;
+        }
+        .home-card:hover { 
+            border-color: #AAF0D1; 
+            background: rgba(170, 240, 209, 0.05);
+            transform: translateY(-10px);
+        }
+        .home-card i { font-size: 2.5rem; color: #fff; margin-bottom: 15px; }
+        .home-card h3 { font-size: 0.85rem; font-weight: 800; color: #fff; text-transform: uppercase; letter-spacing: 3px; margin: 0; }
 
-    /* --- FOOTER --- */
-    .nv-footer { padding: 40px 0; text-align: center; background: transparent; }
-    .footer-bottom { opacity: 0.3; font-size: 0.7rem; letter-spacing: 4px; text-transform: uppercase; }
+        /* --- FOOTER --- */
+        .nv-footer { padding: 40px 0; text-align: center; background: transparent; }
+        .footer-text { opacity: 0.3; font-size: 0.65rem; letter-spacing: 3px; text-transform: uppercase; }
 
-    @media (max-width: 768px) {
-        .nv-title { font-size: 2.2rem; }
-        .logo-trigger { height: 60px; }
-    }
-</style>
+        /* --- RESPONSIVE --- */
+        @media (max-width: 768px) {
+            .nv-title { font-size: 2.2rem; letter-spacing: 6px; }
+            .logo-trigger { height: 65px; }
+            .nv-links a { font-size: 1.6rem; }
+        }
+    </style>
 </head>
 <body>
 
-    <div class="bg-fixed-layer">
+    <div class="bg-layer"></div>
+
     <div class="nav-fix">
         <div class="logo-nav-container" onclick="openM()">
             <img src="images/logo.png" alt="Nevera Logo" class="logo-trigger">
@@ -128,23 +126,22 @@
     <div id="m" class="nv-menu">
         <a href="javascript:void(0)" class="nv-close" onclick="closeM()">&times;</a>
         <div class="nv-links">
-            <a href="index.html" onclick="closeM()">Home</a>
-            <a href="eventi.html" onclick="closeM()">Eventi</a>
-            <a href="community.html" onclick="closeM()">Community</a>
-            <a href="sponsor.html" onclick="closeM()">Sponsor</a>
-            <a href="iniziative.html" onclick="closeM()">Iniziative</a>
+            <a href="index.html" onclick="closeM()">HOME</a>
+            <a href="vpl.html" onclick="closeM()">VOLT LEAGUE</a>
+            <a href="community.html" onclick="closeM()">COMMUNITY</a>
+            <a href="sponsor.html" onclick="closeM()">SPONSOR</a>
         </div>
     </div>
 
     <div class="main-wrapper container">
         <h1 class="nv-title">NEVERA</h1>
         <p class="nv-subtitle">Born Under Pressure</p>
-        
-        <div class="row g-4 justify-content-center">
+
+        <div class="row g-4 justify-content-center w-100" style="max-width: 1000px;">
             <div class="col-6 col-md-3">
-                <a href="eventi.html" class="home-card">
+                <a href="vpl.html" class="home-card">
                     <i class="fa-solid fa-trophy"></i>
-                    <h3>Eventi</h3>
+                    <h3>League</h3>
                 </a>
             </div>
             <div class="col-6 col-md-3">
@@ -167,35 +164,9 @@
             </div>
         </div>
     </div>
-</div>
+
     <footer class="nv-footer">
-        <div class="container">
-            <div class="row g-5">
-                <div class="col-lg-5 text-center text-lg-start">
-                    <img src="images/logo.png" alt="Nevera" style="height: 50px; margin-bottom: 20px;">
-                    <p style="opacity: 0.6;">info@neverasports.it</p>
-                    <div class="mt-4">
-                        <a href="https://instagram.com/neverasports.it" target="_blank" style="color:white; font-size: 1.5rem;"><i class="fa-brands fa-instagram"></i></a>
-                    </div>
-                </div>
-                <div class="col-lg-7">
-                    <div class="contact-form-box">
-                        <h4 style="text-transform: uppercase; letter-spacing: 2px; margin-bottom: 20px;">Get In Touch</h4>
-                        <form action="mailto:info@neverasports.it">
-                            <div class="row">
-                                <div class="col-md-6"><input type="text" class="nv-input" placeholder="Nome"></div>
-                                <div class="col-md-6"><input type="email" class="nv-input" placeholder="Email"></div>
-                                <div class="col-12"><textarea class="nv-input" rows="3" placeholder="Messaggio"></textarea></div>
-                                <div class="col-12 text-end"><button type="submit" class="nv-btn-submit">Invia</button></div>
-                            </div>
-                        </form>
-                    </div>
-                </div>
-            </div>
-            <div class="footer-bottom">
-                &copy; 2026 NEVERA SPORTS. ALL RIGHTS RESERVED.
-            </div>
-        </div>
+        <p class="footer-text">&copy; 2026 NEVERA SPORTS | ALL RIGHTS RESERVED</p>
     </footer>
 
     <script>
