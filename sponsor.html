@@ -25,7 +25,7 @@
             position: fixed;
             top: 0;
             width: 100%;
-            padding: 30px 0;
+            padding: 40px 0; /* Aumentato per dare respiro al logo da 80px */
             z-index: 5000;
             text-align: center;
         }
@@ -37,16 +37,16 @@
         }
 
         .logo-trigger { 
-            height: 65px; /* Logo grande */
+            height: 80px; /* Altezza richiesta: 80px */
             width: auto;
             transition: all 0.3s ease;
             filter: drop-shadow(0 0 0px rgba(170, 240, 209, 0));
         }
 
-        /* Effetto Hover sul Logo Menu: Glow Menta + Zoom */
+        /* Effetto Hover Logo: Glow Menta + Zoom */
         .logo-nav-container:hover .logo-trigger {
-            transform: scale(1.1);
-            filter: drop-shadow(0 0 15px rgba(170, 240, 209, 0.8));
+            transform: scale(1.08);
+            filter: drop-shadow(0 0 20px rgba(170, 240, 209, 0.8));
         }
 
         /* MENU OVERLAY */
@@ -64,7 +64,11 @@
         .nv-close { position: absolute; top: 30px; right: 45px; font-size: 50px; color: #fff; text-decoration: none; }
 
         /* CONTENUTO PAGINA */
-        .nv-content { padding-top: 180px; color: white; text-align: center; }
+        .nv-content { 
+            padding-top: 220px; /* Aumentato per evitare sovrapposizioni col logo da 80px */
+            color: white; 
+            text-align: center; 
+        }
         .nv-title { font-weight: 900; letter-spacing: 5px; text-transform: uppercase; margin-bottom: 10px; }
         .nv-line { width: 60px; height: 2px; background-color: #AAF0D1; margin: 0 auto 50px auto; }
 
@@ -81,34 +85,35 @@
             position: relative;
         }
 
-        /* Effetto Hover sui Banner: Sale, Bordo Menta e Bagliore */
+        /* Hover sui Banner */
         .nv-card:hover {
             transform: translateY(-10px);
             border-color: #AAF0D1 !important;
             box-shadow: 0 15px 40px rgba(170, 240, 209, 0.2);
         }
 
-        /* Immagine che riempie il banner */
+        /* Immagine Riempimento */
         .nv-card img {
             width: 100%;
             height: 100%;
             display: block;
-            object-fit: cover; /* Taglia l'eccesso per riempire il box */
+            object-fit: cover; 
             transition: transform 0.6s ease;
         }
         
         .nv-card:hover img {
-            transform: scale(1.05); /* Zoom leggero dell'immagine interna */
+            transform: scale(1.05); 
         }
 
-        /* Proporzioni per i partner piccoli (Orya/Swap) */
+        /* Proporzioni Partner Orya/Swap */
         .nv-card-partner {
             aspect-ratio: 3 / 2;
         }
 
+        /* Mobile Responsive */
         @media (max-width: 768px) {
-            .nv-content { padding-top: 150px; }
-            .logo-trigger { height: 50px; }
+            .nv-content { padding-top: 180px; }
+            .logo-trigger { height: 60px; } /* Leggermente ridotto su mobile per usabilità */
             .nv-links a { font-size: 1.8rem; }
         }
     </style>
@@ -161,12 +166,8 @@
     </div>
 
     <script>
-        function openM() { 
-            document.getElementById("m").style.width = "100%"; 
-        }
-        function closeM() { 
-            document.getElementById("m").style.width = "0"; 
-        }
+        function openM() { document.getElementById("m").style.width = "100%"; }
+        function closeM() { document.getElementById("m").style.width = "0"; }
     </script>
 
 </body>
