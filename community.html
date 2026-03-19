@@ -1,7 +1,7 @@
 <!DOCTYPE HTML>
 <html lang="it">
 <head>
-    <title>COMMUNITY - NEVERA SPORTS</title>
+    <title>COMMUNITY | NEVERA SPORTS</title>
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1" />
     <link rel="icon" type="image/png" href="images/favicon.png">
@@ -9,66 +9,220 @@
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
     <link rel="stylesheet" href="assets/css/main.css">
+
+    <style>
+        /* RESET GLOBALE */
+        html, body {
+            background-color: #000 !important;
+            margin: 0;
+            padding: 0;
+            overflow-x: hidden;
+            font-family: sans-serif;
+            color: white;
+        }
+
+        /* NAVBAR E LOGO TRIGGER MENU (80px) */
+        .nav-fix {
+            position: fixed;
+            top: 0;
+            width: 100%;
+            padding: 40px 0;
+            z-index: 5000;
+            text-align: center;
+        }
+
+        .logo-nav-container {
+            display: inline-block;
+            cursor: pointer;
+            transition: all 0.3s ease;
+        }
+
+        .logo-trigger { 
+            height: 80px; 
+            width: auto;
+            transition: all 0.3s ease;
+            filter: drop-shadow(0 0 0px rgba(170, 240, 209, 0));
+        }
+
+        .logo-nav-container:hover .logo-trigger {
+            transform: scale(1.08);
+            filter: drop-shadow(0 0 20px rgba(170, 240, 209, 0.8));
+        }
+
+        /* MENU OVERLAY */
+        .nv-menu {
+            height: 100%; width: 0; position: fixed; z-index: 9999;
+            top: 0; left: 0; background-color: #000; overflow: hidden;
+            transition: 0.5s cubic-bezier(0.7, 0, 0.3, 1); 
+            display: flex; align-items: center; justify-content: center;
+        }
+        .nv-links a { 
+            font-size: 2.5rem; color: #fff; text-decoration: none; 
+            display: block; margin: 20px; font-weight: 800; text-align: center;
+        }
+        .nv-links a:hover { color: #AAF0D1; }
+        .nv-close { position: absolute; top: 30px; right: 45px; font-size: 50px; color: #fff; text-decoration: none; }
+
+        /* CONTENUTO PAGINA */
+        .nv-content { padding-top: 220px; text-align: center; }
+        .nv-title { font-weight: 900; letter-spacing: 5px; text-transform: uppercase; margin-bottom: 10px; }
+        .nv-line { width: 60px; height: 2px; background-color: #AAF0D1; margin: 0 auto 50px auto; }
+
+        /* GRID COMMUNITY / GALLERY */
+        .comm-card {
+            display: block;
+            border-radius: 20px;
+            overflow: hidden;
+            border: 1px solid rgba(255, 255, 255, 0.1);
+            background: rgba(255, 255, 255, 0.05);
+            transition: all 0.4s ease;
+            position: relative;
+            margin-bottom: 20px;
+        }
+
+        .comm-card:hover {
+            border-color: #AAF0D1;
+            transform: translateY(-5px);
+        }
+
+        .comm-card img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            transition: transform 0.6s ease;
+            display: block;
+            aspect-ratio: 1 / 1; /* Formato quadrato per i membri/foto */
+        }
+
+        .comm-card:hover img {
+            transform: scale(1.1);
+        }
+
+        /* TESTO SULLE IMMAGINI (OPZIONALE) */
+        .comm-overlay {
+            position: absolute;
+            bottom: 0;
+            left: 0;
+            right: 0;
+            padding: 20px;
+            background: linear-gradient(transparent, rgba(0,0,0,0.8));
+            text-align: left;
+        }
+
+        .comm-name {
+            font-weight: 800;
+            font-size: 1.1rem;
+            margin: 0;
+            color: #AAF0D1;
+            text-transform: uppercase;
+        }
+
+        /* SOCIAL CALL TO ACTION */
+        .insta-btn {
+            background: transparent;
+            border: 2px solid #AAF0D1;
+            color: #AAF0D1;
+            padding: 15px 35px;
+            border-radius: 50px;
+            font-weight: 800;
+            text-decoration: none;
+            display: inline-block;
+            margin-top: 40px;
+            transition: 0.3s;
+        }
+
+        .insta-btn:hover {
+            background: #AAF0D1;
+            color: #000;
+        }
+
+        @media (max-width: 768px) {
+            .nv-content { padding-top: 180px; }
+            .logo-trigger { height: 60px; }
+        }
+    </style>
 </head>
 <body>
 
-    <nav class="navbar fixed-top bg-transparent">
-        <div class="container justify-content-center">
-            <a class="navbar-brand" href="javascript:void(0)" onclick="openNav()">
-                <img src="images/logo.png" alt="Nevera Logo" class="main-logo" style="height: 50px; cursor: pointer;">
-            </a>
+    <div class="nav-fix">
+        <div class="logo-nav-container" onclick="openM()">
+            <img src="images/logo.png" alt="Nevera Menu" class="logo-trigger">
         </div>
-    </nav>
+    </div>
 
-    <div id="myNav" class="full-screen-overlay">
-        <a href="javascript:void(0)" class="closebtn" onclick="closeNav()">&times;</a>
-        <div class="overlay-content">
-            <a href="index.html" onclick="closeNav()">HOME</a>
-            <a href="eventi.html" onclick="closeNav()">EVENTI</a>
-            <a href="sponsor.html" onclick="closeNav()">SPONSOR</a>
-            <a href="community.html" onclick="closeNav()">COMMUNITY</a>
-            <a href="iniziative.html" onclick="closeNav()">INIZIATIVE</a>
+    <div id="m" class="nv-menu">
+        <a href="javascript:void(0)" class="nv-close" onclick="closeM()">&times;</a>
+        <div class="nv-links">
+            <a href="index.html" onclick="closeM()">HOME</a>
+            <a href="eventi.html" onclick="closeM()">EVENTI</a>
+            <a href="sponsor.html" onclick="closeM()">SPONSOR</a>
+            <a href="community.html" onclick="closeM()">COMMUNITY</a>
+            <a href="iniziative.html" onclick="closeM()">INIZIATIVE</a>
         </div>
-    </div> <section id="hero-community" class="text-center" style="padding-top: 150px; min-height: 80vh;">
-        <div class="container">
-            <img src="images/logo.png" alt="Nevera Logo" class="logo-img img-fluid" style="max-height: 150px; margin-bottom: 20px;">
-            <h1 class="fw-bold text-white">COMMUNITY</h1>
-            <p class="subtitle text-uppercase" style="letter-spacing: 5px; color: #AAF0D1;">born under pressure</p>
-            
-            <a href="https://t.me/neverasports" target="_blank" style="
-                background-color: #AAF0D1; 
-                color: #004d40; 
-                padding: 15px 40px; 
-                border-radius: 50px; 
-                text-decoration: none; 
-                font-weight: 800; 
-                text-transform: uppercase;
-                display: inline-block;
-                margin-top: 20px;
-                transition: 0.3s;">
-                <i class="fab fa-telegram-plane"></i> Unisciti ora
-            </a>
-        </div>
-    </section>
+    </div>
 
-    <footer class="text-center py-4">
-        <div class="container">
-            <p class="mb-0 text-secondary">&copy; 2026 NEVERA SPORTS</p>
-        </div>
-    </footer>
+    <div class="nv-content container">
+        <h1 class="nv-title">NEVERA COMMUNITY</h1>
+        <div class="nv-line"></div>
+        <p class="mb-5" style="max-width: 700px; margin: 0 auto 50px auto; opacity: 0.8; line-height: 1.6;">
+            Non siamo solo un brand, siamo un gruppo di persone unite dalla passione per lo sport e dal desiderio di superare ogni limite. Entra a far parte del nostro mondo.
+        </p>
 
-    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
-    
+        <div class="row g-4">
+            <div class="col-6 col-md-4 col-lg-3">
+                <div class="comm-card">
+                    <img src="images/comm_1.jpg" alt="Community 1">
+                    <div class="comm-overlay"><p class="comm-name">#TEAMNEVERA</p></div>
+                </div>
+            </div>
+            <div class="col-6 col-md-4 col-lg-3">
+                <div class="comm-card">
+                    <img src="images/comm_2.jpg" alt="Community 2">
+                </div>
+            </div>
+            <div class="col-6 col-md-4 col-lg-3">
+                <div class="comm-card">
+                    <img src="images/comm_3.jpg" alt="Community 3">
+                </div>
+            </div>
+            <div class="col-6 col-md-4 col-lg-3">
+                <div class="comm-card">
+                    <img src="images/comm_4.jpg" alt="Community 4">
+                </div>
+            </div>
+            <div class="col-6 col-md-4 col-lg-3">
+                <div class="comm-card">
+                    <img src="images/comm_5.jpg" alt="Community 5">
+                </div>
+            </div>
+            <div class="col-6 col-md-4 col-lg-3">
+                <div class="comm-card">
+                    <img src="images/comm_6.jpg" alt="Community 6">
+                </div>
+            </div>
+            <div class="col-6 col-md-4 col-lg-3">
+                <div class="comm-card">
+                    <img src="images/comm_7.jpg" alt="Community 7">
+                </div>
+            </div>
+            <div class="col-6 col-md-4 col-lg-3">
+                <div class="comm-card">
+                    <img src="images/comm_8.jpg" alt="Community 8">
+                </div>
+            </div>
+        </div>
+
+        <a href="https://www.instagram.com/nevera.sports" target="_blank" class="insta-btn">
+            <i class="fa-brands fa-instagram me-2"></i> SEGUICI SU INSTAGRAM
+        </a>
+
+        <p class="mt-5 mb-5" style="opacity: 0.3; letter-spacing: 5px; font-size: 0.7rem;">BORN UNDER PRESSURE</p>
+    </div>
+
     <script>
-    function openNav() {
-        console.log("Comando apertura ricevuto");
-        document.getElementById("myNav").style.width = "100%";
-    }
-
-    function closeNav() {
-        console.log("Comando chiusura ricevuto");
-        document.getElementById("myNav").style.width = "0%";
-    }
+        function openM() { document.getElementById("m").style.width = "100%"; }
+        function closeM() { document.getElementById("m").style.width = "0"; }
     </script>
+
 </body>
 </html>
