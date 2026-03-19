@@ -19,16 +19,57 @@
             overflow-x: hidden;
         }
 
-        /* NAVBAR */
+        /* NAVBAR - LOGO MENU INGRANDITO E ANIMATO */
         .nav-fix {
             position: fixed;
             top: 0;
             width: 100%;
-            padding: 20px 0;
+            padding: 30px 0; /* Un po' di spazio extra sopra e sotto */
             z-index: 5000;
             text-align: center;
+            display: flex;
+            justify-content: center;
+            align-items: center;
         }
-        .logo-trigger { height: 65px; cursor: pointer; }
+        
+        /* Contenitore per il logo per gestire l'animazione del bordo */
+        .logo-nav-container {
+            position: relative;
+            cursor: pointer;
+            padding: 10px; /* Spazio per il bordo animato */
+            border-radius: 50%;
+            transition: all 0.4s ease;
+        }
+
+        .logo-trigger { 
+            height: 65px; /* Grandezza del logo menu */
+            width: auto;
+            display: block;
+            position: relative;
+            z-index: 2;
+        }
+
+        /* --- L'EFFETTO HOVER "SCOPRI IL MENU" --- */
+        .logo-nav-container::before {
+            content: '';
+            position: absolute;
+            inset: -5px; /* Leggermente più grande del logo */
+            border: 2px solid #AAF0D1; /* Bordo menta luminoso */
+            border-radius: 50%;
+            opacity: 0;
+            transform: scale(0.8);
+            transition: 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+            box-shadow: 0 0 20px rgba(170, 240, 209, 0.3); /* Leggero bagliore */
+        }
+
+        .logo-nav-container:hover {
+            transform: scale(1.05); /* Piccolo zoom del contenitore */
+        }
+
+        .logo-nav-container:hover::before {
+            opacity: 1; /* Il bordo appare */
+            transform: scale(1); /* Torna a grandezza naturale */
+        }
 
         /* MENU OVERLAY */
         .nv-menu {
@@ -37,10 +78,11 @@
             transition: 0.5s; display: flex; align-items: center; justify-content: center;
         }
         .nv-links a { font-size: 2.5rem; color: #fff; text-decoration: none; display: block; margin: 20px; font-weight: 800; }
+        .nv-links a:hover { color: #AAF0D1; }
         .nv-close { position: absolute; top: 30px; right: 45px; font-size: 50px; color: #fff; text-decoration: none; }
 
         /* CONTENUTO */
-        .nv-content { padding-top: 120px; color: white; text-align: center; }
+        .nv-content { padding-top: 180px; color: white; text-align: center; } /* Aumentato padding per il logo più grande */
         .nv-title { font-weight: 900; letter-spacing: 5px; text-transform: uppercase; }
         .nv-line { width: 60px; height: 2px; background-color: #AAF0D1; margin: 0 auto 50px auto; }
 
@@ -51,47 +93,56 @@
             overflow: hidden;
             border: 1px solid rgba(255, 255, 255, 0.1);
             background: rgba(255, 255, 255, 0.05);
-            transition: all 0.3s ease-in-out;
-            padding: 0 !important; /* Rimuove spazi bianchi */
+            transition: all 0.4s cubic-bezier(0.165, 0.84, 0.44, 1);
+            padding: 0 !important; 
             text-decoration: none;
             position: relative;
         }
 
-        /* EFFETTO HOVER PER TUTTI */
         .nv-card:hover {
-            transform: translateY(-8px);
+            transform: translateY(-10px);
             border-color: #AAF0D1 !important;
-            box-shadow: 0 10px 30px rgba(170, 240, 209, 0.2);
+            box-shadow: 0 15px 40px rgba(170, 240, 209, 0.2);
         }
 
-        /* RIEMPIMENTO IMMAGINE */
         .nv-card img {
             width: 100%;
             height: 100%;
             display: block;
-            object-fit: cover; /* Riempie senza schiacciare */
+            object-fit: cover; 
+            transition: transform 0.6s ease;
+        }
+        
+        .nv-card:hover img {
+            transform: scale(1.03); 
         }
 
-        /* Formato rettangolare per i partner piccoli */
         .nv-card-partner {
             aspect-ratio: 3 / 2;
+        }
+
+        @media (max-width: 768px) {
+            .nv-content { padding-top: 160px; }
+            .logo-trigger { height: 50px; } /* Più piccolo su mobile */
         }
     </style>
 </head>
 <body>
 
     <div class="nav-fix">
-        <img src="images/logo.png" class="logo-trigger" onclick="openM()">
+        <div class="logo-nav-container" onclick="openM()">
+            <img src="images/logo.png" alt="Nevera Menu Trigger" class="logo-trigger">
+        </div>
     </div>
 
     <div id="m" class="nv-menu">
         <a href="javascript:void(0)" class="nv-close" onclick="closeM()">&times;</a>
-        <div class="nv-links">
-            <a href="index.html">HOME</a>
-            <a href="eventi.html">EVENTI</a>
-            <a href="sponsor.html">SPONSOR</a>
-            <a href="community.html">COMMUNITY</a>
-            <a href="iniziative.html">INIZIATIVE</a>
+        <div class="nv-links text-center">
+            <a href="index.html" onclick="closeM()">HOME</a>
+            <a href="eventi.html" onclick="closeM()">EVENTI</a>
+            <a href="sponsor.html" onclick="closeM()">SPONSOR</a>
+            <a href="community.html" onclick="closeM()">COMMUNITY</a>
+            <a href="iniziative.html" onclick="closeM()">INIZIATIVE</a>
         </div>
     </div>
 
