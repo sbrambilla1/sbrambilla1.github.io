@@ -1,0 +1,79 @@
+<!DOCTYPE html>
+<html lang="it">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Volt Padel League</title>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;700;900&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="style-league.css">
+</head>
+<body>
+
+    <div class="container">
+        <header class="league-header">
+            <h1>VOLT PADEL LEAGUE <span class="volt-accent">unleash the tension</span></h1>
+        </header>
+
+        <nav class="tabs-nav">
+            <button class="tab-btn active" onclick="switchTab(event, 'info')">Info & Regolamento</button>
+              <button class="tab-btn" onclick="switchTab(event, 'ranking')">Ranking</button>
+        </nav>
+
+        <section id="info" class="tab-content active">
+            <div class="info-layout">
+                <div class="pdf-box">
+                    <div class="pdf-text">
+                        <h3>REGOLAMENTO UFFICIALE</h3>
+                        <p>Consulta il regolamento della Volt Padel League.</p>
+                    </div>
+                    <a href="regolamento.pdf" target="_blank" class="btn-pdf">Apri PDF</a>
+                </div>
+                
+                
+            </div>
+        </section>
+
+        <section id="ranking" class="tab-content">
+            <div class="table-wrapper">
+                <table>
+                    <thead>
+                        <tr>
+                            <th>#</th>
+                            <th>PLAYER</th>
+                            <th>PUNTI</th>
+                          
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td class="rank-number">01</td>
+                            <td><strong>ROSSI</strong></td>
+                            <td class="pts-cell">1000</td>
+                            
+                        </tr>
+                        <tr>
+                            <td class="rank-number">02</td>
+                            <td><strong>FUMAGALLI</strong></td>
+                            <td class="pts-cell">700</td>
+                            <td>6</td>
+                            <td>5</td>
+                            <td>1</td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+        </section>
+    </div>
+
+    <script>
+        function switchTab(event, tabId) {
+            const contents = document.querySelectorAll('.tab-content');
+            contents.forEach(c => c.classList.remove('active'));
+            const buttons = document.querySelectorAll('.tab-btn');
+            buttons.forEach(b => b.classList.remove('active'));
+            document.getElementById(tabId).classList.add('active');
+            event.currentTarget.classList.add('active');
+        }
+    </script>
+</body>
+</html>
