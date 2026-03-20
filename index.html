@@ -9,7 +9,6 @@
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
     
     <style>
-        /* --- RESET & LAYOUT --- */
         html, body {
             margin: 0; padding: 0;
             width: 100%; height: 100%;
@@ -20,13 +19,12 @@
             flex-direction: column;
         }
 
-        /* --- FIX SFONDO IPAD/IPHONE --- */
+        /* SFONDO - HO MESSO IL NOME DEL TUO FILE CARICATO */
         .bg-layer {
             position: fixed;
             top: 0; left: 0;
             width: 100%; height: 100%;
-            /* USA IL NOME ESATTO DEL TUO FILE QUI SOTTO */
-            background-image: linear-gradient(rgba(0,0,0,0.5), rgba(0,0,0,0.7)), url('images/home-bg.jpg');
+            background-image: linear-gradient(rgba(0,0,0,0.5), rgba(0,0,0,0.7)), url('images/homebg.jpg');
             background-size: cover;
             background-position: center;
             background-repeat: no-repeat;
@@ -35,79 +33,43 @@
             -webkit-transform: translateZ(0);
         }
 
-        /* --- NAVBAR & LOGO --- */
-        .nav-fix {
-            position: relative;
-            padding: 40px 0;
-            text-align: center;
-            z-index: 100;
-        }
-        .logo-trigger { 
-            height: 80px; width: auto; 
-            cursor: pointer; 
-            transition: 0.3s;
-        }
+        .nav-fix { position: relative; padding: 40px 0; text-align: center; z-index: 100; }
+        .logo-trigger { height: 80px; width: auto; cursor: pointer; transition: 0.3s; }
         .logo-trigger:hover { transform: scale(1.1); filter: drop-shadow(0 0 15px #AAF0D1); }
 
-        /* --- MENU OVERLAY --- */
+        /* MENU OVERLAY */
         .nv-menu {
-            height: 100%; width: 0; 
-            position: fixed; z-index: 9999;
-            top: 0; left: 0; 
-            background-color: rgba(0,0,0,0.98); 
-            overflow: hidden; 
-            transition: 0.5s cubic-bezier(0.7, 0, 0.3, 1); 
+            height: 100%; width: 0; position: fixed; z-index: 9999;
+            top: 0; left: 0; background-color: rgba(0,0,0,0.98); 
+            overflow: hidden; transition: 0.5s cubic-bezier(0.7, 0, 0.3, 1); 
             display: flex; align-items: center; justify-content: center;
         }
         .nv-links a { 
-            font-size: 2.5rem; color: #fff; text-decoration: none; 
-            display: block; margin: 25px; font-weight: 900; 
-            text-transform: uppercase; letter-spacing: 5px; 
+            font-size: 2.5rem; color: #fff; text-decoration: none; display: block; 
+            margin: 25px; font-weight: 900; text-transform: uppercase; letter-spacing: 5px; 
         }
         .nv-links a:hover { color: #AAF0D1; }
         .nv-close { position: absolute; top: 30px; right: 45px; font-size: 50px; color: #fff; text-decoration: none; }
 
-        /* --- MAIN CONTENT --- */
         .main-wrapper {
-            position: relative;
-            z-index: 10;
-            flex: 1; /* Spinge il footer in basso */
-            display: flex;
-            flex-direction: column;
-            justify-content: center;
-            align-items: center;
-            padding: 20px;
+            position: relative; z-index: 10; flex: 1;
+            display: flex; flex-direction: column; justify-content: center; align-items: center; padding: 20px;
         }
 
         .nv-title { font-weight: 900; letter-spacing: 12px; font-size: 4rem; text-transform: uppercase; margin-bottom: 0; }
         .nv-subtitle { color: #AAF0D1; letter-spacing: 5px; text-transform: uppercase; font-size: 1.1rem; margin-bottom: 50px; }
 
-        /* --- CARDS VETRO --- */
         .home-card {
-            display: block;
-            background: rgba(255, 255, 255, 0.05);
-            -webkit-backdrop-filter: blur(15px);
-            backdrop-filter: blur(15px);
-            border: 1px solid rgba(255, 255, 255, 0.1);
-            border-radius: 20px;
-            padding: 45px 10px;
-            text-decoration: none !important;
-            color: white !important;
-            transition: 0.3s ease;
+            display: block; background: rgba(255, 255, 255, 0.05);
+            -webkit-backdrop-filter: blur(15px); backdrop-filter: blur(15px);
+            border: 1px solid rgba(255, 255, 255, 0.1); border-radius: 20px;
+            padding: 45px 10px; text-decoration: none !important; color: white !important; transition: 0.3s ease;
         }
         .home-card:hover { transform: translateY(-10px); border-color: #AAF0D1; background: rgba(170, 240, 209, 0.05); }
         .home-card i { font-size: 2.5rem; margin-bottom: 20px; display: block; }
         .home-card h3 { font-size: 0.8rem; font-weight: 800; text-transform: uppercase; letter-spacing: 3px; }
 
-        /* --- FOOTER --- */
-        .nv-footer {
-            position: relative;
-            z-index: 10;
-            padding: 40px;
-            text-align: center;
-            background: rgba(0,0,0,0.4);
-            backdrop-filter: blur(5px);
-        }
+        .nv-footer { position: relative; z-index: 10; padding: 40px; text-align: center; }
         .footer-text { opacity: 0.4; font-size: 0.7rem; letter-spacing: 3px; }
 
         @media (max-width: 768px) {
@@ -128,9 +90,10 @@
         <a href="javascript:void(0)" class="nv-close" onclick="closeM()">&times;</a>
         <div class="nv-links">
             <a href="index.html" onclick="closeM()">HOME</a>
-            <a href="vpl.html" onclick="closeM()">VOLT LEAGUE</a>
-            <a href="community.html" onclick="closeM()">COMMUNITY</a>
+            <a href="eventi.html" onclick="closeM()">EVENTI</a>
             <a href="sponsor.html" onclick="closeM()">SPONSOR</a>
+            <a href="community.html" onclick="closeM()">COMMUNITY</a>
+            <a href="iniziative.html" onclick="closeM()">INIZIATIVE</a>
         </div>
     </div>
 
@@ -140,9 +103,9 @@
 
         <div class="row g-4 w-100" style="max-width: 1000px;">
             <div class="col-6 col-md-3">
-                <a href="vpl.html" class="home-card">
+                <a href="eventi.html" class="home-card">
                     <i class="fa-solid fa-trophy"></i>
-                    <h3>League</h3>
+                    <h3>Eventi</h3>
                 </a>
             </div>
             <div class="col-6 col-md-3">
@@ -171,13 +134,8 @@
     </footer>
 
     <script>
-        // Funzioni per il menu
-        function openM() { 
-            document.getElementById("m").style.width = "100%"; 
-        }
-        function closeM() { 
-            document.getElementById("m").style.width = "0"; 
-        }
+        function openM() { document.getElementById("m").style.width = "100%"; }
+        function closeM() { document.getElementById("m").style.width = "0"; }
     </script>
 
 </body>
