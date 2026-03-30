@@ -13,24 +13,30 @@
         :root {
             --neon: #3FF000;
             --dark: #040404;
-            --footer-bg: #111111;
+            --footer-bg: #111111; /* Grigio scuro per lo stacco */
             --white: #FDFDFD;
         }
 
         body {
-            margin: 0; background-color: var(--dark);
-            color: var(--white); font-family: 'Space Grotesk', sans-serif;
+            margin: 0;
+            background-color: var(--dark);
+            color: var(--white);
+            font-family: 'Space Grotesk', sans-serif;
         }
 
         /* Sfondo Originale */
         .bg-layer {
-            position: fixed; top: 0; left: 0; width: 100%; height: 100%;
+            position: fixed;
+            top: 0; left: 0;
+            width: 100%; height: 100%;
             background-image: linear-gradient(rgba(0,0,0,0.6), rgba(0,0,0,0.7)), url('images/image_c3c605.jpg');
-            background-size: cover; background-position: center; z-index: 0;
+            background-size: cover;
+            background-position: center;
+            z-index: 0;
         }
 
-        /* Logo con Hover Neon */
-        .nav-fix { position: relative; padding: 40px 0; text-align: center; z-index: 100; }
+        /* Header con Logo interattivo */
+        header { position: relative; padding: 40px 0; text-align: center; z-index: 10; }
         .logo-trigger { height: 80px; cursor: pointer; transition: 0.3s; }
         .logo-trigger:hover { 
             transform: scale(1.1); 
@@ -51,49 +57,60 @@
         .nv-links a:hover { color: var(--neon); }
         .nv-close { position: absolute; top: 30px; right: 45px; font-size: 50px; color: var(--neon); text-decoration: none; }
 
-        /* Struttura Centrale Originale */
-        .main-wrapper { position: relative; z-index: 10; padding: 50px 20px; text-align: center; }
-        .section-title { font-family: 'Archivo Black', sans-serif; font-size: 3.5rem; text-transform: uppercase; margin: 0; }
-        .section-subtitle { color: var(--neon); font-weight: 700; text-transform: uppercase; letter-spacing: 5px; margin-bottom: 50px; }
+        /* Contenuto Principale */
+        .container-main { position: relative; z-index: 10; padding: 20px; text-align: center; }
+        
+        h1 { font-family: 'Archivo Black', sans-serif; font-size: 3.5rem; margin-top: 20px; text-transform: uppercase; }
+        .subtitle { color: var(--neon); font-weight: 700; text-transform: uppercase; letter-spacing: 5px; margin-bottom: 50px; }
 
-        /* Riquadri Smussati Originali (Icone Bianche) */
-        .comm-card {
-            display: flex; flex-direction: column; justify-content: center; align-items: center;
-            background: rgba(255, 255, 255, 0.05); 
+        /* Riquadri Smussati Originali */
+        .card-box {
+            background: rgba(255, 255, 255, 0.05);
             border: 1px solid rgba(255, 255, 255, 0.1);
-            border-radius: 20px; /* Smussatura richiesta */
-            padding: 60px 10px; text-decoration: none !important; color: white !important;
-            transition: 0.3s; height: 100%;
+            border-radius: 20px; /* Smussatura originale */
+            padding: 50px 20px;
+            text-decoration: none !important;
+            color: white !important;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            transition: 0.3s;
+            height: 100%;
         }
-        .comm-card:hover { 
-            background: var(--neon); color: var(--dark) !important; 
-            border-color: var(--neon); 
+        .card-box:hover {
+            background: var(--neon);
+            color: var(--dark) !important;
+            border-color: var(--neon);
         }
-        .comm-card i { font-size: 3rem; margin-bottom: 20px; color: var(--white); transition: 0.3s; }
-        .comm-card:hover i { color: var(--dark); }
-        .comm-card h3 { font-family: 'Archivo Black', sans-serif; font-size: 0.9rem; text-transform: uppercase; margin: 0; }
+        .card-box i { font-size: 3rem; margin-bottom: 20px; color: var(--white); transition: 0.3s; }
+        .card-box:hover i { color: var(--dark); }
+        .card-box h3 { font-family: 'Archivo Black', sans-serif; font-size: 0.9rem; text-transform: uppercase; margin: 0; }
 
-        /* Footer con stacco antracite in fondo alla pagina */
-        .nv-footer { 
-            position: relative; z-index: 10; 
-            padding: 60px 20px; text-align: center; 
-            background-color: var(--footer-bg); 
-            margin-top: 100px;
+        /* Footer con stacco colore in fondo allo scroll */
+        footer {
+            position: relative;
+            z-index: 10;
+            background-color: var(--footer-bg);
+            padding: 60px 20px;
+            text-align: center;
+            margin-top: 80px;
         }
-        .footer-link { color: white; text-decoration: none; margin: 0 15px; font-weight: 700; font-size: 0.9rem; }
-        .footer-link:hover { color: var(--neon); }
+        .footer-links a { color: white; text-decoration: none; margin: 0 15px; font-weight: 700; font-size: 0.9rem; }
+        .footer-links a:hover { color: var(--neon); }
+        .copy { opacity: 0.3; font-size: 0.7rem; margin-top: 25px; letter-spacing: 2px; }
+
     </style>
 </head>
 <body>
 
     <div class="bg-layer"></div>
 
-    <header class="nav-fix">
-        <img src="images/logo.png" class="logo-trigger" onclick="openM()">
+    <header>
+        <img src="images/logo.png" class="logo-trigger" onclick="openNav()">
     </header>
 
-    <div id="m" class="nv-menu">
-        <a href="javascript:void(0)" class="nv-close" onclick="closeM()">&times;</a>
+    <div id="myNav" class="nv-menu">
+        <a href="javascript:void(0)" class="nv-close" onclick="closeNav()">&times;</a>
         <div class="nv-links">
             <a href="index.html">HOME</a>
             <a href="eventi.html">EVENTI</a>
@@ -103,43 +120,43 @@
         </div>
     </div>
 
-    <main class="main-wrapper container">
-        <h1 class="section-title">COMMUNITY</h1>
-        <p class="section-subtitle">Born Under Pressure</p>
+    <div class="container container-main">
+        <h1>COMMUNITY</h1>
+        <p class="subtitle">Born Under Pressure</p>
 
         <div class="row g-4 justify-content-center">
             <div class="col-6 col-md-4">
-                <div class="comm-card">
+                <div class="card-box">
                     <i class="fa-solid fa-users"></i>
-                    <h3>Membri</h3>
+                    <h3>MEMBRI</h3>
                 </div>
             </div>
             <div class="col-6 col-md-4">
-                <a href="https://wa.me/tuonumero" class="comm-card">
+                <a href="https://wa.me/tuonumero" class="card-box">
                     <i class="fa-brands fa-whatsapp"></i>
-                    <h3>WhatsApp</h3>
+                    <h3>WHATSAPP</h3>
                 </a>
             </div>
             <div class="col-6 col-md-4">
-                <div class="comm-card">
+                <div class="card-box">
                     <i class="fa-solid fa-address-card"></i>
-                    <h3>Tesseramento</h3>
+                    <h3>TESSERAMENTO</h3>
                 </div>
             </div>
         </div>
-    </main>
+    </div>
 
-    <footer class="nv-footer">
-        <div class="mb-3">
-            <a href="mailto:info@neverasports.it" class="footer-link">EMAIL</a>
-            <a href="#" class="footer-link">WHATSAPP</a>
+    <footer>
+        <div class="footer-links">
+            <a href="mailto:info@neverasports.it">EMAIL</a>
+            <a href="#">WHATSAPP</a>
         </div>
-        <p style="opacity: 0.3; font-size: 0.7rem; letter-spacing: 2px;">© 2026 NEVERA SPORTS</p>
+        <p class="copy">© 2026 NEVERA SPORTS | ALL RIGHTS RESERVED</p>
     </footer>
 
     <script>
-        function openM() { document.getElementById("m").style.width = "100%"; }
-        function closeM() { document.getElementById("m").style.width = "0"; }
+        function openNav() { document.getElementById("myNav").style.width = "100%"; }
+        function closeNav() { document.getElementById("myNav").style.width = "0"; }
     </script>
 
 </body>
