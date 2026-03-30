@@ -13,6 +13,7 @@
         :root {
             --neon: #3FF000;
             --dark: #040404;
+            --footer-bg: #111111;
             --white: #FDFDFD;
             --font-title: 'Archivo Black', sans-serif;
             --font-body: 'Space Grotesk', sans-serif;
@@ -39,8 +40,8 @@
             transition: transform 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275); 
         }
         .logo-trigger:hover { 
-            transform: scale(1.15) rotate(3deg); 
-            filter: drop-shadow(0 0 20px var(--neon));
+            transform: scale(1.1) rotate(2deg); 
+            filter: drop-shadow(0 0 15px var(--neon));
         }
 
         /* MENU OVERLAY */
@@ -59,56 +60,60 @@
         .nv-close { position: absolute; top: 30px; right: 45px; font-size: 50px; color: var(--neon); text-decoration: none; }
 
         /* CONTENT */
-        .main-wrapper { position: relative; z-index: 10; flex: 1; display: flex; flex-direction: column; justify-content: center; align-items: center; padding: 20px; }
+        .main-wrapper { position: relative; z-index: 10; flex: 1; display: flex; flex-direction: column; justify-content: center; align-items: center; padding: 40px 20px; }
         
         .nv-title { font-family: var(--font-title); font-size: clamp(3rem, 10vw, 5rem); text-transform: uppercase; letter-spacing: -2px; margin: 0; line-height: 1; }
-        .nv-subtitle { color: var(--neon); font-weight: 700; text-transform: uppercase; letter-spacing: 6px; margin-bottom: 50px; font-size: 1.1rem; }
+        .nv-subtitle { color: var(--neon); font-weight: 700; text-transform: uppercase; letter-spacing: 6px; margin-bottom: 60px; font-size: 1.1rem; }
 
-        /* RIQUADRI SMUSSATI (Border Radius 20px come originale) */
+        /* CARD AGGIORNATE (ICONE BIANCHE) */
         .home-card {
             display: flex; flex-direction: column; justify-content: center; align-items: center;
-            background: rgba(255, 255, 255, 0.07); 
+            background: rgba(255, 255, 255, 0.05); 
             border: 1px solid rgba(255, 255, 255, 0.1);
-            border-radius: 20px; /* Smussatura ripristinata */
-            padding: 50px 15px; text-decoration: none !important; color: white !important;
+            border-radius: 20px;
+            padding: 55px 15px; text-decoration: none !important; color: white !important;
             transition: 0.4s ease; height: 100%;
             backdrop-filter: blur(5px);
         }
         .home-card:hover { 
             background: var(--neon); color: var(--dark) !important; 
             border-color: var(--neon); transform: translateY(-10px);
-            box-shadow: 0 15px 30px rgba(63, 240, 0, 0.2);
+            box-shadow: 0 10px 30px rgba(63, 240, 0, 0.15);
         }
-        .home-card i { font-size: 2.8rem; margin-bottom: 20px; color: var(--neon); transition: 0.3s; }
+        /* Icona Bianca di default */
+        .home-card i { font-size: 2.8rem; margin-bottom: 25px; color: var(--white); transition: 0.3s; }
+        /* Icona diventa nera solo in hover su fondo neon */
         .home-card:hover i { color: var(--dark); }
-        .home-card h3 { font-family: var(--font-title); font-size: 0.9rem; text-transform: uppercase; letter-spacing: 1px; margin: 0; }
+        
+        .home-card h3 { font-family: var(--font-title); font-size: 0.85rem; text-transform: uppercase; letter-spacing: 2px; margin: 0; }
 
-        /* SEZIONE CONTATTI AGGIORNATA */
+        /* FOOTER CON STACCO */
         .nv-footer { 
             position: relative; z-index: 10; 
             padding: 60px 20px; text-align: center; 
-            background: linear-gradient(to top, var(--dark), transparent);
-            border-top: 1px solid rgba(255, 255, 255, 0.05);
+            background-color: var(--footer-bg); 
+            border-top: 1px solid rgba(255, 255, 255, 0.1);
         }
-        .footer-cta { font-family: var(--font-title); color: var(--neon); font-size: 1.5rem; margin-bottom: 25px; display: block; }
-        .contact-box { display: flex; justify-content: center; gap: 30px; flex-wrap: wrap; margin-bottom: 30px; }
+        .footer-cta { font-family: var(--font-title); color: var(--white); font-size: 1.2rem; margin-bottom: 30px; display: block; letter-spacing: 3px; }
+        .contact-box { display: flex; justify-content: center; gap: 40px; flex-wrap: wrap; margin-bottom: 30px; }
         .contact-item { 
             color: white; text-decoration: none; font-weight: 700; 
-            font-size: 1rem; transition: 0.3s; display: flex; align-items: center; gap: 10px;
+            font-size: 0.85rem; transition: 0.3s; display: flex; align-items: center; gap: 10px;
+            letter-spacing: 1.5px;
         }
-        .contact-item i { color: var(--neon); font-size: 1.2rem; }
-        .contact-item:hover { color: var(--neon); transform: translateY(-3px); }
+        /* Solo le piccole icone contatti rimangono neon per guidare l'occhio */
+        .contact-item i { color: var(--neon); font-size: 1.1rem; }
+        .contact-item:hover { color: var(--neon); }
 
         .social-row { margin-bottom: 30px; }
         .social-row a { color: white; font-size: 1.5rem; margin: 0 15px; transition: 0.3s; }
-        .social-row a:hover { color: var(--neon); }
+        .social-row a:hover { color: var(--neon); transform: scale(1.1); display: inline-block; }
         
-        .copyright { opacity: 0.3; font-size: 0.7rem; letter-spacing: 3px; text-transform: uppercase; }
+        .copyright { opacity: 0.3; font-size: 0.6rem; letter-spacing: 4px; text-transform: uppercase; }
 
         @media (max-width: 768px) {
             .nv-title { font-size: 3rem; }
-            .home-card { padding: 35px 10px; border-radius: 15px; }
-            .contact-box { flex-direction: column; gap: 15px; }
+            .contact-box { flex-direction: column; gap: 20px; }
         }
     </style>
 </head>
@@ -135,7 +140,7 @@
         <h1 class="nv-title">NEVERA</h1>
         <p class="nv-subtitle">Born Under Pressure</p>
 
-        <div class="row g-4 w-100" style="max-width: 1100px;">
+        <div class="row g-4 w-100" style="max-width: 1050px;">
             <div class="col-6 col-md-3">
                 <a href="eventi.html" class="home-card">
                     <i class="fa-solid fa-trophy"></i>
@@ -164,7 +169,7 @@
     </main>
 
     <footer class="nv-footer">
-        <span class="footer-cta">GET IN TOUCH</span>
+        <span class="footer-cta">CONTATTACI</span>
         
         <div class="contact-box">
             <a href="mailto:info@neverasports.it" class="contact-item">
