@@ -17,94 +17,103 @@
         }
 
         body {
-            margin: 0;
-            padding: 0;
+            margin: 0; padding: 0;
             background-color: var(--dark);
             color: var(--white);
             font-family: 'Space Grotesk', sans-serif;
             text-align: center;
+            overflow-x: hidden;
         }
 
-        /* Sfondo */
+        /* Sfondo Fisso Originale */
         #bg {
             position: fixed;
             top: 0; left: 0;
             width: 100%; height: 100%;
-            background-image: linear-gradient(rgba(0,0,0,0.6), rgba(0,0,0,0.6)), url('images/image_c3c605.jpg');
+            background-image: linear-gradient(rgba(0,0,0,0.7), rgba(0,0,0,0.8)), url('images/image_c3c605.jpg');
             background-size: cover;
             background-position: center;
             z-index: -1;
         }
 
-        /* Logo interattivo */
-        #header { padding: 50px 0; }
+        /* Header / Logo */
+        #header { padding: 50px 0; position: relative; z-index: 10; }
         .logo { height: 80px; cursor: pointer; transition: 0.3s; }
         .logo:hover { filter: drop-shadow(0 0 15px var(--neon)); transform: scale(1.05); }
 
-        /* Menu */
+        /* Menu Overlay */
         .overlay {
             height: 100%; width: 0; position: fixed; z-index: 999;
             top: 0; left: 0; background-color: var(--dark); 
             overflow-x: hidden; transition: 0.5s; 
         }
-        .overlay-content { position: relative; top: 25%; width: 100%; text-align: center; margin-top: 30px; }
+        .overlay-content { position: relative; top: 20%; width: 100%; text-align: center; }
         .overlay a { 
             font-family: 'Archivo Black', sans-serif; padding: 15px; text-decoration: none; 
-            font-size: 30px; color: white; display: block; transition: 0.3s; 
+            font-size: 35px; color: white; display: block; transition: 0.3s; text-transform: uppercase;
         }
         .overlay a:hover { color: var(--neon); }
         .closebtn { position: absolute; top: 20px; right: 45px; font-size: 60px; color: var(--neon); text-decoration: none; }
 
-        /* Titoli */
-        h1 { font-family: 'Archivo Black', sans-serif; font-size: 50px; margin: 20px 0 5px 0; text-transform: uppercase; }
-        .sub { color: var(--neon); font-weight: bold; letter-spacing: 5px; margin-bottom: 50px; text-transform: uppercase; }
-
-        /* Griglia dei Riquadri Originale */
-        .container {
-            display: block;
-            max-width: 1000px;
+        /* Sezione Catchy Centrale */
+        .hero-community {
+            position: relative;
+            z-index: 10;
+            padding: 100px 20px;
+            max-width: 900px;
             margin: 0 auto;
-            padding: 20px;
         }
 
-        .box {
+        h1 { 
+            font-family: 'Archivo Black', sans-serif; 
+            font-size: clamp(2.5rem, 8vw, 5rem); 
+            line-height: 0.9;
+            margin-bottom: 20px;
+            text-transform: uppercase;
+        }
+
+        .catchy-phrase {
+            font-size: clamp(1.2rem, 3vw, 1.8rem);
+            font-weight: 700;
+            color: var(--white);
+            margin-bottom: 40px;
+            letter-spacing: 1px;
+        }
+
+        /* Pulsante Unisciti */
+        .join-btn {
             display: inline-block;
-            width: 280px;
-            margin: 15px;
-            padding: 60px 20px;
-            background: rgba(255, 255, 255, 0.05);
-            border: 1px solid rgba(255, 255, 255, 0.1);
-            border-radius: 25px; /* Smussatura originale */
-            text-decoration: none;
-            color: white;
-            transition: 0.3s;
-            vertical-align: top;
-        }
-
-        .box:hover {
-            background: var(--neon);
+            font-family: 'Archivo Black', sans-serif;
+            background-color: var(--neon);
             color: var(--dark);
-            border-color: var(--neon);
+            padding: 25px 60px;
+            font-size: 1.2rem;
+            text-decoration: none;
+            text-transform: uppercase;
+            border-radius: 50px; /* Molto smussato per staccare dai riquadri */
+            transition: 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+            box-shadow: 0 0 0px rgba(63, 240, 0, 0);
         }
 
-        .box i { font-size: 50px; margin-bottom: 20px; color: white; transition: 0.3s; }
-        .box:hover i { color: var(--dark); }
-        .box h3 { font-family: 'Archivo Black', sans-serif; font-size: 16px; margin: 0; text-transform: uppercase; }
+        .join-btn:hover {
+            transform: scale(1.1);
+            background-color: var(--white);
+            box-shadow: 0 10px 30px rgba(63, 240, 0, 0.3);
+        }
 
         /* Footer con stacco antracite */
         #footer {
+            position: relative;
+            z-index: 10;
             background-color: var(--footer-bg);
             padding: 80px 20px;
-            margin-top: 150px;
+            margin-top: 100px;
+            border-top: 1px solid rgba(255,255,255,0.05);
         }
-        .foot-links a { color: white; text-decoration: none; margin: 0 20px; font-weight: bold; }
+        .foot-links a { color: white; text-decoration: none; margin: 0 20px; font-weight: bold; font-size: 0.9rem; }
         .foot-links a:hover { color: var(--neon); }
         .credits { opacity: 0.3; font-size: 10px; margin-top: 30px; letter-spacing: 3px; }
 
-        @media (max-width: 768px) {
-            .box { width: 40%; padding: 40px 10px; }
-            h1 { font-size: 35px; }
-        }
     </style>
 </head>
 <body>
@@ -126,30 +135,20 @@
         </div>
     </div>
 
-    <h1>COMMUNITY</h1>
-    <div class="sub">Born Under Pressure</div>
-
-    <div class="container">
-        <div class="box">
-            <i class="fa-solid fa-users"></i>
-            <h3>Membri</h3>
-        </div>
-
-        <a href="https://wa.me/tuonumero" class="box">
-            <i class="fa-brands fa-whatsapp"></i>
-            <h3>WhatsApp</h3>
+    <div class="hero-community">
+        <h1>BORN UNDER<br><span style="color: var(--neon);">PRESSURE.</span></h1>
+        <p class="catchy-phrase">Non è solo sport. È il tuo nuovo habitat.<br>Entra nel network ufficiale di Nevera.</p>
+        
+        <a href="https://wa.me/tuonumero" class="join-btn">
+            Unisciti alla Community <i class="fa-brands fa-whatsapp" style="margin-left: 10px;"></i>
         </a>
-
-        <div class="box">
-            <i class="fa-solid fa-address-card"></i>
-            <h3>Tesseramento</h3>
-        </div>
     </div>
 
     <div id="footer">
         <div class="foot-links">
             <a href="mailto:info@neverasports.it">EMAIL</a>
-            <a href="#">WHATSAPP</a>
+            <a href="#">INSTAGRAM</a>
+            <a href="#">TIKTOK</a>
         </div>
         <div class="credits">© 2026 NEVERA SPORTS | ALL RIGHTS RESERVED</div>
     </div>
