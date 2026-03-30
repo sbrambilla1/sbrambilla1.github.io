@@ -12,8 +12,7 @@
     <style>
         :root {
             --neon: #3FF000;
-            --dark: #040404;
-            --footer-bg: #111111;
+            --dark: #040404; /* Nero Nevera standard */
             --white: #FDFDFD;
             --font-title: 'Archivo Black', sans-serif;
             --font-body: 'Space Grotesk', sans-serif;
@@ -24,15 +23,25 @@
             background-color: var(--dark);
             color: var(--white);
             font-family: var(--font-body);
-            /* Rimosso flex center per permettere lo scrolling naturale */
             overflow-x: hidden;
         }
 
-        /* Sfondo Fisso */
+        /* SFONDO FISSO ESCLUSO IL FOOTER */
         .bg-layer {
             position: fixed; top: 0; left: 0; width: 100%; height: 100%;
-            background-image: linear-gradient(rgba(0,0,0,0.6), rgba(0,0,0,0.8)), url('images/image_c3c605.jpg');
+            /* L'immagine di sfondo */
+            background-image: url('images/solidblack.png');
             background-size: cover; background-position: center; z-index: 0;
+        }
+
+        /* Overlay che sfuma verso il nero solido per raccordarsi al footer */
+        .bg-overlay {
+            position: fixed; top: 0; left: 0; width: 100%; height: 100%;
+            background: linear-gradient(to bottom, 
+                rgba(4, 4, 4, 0.5) 0%, 
+                rgba(4, 4, 4, 0.7) 70%, 
+                rgba(4, 4, 4, 1) 100%);
+            z-index: 1;
         }
 
         /* HEADER */
@@ -60,11 +69,11 @@
         .nv-links a:hover { color: var(--neon); transform: translateX(10px); }
         .nv-close { position: absolute; top: 30px; right: 45px; font-size: 50px; color: var(--neon); text-decoration: none; }
 
-        /* CONTENT WRAPPER - Altezza minima per forzare lo scroll */
+        /* CONTENT WRAPPER */
         .main-wrapper { 
             position: relative; 
             z-index: 10; 
-            min-height: 80vh; /* Occupa quasi tutta la visuale iniziale */
+            min-height: 90vh;
             display: flex; 
             flex-direction: column; 
             justify-content: center; 
@@ -75,7 +84,7 @@
         .nv-title { font-family: var(--font-title); font-size: clamp(3rem, 10vw, 5rem); text-transform: uppercase; letter-spacing: -2px; margin: 0; line-height: 1; }
         .nv-subtitle { color: var(--neon); font-weight: 700; text-transform: uppercase; letter-spacing: 6px; margin-bottom: 60px; font-size: 1.1rem; }
 
-        /* CARD (ICONE BIANCHE) */
+        /* CARD */
         .home-card {
             display: flex; flex-direction: column; justify-content: center; align-items: center;
             background: rgba(255, 255, 255, 0.05); 
@@ -88,21 +97,20 @@
         .home-card:hover { 
             background: var(--neon); color: var(--dark) !important; 
             border-color: var(--neon); transform: translateY(-10px);
-            box-shadow: 0 10px 30px rgba(63, 240, 0, 0.15);
+            box-shadow: 0 10px 30px rgba(63, 240, 0, 0.2);
         }
         .home-card i { font-size: 2.8rem; margin-bottom: 25px; color: var(--white); transition: 0.3s; }
         .home-card:hover i { color: var(--dark); }
         .home-card h3 { font-family: var(--font-title); font-size: 0.85rem; text-transform: uppercase; letter-spacing: 2px; margin: 0; }
 
-        /* FOOTER POSIZIONATO IN BASSO */
+        /* FOOTER SOLIDO (Coprente) */
         .nv-footer { 
             position: relative; 
             z-index: 10; 
             padding: 80px 20px; 
             text-align: center; 
-            background-color: var(--footer-bg); 
+            background-color: var(--dark); /* Sfondo solido per escludere l'immagine */
             border-top: 1px solid rgba(255, 255, 255, 0.1);
-            margin-top: 50px; /* Spazio prima del footer */
         }
         .footer-cta { font-family: var(--font-title); color: var(--white); font-size: 1.2rem; margin-bottom: 30px; display: block; letter-spacing: 3px; }
         .contact-box { display: flex; justify-content: center; gap: 40px; flex-wrap: wrap; margin-bottom: 40px; }
@@ -122,7 +130,6 @@
 
         @media (max-width: 768px) {
             .nv-title { font-size: 3rem; }
-            .contact-box { flex-direction: column; gap: 25px; }
             .main-wrapper { min-height: auto; padding-top: 20px; }
         }
     </style>
@@ -130,6 +137,7 @@
 <body>
 
     <div class="bg-layer"></div>
+    <div class="bg-overlay"></div>
 
     <header class="nav-fix">
         <img src="images/logo.png" alt="Nevera Logo" class="logo-trigger" onclick="openM()">
