@@ -13,8 +13,8 @@
         :root {
             --neon: #3FF000;
             --dark: #040404;
-            --footer-bg: #111111;
             --white: #FDFDFD;
+            --hover-bg: #111111; /* Grigio scuro per hover */
         }
 
         body {
@@ -53,44 +53,75 @@
         h1 { font-family: 'Archivo Black', sans-serif; font-size: 3.5rem; margin-bottom: 5px; text-transform: uppercase; }
         .sub-tag { color: var(--neon); font-weight: 700; letter-spacing: 5px; text-transform: uppercase; margin-bottom: 60px; font-size: 0.9rem; }
 
-        /* Riquadri Vantaggi (Icone Bianche) */
+        /* NUOVA HOVER SUI RIQUADRI VANTAGGI */
         .feature-card {
             background: rgba(255, 255, 255, 0.03);
             border: 1px solid rgba(255, 255, 255, 0.1);
             border-radius: 20px;
-            padding: 40px 20px;
+            padding: 45px 20px;
             height: 100%;
-            transition: 0.3s;
+            transition: 0.4s ease; /* Transizione morbida */
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
         }
-        .feature-card i { font-size: 2.5rem; color: var(--white); margin-bottom: 20px; }
-        .feature-card h3 { font-family: 'Archivo Black', sans-serif; font-size: 0.8rem; letter-spacing: 1px; text-transform: uppercase; margin-bottom: 15px; }
-        .feature-card p { font-size: 0.9rem; opacity: 0.7; line-height: 1.4; margin: 0; }
 
+        /* Effetto Hover dinamico */
+        .feature-card:hover {
+            background-color: var(--hover-bg); /* Sfondo si scurisce leggermente */
+            border-color: var(--neon); /* Bordo diventa neon */
+            transform: translateY(-10px); /* Si alza di 10px */
+            box-shadow: 0 10px 30px rgba(63, 240, 0, 0.15); /* Bagliore soffuso neon */
+        }
+
+        /* Stile Icona */
+        .feature-card i { 
+            font-size: 3rem; 
+            color: var(--white); 
+            margin-bottom: 25px; 
+            transition: 0.3s; 
+        }
+
+        /* Icona diventa neon su hover */
+        .feature-card:hover i {
+            color: var(--neon);
+            filter: drop-shadow(0 0 10px var(--neon));
+        }
+
+        .feature-card h3 { font-family: 'Archivo Black', sans-serif; font-size: 0.85rem; letter-spacing: 1px; text-transform: uppercase; margin-bottom: 15px; transition: 0.3s; }
+        .feature-card p { font-size: 0.9rem; opacity: 0.7; line-height: 1.5; margin: 0; transition: 0.3s; }
+        
         /* CTA Section */
-        .cta-section { margin: 80px 0 100px 0; }
-        .catchy-phrase { font-family: 'Archivo Black', sans-serif; font-size: 1.5rem; margin-bottom: 30px; text-transform: uppercase; }
+        .cta-section { margin: 80px 0 120px 0; }
+        .catchy-phrase { font-family: 'Archivo Black', sans-serif; font-size: 1.6rem; margin-bottom: 35px; text-transform: uppercase; }
         
         .btn-join {
             display: inline-block;
             font-family: 'Archivo Black', sans-serif;
             background: transparent;
-            color: var(--neon);
-            border: 2px solid var(--neon);
-            padding: 20px 50px;
+            color: var(--white);
+            border: 2px solid var(--white);
+            padding: 22px 55px;
             border-radius: 15px;
             text-decoration: none;
             font-size: 1rem;
             letter-spacing: 2px;
             transition: 0.3s;
         }
-        .btn-join:hover { background: var(--neon); color: var(--dark); transform: scale(1.05); }
+        .btn-join:hover { 
+            background: var(--neon); 
+            color: var(--dark); 
+            border-color: var(--neon);
+            transform: scale(1.05); 
+        }
 
-        footer { background: var(--footer-bg); padding: 60px 20px; text-align: center; }
+        footer { background: rgba(0,0,0,0.3); padding: 50px 20px; text-align: center; border-top: 1px solid rgba(255,255,255,0.05); }
         .copy { opacity: 0.2; font-size: 10px; letter-spacing: 3px; }
 
         @media (max-width: 768px) {
             h1 { font-size: 2.5rem; }
-            .feature-card { margin-bottom: 20px; }
+            .feature-card { margin-bottom: 20px; padding: 35px 15px; }
         }
     </style>
 </head>
@@ -120,16 +151,16 @@
         <div class="row g-4 mt-2 justify-content-center">
             <div class="col-md-4">
                 <div class="feature-card">
-                    <i class="fa-solid fa-people"></i>
+                    <i class="fa-solid fa-baseball-ball"></i>
                     <h3>Trova Avversari</h3>
-                    <p>Condividi le tue partite e scendi in campo con i membri Nevera.</p>
+                    <p>Organizza partite e sfida i membri del network Nevera in tempo reale.</p>
                 </div>
             </div>
             <div class="col-md-4">
                 <div class="feature-card">
                     <i class="fa-solid fa-calendar-check"></i>
                     <h3>News & Eventi</h3>
-                    <p>Resta aggiornato su tutti i tornei, ranking e appuntamenti ufficiali.</p>
+                    <p>Resta aggiornato su tornei, ranking, news e appuntamenti ufficiali.</p>
                 </div>
             </div>
             <div class="col-md-4">
@@ -142,15 +173,15 @@
         </div>
 
         <div class="cta-section">
-            <div class="catchy-phrase">Sei pronto a cambiare le regole del gioco?</div>
+            <div class="catchy-phrase">Sei pronto a entrare nel gioco?</div>
             <a href="https://t.me/tuolink" class="btn-join">
-                UNISCITI <i class="fa-brands fa-telegram" style="margin-left: 10px;"></i>
+                UNISCITI SU TELEGRAM <i class="fa-brands fa-telegram" style="margin-left: 10px;"></i>
             </a>
         </div>
     </div>
 
     <footer>
-        <p class="copyright">© 2026 NEVERA SPORTS | BORN UNDER PRESSURE</p>
+        <p class="copy">© 2026 NEVERA SPORTS | BORN UNDER PRESSURE</p>
     </footer>
 
     <script>
