@@ -15,126 +15,73 @@
             --dark: #040404;
             --footer-bg: #111111;
             --white: #FDFDFD;
-            --font-title: 'Archivo Black', sans-serif;
-            --font-body: 'Space Grotesk', sans-serif;
         }
 
-        html, body {
-            margin: 0; padding: 0;
-            background-color: var(--dark);
-            color: var(--white);
-            font-family: var(--font-body);
-            overflow-x: hidden;
+        body {
+            margin: 0; background-color: var(--dark);
+            color: var(--white); font-family: 'Space Grotesk', sans-serif;
         }
 
-        /* Sfondo Fisso */
+        /* Sfondo Originale */
         .bg-layer {
             position: fixed; top: 0; left: 0; width: 100%; height: 100%;
-            background-image: linear-gradient(rgba(0,0,0,0.7), rgba(0,0,0,0.85)), url('images/image_c3c605.jpg');
+            background-image: linear-gradient(rgba(0,0,0,0.6), rgba(0,0,0,0.7)), url('images/image_c3c605.jpg');
             background-size: cover; background-position: center; z-index: 0;
         }
 
-        /* HEADER */
-        .nav-fix { position: relative; padding: 60px 0 40px 0; text-align: center; z-index: 100; }
-        .logo-trigger { 
-            height: 70px; cursor: pointer; 
-            transition: transform 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275); 
-        }
+        /* Logo con Hover Neon */
+        .nav-fix { position: relative; padding: 40px 0; text-align: center; z-index: 100; }
+        .logo-trigger { height: 80px; cursor: pointer; transition: 0.3s; }
         .logo-trigger:hover { 
-            transform: scale(1.1) rotate(2deg); 
+            transform: scale(1.1); 
             filter: drop-shadow(0 0 15px var(--neon));
         }
 
-        /* MENU OVERLAY */
+        /* Menu Overlay */
         .nv-menu {
             height: 100%; width: 0; position: fixed; z-index: 9999;
-            top: 0; left: 0; background-color: rgba(4, 4, 4, 0.98); 
+            top: 0; left: 0; background-color: var(--dark); 
             overflow: hidden; transition: 0.5s; 
             display: flex; align-items: center; justify-content: center;
         }
         .nv-links a { 
-            font-family: var(--font-title); font-size: 2.8rem; color: var(--white); 
-            text-decoration: none; display: block; margin: 20px; text-transform: uppercase; 
+            font-family: 'Archivo Black', sans-serif; font-size: 2.5rem; color: var(--white); 
+            text-decoration: none; display: block; margin: 25px; text-transform: uppercase; 
         }
-        .nv-links a:hover { color: var(--neon); transform: translateX(10px); }
+        .nv-links a:hover { color: var(--neon); }
         .nv-close { position: absolute; top: 30px; right: 45px; font-size: 50px; color: var(--neon); text-decoration: none; }
 
-        /* CONTENT WRAPPER */
-        .main-wrapper { 
-            position: relative; 
-            z-index: 10; 
-            min-height: 80vh; 
-            display: flex; 
-            flex-direction: column; 
-            align-items: center; 
-            padding: 40px 20px 100px 20px; 
-        }
-        
-        .section-title { 
-            font-family: var(--font-title); 
-            font-size: clamp(2.5rem, 8vw, 4rem); 
-            text-transform: uppercase; 
-            letter-spacing: -1px; 
-            margin-bottom: 10px; 
-        }
-        .section-subtitle { 
-            color: var(--neon); 
-            font-weight: 700; 
-            text-transform: uppercase; 
-            letter-spacing: 5px; 
-            margin-bottom: 60px; 
-            font-size: 1rem; 
-        }
+        /* Struttura Centrale Originale */
+        .main-wrapper { position: relative; z-index: 10; padding: 50px 20px; text-align: center; }
+        .section-title { font-family: 'Archivo Black', sans-serif; font-size: 3.5rem; text-transform: uppercase; margin: 0; }
+        .section-subtitle { color: var(--neon); font-weight: 700; text-transform: uppercase; letter-spacing: 5px; margin-bottom: 50px; }
 
-        /* CARD COMMUNITY (ICONE BIANCHE) */
+        /* Riquadri Smussati Originali (Icone Bianche) */
         .comm-card {
             display: flex; flex-direction: column; justify-content: center; align-items: center;
             background: rgba(255, 255, 255, 0.05); 
             border: 1px solid rgba(255, 255, 255, 0.1);
-            border-radius: 20px;
-            padding: 60px 20px; text-decoration: none !important; color: white !important;
-            transition: 0.4s ease; height: 100%;
-            backdrop-filter: blur(5px);
+            border-radius: 20px; /* Smussatura richiesta */
+            padding: 60px 10px; text-decoration: none !important; color: white !important;
+            transition: 0.3s; height: 100%;
         }
         .comm-card:hover { 
             background: var(--neon); color: var(--dark) !important; 
-            border-color: var(--neon); transform: translateY(-10px);
-            box-shadow: 0 10px 30px rgba(63, 240, 0, 0.15);
+            border-color: var(--neon); 
         }
-        .comm-card i { font-size: 3rem; margin-bottom: 25px; color: var(--white); transition: 0.3s; }
+        .comm-card i { font-size: 3rem; margin-bottom: 20px; color: var(--white); transition: 0.3s; }
         .comm-card:hover i { color: var(--dark); }
-        .comm-card h3 { font-family: var(--font-title); font-size: 0.9rem; text-transform: uppercase; letter-spacing: 1px; margin: 0; }
+        .comm-card h3 { font-family: 'Archivo Black', sans-serif; font-size: 0.9rem; text-transform: uppercase; margin: 0; }
 
-        /* FOOTER */
+        /* Footer con stacco antracite in fondo alla pagina */
         .nv-footer { 
-            position: relative; 
-            z-index: 10; 
-            padding: 80px 20px; 
-            text-align: center; 
+            position: relative; z-index: 10; 
+            padding: 60px 20px; text-align: center; 
             background-color: var(--footer-bg); 
-            border-top: 1px solid rgba(255, 255, 255, 0.1);
+            margin-top: 100px;
         }
-        .footer-cta { font-family: var(--font-title); color: var(--white); font-size: 1.2rem; margin-bottom: 30px; display: block; letter-spacing: 3px; }
-        .contact-box { display: flex; justify-content: center; gap: 40px; flex-wrap: wrap; margin-bottom: 40px; }
-        .contact-item { 
-            color: white; text-decoration: none; font-weight: 700; 
-            font-size: 0.85rem; transition: 0.3s; display: flex; align-items: center; gap: 10px;
-            letter-spacing: 1.5px;
-        }
-        .contact-item i { color: var(--neon); font-size: 1.1rem; }
-        .contact-item:hover { color: var(--neon); }
-
-        .social-row { margin-bottom: 40px; }
-        .social-row a { color: white; font-size: 1.5rem; margin: 0 20px; transition: 0.3s; }
-        .social-row a:hover { color: var(--neon); transform: scale(1.1); display: inline-block; }
-        
-        .copyright { opacity: 0.3; font-size: 0.6rem; letter-spacing: 4px; text-transform: uppercase; }
-
-        @media (max-width: 768px) {
-            .section-title { font-size: 2.5rem; }
-            .contact-box { flex-direction: column; gap: 25px; }
-            .main-wrapper { min-height: auto; }
-        }
+        .footer-link { color: white; text-decoration: none; margin: 0 15px; font-weight: 700; font-size: 0.9rem; }
+        .footer-link:hover { color: var(--neon); }
     </style>
 </head>
 <body>
@@ -142,17 +89,17 @@
     <div class="bg-layer"></div>
 
     <header class="nav-fix">
-        <img src="images/logo.png" alt="Nevera Logo" class="logo-trigger" onclick="openM()">
+        <img src="images/logo.png" class="logo-trigger" onclick="openM()">
     </header>
 
     <div id="m" class="nv-menu">
         <a href="javascript:void(0)" class="nv-close" onclick="closeM()">&times;</a>
         <div class="nv-links">
-            <a href="index.html" onclick="closeM()">HOME</a>
-            <a href="eventi.html" onclick="closeM()">EVENTI</a>
-            <a href="community.html" onclick="closeM()">COMMUNITY</a>
-            <a href="sponsor.html" onclick="closeM()">SPONSOR</a>
-            <a href="iniziative.html" onclick="closeM()">INIZIATIVE</a>
+            <a href="index.html">HOME</a>
+            <a href="eventi.html">EVENTI</a>
+            <a href="community.html">COMMUNITY</a>
+            <a href="sponsor.html">SPONSOR</a>
+            <a href="iniziative.html">INIZIATIVE</a>
         </div>
     </div>
 
@@ -160,7 +107,7 @@
         <h1 class="section-title">COMMUNITY</h1>
         <p class="section-subtitle">Born Under Pressure</p>
 
-        <div class="row g-4 w-100 justify-content-center" style="max-width: 1100px;">
+        <div class="row g-4 justify-content-center">
             <div class="col-6 col-md-4">
                 <div class="comm-card">
                     <i class="fa-solid fa-users"></i>
@@ -183,23 +130,11 @@
     </main>
 
     <footer class="nv-footer">
-        <span class="footer-cta">CONTATTACI</span>
-        
-        <div class="contact-box">
-            <a href="mailto:info@neverasports.it" class="contact-item">
-                <i class="fa-solid fa-envelope"></i> INFO@NEVERASPORTS.IT
-            </a>
-            <a href="https://wa.me/tuonumero" class="contact-item">
-                <i class="fa-brands fa-whatsapp"></i> WHATSAPP
-            </a>
+        <div class="mb-3">
+            <a href="mailto:info@neverasports.it" class="footer-link">EMAIL</a>
+            <a href="#" class="footer-link">WHATSAPP</a>
         </div>
-
-        <div class="social-row">
-            <a href="#"><i class="fa-brands fa-instagram"></i></a>
-            <a href="#"><i class="fa-brands fa-tiktok"></i></a>
-        </div>
-
-        <p class="copyright">© 2026 NEVERA SPORTS | BORN UNDER PRESSURE</p>
+        <p style="opacity: 0.3; font-size: 0.7rem; letter-spacing: 2px;">© 2026 NEVERA SPORTS</p>
     </footer>
 
     <script>
