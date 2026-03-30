@@ -1,186 +1,194 @@
 <!DOCTYPE HTML>
-<html>
+<html lang="it">
 <head>
-    <title>SPONSOR | NEVERA SPORTS</title>
+    <title>PARTNERS - NEVERA SPORTS</title>
     <meta charset="utf-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1, user-scalable=no" />
-    
-    <link href="https://fonts.googleapis.com/css2?family=Archivo+Black&family=Space+Grotesk:wght@400;700&display=swap" rel="stylesheet">
-    
-    <style>
-        :root {
-            --neon: #3FF000;
-            --dark: #040404;
-            --white: #FDFDFD;
-        }
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <link rel="icon" type="image/png" href="images/favicon.png">
 
-        body {
+    <link href="https://fonts.googleapis.com/css2?family=Archivo+Black&family=Space+Grotesk:wght@400;700&display=swap" rel="stylesheet">
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+
+    <style>
+        /* RESET GLOBALE - DNA NEVERA */
+        html, body {
+            background-color: #040404 !important; /* Nero più profondo */
             margin: 0;
             padding: 0;
-            background-color: var(--dark);
-            color: var(--white);
+            overflow-x: hidden;
             font-family: 'Space Grotesk', sans-serif;
+            color: #FDFDFD;
+        }
+
+        /* NAVBAR E LOGO TRIGGER MENU */
+        .nav-fix {
+            position: fixed;
+            top: 0;
+            width: 100%;
+            padding: 40px 0;
+            z-index: 5000;
             text-align: center;
         }
 
-        /* Sfondo Fisso Originale */
-        #bg {
-            position: fixed;
-            top: 0; left: 0;
-            width: 100%; height: 100%;
-            background-image: linear-gradient(rgba(0,0,0,0.5), rgba(0,0,0,0.5)), url('images/image_c3c605.jpg');
-            background-size: cover;
-            background-position: center;
-            z-index: -1;
+        .logo-nav-container {
+            display: inline-block;
+            cursor: pointer;
+            transition: all 0.3s ease;
         }
 
-        /* Header e Logo (Menu Trigger) */
-        #header { padding: 60px 0; }
-        .logo { height: 80px; cursor: pointer; transition: 0.3s; }
-        .logo:hover { filter: drop-shadow(0 0 10px var(--neon)); }
-
-        /* Menu Overlay Originale */
-        .overlay {
-            height: 100%; width: 0; position: fixed; z-index: 999;
-            top: 0; left: 0; background-color: var(--dark); 
-            overflow-x: hidden; transition: 0.5s; 
-        }
-        .overlay-content { position: relative; top: 25%; width: 100%; text-align: center; }
-        .overlay a { 
-            font-family: 'Archivo Black', sans-serif; padding: 15px; text-decoration: none; 
-            font-size: 35px; color: white; display: block; transition: 0.3s; text-transform: uppercase;
-        }
-        .overlay a:hover { color: var(--neon); }
-        .closebtn { position: absolute; top: 20px; right: 45px; font-size: 60px; color: var(--neon); text-decoration: none; }
-
-        /* Titoli */
-        h1 { 
-            font-family: 'Archivo Black', sans-serif; 
-            font-size: 55px; 
-            margin: 20px 0 0 0; 
-            text-transform: uppercase; 
-        }
-        .sub { 
-            color: var(--neon); 
-            font-weight: bold; 
-            letter-spacing: 6px; 
-            margin-bottom: 60px; 
-            text-transform: uppercase; 
-            font-size: 14px;
+        .logo-trigger { 
+            height: 80px; /* Riportato a 80px come richiesto */
+            width: auto;
+            transition: all 0.3s ease;
         }
 
-        /* Griglia Sponsor Originale */
-        #main {
-            margin: 0 auto;
-            max-width: 1000px;
-            padding: 20px;
-        }
-
-        .sponsor-grid {
-            display: flex;
-            flex-wrap: wrap;
-            justify-content: center;
-            gap: 40px;
-            margin-bottom: 100px;
-        }
-
-        .sponsor-box {
-            width: 220px;
-            height: 150px;
-            background: rgba(255, 255, 255, 0.05);
-            border: 1px solid rgba(255, 255, 255, 0.1);
-            border-radius: 20px;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            padding: 20px;
-            transition: 0.3s;
-        }
-
-        .sponsor-box img {
-            max-width: 100%;
-            max-height: 100%;
-            filter: grayscale(100%) brightness(1.5);
-            transition: 0.3s;
-            opacity: 0.7;
-        }
-
-        .sponsor-box:hover {
-            border-color: var(--neon);
-            background: rgba(255, 255, 255, 0.08);
+        /* Effetto Hover Logo: Glow Neon Nevera */
+        .logo-nav-container:hover .logo-trigger {
             transform: scale(1.05);
+            filter: drop-shadow(0 0 15px rgba(63, 240, 0, 0.6));
         }
 
-        .sponsor-box:hover img {
-            filter: grayscale(0%) brightness(1);
-            opacity: 1;
+        /* MENU OVERLAY */
+        .nv-menu {
+            height: 100%; width: 0; position: fixed; z-index: 9999;
+            top: 0; left: 0; background-color: #040404; overflow: hidden;
+            transition: 0.5s cubic-bezier(0.7, 0, 0.3, 1); 
+            display: flex; align-items: center; justify-content: center;
+        }
+        .nv-links a { 
+            font-family: 'Archivo Black', sans-serif;
+            font-size: 2.5rem; color: #fff; text-decoration: none; 
+            display: block; margin: 20px; font-weight: 800; text-align: center;
+            transition: 0.3s;
+        }
+        .nv-links a:hover { color: #3FF000; } /* Verde Neon */
+        .nv-close { position: absolute; top: 30px; right: 45px; font-size: 50px; color: #3FF000; text-decoration: none; }
+
+        /* CONTENUTO PAGINA */
+        .nv-content { 
+            padding-top: 220px;
+            text-align: center; 
+        }
+        .nv-title { 
+            font-family: 'Archivo Black', sans-serif;
+            font-size: 3.5rem;
+            font-weight: 900; 
+            letter-spacing: 5px; 
+            text-transform: uppercase; 
+            margin-bottom: 10px; 
+        }
+        .nv-line { width: 60px; height: 3px; background-color: #3FF000; margin: 0 auto 50px auto; }
+
+        /* STRUTTURA BANNER (CARD) */
+        .nv-card {
+            display: block;
+            border-radius: 25px; /* Smussatura raccordata con Community/Eventi */
+            overflow: hidden;
+            border: 1px solid rgba(255, 255, 255, 0.1);
+            background: rgba(255, 255, 255, 0.03);
+            transition: all 0.4s cubic-bezier(0.165, 0.84, 0.44, 1);
+            padding: 0 !important; 
+            text-decoration: none;
+            position: relative;
         }
 
-        /* Footer */
-        #footer { padding: 80px 0; }
-        .copy { opacity: 0.3; font-size: 10px; letter-spacing: 4px; }
+        /* Hover sui Banner */
+        .nv-card:hover {
+            transform: translateY(-10px);
+            border-color: #3FF000 !important;
+            box-shadow: 0 15px 40px rgba(63, 240, 0, 0.15);
+        }
 
+        .nv-card img {
+            width: 100%;
+            height: 100%;
+            display: block;
+            object-fit: cover; 
+            transition: transform 0.6s ease;
+        }
+        
+        .nv-card:hover img {
+            transform: scale(1.05); 
+        }
+
+        /* Proporzioni Card Secondarie */
+        .nv-card-partner {
+            aspect-ratio: 16 / 9; /* Più cinematico del 3/2 */
+        }
+
+        /* Footer Credits */
+        .footer-tag {
+            opacity: 0.2; 
+            letter-spacing: 5px; 
+            font-size: 0.7rem; 
+            margin-top: 80px; 
+            margin-bottom: 50px;
+            text-transform: uppercase;
+        }
+
+        /* Mobile Responsive */
         @media (max-width: 768px) {
-            h1 { font-size: 35px; }
-            .sponsor-box { width: 160px; height: 120px; }
+            .nv-content { padding-top: 180px; }
+            .nv-title { font-size: 2.2rem; }
+            .logo-trigger { height: 65px; }
+            .nv-links a { font-size: 1.8rem; }
         }
     </style>
 </head>
 <body>
 
-    <div id="bg"></div>
-
-    <div id="header">
-        <img src="images/logo.png" class="logo" onclick="openNav()">
-    </div>
-
-    <div id="myNav" class="overlay">
-        <a href="javascript:void(0)" class="closebtn" onclick="closeNav()">&times;</a>
-        <div class="overlay-content">
-            <a href="index.html">HOME</a>
-            <a href="eventi.html">EVENTI</a>
-            <a href="community.html">COMMUNITY</a>
-            <a href="sponsor.html">SPONSOR</a>
-            <a href="iniziative.html">INIZIATIVE</a>
+    <div class="nav-fix">
+        <div class="logo-nav-container" onclick="openM()">
+            <img src="images/logo.png" alt="Nevera Menu" class="logo-trigger">
         </div>
     </div>
 
-    <h1>SPONSOR</h1>
-    <div class="sub">Official Partners</div>
-
-    <div id="main">
-        <div class="sponsor-grid">
-            
-            <div class="sponsor-box">
-                <img src="images/sponsor1.png" alt="Sponsor 1">
-            </div>
-
-            <div class="sponsor-box">
-                <img src="images/sponsor2.png" alt="Sponsor 2">
-            </div>
-
-            <div class="sponsor-box">
-                <img src="images/sponsor3.png" alt="Sponsor 3">
-            </div>
-            
-            <div class="sponsor-box">
-                <img src="images/sponsor4.png" alt="Sponsor 4">
-            </div>
-
+    <div id="m" class="nv-menu">
+        <a href="javascript:void(0)" class="nv-close" onclick="closeM()">&times;</a>
+        <div class="nv-links">
+            <a href="index.html" onclick="closeM()">HOME</a>
+            <a href="eventi.html" onclick="closeM()">EVENTI</a>
+            <a href="sponsor.html" onclick="closeM()">SPONSOR</a>
+            <a href="community.html" onclick="closeM()">COMMUNITY</a>
+            <a href="iniziative.html" onclick="closeM()">INIZIATIVE</a>
         </div>
     </div>
 
-    <div id="footer">
-        <div class="copy">© 2026 NEVERA SPORTS | BORN UNDER PRESSURE</div>
+    <div class="nv-content container">
+        <h1 class="nv-title">PARTNERS</h1>
+        <div class="nv-line"></div>
+
+        <div class="row justify-content-center mb-5">
+            <div class="col-lg-10 col-12">
+                <a href="https://www.voltpadel.com" target="_blank" class="nv-card">
+                    <img src="images/volt-padel-banner.webp" alt="Volt Padel">
+                </a>
+            </div>
+        </div>
+
+        <div class="row justify-content-center g-4">
+            <div class="col-lg-5 col-md-6">
+                <a href="https://www.orya.it" target="_blank" class="nv-card nv-card-partner">
+                    <img src="images/orya.png" alt="Orya">
+                </a>
+            </div>
+            <div class="col-lg-5 col-md-6">
+                <a href="#" class="nv-card nv-card-partner">
+                    <div style="height: 100%; display: flex; align-items: center; justify-content: center; background: rgba(255,255,255,0.02); min-height: 250px;">
+                         <p style="opacity: 0.1; letter-spacing: 2px;">NEXT PARTNER</p>
+                    </div>
+                </a>
+            </div>
+        </div>
+
+        <p class="footer-tag">BORN UNDER PRESSURE</p>
     </div>
 
     <script>
-        function openNav() { document.getElementById("myNav").style.width = "100%"; }
-        function closeNav() { document.getElementById("myNav").style.width = "0"; }
+        function openM() { document.getElementById("m").style.width = "100%"; }
+        function closeM() { document.getElementById("m").style.width = "0"; }
     </script>
-
-</body>
-</html>
 
 </body>
 </html>
