@@ -12,7 +12,6 @@
         :root {
             --neon: #3FF000;
             --dark: #040404;
-            --footer-bg: #111111;
             --white: #FDFDFD;
         }
 
@@ -23,9 +22,13 @@
             color: var(--white);
             font-family: 'Space Grotesk', sans-serif;
             text-align: center;
+            overflow: hidden; /* Tutto in una schermata come l'originale */
+            height: 100vh;
+            display: flex;
+            flex-direction: column;
         }
 
-        /* Sfondo Originale */
+        /* Sfondo */
         #bg {
             position: fixed;
             top: 0; left: 0;
@@ -36,8 +39,8 @@
             z-index: -1;
         }
 
-        /* Logo con Hover Neon */
-        #header { padding: 60px 0; }
+        /* Header */
+        header { padding: 50px 0; }
         .logo { height: 80px; cursor: pointer; transition: 0.3s; }
         .logo:hover { filter: drop-shadow(0 0 15px var(--neon)); transform: scale(1.05); }
 
@@ -45,71 +48,70 @@
         .overlay {
             height: 100%; width: 0; position: fixed; z-index: 999;
             top: 0; left: 0; background-color: var(--dark); 
-            overflow-x: hidden; transition: 0.5s; 
+            overflow: hidden; transition: 0.5s; 
         }
         .overlay-content { position: relative; top: 25%; width: 100%; text-align: center; }
         .overlay a { 
             font-family: 'Archivo Black', sans-serif; padding: 15px; text-decoration: none; 
-            font-size: 32px; color: white; display: block; transition: 0.3s; text-transform: uppercase;
+            font-size: 30px; color: white; display: block; transition: 0.3s; 
         }
         .overlay a:hover { color: var(--neon); }
         .closebtn { position: absolute; top: 20px; right: 45px; font-size: 60px; color: var(--neon); text-decoration: none; }
 
-        /* Contenuto Sobrio */
-        .content-area {
-            position: relative;
-            z-index: 10;
-            padding: 80px 20px;
-            max-width: 800px;
-            margin: 0 auto;
+        /* Sezione Centrale (La tua struttura originale) */
+        .main-container {
+            flex: 1;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            padding: 0 20px;
         }
 
         h1 { 
             font-family: 'Archivo Black', sans-serif; 
-            font-size: 45px; 
-            margin-bottom: 10px; 
+            font-size: clamp(2.5rem, 8vw, 50px); 
+            margin: 0; 
             text-transform: uppercase; 
-            letter-spacing: -1px;
         }
 
         .catchy-text {
-            font-size: 18px;
-            line-height: 1.6;
-            margin-bottom: 40px;
-            color: rgba(255,255,255,0.8);
-        }
-
-        /* Pulsante elegante (non invasivo) */
-        .btn-minimal {
-            display: inline-block;
-            font-family: 'Archivo Black', sans-serif;
             color: var(--neon);
-            text-decoration: none;
+            font-weight: bold;
+            letter-spacing: 3px;
+            margin: 15px 0 40px 0;
             text-transform: uppercase;
             font-size: 14px;
-            letter-spacing: 3px;
-            border: 1px solid var(--neon);
-            padding: 15px 40px;
-            border-radius: 5px; /* Smussatura leggera e sobria */
+        }
+
+        /* Il Bottone Unico */
+        .join-button {
+            display: inline-block;
+            background: rgba(255, 255, 255, 0.05);
+            border: 1px solid rgba(255, 255, 255, 0.1);
+            color: white;
+            text-decoration: none;
+            font-family: 'Archivo Black', sans-serif;
+            padding: 25px 50px;
+            border-radius: 20px; /* Smussatura che ti piace */
+            font-size: 16px;
+            letter-spacing: 2px;
             transition: 0.3s;
+            text-transform: uppercase;
         }
 
-        .btn-minimal:hover {
-            background-color: var(--neon);
+        .join-button:hover {
+            background: var(--neon);
             color: var(--dark);
+            border-color: var(--neon);
+            transform: scale(1.05);
         }
 
-        /* Footer con stacco antracite */
-        #footer {
-            position: relative;
-            z-index: 10;
-            background-color: var(--footer-bg);
-            padding: 70px 20px;
-            margin-top: 120px;
+        /* Footer */
+        footer {
+            padding: 40px 0;
         }
-        .foot-links a { color: white; text-decoration: none; margin: 0 20px; font-weight: bold; font-size: 13px; letter-spacing: 1px; }
-        .foot-links a:hover { color: var(--neon); }
-        .copy { opacity: 0.3; font-size: 10px; margin-top: 30px; letter-spacing: 3px; }
+        .credits { opacity: 0.2; font-size: 9px; letter-spacing: 3px; text-transform: uppercase; }
 
     </style>
 </head>
@@ -117,27 +119,38 @@
 
     <div id="bg"></div>
 
-    <div id="header">
-        <a href="index.html"><img src="images/logo.png" class="logo"></a>
+    <header>
+        <img src="images/logo.png" class="logo" onclick="openNav()">
+    </header>
+
+    <div id="myNav" class="overlay">
+        <a href="javascript:void(0)" class="closebtn" onclick="closeNav()">&times;</a>
+        <div class="overlay-content">
+            <a href="index.html">HOME</a>
+            <a href="eventi.html">EVENTI</a>
+            <a href="community.html">COMMUNITY</a>
+            <a href="sponsor.html">SPONSOR</a>
+            <a href="iniziative.html">INIZIATIVE</a>
+        </div>
     </div>
 
-    <div class="content-area">
+    <div class="main-container">
         <h1>COMMUNITY</h1>
-        <p class="catchy-text">Unisciti al network ufficiale di Nevera Sports per rimanere aggiornato su tutti i tornei e le iniziative esclusive.</p>
-        
-        <a href="https://wa.me/tuonumero" class="btn-minimal">
-            Entra nel Gruppo <i class="fa-brands fa-whatsapp" style="margin-left: 8px;"></i>
+        <div class="catchy-text">Oltre il campo. Dentro il network.</div>
+
+        <a href="https://t.me/tuolink" class="join-button">
+            UNISCITI SU TELEGRAM <i class="fa-brands fa-telegram" style="margin-left: 10px;"></i>
         </a>
     </div>
 
-    <div id="footer">
-        <div class="foot-links">
-            <a href="mailto:info@neverasports.it">EMAIL</a>
-            <a href="#">WHATSAPP</a>
-            <a href="#">INSTAGRAM</a>
-        </div>
-        <p class="copy">© 2026 NEVERA SPORTS | ALL RIGHTS RESERVED</p>
-    </div>
+    <footer>
+        <div class="credits">© 2026 NEVERA SPORTS | BORN UNDER PRESSURE</div>
+    </footer>
+
+    <script>
+        function openNav() { document.getElementById("myNav").style.width = "100%"; }
+        function closeNav() { document.getElementById("myNav").style.width = "0"; }
+    </script>
 
 </body>
 </html>
