@@ -1,215 +1,193 @@
 <!DOCTYPE HTML>
 <html lang="it">
 <head>
-    <title>INIZIATIVE | NEVER-A-WASTE</title>
+    <title>INIZIATIVE | NEVERA SPORTS</title>
     <meta charset="utf-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1" />
-    <link rel="icon" type="image/png" href="images/favicon.png">
-
-    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=0" />
+    
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Archivo+Black&family=Space+Grotesk:wght@300;400;700&display=swap" rel="stylesheet">
+    
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
-    <link rel="stylesheet" href="assets/css/main.css" />
-
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+    
     <style>
-        /* RESET E SFONDO */
-        html, body {
-            background-color: #000 !important;
-            margin: 0; padding: 0;
-            overflow-x: hidden;
-            font-family: sans-serif;
-            color: #fff;
+        :root {
+            --neon-green: #3FF000;
+            --matte-black: #040404;
+            --pure-white: #FDFDFD;
+            --grey-dark: #3A3A3A;
+            --font-title: 'Archivo Black', sans-serif;
+            --font-body: 'Space Grotesk', sans-serif;
         }
 
-        /* NAVBAR E LOGO MENU (80px) */
-        .nav-fix {
+        html, body {
+            margin: 0; padding: 0;
+            width: 100%; min-height: 100%;
+            background-color: var(--matte-black);
+            color: var(--pure-white);
+            font-family: var(--font-body);
+            overflow-x: hidden;
+        }
+
+        /* Fix Sfondo iPad */
+        .bg-layer {
             position: fixed;
-            top: 0; width: 100%;
-            padding: 40px 0; z-index: 5000;
+            top: 0; left: 0;
+            width: 100%; height: 100%;
+            background-image: linear-gradient(rgba(4,4,4,0.8), rgba(4,4,4,0.95)), url('images/image_c3c605.jpg');
+            background-size: cover;
+            background-position: center;
+            z-index: -1;
+        }
+
+        .nav-fix { padding: 30px 0; text-align: center; }
+        .logo-small { height: 50px; cursor: pointer; transition: 0.3s; }
+
+        .section-header { text-align: center; padding: 60px 20px; }
+        .section-title { font-family: var(--font-title); font-size: clamp(2.5rem, 8vw, 5rem); letter-spacing: -2px; margin: 0; }
+        
+        /* BOX INIZIATIVE (STILE TECHNICAL GRID) */
+        .initiative-card {
+            background: rgba(255,255,255,0.03);
+            border: 1px solid rgba(255,255,255,0.1);
+            padding: 40px;
+            height: 100%;
+            transition: 0.4s cubic-bezier(0.165, 0.84, 0.44, 1);
+            position: relative;
+            display: flex;
+            flex-direction: column;
+            justify-content: flex-start;
+        }
+
+        .initiative-card:hover {
+            border-color: var(--neon-green);
+            background: rgba(63, 240, 0, 0.02);
+            transform: translateY(-5px);
+        }
+
+        .init-icon {
+            font-size: 3rem;
+            color: var(--neon-green);
+            margin-bottom: 25px;
+            display: block;
+        }
+
+        .init-number {
+            position: absolute;
+            top: 20px; right: 30px;
+            font-family: var(--font-title);
+            font-size: 1.2rem;
+            opacity: 0.1;
+            color: var(--pure-white);
+        }
+
+        .init-title {
+            font-family: var(--font-title);
+            font-size: 1.5rem;
+            margin-bottom: 15px;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+        }
+
+        .init-text {
+            font-size: 0.95rem;
+            line-height: 1.6;
+            opacity: 0.7;
+            margin-bottom: 30px;
+        }
+
+        .init-tag {
+            margin-top: auto;
+            font-size: 0.7rem;
+            font-weight: 700;
+            letter-spacing: 2px;
+            color: var(--neon-green);
+            text-transform: uppercase;
+        }
+
+        /* Banner Speciale */
+        .labs-banner {
+            background: var(--neon-green);
+            color: var(--matte-black);
+            padding: 80px 20px;
+            margin-top: 100px;
             text-align: center;
         }
-        .logo-nav-container { display: inline-block; cursor: pointer; transition: 0.3s; }
-        .logo-trigger { 
-            height: 80px; width: auto; transition: 0.3s;
-            filter: drop-shadow(0 0 0px rgba(170, 240, 209, 0));
-        }
-        .logo-nav-container:hover .logo-trigger {
-            transform: scale(1.08);
-            filter: drop-shadow(0 0 20px rgba(170, 240, 209, 0.8));
-        }
+        .labs-banner h2 { font-family: var(--font-title); font-size: 3rem; margin-bottom: 20px; }
 
-        /* MENU OVERLAY */
-        .nv-menu {
-            height: 100%; width: 0; position: fixed; z-index: 9999;
-            top: 0; left: 0; background-color: #000; overflow: hidden;
-            transition: 0.5s cubic-bezier(0.7, 0, 0.3, 1); 
-            display: flex; align-items: center; justify-content: center;
-        }
-        .nv-links a { font-size: 2.5rem; color: #fff; text-decoration: none; display: block; margin: 20px; font-weight: 800; }
-        .nv-links a:hover { color: #AAF0D1; }
-        .nv-close { position: absolute; top: 30px; right: 45px; font-size: 50px; color: #fff; text-decoration: none; }
-
-        /* CONTENUTO */
-        .nv-content { padding-top: 220px; text-align: center; }
-        .huge-number { font-size: 5rem; font-weight: 900; color: #AAF0D1; line-height: 1; margin-bottom: 10px; }
-        .counter-label { letter-spacing: 3px; opacity: 0.7; text-transform: uppercase; font-size: 0.9rem; }
-        
-        .section-title { font-weight: 900; letter-spacing: 5px; text-transform: uppercase; margin: 60px 0 10px 0; }
-        .nv-line { width: 60px; height: 2px; background-color: #AAF0D1; margin: 0 auto 50px auto; }
-
-        /* CARDS PROCESSO */
-        .process-card {
-            background: rgba(255, 255, 255, 0.05);
-            border: 1px solid rgba(255, 255, 255, 0.1);
-            padding: 40px 30px;
-            border-radius: 20px;
-            height: 100%;
-            transition: 0.3s;
-        }
-        .process-card:hover { border-color: #AAF0D1; transform: translateY(-10px); }
-        .icon-circle {
-            width: 70px; height: 70px; background: #AAF0D1; color: #000;
-            border-radius: 50%; display: flex; align-items: center; justify-content: center;
-            margin: 0 auto 20px auto; font-size: 1.5rem;
-        }
-        .process-card h3 { font-weight: 800; text-transform: uppercase; font-size: 1.2rem; margin-bottom: 15px; }
-        .process-card p { opacity: 0.8; font-size: 0.95rem; line-height: 1.6; }
-
-        /* DESIGN IMAGES */
-        .design-img-box {
-            border-radius: 20px; overflow: hidden;
-            border: 1px solid rgba(255, 255, 255, 0.1);
-            aspect-ratio: 1/1; margin-bottom: 20px;
-        }
-        .design-img-box img { 
-            width: 100%; height: 100%; object-fit: cover; 
-            transition: 0.5s; 
-        }
-        .design-img-box:hover img { transform: scale(1.1); }
-
-        /* BOTTONE */
-        .btn-nevera {
-            background-color: #AAF0D1; color: #000;
-            padding: 18px 45px; border-radius: 50px;
-            text-decoration: none; font-weight: 800;
-            text-transform: uppercase; display: inline-block;
-            transition: 0.3s; border: none; margin-top: 40px;
-        }
-        .btn-nevera:hover { background-color: #fff; transform: scale(1.05); color: #000; }
-
-        @media (max-width: 768px) {
-            .huge-number { font-size: 3.5rem; }
-            .nv-content { padding-top: 180px; }
-            .logo-trigger { height: 60px; }
-        }
+        footer { padding: 60px 20px; text-align: center; opacity: 0.3; font-size: 0.7rem; letter-spacing: 3px; }
     </style>
 </head>
 <body>
 
-    <div class="nav-fix">
-        <div class="logo-nav-container" onclick="openM()">
-            <img src="images/logo.png" alt="Nevera Menu" class="logo-trigger">
-        </div>
-    </div>
+    <div class="bg-layer"></div>
 
-    <div id="m" class="nv-menu">
-        <a href="javascript:void(0)" class="nv-close" onclick="closeM()">&times;</a>
-        <div class="nv-links">
-            <a href="index.html" onclick="closeM()">HOME</a>
-            <a href="eventi.html" onclick="closeM()">EVENTI</a>
-            <a href="sponsor.html" onclick="closeM()">SPONSOR</a>
-            <a href="community.html" onclick="closeM()">COMMUNITY</a>
-            <a href="iniziative.html" onclick="closeM()">INIZIATIVE</a>
-        </div>
-    </div>
+    <header class="nav-fix">
+        <a href="index.html"><img src="images/logo.png" alt="Nevera Logo" class="logo-small"></a>
+    </header>
 
-    <div class="nv-content container">
-        
-        <h1 class="section-title" style="margin-top: 0;">NEVER-A-WASTE</h1>
-        <p style="letter-spacing: 4px; opacity: 0.6; margin-bottom: 40px;">UNA SECONDA VITA AL GIOCO</p>
-
-        <div class="mb-5">
-            <div class="huge-number" id="ballCounter" data-target="30000000">0</div>
-            <p class="counter-label">Palline utilizzate ogni anno</p>
+    <main class="container">
+        <div class="section-header">
+            <h1 class="section-title">INIZIATIVE</h1>
+            <p style="color: var(--neon-green); font-weight: 700; letter-spacing: 4px; margin-top: 10px;">BEYOND THE GAME</p>
         </div>
 
-        <h2 class="section-title">IL NOSTRO PROCESSO</h2>
-        <div class="nv-line"></div>
+        <div class="row g-4">
+            <div class="col-md-6">
+                <div class="initiative-card">
+                    <span class="init-number">01</span>
+                    <i class="fa-solid fa-seedling init-icon"></i>
+                    <h3 class="init-title">NEVERA GREEN</h3>
+                    <p class="init-text">Il nostro impegno per lo sport sostenibile. Ogni torneo Nevera finanzia la piantumazione di alberi in aree urbane e promuove l'uso di materiali riciclati per il kit tecnico.</p>
+                    <span class="init-tag">#Sostenibilità</span>
+                </div>
+            </div>
 
-        <div class="row g-4 justify-content-center">
-            <div class="col-lg-4 col-md-6">
-                <div class="process-card">
-                    <div class="icon-circle"><i class="fa-solid fa-box-open"></i></div>
-                    <h3>Raccogliamo</h3>
-                    <p>Posizioniamo i nostri box di raccolta nei centri sportivi partner. Quando sono pieni, effettuiamo il ritiro.</p>
+            <div class="col-md-6">
+                <div class="initiative-card">
+                    <span class="init-number">02</span>
+                    <i class="fa-solid fa-graduation-cap init-icon"></i>
+                    <h3 class="init-title">ATHLETE ACADEMY</h3>
+                    <p class="init-text">Programmi di formazione per giovani talenti. Non solo tecnica sportiva, ma anche mental coaching e gestione della carriera nel mondo dello sport moderno.</p>
+                    <span class="init-tag">#Formazione</span>
                 </div>
             </div>
-            <div class="col-lg-4 col-md-6">
-                <div class="process-card">
-                    <div class="icon-circle"><i class="fa-solid fa-recycle"></i></div>
-                    <h3>Trasformiamo</h3>
-                    <p>Le palline vengono pulite, trattate e lavorate nei nostri laboratori per prepararle alla loro nuova forma.</p>
-                </div>
-            </div>
-            <div class="col-lg-4 col-md-6">
-                <div class="process-card">
-                    <div class="icon-circle"><i class="fa-solid fa-bolt"></i></div>
-                    <h3>Creiamo</h3>
-                    <p>Nascono nuovi complementi d'arredo unici, dal design moderno ed ecosostenibile, pronti per il tuo club.</p>
-                </div>
-            </div>
-        </div>
 
-        <a href="mailto:info@neverasports.it" class="btn-nevera">
-            <i class="fa-solid fa-envelope me-2"></i> Richiedi Informazioni
-        </a>
-
-        <h2 class="section-title">IL DESIGN</h2>
-        <div class="nv-line"></div>
-
-        <div class="row g-4 mb-5">
-            <div class="col-lg-4 col-md-6">
-                <div class="design-img-box">
-                    <img src="images/design_1.jpeg" alt="Design 1">
+            <div class="col-md-6">
+                <div class="initiative-card">
+                    <span class="init-number">03</span>
+                    <i class="fa-solid fa-hand-holding-heart init-icon"></i>
+                    <h3 class="init-title">NEVERA FOR ALL</h3>
+                    <p class="init-text">Portiamo lo sport dove mancano le risorse. Collaboriamo con onlus locali per creare eventi sportivi inclusivi e accessibili a tutti i ragazzi della città.</p>
+                    <span class="init-tag">#Sociale</span>
                 </div>
             </div>
-            <div class="col-lg-4 col-md-6">
-                <div class="design-img-box">
-                    <img src="images/design_2.jpeg" alt="Design 2">
-                </div>
-            </div>
-            <div class="col-lg-4 col-md-6">
-                <div class="design-img-box">
-                    <img src="images/design_3.jpeg" alt="Design 3">
+
+            <div class="col-md-6">
+                <div class="initiative-card">
+                    <span class="init-number">04</span>
+                    <i class="fa-solid fa-microchip init-icon"></i>
+                    <h3 class="init-title">TECH COLLAB</h3>
+                    <p class="init-text">Sperimentazione di nuove tecnologie nel padel e nel fitness. Testiamo prototipi di sensori e app per migliorare le performance della nostra community.</p>
+                    <span class="init-tag">#Innovazione</span>
                 </div>
             </div>
         </div>
+    </main>
 
-        <p class="mt-5 mb-5" style="opacity: 0.3; letter-spacing: 5px; font-size: 0.7rem;">&copy; 2026 NEVERA SPORTS. Tutti i diritti riservati.</p>
-    </div>
+    <section class="labs-banner">
+        <div class="container">
+            <h2>NEVERA LABS</h2>
+            <p style="font-weight: 700; max-width: 600px; margin: 0 auto 30px auto;">Hai un'idea innovativa o un progetto sociale da proporci? Entra nel laboratorio Nevera.</p>
+            <a href="mailto:info@neverasports.it" style="border: 2px solid var(--matte-black); padding: 15px 40px; text-decoration: none; color: var(--matte-black); font-family: var(--font-title); transition: 0.3s;" onmouseover="this.style.background='black'; this.style.color='white'" onmouseout="this.style.background='none'; this.style.color='black'">PROPONI PROGETTO</a>
+        </div>
+    </section>
 
-    <script>
-        function openM() { document.getElementById("m").style.width = "100%"; }
-        function closeM() { document.getElementById("m").style.width = "0"; }
+    <footer>
+        <p>© 2026 NEVERA SPORTS | SPECIAL PROJECTS DIVISION</p>
+    </footer>
 
-        // SCRIPT CONTATORE
-        document.addEventListener("DOMContentLoaded", () => {
-            const counter = document.getElementById('ballCounter');
-            const target = +counter.getAttribute('data-target');
-            const duration = 2500;
-            const stepTime = 30;
-            
-            let current = 0;
-            const increment = target / (duration / stepTime);
-
-            const timer = setInterval(() => {
-                current += increment;
-                if (current >= target) {
-                    current = target;
-                    clearInterval(timer);
-                }
-                counter.innerText = Math.floor(current).toLocaleString('it-IT') + "+";
-            }, stepTime);
-        });
-    </script>
 </body>
 </html>
