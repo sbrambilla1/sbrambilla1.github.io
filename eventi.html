@@ -36,7 +36,7 @@
         .logo { height: 80px; cursor: pointer; transition: 0.3s; }
         .logo:hover { filter: drop-shadow(0 0 15px var(--neon)); transform: scale(1.05); }
 
-        /* Menu Overlay */
+        /* Menu Overlay Originale */
         .overlay {
             height: 100%; width: 0; position: fixed; z-index: 999;
             top: 0; left: 0; background-color: var(--dark); 
@@ -77,10 +77,10 @@
 
         .event-poster {
             width: 100%;
-            border-radius: 25px; /* Smussatura originale */
+            border-radius: 25px; /* Smussatura coerente con la community */
             border: 1px solid rgba(255, 255, 255, 0.1);
-            box-shadow: 0 10px 40px rgba(0,0,0,0.5);
-            transition: 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+            box-shadow: 0 15px 50px rgba(0,0,0,0.6);
+            transition: 0.4s ease;
             cursor: pointer;
         }
 
@@ -93,13 +93,14 @@
         /* Footer Sobrio */
         footer {
             padding: 60px 0;
-            background: rgba(0,0,0,0.3);
+            background: rgba(0,0,0,0.4);
+            border-top: 1px solid rgba(255,255,255,0.05);
         }
         .copy { opacity: 0.2; font-size: 10px; letter-spacing: 3px; text-transform: uppercase; }
 
         @media (max-width: 768px) {
             h1 { font-size: 32px; }
-            .poster-container { max-width: 90%; }
+            .poster-container { max-width: 95%; }
         }
     </style>
 </head>
@@ -127,9 +128,11 @@
 
     <div class="poster-container">
         <a href="https://tuolink-volt-league.it">
-            <img src="images/locandina_volt.jpg" class="event-poster" alt="Volt Padel League Locandina">
+            <img src="images/locandina_volt.jpg" class="event-poster" alt="Volt Padel League">
         </a>
-        <p style="margin-top: 30px; font-weight: 700; font-size: 13px; letter-spacing: 2px; opacity: 0.6;">CLICCA SULLA LOCANDINA PER ISCRIVERTI</p>
+        <p style="margin-top: 30px; font-weight: 700; font-size: 12px; letter-spacing: 2px; opacity: 0.5; text-transform: uppercase;">
+            Clicca sulla locandina per scoprire i dettagli e iscriverti
+        </p>
     </div>
 
     <footer>
