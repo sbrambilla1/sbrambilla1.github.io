@@ -6,6 +6,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1, user-scalable=no" />
     
     <link href="https://fonts.googleapis.com/css2?family=Archivo+Black&family=Space+Grotesk:wght@400;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
     
     <style>
         :root {
@@ -15,12 +16,12 @@
         }
 
         body {
-            margin: 0;
-            padding: 0;
+            margin: 0; padding: 0;
             background-color: var(--dark);
             color: var(--white);
             font-family: 'Space Grotesk', sans-serif;
             text-align: center;
+            overflow-x: hidden;
         }
 
         /* Sfondo Fisso Originale */
@@ -34,12 +35,12 @@
             z-index: -1;
         }
 
-        /* Header e Logo (Menu Trigger) */
+        /* Header e Logo */
         #header { padding: 60px 0; }
-        .logo { height: 80px; cursor: pointer; }
-        .logo:hover { filter: drop-shadow(0 0 10px var(--neon)); }
+        .logo { height: 80px; cursor: pointer; transition: 0.3s; }
+        .logo:hover { filter: drop-shadow(0 0 10px var(--neon)); transform: scale(1.05); }
 
-        /* Menu Overlay Originale */
+        /* Menu Overlay */
         .overlay {
             height: 100%; width: 0; position: fixed; z-index: 999;
             top: 0; left: 0; background-color: var(--dark); 
@@ -53,10 +54,10 @@
         .overlay a:hover { color: var(--neon); }
         .closebtn { position: absolute; top: 20px; right: 45px; font-size: 60px; color: var(--neon); text-decoration: none; }
 
-        /* Titoli e Sottotitoli */
+        /* Titoli */
         h1 { 
             font-family: 'Archivo Black', sans-serif; 
-            font-size: 55px; 
+            font-size: clamp(40px, 10vw, 55px); 
             margin: 20px 0 0 0; 
             text-transform: uppercase; 
         }
@@ -69,25 +70,108 @@
             font-size: 14px;
         }
 
-        /* Contenitore Locandina Originale */
+        /* CARD INTERATTIVA */
         #main {
             margin: 0 auto;
-            max-width: 500px;
+            max-width: 550px;
             padding: 20px;
+        }
+
+        .card-container {
+            position: relative;
+            width: 100%;
+            border-radius: 30px;
+            overflow: hidden;
+            border: 1px solid rgba(255, 255, 255, 0.1);
+            transition: 0.4s;
+            background: var(--dark);
         }
 
         .locandina {
             width: 100%;
-            border-radius: 30px; /* La tua smussatura originale */
-            border: 1px solid rgba(255, 255, 255, 0.1);
-            transition: 0.3s;
+            display: block;
+            transition: 0.5s;
         }
-        .locandina:hover { border-color: var(--neon); }
+
+        /* Overlay con i Bottoni */
+        .card-actions {
+            position: absolute;
+            top: 0; left: 0;
+            width: 100%; height: 100%;
+            background: rgba(0, 0, 0, 0.75);
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            opacity: 0;
+            transition: 0.4s;
+            backdrop-filter: blur(5px);
+        }
+
+        .card-container:hover .card-actions {
+            opacity: 1;
+        }
+
+        .card-container:hover .locandina {
+            transform: scale(1.1);
+        }
+
+        /* Stile Bottoni */
+        .btn-ev {
+            font-family: 'Archivo Black', sans-serif;
+            text-decoration: none;
+            padding: 16px 30px;
+            border-radius: 50px;
+            margin: 10px 0;
+            width: 80%;
+            text-transform: uppercase;
+            font-size: 12px;
+            letter-spacing: 1px;
+            transition: 0.3s;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 10px;
+        }
+
+        .btn-neon {
+            background-color: var(--neon);
+            color: var(--dark);
+            border: 2px solid var(--neon);
+        }
+
+        .btn-neon:hover {
+            background-color: white;
+            border-color: white;
+            transform: scale(1.05);
+        }
+
+        .btn-outline {
+            background-color: transparent;
+            color: white;
+            border: 2px solid white;
+        }
+
+        .btn-outline:hover {
+            color: var(--neon);
+            border-color: var(--neon);
+        }
 
         /* Footer */
         #footer { padding: 80px 0; }
         .copy { opacity: 0.3; font-size: 10px; letter-spacing: 4px; }
 
+        /* Mobile Fix */
+        @media (max-width: 768px) {
+            .card-actions { 
+                opacity: 1; 
+                background: rgba(0, 0, 0, 0.5); 
+                position: relative; 
+                padding: 20px 0;
+                backdrop-filter: none;
+            }
+            .btn-ev { width: 90%; }
+        }
     </style>
 </head>
 <body>
@@ -95,7 +179,7 @@
     <div id="bg"></div>
 
     <div id="header">
-        <img src="images/logo.png" class="logo" onclick="openNav()">
+        <img src="images/logo.png" class="logo" onclick="openNav()" alt="Nevera Logo">
     </div>
 
     <div id="myNav" class="overlay">
@@ -113,9 +197,18 @@
     <div class="sub">Born Under Pressure</div>
 
     <div id="main">
-        <a href="vpl.html">
-            <img src="images/vplcs.png" class="locandina">
-        </a>
+        <div class="card-container">
+            <img src="images/vplcs.png" class="locandina" alt="Volt Padel League">
+            
+            <div class="card-actions">
+                <a href="https://app.playtomic.io/tournaments/7530c9eb-ab87-4b04-9d3e-98edf3b00080?utm_source=manager" target="_blank" class="btn-ev btn-neon">
+                    <i class="fa-solid fa-pen-to-square"></i> Iscriviti
+                </a>
+                <a href="vpl.html" class="btn-ev btn-outline">
+                    <i class="fa-solid fa-ranking-star"></i> Ranking & Regolamento
+                </a>
+            </div>
+        </div>
     </div>
 
     <div id="footer">
