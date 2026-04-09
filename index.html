@@ -12,7 +12,7 @@
     <style>
         :root {
             --neon: #3FF000;
-            --dark: #040404; /* Nero Nevera standard */
+            --dark: #040404;
             --white: #FDFDFD;
             --font-title: 'Archivo Black', sans-serif;
             --font-body: 'Space Grotesk', sans-serif;
@@ -26,15 +26,13 @@
             overflow-x: hidden;
         }
 
-        /* SFONDO FISSO ESCLUSO IL FOOTER */
+        /* SFONDO FISSO */
         .bg-layer {
             position: fixed; top: 0; left: 0; width: 100%; height: 100%;
-            /* L'immagine di sfondo */
             background-image: url('images/solidblack.png');
             background-size: cover; background-position: center; z-index: 0;
         }
 
-        /* Overlay che sfuma verso il nero solido per raccordarsi al footer */
         .bg-overlay {
             position: fixed; top: 0; left: 0; width: 100%; height: 100%;
             background: linear-gradient(to bottom, 
@@ -78,7 +76,7 @@
             flex-direction: column; 
             justify-content: center; 
             align-items: center; 
-            padding: 40px 20px 100px 20px; 
+            padding: 40px 20px 60px 20px; 
         }
         
         .nv-title { font-family: var(--font-title); font-size: clamp(3rem, 10vw, 5rem); text-transform: uppercase; letter-spacing: -2px; margin: 0; line-height: 1; }
@@ -103,34 +101,60 @@
         .home-card:hover i { color: var(--dark); }
         .home-card h3 { font-family: var(--font-title); font-size: 0.85rem; text-transform: uppercase; letter-spacing: 2px; margin: 0; }
 
-        /* FOOTER SOLIDO (Coprente) */
+        /* SEZIONE JOIN THE REVOLUTION */
+        .join-section {
+            width: 100%;
+            max-width: 1050px;
+            margin: 80px 0;
+            padding: 60px 30px;
+            background: rgba(255, 255, 255, 0.03);
+            border: 1px solid rgba(63, 240, 0, 0.2);
+            border-radius: 40px;
+            text-align: center;
+            backdrop-filter: blur(10px);
+            transition: 0.4s;
+        }
+        .join-section:hover { border-color: var(--neon); box-shadow: 0 0 30px rgba(63, 240, 0, 0.1); }
+        .join-section h2 { font-family: var(--font-title); font-size: clamp(1.8rem, 5vw, 3rem); margin-bottom: 20px; }
+        .join-section p { opacity: 0.7; max-width: 600px; margin: 0 auto 35px; line-height: 1.6; }
+        
+        .btn-revolution {
+            font-family: var(--font-title);
+            background: var(--neon);
+            color: var(--dark);
+            padding: 20px 40px;
+            border-radius: 50px;
+            text-decoration: none;
+            display: inline-block;
+            font-size: 0.9rem;
+            transition: 0.3s;
+            text-transform: uppercase;
+        }
+        .btn-revolution:hover {
+            background: var(--white);
+            color: var(--dark);
+            transform: scale(1.05);
+            box-shadow: 0 0 20px rgba(63, 240, 0, 0.4);
+        }
+
+        /* FOOTER */
         .nv-footer { 
-            position: relative; 
-            z-index: 10; 
-            padding: 80px 20px; 
-            text-align: center; 
-            background-color: var(--dark); /* Sfondo solido per escludere l'immagine */
+            position: relative; z-index: 10; padding: 80px 20px; 
+            text-align: center; background-color: var(--dark); 
             border-top: 1px solid rgba(255, 255, 255, 0.1);
         }
         .footer-cta { font-family: var(--font-title); color: var(--white); font-size: 1.2rem; margin-bottom: 30px; display: block; letter-spacing: 3px; }
         .contact-box { display: flex; justify-content: center; gap: 40px; flex-wrap: wrap; margin-bottom: 40px; }
-        .contact-item { 
-            color: white; text-decoration: none; font-weight: 700; 
-            font-size: 0.85rem; transition: 0.3s; display: flex; align-items: center; gap: 10px;
-            letter-spacing: 1.5px;
-        }
-        .contact-item i { color: var(--neon); font-size: 1.1rem; }
-        .contact-item:hover { color: var(--neon); }
-
-        .social-row { margin-bottom: 40px; }
+        .contact-item { color: white; text-decoration: none; font-weight: 700; font-size: 0.85rem; transition: 0.3s; display: flex; align-items: center; gap: 10px; }
+        .contact-item i { color: var(--neon); }
         .social-row a { color: white; font-size: 1.5rem; margin: 0 20px; transition: 0.3s; }
         .social-row a:hover { color: var(--neon); transform: scale(1.1); display: inline-block; }
-        
         .copyright { opacity: 0.3; font-size: 0.6rem; letter-spacing: 4px; text-transform: uppercase; }
 
         @media (max-width: 768px) {
             .nv-title { font-size: 3rem; }
-            .main-wrapper { min-height: auto; padding-top: 20px; }
+            .join-section { padding: 40px 20px; }
+            .btn-revolution { width: 100%; }
         }
     </style>
 </head>
@@ -184,23 +208,27 @@
                 </a>
             </div>
         </div>
+
+        <div class="join-section">
+            <h2>JOIN THE REVOLUTION</h2>
+            <p>Entra nel mondo Nevera. Tornei, eventi esclusivi e una community dinamica. Sei pronto a scendere in campo?</p>
+            <a href="https://chat.whatsapp.com/GItl3C5mrgxJxXAPhHHRFh" class="btn-revolution">
+                <i class="fa-solid fa-rocket me-2"></i> Unisciti alla Community
+            </a>
+        </div>
     </main>
 
     <footer class="nv-footer">
         <span class="footer-cta">CONTATTACI</span>
-        
         <div class="contact-box">
             <a href="mailto:info@neverasports.it" class="contact-item">
                 <i class="fa-solid fa-envelope"></i> INFO@NEVERASPORTS.IT
             </a>
-            
         </div>
-
         <div class="social-row">
             <a href="https://www.instagram.com/neverasports.it/"><i class="fa-brands fa-instagram"></i></a>
             <a href="https://chat.whatsapp.com/GItl3C5mrgxJxXAPhHHRFh"><i class="fa-brands fa-whatsapp"></i></a>
         </div>
-
         <p class="copyright">© 2026 NEVERA SPORTS | BORN UNDER PRESSURE</p>
     </footer>
 
