@@ -101,11 +101,38 @@
         .home-card:hover i { color: var(--dark); }
         .home-card h3 { font-family: var(--font-title); font-size: 0.85rem; text-transform: uppercase; letter-spacing: 2px; margin: 0; }
 
+        /* BANNER GIF VPL */
+        .banner-vpl-wrapper {
+            width: 100%;
+            max-width: 1050px;
+            margin: 60px 0 20px 0;
+            padding: 0 12px;
+        }
+        .vpl-gif-banner {
+            display: block;
+            width: 100%;
+            border-radius: 30px;
+            overflow: hidden;
+            border: 1px solid rgba(255, 255, 255, 0.1);
+            transition: 0.4s ease;
+        }
+        .vpl-gif-banner img {
+            width: 100%;
+            height: auto;
+            display: block;
+            object-fit: cover;
+        }
+        .vpl-gif-banner:hover {
+            border-color: var(--neon);
+            box-shadow: 0 0 30px rgba(63, 240, 0, 0.3);
+            transform: scale(1.01);
+        }
+
         /* SEZIONE JOIN THE REVOLUTION */
         .join-section {
             width: 100%;
             max-width: 1050px;
-            margin: 80px 0;
+            margin: 40px 0 80px 0;
             padding: 60px 30px;
             background: rgba(255, 255, 255, 0.03);
             border: 1px solid rgba(63, 240, 0, 0.2);
@@ -207,6 +234,12 @@
                     <h3>Iniziative</h3>
                 </a>
             </div>
+        </div>
+
+        <div class="banner-vpl-wrapper">
+            <a href="eventi.html" class="vpl-gif-banner">
+                <img src="images/homegif.gif" alt="Volt Padel League">
+            </a>
         </div>
 
         <div class="join-section">
