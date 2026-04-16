@@ -44,6 +44,28 @@
             z-index: 1;
         }
 
+        /* POPUP MODAL */
+        .nv-modal-overlay {
+            position: fixed; top: 0; left: 0; width: 100%; height: 100%;
+            background: rgba(0, 0, 0, 0.85); backdrop-filter: blur(10px);
+            display: none; align-items: center; justify-content: center;
+            z-index: 10000; opacity: 0; transition: opacity 0.5s ease;
+        }
+        .nv-modal-content {
+            background: var(--dark); border: 1px solid var(--neon);
+            padding: 50px 30px; border-radius: 40px; text-align: center;
+            max-width: 450px; width: 90%; position: relative;
+            box-shadow: 0 0 50px rgba(63, 240, 0, 0.15);
+        }
+        .nv-modal-close {
+            position: absolute; top: 20px; right: 25px;
+            color: var(--white); font-size: 1.5rem; cursor: pointer; opacity: 0.5;
+        }
+        .nv-modal-close:hover { opacity: 1; color: var(--neon); }
+        .nv-modal-content i { font-size: 3rem; color: var(--neon); margin-bottom: 20px; }
+        .nv-modal-content h2 { font-family: var(--font-title); font-size: 2rem; margin-bottom: 15px; text-transform: uppercase; }
+        .nv-modal-content p { font-size: 1rem; opacity: 0.7; margin-bottom: 30px; line-height: 1.5; }
+
         /* HEADER */
         .nav-fix { position: relative; padding: 60px 0 40px 0; text-align: center; z-index: 100; }
         .logo-trigger { 
@@ -98,15 +120,10 @@
             box-shadow: 0 15px 40px rgba(0, 0, 0, 0.4);
         }
         
-        /* FIX ICONE: assicura la visibilità */
         .home-card i { 
             display: inline-block;
             font-family: "Font Awesome 6 Free", "Font Awesome 6 Brands" !important;
             font-weight: 900;
-            font-style: normal;
-            font-variant: normal;
-            text-rendering: auto;
-            -webkit-font-smoothing: antialiased;
             font-size: 2.2rem; 
             margin-bottom: 20px; 
             color: var(--white); 
@@ -152,10 +169,6 @@
             text-align: center; background-color: var(--dark); 
             border-top: 1px solid rgba(255, 255, 255, 0.05);
         }
-        .footer-cta { font-family: var(--font-title); font-size: 1rem; margin-bottom: 30px; display: block; letter-spacing: 4px; opacity: 0.8; }
-        .contact-box { display: flex; justify-content: center; gap: 40px; flex-wrap: wrap; margin-bottom: 40px; }
-        .contact-item { color: white; text-decoration: none; font-size: 0.8rem; transition: 0.3s; display: flex; align-items: center; gap: 10px; letter-spacing: 1px; }
-        .contact-item i { color: var(--neon); font-size: 1rem; }
         .social-row a { color: white; font-size: 1.3rem; margin: 0 20px; transition: 0.3s; opacity: 0.6; }
         .social-row a:hover { color: var(--neon); opacity: 1; transform: translateY(-3px); display: inline-block; }
         .copyright { opacity: 0.2; font-size: 0.6rem; letter-spacing: 4px; }
@@ -171,6 +184,16 @@
 
     <div class="bg-layer"></div>
     <div class="bg-overlay"></div>
+
+    <div id="popupCommunity" class="nv-modal-overlay">
+        <div class="nv-modal-content">
+            <span class="nv-modal-close" onclick="closePopup()">&times;</span>
+            <i class="fa-solid fa-users-rays"></i>
+            <h2>ENTRA NEL CLUB</h2>
+            <p>Non restare a guardare. Unisciti alla community WhatsApp per ranking, eventi esclusivi e tutto il mondo Nevera.</p>
+            <a href="https://chat.whatsapp.com/GItl3C5mrgxJxXAPhHHRFh" class="btn-revolution">Entra ora</a>
+        </div>
+    </div>
 
     <header class="nav-fix">
         <img src="images/logo.png" alt="Nevera Logo" class="logo-trigger" onclick="openM()">
@@ -226,7 +249,7 @@
 
         <div class="join-section">
             <h2>JOIN THE REVOLUTION</h2>
-            <p>Il padel come non lo hai mai vissuto.</p>
+            <p>Il padel come non lo hai mai vissuto. Entra nel club.</p>
             <a href="https://chat.whatsapp.com/GItl3C5mrgxJxXAPhHHRFh" class="btn-revolution">
                 <i class="fa-brands fa-whatsapp me-2"></i> Entra ora
             </a>
@@ -234,22 +257,32 @@
     </main>
 
     <footer class="nv-footer">
-        <span class="footer-cta">KEEP IN TOUCH</span>
-        <div class="contact-box">
-            <a href="mailto:info@neverasports.it" class="contact-item">
-                <i class="fa-solid fa-envelope"></i> INFO@NEVERASPORTS.IT
-            </a>
-        </div>
         <div class="social-row">
             <a href="https://www.instagram.com/neverasports.it/"><i class="fa-brands fa-instagram"></i></a>
             <a href="https://chat.whatsapp.com/GItl3C5mrgxJxXAPhHHRFh"><i class="fa-brands fa-whatsapp"></i></a>
         </div>
-        <p class="copyright">© 2026 NEVERA SPORTS | BORN UNDER PRESSURE</p>
+        <p class="copyright" style="margin-top:20px;">© 2026 NEVERA SPORTS | BORN UNDER PRESSURE</p>
     </footer>
 
     <script>
         function openM() { document.getElementById("m").style.width = "100%"; }
         function closeM() { document.getElementById("m").style.width = "0"; }
+
+        // LOGICA POPUP AUTOMATICO
+        window.onload = function() {
+            setTimeout(function() {
+                var modal = document.getElementById("popupCommunity");
+                modal.style.display = "flex";
+                // Piccolo timeout per attivare l'animazione opacity
+                setTimeout(function() { modal.style.opacity = "1"; }, 10);
+            }, 2000); // Appare dopo 2 secondi
+        };
+
+        function closePopup() {
+            var modal = document.getElementById("popupCommunity");
+            modal.style.opacity = "0";
+            setTimeout(function() { modal.style.display = "none"; }, 500);
+        }
     </script>
 
 </body>
