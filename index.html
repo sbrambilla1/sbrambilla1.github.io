@@ -1,12 +1,12 @@
 <!DOCTYPE HTML>
 <html lang="it">
 <head>
-    <title>NEVERA SPORTS</title>
-    <link rel="icon" type="image/png" href="images/favicon.png">
+    <title>NEVERA SPORTS | Home</title>
     <meta charset="utf-8" />
+    <link rel="icon" type="image/png" href="images/logo.png">
     <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=0" />
     
-    <link href="https://fonts.googleapis.com/css2?family=Archivo+Black&family=Space+Grotesk:wght@400;700&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Archivo+Black&family=Space+Grotesk:wght@300;400;700&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
     
@@ -37,7 +37,7 @@
         .bg-overlay {
             position: fixed; top: 0; left: 0; width: 100%; height: 100%;
             background: linear-gradient(to bottom, 
-                rgba(4, 4, 4, 0.5) 0%, 
+                rgba(4, 4, 4, 0.4) 0%, 
                 rgba(4, 4, 4, 0.7) 70%, 
                 rgba(4, 4, 4, 1) 100%);
             z-index: 1;
@@ -62,126 +62,94 @@
             display: flex; align-items: center; justify-content: center;
         }
         .nv-links a { 
-            font-family: var(--font-title); font-size: 2.8rem; color: var(--white); 
+            font-family: var(--font-title); font-size: 2.5rem; color: var(--white); 
             text-decoration: none; display: block; margin: 20px; text-transform: uppercase; 
         }
-        .nv-links a:hover { color: var(--neon); transform: translateX(10px); }
+        .nv-links a:hover { color: var(--neon); transform: scale(1.05); }
         .nv-close { position: absolute; top: 30px; right: 45px; font-size: 50px; color: var(--neon); text-decoration: none; }
 
         /* CONTENT WRAPPER */
         .main-wrapper { 
-            position: relative; 
-            z-index: 10; 
+            position: relative; z-index: 10; 
             min-height: 90vh;
-            display: flex; 
-            flex-direction: column; 
-            justify-content: center; 
-            align-items: center; 
+            display: flex; flex-direction: column; 
+            justify-content: center; align-items: center; 
             padding: 40px 20px 60px 20px; 
         }
         
         .nv-title { font-family: var(--font-title); font-size: clamp(3rem, 10vw, 5rem); text-transform: uppercase; letter-spacing: -2px; margin: 0; line-height: 1; }
         .nv-subtitle { color: var(--neon); font-weight: 700; text-transform: uppercase; letter-spacing: 6px; margin-bottom: 60px; font-size: 1.1rem; }
 
-        /* CARD */
+        /* CARD MINIMAL */
         .home-card {
             display: flex; flex-direction: column; justify-content: center; align-items: center;
-            background: rgba(255, 255, 255, 0.05); 
-            border: 1px solid rgba(255, 255, 255, 0.1);
-            border-radius: 20px;
-            padding: 55px 15px; text-decoration: none !important; color: white !important;
-            transition: 0.4s ease; height: 100%;
-            backdrop-filter: blur(5px);
+            background: rgba(255, 255, 255, 0.02); 
+            border: 1px solid rgba(255, 255, 255, 0.05);
+            border-radius: 24px;
+            padding: 50px 10px; text-decoration: none !important; color: white !important;
+            transition: 0.4s cubic-bezier(0.165, 0.84, 0.44, 1); height: 100%;
+            backdrop-filter: blur(10px);
         }
         .home-card:hover { 
-            background: var(--neon); color: var(--dark) !important; 
-            border-color: var(--neon); transform: translateY(-10px);
-            box-shadow: 0 10px 30px rgba(63, 240, 0, 0.2);
+            background: rgba(63, 240, 0, 0.05);
+            border-color: var(--neon); 
+            transform: translateY(-8px);
+            box-shadow: 0 15px 40px rgba(0, 0, 0, 0.4);
         }
-        .home-card i { font-size: 2.8rem; margin-bottom: 25px; color: var(--white); transition: 0.3s; }
-        .home-card:hover i { color: var(--dark); }
-        .home-card h3 { font-family: var(--font-title); font-size: 0.85rem; text-transform: uppercase; letter-spacing: 2px; margin: 0; }
-
-        /* BANNER GIF VPL */
-        .banner-vpl-wrapper {
-            width: 100%;
-            max-width: 1050px;
-            margin: 60px 0 20px 0;
-            padding: 0 12px;
+        .home-card i { 
+            font-size: 2.2rem; margin-bottom: 20px; 
+            color: var(--white); opacity: 0.8;
+            transition: 0.3s; font-weight: 300; 
         }
-        .vpl-gif-banner {
-            display: block;
-            width: 100%;
-            border-radius: 30px;
-            overflow: hidden;
-            border: 1px solid rgba(255, 255, 255, 0.1);
-            transition: 0.4s ease;
-        }
-        .vpl-gif-banner img {
-            width: 100%;
-            height: auto;
-            display: block;
-            object-fit: cover;
-        }
-        .vpl-gif-banner:hover {
-            border-color: var(--neon);
-            box-shadow: 0 0 30px rgba(63, 240, 0, 0.3);
-            transform: scale(1.01);
+        .home-card:hover i { color: var(--neon); opacity: 1; transform: scale(1.1); }
+        .home-card h3 { 
+            font-family: var(--font-body); font-size: 0.75rem; 
+            text-transform: uppercase; letter-spacing: 3px; margin: 0; font-weight: 400;
         }
 
-        /* SEZIONE JOIN THE REVOLUTION */
+        /* BANNER GIF */
+        .banner-vpl-wrapper { width: 100%; max-width: 1050px; margin: 60px 0 20px 0; padding: 0 12px; }
+        .vpl-gif-banner { 
+            display: block; width: 100%; border-radius: 30px; 
+            overflow: hidden; border: 1px solid rgba(255, 255, 255, 0.1); 
+            transition: 0.4s ease; 
+        }
+        .vpl-gif-banner img { width: 100%; height: auto; display: block; }
+        .vpl-gif-banner:hover { border-color: var(--neon); box-shadow: 0 0 30px rgba(63, 240, 0, 0.2); }
+
+        /* REVOLUTION SECTION */
         .join-section {
-            width: 100%;
-            max-width: 1050px;
-            margin: 40px 0 80px 0;
-            padding: 60px 30px;
-            background: rgba(255, 255, 255, 0.03);
-            border: 1px solid rgba(63, 240, 0, 0.2);
-            border-radius: 40px;
-            text-align: center;
-            backdrop-filter: blur(10px);
-            transition: 0.4s;
+            width: 100%; max-width: 1050px; margin: 40px 0 80px 0; padding: 60px 30px;
+            background: rgba(255, 255, 255, 0.02); border: 1px solid rgba(255, 255, 255, 0.05);
+            border-radius: 40px; text-align: center; backdrop-filter: blur(10px);
         }
-        .join-section:hover { border-color: var(--neon); box-shadow: 0 0 30px rgba(63, 240, 0, 0.1); }
-        .join-section h2 { font-family: var(--font-title); font-size: clamp(1.8rem, 5vw, 3rem); margin-bottom: 20px; }
-        .join-section p { opacity: 0.7; max-width: 600px; margin: 0 auto 35px; line-height: 1.6; }
+        .join-section h2 { font-family: var(--font-title); font-size: clamp(1.8rem, 5vw, 2.5rem); margin-bottom: 20px; }
+        .join-section p { opacity: 0.6; max-width: 550px; margin: 0 auto 35px; line-height: 1.6; font-weight: 300; }
         
         .btn-revolution {
-            font-family: var(--font-title);
-            background: var(--neon);
-            color: var(--dark);
-            padding: 20px 40px;
-            border-radius: 50px;
-            text-decoration: none;
-            display: inline-block;
-            font-size: 0.9rem;
-            transition: 0.3s;
-            text-transform: uppercase;
+            font-family: var(--font-title); background: var(--neon); color: var(--dark);
+            padding: 18px 35px; border-radius: 50px; text-decoration: none;
+            display: inline-block; font-size: 0.8rem; transition: 0.3s; text-transform: uppercase;
         }
-        .btn-revolution:hover {
-            background: var(--white);
-            color: var(--dark);
-            transform: scale(1.05);
-            box-shadow: 0 0 20px rgba(63, 240, 0, 0.4);
-        }
+        .btn-revolution:hover { background: var(--white); transform: scale(1.05); box-shadow: 0 0 20px rgba(63, 240, 0, 0.3); }
 
         /* FOOTER */
         .nv-footer { 
             position: relative; z-index: 10; padding: 80px 20px; 
             text-align: center; background-color: var(--dark); 
-            border-top: 1px solid rgba(255, 255, 255, 0.1);
+            border-top: 1px solid rgba(255, 255, 255, 0.05);
         }
-        .footer-cta { font-family: var(--font-title); color: var(--white); font-size: 1.2rem; margin-bottom: 30px; display: block; letter-spacing: 3px; }
+        .footer-cta { font-family: var(--font-title); font-size: 1rem; margin-bottom: 30px; display: block; letter-spacing: 4px; opacity: 0.8; }
         .contact-box { display: flex; justify-content: center; gap: 40px; flex-wrap: wrap; margin-bottom: 40px; }
-        .contact-item { color: white; text-decoration: none; font-weight: 700; font-size: 0.85rem; transition: 0.3s; display: flex; align-items: center; gap: 10px; }
-        .contact-item i { color: var(--neon); }
-        .social-row a { color: white; font-size: 1.5rem; margin: 0 20px; transition: 0.3s; }
-        .social-row a:hover { color: var(--neon); transform: scale(1.1); display: inline-block; }
-        .copyright { opacity: 0.3; font-size: 0.6rem; letter-spacing: 4px; text-transform: uppercase; }
+        .contact-item { color: white; text-decoration: none; font-size: 0.8rem; transition: 0.3s; display: flex; align-items: center; gap: 10px; letter-spacing: 1px; }
+        .contact-item i { color: var(--neon); font-size: 1rem; }
+        .social-row a { color: white; font-size: 1.3rem; margin: 0 20px; transition: 0.3s; opacity: 0.6; }
+        .social-row a:hover { color: var(--neon); opacity: 1; transform: translateY(-3px); display: inline-block; }
+        .copyright { opacity: 0.2; font-size: 0.6rem; letter-spacing: 4px; }
 
         @media (max-width: 768px) {
             .nv-title { font-size: 3rem; }
-            .join-section { padding: 40px 20px; }
+            .home-card { padding: 40px 10px; }
             .btn-revolution { width: 100%; }
         }
     </style>
@@ -213,25 +181,25 @@
         <div class="row g-4 w-100" style="max-width: 1050px;">
             <div class="col-6 col-md-3">
                 <a href="eventi.html" class="home-card">
-                    <i class="fa-solid fa-trophy"></i>
+                    <i class="fa-regular fa-calendar-check"></i>
                     <h3>Eventi</h3>
                 </a>
             </div>
             <div class="col-6 col-md-3">
                 <a href="community.html" class="home-card">
-                    <i class="fa-solid fa-users"></i>
+                    <i class="fa-solid fa-circle-nodes"></i>
                     <h3>Community</h3>
                 </a>
             </div>
             <div class="col-6 col-md-3">
                 <a href="sponsor.html" class="home-card">
-                    <i class="fa-solid fa-handshake"></i>
+                    <i class="fa-regular fa-gem"></i>
                     <h3>Sponsor</h3>
                 </a>
             </div>
             <div class="col-6 col-md-3">
                 <a href="iniziative.html" class="home-card">
-                    <i class="fa-solid fa-bolt"></i>
+                    <i class="fa-regular fa-lightbulb"></i>
                     <h3>Iniziative</h3>
                 </a>
             </div>
@@ -239,24 +207,24 @@
 
         <div class="banner-vpl-wrapper">
             <a href="eventi.html" class="vpl-gif-banner">
-                <img src="images/homegif.gif" alt="Volt Padel League">
+                <img src="images/banner.gif" alt="Volt Padel League">
             </a>
         </div>
 
         <div class="join-section">
             <h2>JOIN THE REVOLUTION</h2>
-            <p>Entra nel mondo Nevera. Tornei, eventi esclusivi e una community dinamica. Sei pronto a scendere in campo?</p>
+            <p>Entra nell'ecosistema Nevera. Ranking dinamici, tornei e una community dedicata a chi vive sotto pressione.</p>
             <a href="https://chat.whatsapp.com/GItl3C5mrgxJxXAPhHHRFh" class="btn-revolution">
-                <i class="fa-solid fa-rocket me-2"></i> Unisciti alla Community
+                <i class="fa-brands fa-whatsapp me-2"></i> Entra ora
             </a>
         </div>
     </main>
 
     <footer class="nv-footer">
-        <span class="footer-cta">CONTATTACI</span>
+        <span class="footer-cta">KEEP IN TOUCH</span>
         <div class="contact-box">
             <a href="mailto:info@neverasports.it" class="contact-item">
-                <i class="fa-solid fa-envelope"></i> INFO@NEVERASPORTS.IT
+                <i class="fa-regular fa-envelope"></i> INFO@NEVERASPORTS.IT
             </a>
         </div>
         <div class="social-row">
@@ -273,3 +241,4 @@
 
 </body>
 </html>
+
