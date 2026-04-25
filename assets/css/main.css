@@ -1,18 +1,20 @@
-/* NEVERA SPORTS - ORIGINAL RESTORED 2026 */
+/* NEVERA SPORTS - GLOBAL STYLESHEET 2026 */
 
 :root {
     --neon: #3FF000;
     --dark: #040404;
     --white: #fdfdfd;
+    --font-title: 'Archivo Black', sans-serif;
 }
 
-/* --- RESET TOTALE (Uccide il blu e centra le card) --- */
+/* --- RESET & ANTI-BLUE (Uccide il blu dei link) --- */
 * { 
-    margin: 0; 
-    padding: 0; 
-    box-sizing: border-box; 
-    text-decoration: none !important; 
-    outline: none;
+    margin: 0; padding: 0; box-sizing: border-box; 
+}
+
+a, a:visited, a:active {
+    text-decoration: none !important;
+    color: inherit !important; /* Forza i link a restare bianchi/neon */
 }
 
 body {
@@ -30,41 +32,38 @@ body {
     background-size: cover; z-index: -2;
 }
 
-/* --- MENU (NASCOSTO DI DEFAULT) --- */
+/* --- MENU OVERLAY (Blindato) --- */
 .nv-menu {
     position: fixed; top: 0; left: 0; width: 0; height: 100%;
     background: rgba(0,0,0,0.98); z-index: 9999;
-    overflow: hidden; transition: 0.5s cubic-bezier(0.16, 1, 0.3, 1);
+    overflow: hidden; transition: 0.5s ease;
     display: flex; align-items: center; justify-content: center;
 }
-
 .nv-links a { 
-    font-family: 'Archivo Black', sans-serif; font-size: 2.5rem; 
-    color: white !important; display: block; margin: 25px; 
-    text-transform: uppercase;
+    font-family: var(--font-title); font-size: 2.5rem; 
+    color: white !important; display: block; margin: 20px; 
 }
 
-/* --- LOGO E HEADER --- */
-.nav-fix { padding: 60px 0; }
-.logo-trigger { height: 70px; cursor: pointer; display: inline-block; transition: 0.3s; }
-.logo-trigger:hover { transform: scale(1.05); }
+/* --- HEADER --- */
+.nav-fix { padding: 50px 0; }
+.logo-trigger { height: 65px; cursor: pointer; display: inline-block; }
 
 /* --- TITOLI --- */
 .nv-title { 
-    font-family: 'Archivo Black', sans-serif; font-size: clamp(3rem, 10vw, 6rem); 
-    text-transform: uppercase; letter-spacing: -2px; line-height: 0.9;
+    font-family: var(--font-title); font-size: clamp(3rem, 10vw, 6rem); 
+    text-transform: uppercase; letter-spacing: -2px; margin: 20px 0;
 }
 .nv-subtitle { 
     color: var(--neon); letter-spacing: 8px; text-transform: uppercase; 
-    font-size: 0.8rem; margin: 20px 0 80px 0; display: block;
+    font-size: 0.8rem; margin-bottom: 80px; display: block;
 }
 
-/* --- LE CARD (CENTRATE E NERE) --- */
+/* --- GRIGLIA CARD (Allineamento Perfetto) --- */
 .cards-container {
     display: flex;
     flex-wrap: wrap;
     justify-content: center; /* Centra le card orizzontalmente */
-    gap: 20px;
+    gap: 25px;
     max-width: 1200px;
     margin: 0 auto 100px;
     padding: 0 20px;
@@ -72,72 +71,41 @@ body {
 
 .home-card {
     background: rgba(255, 255, 255, 0.03);
-    border: 1px solid rgba(255, 255, 255, 0.08);
-    border-radius: 30px;
+    border: 1px solid rgba(255, 255, 255, 0.1);
+    border-radius: 35px;
     padding: 60px 20px;
-    width: 280px;
+    flex: 0 1 270px; /* Dimensione fissa ma flessibile */
     display: flex;
     flex-direction: column;
     align-items: center;
     transition: 0.4s ease;
-    cursor: pointer;
 }
 
-.home-card:hover { border-color: var(--neon); background: rgba(255, 255, 255, 0.05); }
+.home-card:hover { border-color: var(--neon); background: rgba(255, 255, 255, 0.05); transform: translateY(-5px); }
+.home-card i, .home-card svg { font-size: 35px; margin-bottom: 25px; opacity: 0.4; color: white !important; }
+.home-card h3 { font-size: 0.75rem; letter-spacing: 4px; text-transform: uppercase; opacity: 0.6; color: white !important; }
 
-.home-card svg, .home-card i { 
-    font-size: 35px; color: white !important; opacity: 0.4; margin-bottom: 25px; 
+/* --- FOOTER (Logo piccolo e 3 Colonne) --- */
+.nv-footer { 
+    padding: 80px 20px; border-top: 1px solid rgba(255,255,255,0.05); 
+    background: rgba(0,0,0,0.3); text-align: left;
 }
-
-.home-card h3 { 
-    font-size: 0.75rem; letter-spacing: 4px; text-transform: uppercase; 
-    color: white !important; opacity: 0.6; font-weight: 700;
+.footer-grid { 
+    max-width: 1100px; margin: 0 auto; display: flex; 
+    justify-content: space-between; flex-wrap: wrap; gap: 40px;
 }
+.footer-logo { height: 35px; width: auto; margin-bottom: 25px; opacity: 0.6; }
+.footer-head { color: var(--neon); font-size: 0.7rem; letter-spacing: 3px; margin-bottom: 20px; }
+.footer-link { display: block; color: white !important; opacity: 0.4; margin-bottom: 12px; font-size: 0.85rem; }
 
-/* --- BANNER GIF --- */
-.banner-vpl-wrapper { max-width: 1050px; margin: 0 auto 100px; padding: 0 20px; }
-.vpl-gif-banner { border-radius: 40px; overflow: hidden; border: 1px solid rgba(255,255,255,0.1); }
-.vpl-gif-banner img { width: 100%; display: block; }
-
-/* --- POPUP (STILE VIDEO) --- */
+/* --- POPUP (Stile Video) --- */
 .nv-modal-overlay {
     position: fixed; top: 0; left: 0; width: 100%; height: 100%;
     background: rgba(0,0,0,0.92); backdrop-filter: blur(15px);
     display: none; align-items: center; justify-content: center; z-index: 10000;
 }
-
 .nv-modal-content {
-    background: #040404; border: 1px solid rgba(255,255,255,0.1);
-    padding: 60px 40px; border-radius: 40px; text-align: center;
-    max-width: 480px; width: 90%;
+    background: var(--dark); border: 1px solid rgba(255,255,255,0.1);
+    padding: 60px 40px; border-radius: 40px; text-align: center; max-width: 480px;
 }
-
-.btn-modal { 
-    background: var(--neon); color: black !important; padding: 18px 45px; 
-    border-radius: 100px; font-weight: 800; font-size: 0.8rem; display: inline-block;
-}
-
-/* --- FOOTER (RIPRISTINATO) --- */
-.nv-footer { 
-    padding: 80px 20px; border-top: 1px solid rgba(255, 255, 255, 0.05); 
-    background: rgba(0,0,0,0.3); text-align: left;
-}
-
-.footer-grid { 
-    max-width: 1100px; margin: 0 auto; display: flex; 
-    flex-wrap: wrap; justify-content: space-between; gap: 40px;
-}
-
-.footer-logo { height: 35px; width: auto; margin-bottom: 25px; opacity: 0.6; }
-
-.footer-head { 
-    color: var(--neon); font-size: 0.7rem; letter-spacing: 4px; 
-    text-transform: uppercase; margin-bottom: 20px; font-weight: 700;
-}
-
-.footer-link { 
-    display: block; color: white !important; opacity: 0.4; 
-    margin-bottom: 12px; font-size: 0.85rem; transition: 0.3s;
-}
-
-.footer-link:hover { opacity: 1; color: var(--neon) !important; }
+.btn-modal { background: var(--neon); color: black !important; padding: 18px 45px; border-radius: 100px; font-weight: 800; }
