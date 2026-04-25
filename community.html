@@ -2,137 +2,192 @@
 <html lang="it">
 <head>
     <title>COMMUNITY | NEVERA SPORTS</title>
+    <link rel="icon" type="image/png" href="images/favicon.png">
     <meta charset="utf-8" />
-    <link rel="icon" type="image/png" href="images/logo.png">
     <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=0" />
     
-    <link href="https://fonts.googleapis.com/css2?family=Archivo+Black&family=Inter:wght@300;400;600;700&display=swap" rel="stylesheet">
-    
-    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Archivo+Black&family=Space+Grotesk:wght@400;700&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
-    <script src="https://unpkg.com/lucide@latest"></script>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
     
-    <link rel="stylesheet" href="assets/css/main.css">
-
     <style>
-        /* Stili specifici per le Feature Cards della Community */
+        :root {
+            --neon: #3FF000;
+            --dark: #040404;
+            --white: #FDFDFD;
+            --hover-bg: #111111; /* Grigio scuro per hover */
+        }
+
+        body {
+            margin: 0; background-color: var(--dark);
+            color: var(--white); font-family: 'Space Grotesk', sans-serif;
+            overflow-x: hidden;
+        }
+
+        /* Sfondo Fisso */
+        #bg {
+            position: fixed; top: 0; left: 0; width: 100%; height: 100%;
+            background-image: linear-gradient(rgba(0,0,0,0.7), rgba(0,0,0,0.8)), url('images/image_c3c605.jpg');
+            background-size: cover; background-position: center; z-index: -1;
+        }
+
+        /* Logo & Menu */
+        header { padding: 50px 0; text-align: center; }
+        .logo { height: 75px; cursor: pointer; transition: 0.3s; }
+        .logo:hover { filter: drop-shadow(0 0 10px var(--neon)); transform: scale(1.05); }
+
+        .overlay {
+            height: 100%; width: 0; position: fixed; z-index: 999;
+            top: 0; left: 0; background-color: var(--dark); 
+            overflow: hidden; transition: 0.5s; display: flex; align-items: center; justify-content: center;
+        }
+        .overlay a { 
+            font-family: 'Archivo Black', sans-serif; font-size: 2.5rem; color: white; 
+            text-decoration: none; display: block; margin: 20px; transition: 0.3s; 
+        }
+        .overlay a:hover { color: var(--neon); }
+        .closebtn { position: absolute; top: 20px; right: 45px; font-size: 50px; color: var(--neon); text-decoration: none; }
+
+        /* Contenuto */
+        .main-wrapper { position: relative; z-index: 10; padding: 20px; text-align: center; }
+        
+        h1 { font-family: 'Archivo Black', sans-serif; font-size: 3.5rem; margin-bottom: 5px; text-transform: uppercase; }
+        .sub-tag { color: var(--neon); font-weight: 700; letter-spacing: 5px; text-transform: uppercase; margin-bottom: 60px; font-size: 0.9rem; }
+
+        /* NUOVA HOVER SUI RIQUADRI VANTAGGI */
         .feature-card {
-            background: rgba(255, 255, 255, 0.02);
-            border: 1px solid rgba(255, 255, 255, 0.06);
-            border-radius: 30px;
-            padding: 50px 30px;
+            background: rgba(255, 255, 255, 0.03);
+            border: 1px solid rgba(255, 255, 255, 0.1);
+            border-radius: 20px;
+            padding: 45px 20px;
             height: 100%;
-            transition: var(--transition-smooth);
+            transition: 0.4s ease; /* Transizione morbida */
             display: flex;
             flex-direction: column;
             align-items: center;
-            text-align: center;
+            justify-content: center;
         }
 
+        /* Effetto Hover dinamico */
         .feature-card:hover {
-            background-color: rgba(255, 255, 255, 0.05);
-            border-color: var(--neon);
-            transform: translateY(-10px);
-            box-shadow: 0 15px 30px rgba(0, 0, 0, 0.5);
+            background-color: var(--hover-bg); /* Sfondo si scurisce leggermente */
+            border-color: var(--neon); /* Bordo diventa neon */
+            transform: translateY(-10px); /* Si alza di 10px */
+            box-shadow: 0 10px 30px rgba(63, 240, 0, 0.15); /* Bagliore soffuso neon */
         }
 
+        /* Stile Icona */
         .feature-card i { 
             font-size: 3rem; 
             color: var(--white); 
             margin-bottom: 25px; 
             transition: 0.3s; 
-            opacity: 0.4;
         }
 
+        /* Icona diventa neon su hover */
         .feature-card:hover i {
             color: var(--neon);
-            opacity: 1;
             filter: drop-shadow(0 0 10px var(--neon));
         }
 
-        .feature-card h3 { 
-            font-family: var(--font-title); 
-            font-size: 0.9rem; 
-            letter-spacing: 2px; 
-            text-transform: uppercase; 
-            margin-bottom: 15px; 
+        .feature-card h3 { font-family: 'Archivo Black', sans-serif; font-size: 0.85rem; letter-spacing: 1px; text-transform: uppercase; margin-bottom: 15px; transition: 0.3s; }
+        .feature-card p { font-size: 0.9rem; opacity: 0.7; line-height: 1.5; margin: 0; transition: 0.3s; }
+        
+        /* CTA Section */
+        .cta-section { margin: 80px 0 120px 0; }
+        .catchy-phrase { font-family: 'Archivo Black', sans-serif; font-size: 1.6rem; margin-bottom: 35px; text-transform: uppercase; }
+        
+        .btn-join {
+            display: inline-block;
+            font-family: 'Archivo Black', sans-serif;
+            background: transparent;
+            color: var(--white);
+            border: 2px solid var(--white);
+            padding: 22px 55px;
+            border-radius: 15px;
+            text-decoration: none;
+            font-size: 1rem;
+            letter-spacing: 2px;
+            transition: 0.3s;
+        }
+        .btn-join:hover { 
+            background: var(--neon); 
+            color: var(--dark); 
+            border-color: var(--neon);
+            transform: scale(1.05); 
         }
 
-        .feature-card p { 
-            font-size: 0.9rem; 
-            opacity: 0.6; 
-            line-height: 1.6; 
-            font-weight: 300;
+        footer { background: rgba(0,0,0,0.3); padding: 50px 20px; text-align: center; border-top: 1px solid rgba(255,255,255,0.05); }
+        .copy { opacity: 0.2; font-size: 10px; letter-spacing: 3px; }
+
+        @media (max-width: 768px) {
+            h1 { font-size: 2.5rem; }
+            .feature-card { margin-bottom: 20px; padding: 35px 15px; }
         }
     </style>
 </head>
 <body>
 
-    <div class="bg-layer"></div>
-    <div class="bg-overlay"></div>
+    <div id="bg"></div>
 
-    <header class="nav-fix">
-        <img src="images/logo.png" class="logo-trigger" onclick="openM()" alt="Nevera Logo">
+    <header>
+        <img src="images/logo.png" class="logo" onclick="openNav()">
     </header>
 
-    <div id="m" class="nv-menu">
-        <a href="javascript:void(0)" class="nv-close" onclick="closeM()">&times;</a>
-        <div class="nv-links">
-            <a href="index.html" onclick="closeM()">HOME</a>
-            <a href="eventi.html" onclick="closeM()">EVENTI</a>
-            <a href="community.html" onclick="closeM()">COMMUNITY</a>
-            <a href="sponsor.html" onclick="closeM()">PARTNERS</a>
-            <a href="iniziative.html" onclick="closeM()">INIZIATIVE</a>
+    <div id="myNav" class="overlay">
+        <a href="javascript:void(0)" class="closebtn" onclick="closeNav()">&times;</a>
+        <div class="overlay-content">
+            <a href="index.html">HOME</a>
+            <a href="eventi.html">EVENTI</a>
+            <a href="community.html">COMMUNITY</a>
+            <a href="sponsor.html">SPONSOR</a>
+            <a href="iniziative.html">INIZIATIVE</a>
         </div>
     </div>
 
-    <main class="main-wrapper container">
-        <h1 class="nv-title">COMMUNITY</h1>
-        <p class="nv-subtitle">The Elite Network</p>
+    <div class="main-wrapper container">
+        <h1>COMMUNITY</h1>
+        <div class="sub-tag">The Elite Network</div>
 
         <div class="row g-4 mt-2 justify-content-center">
             <div class="col-md-4">
                 <div class="feature-card">
                     <i class="fa-solid fa-baseball-ball"></i>
                     <h3>Trova Avversari</h3>
-                    <p>Entra nel network per organizzare partite e sfidare nuovi player del circuito Nevera.</p>
+                    <p>Condividi le tue partite e scendi in campo con i membri del network Nevera.</p>
                 </div>
             </div>
             <div class="col-md-4">
                 <div class="feature-card">
                     <i class="fa-solid fa-calendar-check"></i>
                     <h3>News & Eventi</h3>
-                    <p>Accesso prioritario a tornei, aggiornamenti ranking e appuntamenti ufficiali della stagione.</p>
+                    <p>Resta aggiornato su tornei, ranking, news e appuntamenti ufficiali.</p>
                 </div>
             </div>
             <div class="col-md-4">
                 <div class="feature-card">
                     <i class="fa-solid fa-ticket"></i>
                     <h3>Sconti Riservati</h3>
-                    <p>Vantaggi esclusivi e codici promozionali offerti dai partner del brand per la nostra community.</p>
+                    <p>Accedi a codici promo e vantaggi esclusivi dei nostri partner.</p>
                 </div>
             </div>
         </div>
 
-        <div class="join-section" style="margin-top: 100px;">
-            <h2 style="font-family: var(--font-title); font-size: 1.8rem; margin-bottom: 30px;">PRONTO A SCENDERE IN CAMPO?</h2>
-            <a href="https://chat.whatsapp.com/GItl3C5mrgxJxXAPhHHRFh" class="btn-revolution">
-                UNISCITI AL CLUB <i class="fa-brands fa-whatsapp" style="margin-left: 10px;"></i>
+        <div class="cta-section">
+            <div class="catchy-phrase">Sei pronto a riscrivere le regole del gioco?</div>
+            <a href="https://chat.whatsapp.com/GItl3C5mrgxJxXAPhHHRFh" class="btn-join">
+                UNISCITI <i class="fa-brands fa-whatsapp" style="margin-left: 10px;"></i>
             </a>
         </div>
-    </main>
+    </div>
 
-    <footer class="nv-footer">
-        <div class="container text-center">
-            <img src="images/logo.png" style="height: 40px; opacity: 0.5; margin-bottom: 30px;">
-            <p class="copy-text">© 2026 NEVERA SPORTS | BORN UNDER PRESSURE</p>
-        </div>
+    <footer>
+        <p class="copy">© 2026 NEVERA SPORTS | BORN UNDER PRESSURE</p>
     </footer>
 
     <script>
-        lucide.createIcons();
-        function openM() { document.getElementById("m").style.width = "100%"; }
-        function closeM() { document.getElementById("m").style.width = "0"; }
+        function openNav() { document.getElementById("myNav").style.width = "100%"; }
+        function closeNav() { document.getElementById("myNav").style.width = "0"; }
     </script>
 
 </body>
