@@ -1,20 +1,18 @@
-/* --- NEVERA SPORTS: ULTRA-CENTERED & ANTI-BLUE FIX --- */
+/* NEVERA SPORTS - ORIGINAL RESTORED 2026 */
 
 :root {
     --neon: #3FF000;
     --dark: #040404;
     --white: #fdfdfd;
-    --font-title: 'Archivo Black', sans-serif;
 }
 
-/* 1. RESET KILLER - Elimina il blu e le sottolineature a monte */
+/* --- RESET TOTALE (Uccide il blu e centra le card) --- */
 * { 
-    margin: 0; padding: 0; box-sizing: border-box; 
-}
-
-a, a:visited, a:hover, a:active {
-    text-decoration: none !important;
-    color: inherit !important; /* Forza il link a prendere il colore del genitore (bianco) */
+    margin: 0; 
+    padding: 0; 
+    box-sizing: border-box; 
+    text-decoration: none !important; 
+    outline: none;
 }
 
 body {
@@ -22,7 +20,7 @@ body {
     color: var(--white);
     font-family: 'Inter', sans-serif;
     overflow-x: hidden;
-    text-align: center; /* Allineamento base per tutto il testo */
+    text-align: center;
 }
 
 /* --- SFONDO FISSO --- */
@@ -32,66 +30,60 @@ body {
     background-size: cover; z-index: -2;
 }
 
-/* --- MENU OVERLAY (Blindato) --- */
+/* --- MENU (NASCOSTO DI DEFAULT) --- */
 .nv-menu {
     position: fixed; top: 0; left: 0; width: 0; height: 100%;
     background: rgba(0,0,0,0.98); z-index: 9999;
-    overflow: hidden; transition: 0.5s ease;
+    overflow: hidden; transition: 0.5s cubic-bezier(0.16, 1, 0.3, 1);
     display: flex; align-items: center; justify-content: center;
 }
 
 .nv-links a { 
-    font-family: var(--font-title); font-size: 2.5rem; 
+    font-family: 'Archivo Black', sans-serif; font-size: 2.5rem; 
     color: white !important; display: block; margin: 25px; 
     text-transform: uppercase;
 }
 
-/* --- HERO SECTION --- */
-.nav-fix { padding: 50px 0; }
-.logo-trigger { height: 65px; cursor: pointer; display: inline-block; }
+/* --- LOGO E HEADER --- */
+.nav-fix { padding: 60px 0; }
+.logo-trigger { height: 70px; cursor: pointer; display: inline-block; transition: 0.3s; }
+.logo-trigger:hover { transform: scale(1.05); }
 
+/* --- TITOLI --- */
 .nv-title { 
-    font-family: var(--font-title); font-size: clamp(3rem, 10vw, 6rem); 
+    font-family: 'Archivo Black', sans-serif; font-size: clamp(3rem, 10vw, 6rem); 
     text-transform: uppercase; letter-spacing: -2px; line-height: 0.9;
-    margin: 20px auto; width: 100%;
 }
 .nv-subtitle { 
     color: var(--neon); letter-spacing: 8px; text-transform: uppercase; 
-    font-size: 0.8rem; margin: 0 auto 80px auto; display: block;
+    font-size: 0.8rem; margin: 20px 0 80px 0; display: block;
 }
 
-/* --- GRIGLIA CARD: IL FIX PER L'ALLINEAMENTO --- */
+/* --- LE CARD (CENTRATE E NERE) --- */
 .cards-container {
     display: flex;
     flex-wrap: wrap;
     justify-content: center; /* Centra le card orizzontalmente */
-    align-items: center;     /* Centra le card verticalmente tra loro */
-    gap: 30px;
+    gap: 20px;
     max-width: 1200px;
-    margin: 0 auto 100px auto; /* Centra il contenitore nella pagina */
+    margin: 0 auto 100px;
     padding: 0 20px;
 }
 
-/* Trasformiamo il link stesso nella card per evitare link blu esterni */
 .home-card {
     background: rgba(255, 255, 255, 0.03);
     border: 1px solid rgba(255, 255, 255, 0.08);
-    border-radius: 35px;
+    border-radius: 30px;
     padding: 60px 20px;
-    width: 280px; /* Larghezza fissa per precisione */
+    width: 280px;
     display: flex;
     flex-direction: column;
     align-items: center;
-    justify-content: center;
-    transition: 0.4s cubic-bezier(0.16, 1, 0.3, 1);
-    color: white !important;
+    transition: 0.4s ease;
+    cursor: pointer;
 }
 
-.home-card:hover { 
-    border-color: var(--neon); 
-    background: rgba(255,255,255,0.06); 
-    transform: translateY(-10px); 
-}
+.home-card:hover { border-color: var(--neon); background: rgba(255, 255, 255, 0.05); }
 
 .home-card svg, .home-card i { 
     font-size: 35px; color: white !important; opacity: 0.4; margin-bottom: 25px; 
@@ -102,33 +94,45 @@ body {
     color: white !important; opacity: 0.6; font-weight: 700;
 }
 
-/* --- FOOTER: PULIZIA E LOGO MINI --- */
+/* --- BANNER GIF --- */
+.banner-vpl-wrapper { max-width: 1050px; margin: 0 auto 100px; padding: 0 20px; }
+.vpl-gif-banner { border-radius: 40px; overflow: hidden; border: 1px solid rgba(255,255,255,0.1); }
+.vpl-gif-banner img { width: 100%; display: block; }
+
+/* --- POPUP (STILE VIDEO) --- */
+.nv-modal-overlay {
+    position: fixed; top: 0; left: 0; width: 100%; height: 100%;
+    background: rgba(0,0,0,0.92); backdrop-filter: blur(15px);
+    display: none; align-items: center; justify-content: center; z-index: 10000;
+}
+
+.nv-modal-content {
+    background: #040404; border: 1px solid rgba(255,255,255,0.1);
+    padding: 60px 40px; border-radius: 40px; text-align: center;
+    max-width: 480px; width: 90%;
+}
+
+.btn-modal { 
+    background: var(--neon); color: black !important; padding: 18px 45px; 
+    border-radius: 100px; font-weight: 800; font-size: 0.8rem; display: inline-block;
+}
+
+/* --- FOOTER (RIPRISTINATO) --- */
 .nv-footer { 
-    padding: 80px 20px; 
-    border-top: 1px solid rgba(255,255,255,0.05); 
-    background: rgba(0,0,0,0.4);
-    text-align: left;
+    padding: 80px 20px; border-top: 1px solid rgba(255, 255, 255, 0.05); 
+    background: rgba(0,0,0,0.3); text-align: left;
 }
 
 .footer-grid { 
-    max-width: 1100px; margin: 0 auto;
-    display: flex; 
-    flex-wrap: wrap;
-    justify-content: space-between;
-    gap: 40px;
+    max-width: 1100px; margin: 0 auto; display: flex; 
+    flex-wrap: wrap; justify-content: space-between; gap: 40px;
 }
 
-.footer-logo { 
-    height: 30px; /* Logo rimpicciolito drasticamente */
-    width: auto; 
-    margin-bottom: 25px; 
-    opacity: 0.6;
-    filter: grayscale(1);
-}
+.footer-logo { height: 35px; width: auto; margin-bottom: 25px; opacity: 0.6; }
 
 .footer-head { 
-    color: var(--neon); font-size: 0.7rem; letter-spacing: 3px; 
-    text-transform: uppercase; margin-bottom: 25px; font-weight: 700;
+    color: var(--neon); font-size: 0.7rem; letter-spacing: 4px; 
+    text-transform: uppercase; margin-bottom: 20px; font-weight: 700;
 }
 
 .footer-link { 
@@ -136,24 +140,4 @@ body {
     margin-bottom: 12px; font-size: 0.85rem; transition: 0.3s;
 }
 
-.footer-link:hover { opacity: 1; color: var(--neon) !important; transform: translateX(5px); }
-
-/* --- POPUP (Stile Video) --- */
-.nv-modal-overlay {
-    position: fixed; top: 0; left: 0; width: 100%; height: 100%;
-    background: rgba(0,0,0,0.94); backdrop-filter: blur(15px);
-    display: none; align-items: center; justify-content: center; z-index: 10000;
-}
-
-.nv-modal-content {
-    background: var(--dark); border: 1px solid rgba(255,255,255,0.1);
-    padding: 60px 40px; border-radius: 40px; text-align: center;
-    max-width: 480px; width: 90%; position: relative;
-}
-
-.btn-modal { 
-    background: var(--neon); color: black !important; 
-    padding: 18px 45px; border-radius: 100px; font-weight: 800;
-    font-family: var(--font-title); font-size: 0.8rem;
-    display: inline-block; margin-top: 20px;
-}
+.footer-link:hover { opacity: 1; color: var(--neon) !important; }
