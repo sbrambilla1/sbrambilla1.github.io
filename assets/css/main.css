@@ -1,128 +1,105 @@
-/* --- GRIGLIA CARD (Riparata) --- */
-.cards-container { 
-    display: flex; 
-    flex-wrap: wrap; 
-    justify-content: center; 
-    gap: 25px; 
-    max-width: 1200px; 
-    margin: 0 auto 80px auto;
-    padding: 0 20px;
+/* --- NEVERA SPORTS: IL FIX DEFINITIVO --- */
+
+:root {
+    --neon: #3FF000;
+    --dark: #040404;
+    --white: #FDFDFD;
+    --font-title: 'Archivo Black', sans-serif;
+    --font-body: 'Inter', sans-serif;
 }
 
-/* Fix per le card: forziamo il comportamento del link come blocco */
+/* 1. RESET TOTALE - Impedisce ai browser di sballare i margini */
+* { margin: 0; padding: 0; box-sizing: border-box; }
+
+body {
+    background-color: var(--dark);
+    color: var(--white);
+    font-family: var(--font-body);
+    line-height: 1.4;
+    overflow-x: hidden;
+    text-align: center;
+}
+
+/* 2. SFONDO E OVERLAY (Sempre fissi) */
+.bg-layer {
+    position: fixed; top: 0; left: 0; width: 100%; height: 100%;
+    background: var(--dark) url('../../immagini/solidblack.png') no-repeat center center;
+    background-size: cover; z-index: -2;
+}
+.bg-overlay {
+    position: fixed; top: 0; left: 0; width: 100%; height: 100%;
+    background: linear-gradient(to bottom, rgba(4,4,4,0.3), rgba(4,4,4,1));
+    z-index: -1;
+}
+
+/* 3. MENU (NASCONDE I LINK BLU) */
+.nv-menu {
+    height: 100%; width: 0; position: fixed; z-index: 9999;
+    top: 0; left: 0; background: rgba(0,0,0,0.98); 
+    backdrop-filter: blur(20px); overflow: hidden; 
+    transition: 0.5s ease; display: flex; align-items: center; justify-content: center;
+}
+/* Rende i link bianchi e puliti, non blu! */
+.nv-links a { 
+    font-family: var(--font-title); font-size: 2.5rem; color: white !important; 
+    text-decoration: none !important; display: block; margin: 20px; text-transform: uppercase;
+}
+
+/* 4. HEADER */
+.nav-fix { padding: 50px 0; position: relative; z-index: 100; }
+.logo-trigger { height: 60px; cursor: pointer; }
+
+/* 5. TITOLI HERO */
+.nv-title { 
+    font-family: var(--font-title); font-size: clamp(3rem, 10vw, 6rem); 
+    text-transform: uppercase; letter-spacing: -2px; margin-top: 20px;
+}
+.nv-subtitle { 
+    color: var(--neon); letter-spacing: 8px; text-transform: uppercase; 
+    font-size: 0.8rem; margin-bottom: 60px; display: block;
+}
+
+/* 6. LE CARD (RIFATTE DA ZERO) */
+.cards-container {
+    display: flex; flex-wrap: wrap; justify-content: center;
+    gap: 20px; max-width: 1200px; margin: 0 auto 100px; padding: 0 20px;
+}
 .home-card {
-    flex: 1; 
-    min-width: 260px; 
-    max-width: 280px;
-    min-height: 320px; /* Altezza minima per uniformità */
-    background: rgba(255, 255, 255, 0.02); 
-    border: 1px solid rgba(255, 255, 255, 0.06);
-    border-radius: 40px; 
-    padding: 60px 20px; 
-    text-decoration: none !important; /* Rimuove sottolineature blu */
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    justify-content: center;
-    transition: var(--transition-smooth);
-    cursor: pointer;
+    flex: 1; min-width: 240px; max-width: 280px;
+    background: rgba(255,255,255,0.03); border: 1px solid rgba(255,255,255,0.08);
+    border-radius: 30px; padding: 50px 20px;
+    text-decoration: none !important; color: white !important;
+    display: flex; flex-direction: column; align-items: center; transition: 0.3s;
 }
+.home-card:hover { border-color: var(--neon); background: rgba(255,255,255,0.05); transform: translateY(-5px); }
+.home-card svg, .home-card i { font-size: 30px; margin-bottom: 20px; opacity: 0.5; color: white; fill: white; }
+.home-card h3 { font-size: 0.75rem; letter-spacing: 3px; text-transform: uppercase; opacity: 0.6; }
 
-.home-card:hover { 
-    background: rgba(255, 255, 255, 0.05);
-    border-color: var(--neon); 
-    transform: translateY(-10px);
-    box-shadow: 0 20px 40px rgba(0,0,0,0.4);
+/* 7. IL BANNER VPL */
+.banner-vpl-wrapper { max-width: 1000px; margin: 60px auto; padding: 0 20px; }
+.vpl-gif-banner { border-radius: 40px; overflow: hidden; border: 1px solid rgba(255,255,255,0.1); }
+.vpl-gif-banner img { width: 100%; display: block; }
+
+/* 8. POPUP (NON DEVE ROMPERE IL LAYOUT) */
+.nv-modal-overlay {
+    position: fixed; top: 0; left: 0; width: 100%; height: 100%;
+    background: rgba(0,0,0,0.9); backdrop-filter: blur(15px);
+    display: none; align-items: center; justify-content: center; z-index: 10000;
 }
-
-/* Icone dentro le card */
-.home-card svg, .home-card i { 
-    width: 42px; 
-    height: 42px; 
-    stroke: var(--white); 
-    fill: none; /* Evita icone piene se usi SVG */
-    opacity: 0.3; 
-    margin-bottom: 25px; 
-    transition: 0.4s;
+.nv-modal-content {
+    background: var(--dark); border: 1px solid rgba(255,255,255,0.1);
+    padding: 50px 30px; border-radius: 40px; max-width: 450px; width: 90%;
 }
+.nv-modal-content h2 { font-family: var(--font-title); font-size: 2rem; margin-bottom: 20px; }
 
-.home-card:hover svg, .home-card:hover i { 
-    opacity: 1; 
-    stroke: var(--neon); 
-    filter: drop-shadow(0 0 8px var(--neon));
-}
-
-/* Titoli delle card */
-.home-card h3 { 
-    font-size: 0.8rem; 
-    text-transform: uppercase; 
-    letter-spacing: 5px; 
-    color: var(--white); /* Forza il bianco invece del blu dei link */
-    font-weight: 700;
-    opacity: 0.6;
-    transition: 0.4s;
-}
-
-.home-card:hover h3 { 
-    opacity: 1; 
-    color: var(--neon);
-    letter-spacing: 6px;
-}
-
-/* --- FOOTER (Logo ridotto) --- */
-.nv-footer { 
-    padding: 80px 20px 40px 20px; 
-    border-top: 1px solid rgba(255, 255, 255, 0.05); 
-    background: rgba(0,0,0,0.3);
-}
-
+/* 9. FOOTER (LOGO PICCOLO E ORDINE) */
+.nv-footer { padding: 60px 20px; border-top: 1px solid rgba(255,255,255,0.05); text-align: left; }
 .footer-grid { 
-    max-width: 1100px; 
-    margin: 0 auto; 
-    display: grid; 
-    grid-template-columns: repeat(auto-fit, minmax(200px, 1fr)); 
-    gap: 40px; 
-    text-align: left; 
+    max-width: 1100px; margin: 0 auto; display: grid; 
+    grid-template-columns: repeat(auto-fit, minmax(200px, 1fr)); gap: 40px; 
 }
-
-/* Riduzione logo footer */
-.footer-logo { 
-    height: 40px; /* Più piccolo e discreto */
-    width: auto;
-    margin-bottom: 25px; 
-    opacity: 0.7;
-    transition: 0.3s;
-}
-
-.footer-logo:hover {
-    opacity: 1;
-}
-
-.footer-head { 
-    font-weight: 700; 
-    font-size: 0.7rem; 
-    letter-spacing: 4px; 
-    color: var(--neon); 
-    text-transform: uppercase; 
-    margin-bottom: 20px; 
-}
-
-.footer-link { 
-    display: block; 
-    color: var(--white); 
-    opacity: 0.4; 
-    text-decoration: none !important; 
-    font-size: 0.85rem; 
-    margin-bottom: 12px; 
-    transition: 0.3s; 
-}
-
-.footer-link:hover { 
-    opacity: 1; 
-    color: var(--neon); 
-    transform: translateX(5px); 
-}
-
-.social-box { display: flex; gap: 15px; margin-top: 15px; }
-.social-box a { color: var(--white); opacity: 0.4; transition: 0.3s; }
-.social-box a:hover { opacity: 1; color: var(--neon); transform: translateY(-3px); }
+.footer-logo-small { height: 35px; width: auto; margin-bottom: 20px; opacity: 0.8; }
+.footer-head { color: var(--neon); font-size: 0.7rem; letter-spacing: 3px; margin-bottom: 15px; font-weight: 700; }
+.footer-link { display: block; color: white; opacity: 0.5; text-decoration: none; margin-bottom: 10px; font-size: 0.8rem; }
+.social-box { display: flex; gap: 15px; }
+.social-box svg { width: 18px; fill: white; opacity: 0.5; }
