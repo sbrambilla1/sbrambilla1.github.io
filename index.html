@@ -44,7 +44,7 @@
             z-index: 1;
         }
 
-        /* POPUP COMMUNITY MINIMAL */
+        /* POPUP COMMUNITY */
         .nv-modal-overlay {
             position: fixed; top: 0; left: 0; width: 100%; height: 100%;
             background: rgba(0, 0, 0, 0.9); backdrop-filter: blur(15px);
@@ -55,7 +55,6 @@
             background: var(--dark); border: 1px solid rgba(255,255,255,0.1);
             padding: 60px 40px; border-radius: 40px; text-align: center;
             max-width: 450px; width: 90%; position: relative;
-            box-shadow: 0 0 50px rgba(63, 240, 0, 0.05);
         }
         .nv-modal-close {
             position: absolute; top: 25px; right: 30px;
@@ -65,18 +64,15 @@
         .nv-modal-close svg { width: 24px; height: 24px; }
         
         .nv-modal-content .pop-icon { width: 60px; height: 60px; stroke: var(--neon); stroke-width: 1px; margin-bottom: 25px; }
-        .nv-modal-content h2 { font-family: var(--font-title); font-size: 1.8rem; margin-bottom: 15px; letter-spacing: -1px; }
-        .nv-modal-content p { font-size: 0.95rem; opacity: 0.6; margin-bottom: 35px; font-weight: 300; line-height: 1.6; }
+        .nv-modal-content h2 { font-family: var(--font-title); font-size: 1.8rem; margin-bottom: 15px; }
+        .nv-modal-content p { font-size: 0.95rem; opacity: 0.6; margin-bottom: 35px; font-weight: 300; }
 
         /* HEADER */
         .nav-fix { position: relative; padding: 60px 0 40px 0; text-align: center; z-index: 100; }
-        .logo-trigger { 
-            height: 80px; cursor: pointer; 
-            transition: transform 0.4s cubic-bezier(0.16, 1, 0.3, 1); 
-        }
+        .logo-trigger { height: 80px; cursor: pointer; transition: 0.4s cubic-bezier(0.16, 1, 0.3, 1); }
         .logo-trigger:hover { transform: scale(1.05); filter: drop-shadow(0 0 15px rgba(63, 240, 0, 0.2)); }
 
-        /* MENU OVERLAY */
+        /* MENU */
         .nv-menu {
             height: 100%; width: 0; position: fixed; z-index: 9999;
             top: 0; left: 0; background-color: var(--dark); 
@@ -86,15 +82,14 @@
         .nv-links a { 
             font-family: var(--font-title); font-size: 2.5rem; color: var(--white); 
             text-decoration: none; display: block; margin: 20px; text-transform: uppercase; 
-            transition: 0.3s;
         }
-        .nv-links a:hover { color: var(--neon); transform: translateX(10px); }
+        .nv-links a:hover { color: var(--neon); transform: translateX(10px); transition: 0.3s; }
         .nv-close { position: absolute; top: 30px; right: 45px; font-size: 50px; color: var(--neon); text-decoration: none; }
 
-        /* MAIN CONTENT */
+        /* HERO */
         .main-wrapper { position: relative; z-index: 10; min-height: 90vh; display: flex; flex-direction: column; justify-content: center; align-items: center; padding: 40px 20px; }
         .nv-title { font-family: var(--font-title); font-size: clamp(3.5rem, 12vw, 6rem); text-transform: uppercase; letter-spacing: -3px; margin: 0; line-height: 0.9; }
-        .nv-subtitle { color: var(--neon); font-weight: 700; text-transform: uppercase; letter-spacing: 8px; margin-bottom: 70px; font-size: 0.9rem; opacity: 0.9; }
+        .nv-subtitle { color: var(--neon); font-weight: 700; text-transform: uppercase; letter-spacing: 8px; margin-bottom: 70px; font-size: 0.9rem; }
 
         /* NAVIGATION CARDS */
         .home-card {
@@ -110,66 +105,63 @@
             box-shadow: 0 25px 50px rgba(0, 0, 0, 0.5);
         }
         
-        /* ICONE LUCIDE: GRANDI E SOTTILI */
+        /* ICONE 48PX */
         .home-card i, .home-card svg { 
             width: 48px; height: 48px;
             stroke: var(--white); stroke-width: 1.2px;
             opacity: 0.4; margin-bottom: 25px; 
-            transition: all 0.5s ease;
+            transition: 0.5s ease;
         }
-        
         .home-card:hover i, .home-card:hover svg { 
             stroke: var(--neon); opacity: 1; stroke-width: 1.4px;
             filter: drop-shadow(0 0 12px rgba(63, 240, 0, 0.5));
             transform: scale(1.1);
         }
 
+        /* SCRITTE CARDS: PIÙ SPESSE */
         .home-card h3 { 
-            font-size: 0.75rem; text-transform: uppercase; letter-spacing: 5px; 
-            margin: 0; font-weight: 300; opacity: 0.5; transition: 0.5s;
+            font-size: 0.85rem; /* Leggermente più grande */
+            text-transform: uppercase; 
+            letter-spacing: 4px; 
+            margin: 0; 
+            font-weight: 700; /* Peso aumentato per eleganza e leggibilità */
+            opacity: 0.6; 
+            transition: 0.5s;
         }
-        .home-card:hover h3 { opacity: 1; color: var(--neon); letter-spacing: 6px; }
+        .home-card:hover h3 { opacity: 1; color: var(--neon); letter-spacing: 5px; }
 
-        /* BANNER */
+        /* BANNER & CTA */
         .banner-vpl-wrapper { width: 100%; max-width: 1050px; margin: 80px 0 40px 0; padding: 0 12px; }
-        .vpl-gif-banner { 
-            display: block; width: 100%; border-radius: 40px; 
-            overflow: hidden; border: 1px solid rgba(255, 255, 255, 0.05); 
-            transition: 0.5s; 
-        }
-        .vpl-gif-banner img { width: 100%; height: auto; display: block; filter: grayscale(10%); transition: 0.6s; }
-        .vpl-gif-banner:hover img { filter: grayscale(0%); transform: scale(1.03); }
+        .vpl-gif-banner { display: block; width: 100%; border-radius: 40px; overflow: hidden; border: 1px solid rgba(255, 255, 255, 0.05); transition: 0.5s; }
+        .vpl-gif-banner img { width: 100%; height: auto; display: block; transition: 0.6s; }
+        .vpl-gif-banner:hover img { transform: scale(1.03); }
 
-        /* REVOLUTION SECTION */
         .join-section {
             width: 100%; max-width: 1050px; margin: 40px 0 100px 0; padding: 90px 30px;
-            background: rgba(255, 255, 255, 0.02);
-            border: 1px solid rgba(255, 255, 255, 0.05); border-radius: 50px; text-align: center;
-            backdrop-filter: blur(5px);
+            background: rgba(255, 255, 255, 0.02); border: 1px solid rgba(255, 255, 255, 0.05); border-radius: 50px; text-align: center;
         }
         .join-section h2 { font-family: var(--font-title); font-size: clamp(2.2rem, 7vw, 3.5rem); margin-bottom: 25px; line-height: 1.1; }
-        .join-section p { opacity: 0.5; max-width: 550px; margin: 0 auto 45px; line-height: 1.8; font-weight: 300; }
+        .join-section p { opacity: 0.5; max-width: 550px; margin: 0 auto 45px; line-height: 1.8; font-weight: 400; }
         
         .btn-revolution {
             font-family: var(--font-title); background: var(--neon); color: var(--dark);
             padding: 22px 50px; border-radius: 100px; text-decoration: none;
             display: inline-flex; align-items: center; font-size: 0.8rem; transition: 0.4s; text-transform: uppercase; letter-spacing: 2px;
         }
-        .btn-revolution:hover { background: var(--white); transform: scale(1.05); box-shadow: 0 15px 30px rgba(63, 240, 0, 0.3); }
+        .btn-revolution:hover { background: var(--white); transform: scale(1.05); }
         .btn-revolution svg { width: 20px; height: 20px; margin-right: 15px; stroke-width: 2.5px; }
 
         /* FOOTER */
         .nv-footer { position: relative; z-index: 10; padding: 100px 20px; text-align: center; border-top: 1px solid rgba(255, 255, 255, 0.03); }
         .social-row a { color: white; text-decoration: none; margin: 0 25px; transition: 0.4s; opacity: 0.3; display: inline-block; }
         .social-row a:hover { color: var(--neon); opacity: 1; transform: translateY(-5px); }
-        .social-row svg { width: 26px; height: 26px; stroke-width: 1.2px; }
+        .social-row svg { width: 26px; height: 26px; }
         .copyright { margin-top: 60px; opacity: 0.1; font-size: 0.6rem; letter-spacing: 6px; text-transform: uppercase; }
 
         @media (max-width: 768px) {
             .nv-title { font-size: 3.5rem; }
             .home-card { padding: 45px 10px; border-radius: 25px; }
             .home-card i, .home-card svg { width: 40px; height: 40px; }
-            .join-section { padding: 60px 20px; border-radius: 35px; }
         }
     </style>
 </head>
@@ -183,7 +175,7 @@
             <span class="nv-modal-close" onclick="closePopup()"><i data-lucide="x"></i></span>
             <i data-lucide="users" class="pop-icon"></i>
             <h2>JOIN THE CLUB</h2>
-            <p>Non restare a guardare. Entra nella nostra community WhatsApp per eventi, ranking e contenuti esclusivi Nevera.</p>
+            <p>Non restare a guardare. Entra nella nostra community WhatsApp per eventi, ranking e news in anteprima.</p>
             <a href="https://chat.whatsapp.com/GItl3C5mrgxJxXAPhHHRFh" class="btn-revolution">
                 <i data-lucide="message-square"></i> Entra ora
             </a>
@@ -243,8 +235,8 @@
         </div>
 
         <div class="join-section">
-            <h2>BUILD YOUR<br>REVOLUTION</h2>
-            <p>Dimentica tutto quello che sai sul padel. Nevera è l'ecosistema definitivo per chi vive lo sport con stile e ambizione. Sei pronto?</p>
+            <h2>BUILD YOUR REVOLUTION</h2>
+            <p>L'unico ecosistema per chi vive il padel con stile e ambizione.</p>
             <a href="https://chat.whatsapp.com/GItl3C5mrgxJxXAPhHHRFh" class="btn-revolution">
                 <i data-lucide="message-circle"></i> Unisciti a noi
             </a>
@@ -261,20 +253,16 @@
     </footer>
 
     <script>
-        // Inizializza icone Lucide (necessario per disegnarle)
         lucide.createIcons();
-
-        // Menu Overlay Logic
         function openM() { document.getElementById("m").style.width = "100%"; }
         function closeM() { document.getElementById("m").style.width = "0"; }
 
-        // Community Popup Logic
         window.onload = function() {
             setTimeout(function() {
                 var modal = document.getElementById("popupCommunity");
                 modal.style.display = "flex";
                 setTimeout(function() { modal.style.opacity = "1"; }, 50);
-            }, 2500); // Appare dopo 2.5 secondi
+            }, 2500); 
         };
 
         function closePopup() {
