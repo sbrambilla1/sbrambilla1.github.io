@@ -1,6 +1,4 @@
-/* NEVERA SPORTS - Clean Luxury Tech 2026 
-   Bilanciamento: Leggerezza, Ordine, Leggibilità
-*/
+/* --- NEVERA SPORTS: GLOBAL FIX 2026 --- */
 
 :root {
     --neon: #3FF000;
@@ -10,19 +8,23 @@
     --font-body: 'Inter', sans-serif;
 }
 
-/* --- RESET TOTALE --- */
-* { margin: 0; padding: 0; box-sizing: border-box; }
+/* 1. RESET E BASE */
+* { 
+    margin: 0; 
+    padding: 0; 
+    box-sizing: border-box; 
+}
 
 body {
     background-color: var(--dark);
     color: var(--white);
     font-family: var(--font-body);
-    line-height: 1.6;
     overflow-x: hidden;
+    text-align: center;
     -webkit-font-smoothing: antialiased;
 }
 
-/* --- SFONDO FISSO (Controlla che la cartella sia 'immagini') --- */
+/* 2. SFONDO UNIVERSALE (Fisso dietro tutto) */
 .bg-layer {
     position: fixed;
     top: 0; left: 0;
@@ -36,146 +38,181 @@ body {
     position: fixed;
     top: 0; left: 0;
     width: 100%; height: 100%;
-    background: linear-gradient(to bottom, rgba(4,4,4,0.4), rgba(4,4,4,0.9));
+    background: linear-gradient(to bottom, rgba(4,4,4,0.4), rgba(4,4,4,1));
     z-index: -1;
 }
 
-/* --- HEADER & LOGO --- */
+/* 3. HEADER E LOGO */
 .nav-fix {
-    padding: 50px 20px;
-    text-align: center;
+    padding: 60px 20px;
     position: relative;
     z-index: 100;
 }
 
 .logo-trigger {
-    height: 65px; /* Dimensione più elegante */
+    height: 65px;
     cursor: pointer;
-    transition: transform 0.4s ease;
+    transition: transform 0.4s cubic-bezier(0.16, 1, 0.3, 1);
 }
 
 .logo-trigger:hover {
-    transform: scale(1.05);
+    transform: scale(1.1);
 }
 
-/* --- TITOLI (Leggibili, non pesanti) --- */
+/* 4. MENU OVERLAY (Risolve i link blu a sinistra) */
+.nv-menu {
+    height: 100%; width: 0; /* Nasconde il menu all'inizio */
+    position: fixed; 
+    z-index: 9999;
+    top: 0; left: 0;
+    background-color: rgba(4, 4, 4, 0.98);
+    backdrop-filter: blur(20px);
+    overflow: hidden;
+    transition: 0.5s cubic-bezier(0.16, 1, 0.3, 1);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.nv-links a {
+    font-family: var(--font-title);
+    font-size: clamp(1.5rem, 5vw, 2.5rem);
+    color: var(--white);
+    text-decoration: none;
+    display: block;
+    margin: 25px;
+    text-transform: uppercase;
+    transition: 0.3s;
+    opacity: 0.8;
+}
+
+.nv-links a:hover {
+    color: var(--neon);
+    opacity: 1;
+    transform: translateX(10px);
+}
+
+.nv-close {
+    position: absolute;
+    top: 30px; right: 40px;
+    font-size: 40px;
+    color: var(--neon);
+    text-decoration: none;
+    cursor: pointer;
+}
+
+/* 5. WRAPPER PRINCIPALE E TITOLI */
 .main-wrapper {
-    text-align: center;
-    padding: 60px 20px;
+    padding: 20px 20px 100px 20px;
+    max-width: 1200px;
+    margin: 0 auto;
 }
 
 .nv-title {
     font-family: var(--font-title);
-    font-size: clamp(2.5rem, 8vw, 5rem);
+    font-size: clamp(2.5rem, 10vw, 5.5rem);
     text-transform: uppercase;
-    letter-spacing: -1px; /* Leggibile */
-    font-weight: 400; /* Pulito */
-    line-height: 1;
-    margin-bottom: 10px;
+    letter-spacing: -2px;
+    line-height: 0.9;
+    font-weight: 400; /* Elegante, non massiccio */
 }
 
 .nv-subtitle {
     color: var(--neon);
     font-size: 0.75rem;
+    letter-spacing: 7px;
     text-transform: uppercase;
-    letter-spacing: 6px;
-    font-weight: 500;
+    margin-top: 15px;
+    margin-bottom: 70px;
+    opacity: 0.8;
 }
 
-/* --- GRIGLIA CARD --- */
-.home-card {
+/* 6. GRIGLIA CARD (Risolve il disallineamento) */
+.cards-container {
     display: flex;
-    flex-direction: column;
-    align-items: center;
-    padding: 40px 20px;
-    background: rgba(255, 255, 255, 0.03);
-    border: 1px solid rgba(255, 255, 255, 0.08);
-    border-radius: 24px;
+    flex-wrap: wrap;
+    justify-content: center;
+    gap: 20px;
+}
+
+.home-card {
+    flex: 1;
+    min-width: 240px;
+    max-width: 280px;
+    background: rgba(255, 255, 255, 0.02);
+    border: 1px solid rgba(255, 255, 255, 0.06);
+    border-radius: 25px;
+    padding: 50px 20px;
     text-decoration: none;
-    color: var(--white);
-    transition: 0.3s ease;
+    color: var(--white) !important;
+    transition: 0.4s ease;
 }
 
 .home-card:hover {
+    background: rgba(255, 255, 255, 0.04);
     border-color: var(--neon);
-    background: rgba(255, 255, 255, 0.05);
-    transform: translateY(-5px);
+    transform: translateY(-8px);
 }
 
-.home-card h3 {
-    font-size: 0.8rem;
-    letter-spacing: 3px;
-    text-transform: uppercase;
-    opacity: 0.7;
-}
-
-/* --- SEZIONE JOIN (Sottile) --- */
-.join-section {
-    max-width: 800px;
-    margin: 80px auto;
-    padding: 60px 20px;
-    text-align: center;
-    border-top: 1px solid rgba(255,255,255,0.1);
-}
-
-.join-section h2 {
-    font-family: var(--font-title);
-    font-weight: 400;
-    font-size: 2rem;
-    margin-bottom: 30px;
-}
-
-.btn-revolution {
-    background: var(--neon);
-    color: var(--dark);
-    padding: 18px 40px;
-    border-radius: 50px;
-    font-family: var(--font-title);
-    font-size: 0.7rem;
-    text-decoration: none;
-    text-transform: uppercase;
-    letter-spacing: 1px;
+.home-card svg, .home-card i {
+    width: 40px; height: 40px;
+    margin-bottom: 25px;
+    stroke: var(--white);
+    opacity: 0.4;
     transition: 0.3s;
 }
 
-/* --- POPUP (Stile pulito) --- */
+.home-card:hover svg {
+    stroke: var(--neon);
+    opacity: 1;
+}
+
+.home-card h3 {
+    font-size: 0.7rem;
+    letter-spacing: 4px;
+    text-transform: uppercase;
+    font-weight: 600;
+    opacity: 0.5;
+}
+
+/* 7. POPUP / MODAL */
 .nv-modal-overlay {
     position: fixed;
     top: 0; left: 0;
     width: 100%; height: 100%;
     background: rgba(0,0,0,0.9);
-    backdrop-filter: blur(10px);
-    display: flex;
+    backdrop-filter: blur(15px);
+    display: none; /* Gestito da JS */
     align-items: center;
     justify-content: center;
-    z-index: 1000;
+    z-index: 10000;
 }
 
 .nv-modal-content {
     background: var(--dark);
-    padding: 40px;
-    border-radius: 30px;
-    border: 1px solid rgba(255,255,255,0.1);
-    text-align: center;
-    max-width: 400px;
+    padding: 60px 40px;
+    border-radius: 40px;
+    border: 1px solid rgba(255,255,255,0.08);
+    max-width: 450px;
+    width: 90%;
 }
 
 .nv-modal-content h2 {
     font-family: var(--font-title);
-    font-size: 1.8rem;
-    margin-bottom: 15px;
+    font-size: 2.2rem;
+    margin-bottom: 20px;
+    text-transform: uppercase;
 }
 
-/* --- FOOTER --- */
+/* 8. FOOTER */
 .nv-footer {
-    padding: 60px 20px;
-    border-top: 1px solid rgba(255,255,255,0.05);
-    text-align: center;
+    padding: 80px 20px;
+    border-top: 1px solid rgba(255, 255, 255, 0.03);
 }
 
 .footer-head {
     font-size: 0.7rem;
-    letter-spacing: 3px;
+    letter-spacing: 4px;
     color: var(--neon);
-    margin-bottom: 20px;
+    margin-bottom: 25px;
 }
