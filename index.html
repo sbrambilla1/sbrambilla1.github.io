@@ -1,170 +1,249 @@
-<!DOCTYPE HTML>
+<!DOCTYPE html>
 <html lang="it">
 <head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>NEVERA SPORTS | Home</title>
-    <meta charset="utf-8" />
-    <link rel="icon" type="image/png" href="images/logo.png">
-    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=0" />
-    
-    <link href="https://fonts.googleapis.com/css2?family=Archivo+Black&family=Inter:wght@300;400;600;700&display=swap" rel="stylesheet">
-    
-    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
-    
-     <link rel="stylesheet" href="assets/css/main.css">
+    <link href="https://fonts.googleapis.com/css2?family=Archivo+Black&family=Inter:wght@400;600;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
 
-    <script src="https://unpkg.com/lucide@latest"></script>
+    <style>
+        /* --- RESET & VARIABILI --- */
+        :root {
+            --neon: #3FF000;
+            --dark: #040404;
+            --white: #FDFDFD;
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            text-decoration: none !important;
+        }
+
+        /* Forza i link a non essere mai blu */
+        a { color: inherit !important; }
+
+        body {
+            background-color: var(--dark);
+            color: var(--white);
+            font-family: 'Inter', sans-serif;
+            overflow-x: hidden;
+            text-align: center;
+            -webkit-font-smoothing: antialiased;
+        }
+
+        /* --- SFONDO FISSO --- */
+        .bg-layer {
+            position: fixed; top: 0; left: 0; width: 100%; height: 100%;
+            background: var(--dark) url('immagini/solidblack.png') no-repeat center center;
+            background-size: cover; z-index: -2;
+        }
+
+        /* --- HEADER & MENU --- */
+        .nav-fix { padding: 60px 0; }
+        .logo-trigger { height: 70px; cursor: pointer; transition: 0.3s ease; }
+        .logo-trigger:hover { transform: scale(1.05); }
+
+        .nv-menu {
+            height: 100%; width: 0; position: fixed; z-index: 9999;
+            top: 0; left: 0; background: rgba(4,4,4,0.98); 
+            backdrop-filter: blur(20px); overflow: hidden; 
+            transition: 0.5s cubic-bezier(0.16, 1, 0.3, 1);
+            display: flex; align-items: center; justify-content: center;
+        }
+        .nv-links a { 
+            font-family: 'Archivo Black', sans-serif; font-size: 2.5rem; 
+            color: var(--white) !important; display: block; margin: 25px; 
+            text-transform: uppercase;
+        }
+        .nv-links a:hover { color: var(--neon) !important; }
+
+        /* --- HERO SECTION --- */
+        .main-wrapper { max-width: 1200px; margin: 0 auto; padding: 0 20px; }
+        
+        .nv-title { 
+            font-family: 'Archivo Black', sans-serif; 
+            font-size: clamp(3rem, 10vw, 6.5rem); 
+            text-transform: uppercase; letter-spacing: -3px; line-height: 0.85;
+            margin-top: 20px;
+        }
+
+        .nv-subtitle { 
+            color: var(--neon); text-transform: uppercase; letter-spacing: 10px; 
+            margin: 25px 0 70px 0; font-size: 0.8rem; font-weight: 700; display: block;
+        }
+
+        /* --- CARD GRID (RIPRISTINATA E CENTRATA) --- */
+        .cards-container { 
+            display: flex; flex-wrap: wrap; justify-content: center; 
+            gap: 25px; margin-bottom: 100px; 
+        }
+
+        .home-card {
+            background: rgba(255, 255, 255, 0.03);
+            border: 1px solid rgba(255, 255, 255, 0.06);
+            border-radius: 35px; padding: 65px 30px;
+            width: 270px; display: flex; flex-direction: column;
+            align-items: center; transition: 0.4s cubic-bezier(0.16, 1, 0.3, 1);
+        }
+
+        .home-card:hover { 
+            border-color: var(--neon); 
+            background: rgba(255, 255, 255, 0.05);
+            transform: translateY(-10px);
+        }
+
+        .home-card i { font-size: 38px; color: var(--white); opacity: 0.4; margin-bottom: 25px; }
+        .home-card h3 { 
+            font-size: 0.75rem; letter-spacing: 4px; text-transform: uppercase; 
+            color: var(--white) !important; opacity: 0.6; font-weight: 700;
+        }
+        .home-card:hover h3 { opacity: 1; color: var(--neon) !important; }
+
+        /* --- BANNER VPL --- */
+        .banner-vpl-wrapper { width: 100%; max-width: 1050px; margin: 80px auto; }
+        .vpl-gif-banner { border-radius: 45px; overflow: hidden; border: 1px solid rgba(255,255,255,0.1); }
+        .vpl-gif-banner img { width: 100%; display: block; }
+
+        /* --- FOOTER (PULITO, LOGO MINI) --- */
+        .nv-footer { 
+            padding: 100px 20px 60px 20px; 
+            border-top: 1px solid rgba(255, 255, 255, 0.05); 
+            text-align: left; background: rgba(0,0,0,0.2);
+        }
+
+        .footer-grid { 
+            max-width: 1100px; margin: 0 auto; 
+            display: grid; grid-template-columns: repeat(auto-fit, minmax(200px, 1fr)); gap: 60px;
+        }
+
+        .footer-logo { height: 32px; width: auto; margin-bottom: 30px; opacity: 0.6; }
+        .footer-head { color: var(--neon); font-size: 0.7rem; letter-spacing: 4px; text-transform: uppercase; margin-bottom: 25px; font-weight: 700; }
+        .footer-link { display: block; color: var(--white) !important; opacity: 0.4; margin-bottom: 12px; font-size: 0.85rem; transition: 0.3s; }
+        .footer-link:hover { opacity: 1; color: var(--neon) !important; transform: translateX(5px); }
+        
+        .social-box { display: flex; gap: 20px; margin-top: 15px; }
+        .social-box a { font-size: 20px; opacity: 0.4; transition: 0.3s; }
+        .social-box a:hover { opacity: 1; color: var(--neon) !important; }
+
+        /* --- POPUP JOIN THE CLUB (STILE VIDEO) --- */
+        .nv-modal-overlay {
+            position: fixed; top: 0; left: 0; width: 100%; height: 100%;
+            background: rgba(0,0,0,0.93); backdrop-filter: blur(15px);
+            display: none; align-items: center; justify-content: center; z-index: 10000;
+        }
+        .nv-modal-content {
+            background: var(--dark); border: 1px solid rgba(255,255,255,0.12);
+            padding: 70px 40px; border-radius: 45px; text-align: center; max-width: 480px; width: 90%;
+        }
+        .nv-modal-content h2 { font-family: 'Archivo Black'; font-size: 2.2rem; margin-bottom: 20px; }
+        .btn-modal { 
+            background: var(--neon); color: black !important; padding: 18px 45px; 
+            border-radius: 100px; font-family: 'Archivo Black'; font-size: 0.8rem; 
+            display: inline-block; margin-top: 25px; transition: 0.3s;
+        }
+        .btn-modal:hover { transform: scale(1.05); box-shadow: 0 0 20px rgba(63, 240, 0, 0.3); }
+
+    </style>
 </head>
 <body>
 
     <div class="bg-layer"></div>
-    <div class="bg-overlay"></div>
-
-    <div id="popupCommunity" class="nv-modal-overlay">
-        <div class="nv-modal-content">
-            <span class="nv-modal-close" onclick="closePopup()" style="cursor:pointer;">
-                <i data-lucide="x"></i>
-            </span>
-            <i data-lucide="users" class="pop-icon"></i>
-            <h2>JOIN THE CLUB</h2>
-            <p>Entra nell'ecosistema ufficiale Nevera. Tornei, eventi esclusivi, vantaggi riservati e molto altro.</p>
-            <a href="https://chat.whatsapp.com/GItl3C5mrgxJxXAPhHHRFh" class="btn-revolution">
-                Entra ora
-            </a>
-        </div>
-    </div>
 
     <header class="nav-fix">
-        <img src="images/logo.png" alt="Nevera Logo" class="logo-trigger" onclick="openM()">
+        <img src="immagini/logo-white.png" class="logo-trigger" onclick="toggleMenu(true)" alt="Nevera Sports">
     </header>
 
-    <div id="m" class="nv-menu">
-        <a href="javascript:void(0)" class="nv-close" onclick="closeM()">&times;</a>
+    <nav id="mainMenu" class="nv-menu">
+        <span style="position:absolute; top:40px; right:45px; font-size:40px; cursor:pointer; color:var(--neon)" onclick="toggleMenu(false)">&times;</span>
         <div class="nv-links">
-            <a href="index.html" onclick="closeM()">HOME</a>
-            <a href="eventi.html" onclick="closeM()">EVENTI</a>
-            <a href="community.html" onclick="closeM()">COMMUNITY</a>
-            <a href="sponsor.html" onclick="closeM()">PARTNERS</a>
-            <a href="iniziative.html" onclick="closeM()">INIZIATIVE</a>
+            <a href="index.html">Home</a>
+            <a href="eventi.html">Eventi</a>
+            <a href="community.html">Community</a>
+            <a href="partners.html">Partners</a>
+            <a href="iniziative.html">Iniziative</a>
         </div>
-    </div>
+    </nav>
 
-    <main class="main-wrapper container">
+    <div class="main-wrapper">
         <h1 class="nv-title">NEVERA</h1>
-        <p class="nv-subtitle">Born Under Pressure</p>
+        <span class="nv-subtitle">BORN UNDER PRESSURE</span>
 
-        <div class="row g-4 w-100" style="max-width: 1050px;">
-            <div class="col-6 col-md-3">
-                <a href="eventi.html" class="home-card">
-                    <i data-lucide="calendar"></i>
-                    <h3>Eventi</h3>
-                </a>
-            </div>
-            <div class="col-6 col-md-3">
-                <a href="community.html" class="home-card">
-                    <i data-lucide="globe-2"></i>
-                    <h3>Community</h3>
-                </a>
-            </div>
-            <div class="col-6 col-md-3">
-                <a href="sponsor.html" class="home-card">
-                    <i data-lucide="award"></i>
-                    <h3>Partners</h3>
-                </a>
-            </div>
-            <div class="col-6 col-md-3">
-                <a href="iniziative.html" class="home-card">
-                    <i data-lucide="zap"></i>
-                    <h3>Iniziative</h3>
-                </a>
-            </div>
+        <div class="cards-container">
+            <a href="eventi.html" class="home-card">
+                <i class="fa-solid fa-calendar-check"></i>
+                <h3>EVENTI</h3>
+            </a>
+            <a href="community.html" class="home-card">
+                <i class="fa-solid fa-users-rays"></i>
+                <h3>COMMUNITY</h3>
+            </a>
+            <a href="partners.html" class="home-card">
+                <i class="fa-solid fa-handshake-simple"></i>
+                <h3>PARTNERS</h3>
+            </a>
+            <a href="iniziative.html" class="home-card">
+                <i class="fa-solid fa-bolt-lightning"></i>
+                <h3>INIZIATIVE</h3>
+            </a>
         </div>
 
         <div class="banner-vpl-wrapper">
-            <a href="eventi.html" class="vpl-gif-banner">
-                <img src="images/homegif.gif" alt="Nevera Experience Highlights">
-            </a>
+            <div class="vpl-gif-banner">
+                <img src="immagini/volt-league.gif" alt="Volt League">
+            </div>
         </div>
-
-        <div class="join-section">
-            <h2>JOIN THE REVOLUTION</h2>
-            <p>Non è solo Padel. È NEVERA.</p>
-            <a href="https://chat.whatsapp.com/GItl3C5mrgxJxXAPhHHRFh" class="btn-revolution">
-                 Scopri il network
-            </a>
-        </div>
-    </main>
+    </div>
 
     <footer class="nv-footer">
-        <div class="container">
-            <div class="row">
-                <div class="col-md-4 footer-col">
-                    <img src="images/logo.png" class="footer-logo" alt="Nevera Logo">
-                    <p style="opacity: 0.3; font-size: 0.8rem; line-height: 1.6; font-weight: 300;">
-                        La qualità di un’esperienza pensata da chi il campo lo vive ogni giorno. </br> Un network creato da giocatori, per i giocatori. 
-                       
-                    </p>
-                </div>
-                
-                <div class="col-md-2 offset-md-1 footer-col">
-                    <h4 class="footer-head">Naviga</h4> 
-                    <a href="eventi.html" class="footer-link">Eventi</a>
-                    <a href="community.html" class="footer-link">Community</a>   
-                </div>
-                <div class="col-md-2 footer-col">
-                    <h4 class="footer-head">Brand</h4>
-                    <a href="sponsor.html" class="footer-link">Sponsor</a>
-                    <a href="iniziative.html" class="footer-link">Iniziative</a>
-                    <a href="mailto:info@neverasports.it" class="footer-link">Contattaci</a>
-                </div>
-                <div class="col-md-3 footer-col">
-                    <h4 class="footer-head">Social</h4>
-                    <div class="social-box">
-                        <a href="https://www.instagram.com/neverasports.it/" target="_blank">
-                            <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="lucide-custom">
-  <rect x="2" y="2" width="20" height="20" rx="5" ry="5"></rect>
-  <path d="M16 11.37A4 4 0 1 1 12.63 8 4 4 0 0 1 16 11.37z"></path>
-  <line x1="17.5" y1="6.5" x2="17.51" y2="6.5"></line>
-</svg>
-                        </a>
-                        <a href="https://chat.whatsapp.com/GItl3C5mrgxJxXAPhHHRFh" target="_blank">
-                           <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
-  <path d="M22 16.92v3a2 2 0 0 1-2.18 2 19.79 19.79 0 0 1-8.63-3.07 19.5 19.5 0 0 1-6-6 19.79 19.79 0 0 1-3.07-8.67A2 2 0 0 1 4.11 2h3a2 2 0 0 1 2 1.72 12.84 12.84 0 0 0 .7 2.81 2 2 0 0 1-.45 2.11L8.09 9.91a16 16 0 0 0 6 6l1.27-1.27a2 2 0 0 1 2.11-.45 12.84 12.84 0 0 0 2.81.7A2 2 0 0 1 22 16.92z"></path>
-</svg>
-                        </a>
-                    </div>
-                </div>
+        <div class="footer-grid">
+            <div>
+                <img src="immagini/logo-white.png" class="footer-logo" alt="Nevera">
+                <p style="opacity: 0.3; font-size: 0.8rem; line-height: 1.6;">La qualità di un'esperienza pende da chi il campo lo vive ogni giorno. Un network creato dai giocatori, per i giocatori.</p>
             </div>
-            <div class="row">
-                <div class="col-12 text-center">
-                    <p class="copy-text">© 2026 NEVERA SPORTS | BORN UNDER PRESSURE</p>
+            <div>
+                <h4 class="footer-head">Naviga</h4>
+                <a href="eventi.html" class="footer-link">Eventi</a>
+                <a href="community.html" class="footer-link">Community</a>
+                <a href="partners.html" class="footer-link">Brand</a>
+            </div>
+            <div>
+                <h4 class="footer-head">Social</h4>
+                <div class="social-box">
+                    <a href="#"><i class="fa-brands fa-instagram"></i></a>
+                    <a href="#"><i class="fa-brands fa-discord"></i></a>
                 </div>
             </div>
         </div>
+        <p style="text-align:center; margin-top:80px; opacity:0.1; font-size:0.6rem; letter-spacing:5px;">© 2026 NEVERA SPORTS | BORN UNDER PRESSURE</p>
     </footer>
 
+    <div id="popup" class="nv-modal-overlay">
+        <div class="nv-modal-content">
+            <i class="fa-solid fa-rocket" style="font-size: 40px; color: var(--neon); margin-bottom: 25px;"></i>
+            <h2>JOIN THE CLUB</h2>
+            <p style="opacity: 0.6; line-height: 1.6;">Entra nell'ecosistema ufficiale Nevera. Tornei, eventi esclusivi, vantaggi riservati e molto altro.</p>
+            <a href="#" class="btn-modal" onclick="togglePopup(false)">ENTRA ORA</a>
+        </div>
+    </div>
+
     <script>
-        // Inizializza le icone Lucide
-        lucide.createIcons();
-
-        // Menu Overlay
-        function openM() { document.getElementById("m").style.width = "100%"; }
-        function closeM() { document.getElementById("m").style.width = "0"; }
-
-        // Gestione Popup Community
-        window.onload = function() {
-            setTimeout(function() {
-                var modal = document.getElementById("popupCommunity");
-                modal.style.display = "flex";
-                setTimeout(function() { modal.style.opacity = "1"; }, 50);
-            }, 2500); 
-        };
-
-        function closePopup() {
-            var modal = document.getElementById("popupCommunity");
-            modal.style.opacity = "0";
-            setTimeout(function() { modal.style.display = "none"; }, 600);
+        function toggleMenu(show) {
+            document.getElementById("mainMenu").style.width = show ? "100%" : "0";
         }
-    </script>
 
+        function togglePopup(show) {
+            document.getElementById("popup").style.display = show ? "flex" : "none";
+        }
+
+        // Mostra il popup dopo 3 secondi come nel video
+        window.onload = () => {
+            setTimeout(() => togglePopup(true), 3000);
+        };
+    </script>
+</body>
+</html>
 </body>
 </html>
