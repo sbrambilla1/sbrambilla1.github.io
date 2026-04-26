@@ -13,7 +13,7 @@
     
     <style>
         :root {
-            --neon: #3FF000; /* Verde Nevera Originale */
+            --neon: #3FF000;
             --dark: #040404;
             --white: #FDFDFD;
             --font-title: 'Archivo Black', sans-serif;
@@ -26,18 +26,18 @@
             color: var(--white);
             font-family: var(--font-body);
             overflow-x: hidden;
+            text-align: center; /* Forza la centralità globale */
             -webkit-font-smoothing: antialiased;
         }
 
-        /* HEADER & LOGO TRIGGER */
-        header { position: relative; padding: 60px 0 40px 0; text-align: center; z-index: 100; }
+        /* HEADER & MENU */
+        header { position: relative; padding: 60px 0 40px 0; z-index: 100; }
         .logo-trigger { 
             height: 85px; cursor: pointer; 
             transition: transform 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275); 
         }
         .logo-trigger:hover { transform: scale(1.1); filter: drop-shadow(0 0 15px var(--neon)); }
 
-        /* MENU OVERLAY */
         .nv-menu {
             height: 100%; width: 0; position: fixed; z-index: 9999;
             top: 0; left: 0; background-color: rgba(4, 4, 4, 0.98); 
@@ -51,13 +51,13 @@
         .nv-links a:hover { color: var(--neon); transform: scale(1.05); }
         .nv-close { position: absolute; top: 30px; right: 45px; font-size: 50px; color: var(--neon); text-decoration: none; }
 
-        /* MAIN CONTENT */
-        .main-wrapper { position: relative; z-index: 10; padding: 40px 20px 80px 20px; text-align: center; }
+        /* MAIN WRAPPER */
+        .main-wrapper { position: relative; z-index: 10; padding: 40px 20px 80px 20px; }
         
-        .nv-title { font-family: var(--font-title); font-size: clamp(2.5rem, 8vw, 4.5rem); text-transform: uppercase; letter-spacing: -2px; margin: 0; line-height: 1; }
-        .nv-subtitle { color: var(--neon); font-weight: 700; text-transform: uppercase; letter-spacing: 12px; margin-bottom: 60px; font-size: 0.75rem; }
+        .nv-title { font-family: var(--font-title); font-size: clamp(2.2rem, 8vw, 4.5rem); text-transform: uppercase; letter-spacing: -2px; margin: 0 auto; line-height: 1; }
+        .nv-subtitle { color: var(--neon); font-weight: 700; text-transform: uppercase; letter-spacing: 12px; margin-bottom: 60px; font-size: 0.75rem; display: block; }
 
-        /* CONTATORE IMPATTO */
+        /* IMPACT SECTION */
         .impact-box { margin-bottom: 100px; }
         .huge-number { 
             font-family: var(--font-title); font-size: clamp(3rem, 12vw, 6.5rem); 
@@ -65,65 +65,46 @@
         }
         .counter-label { font-size: 0.7rem; letter-spacing: 4px; opacity: 0.4; text-transform: uppercase; font-weight: 800; }
 
-        /* CARDS PROCESSO */
+        /* PROCESS CARDS */
         .process-card {
             background: rgba(255, 255, 255, 0.02); 
             border: 1px solid rgba(255, 255, 255, 0.05);
             border-radius: 35px;
             padding: 50px 30px;
             height: 100%;
-            transition: 0.4s cubic-bezier(0.165, 0.84, 0.44, 1);
+            transition: 0.4s;
             backdrop-filter: blur(10px);
+            margin: 0 auto;
         }
-
-        .process-card:hover {
-            background: rgba(63, 240, 0, 0.05);
-            border-color: var(--neon);
-            transform: translateY(-10px);
-        }
-
+        .process-card:hover { border-color: var(--neon); transform: translateY(-10px); }
         .icon-circle {
-            width: 75px; height: 75px; background: transparent; 
-            border: 1px solid rgba(63, 240, 0, 0.3); color: var(--neon);
+            width: 75px; height: 75px; border: 1px solid rgba(63, 240, 0, 0.3); color: var(--neon);
             border-radius: 50%; display: flex; align-items: center; justify-content: center;
             margin: 0 auto 25px auto; font-size: 1.4rem; transition: 0.3s;
         }
-        
-        .process-card:hover .icon-circle {
-            background: var(--neon);
-            color: var(--dark);
-            box-shadow: 0 0 20px rgba(63, 240, 0, 0.4);
-        }
-
-        .process-card h3 { 
-            font-family: var(--font-body); font-size: 0.8rem; 
-            text-transform: uppercase; letter-spacing: 2px; font-weight: 800;
-            margin-bottom: 15px; 
-        }
-
-        .process-card p { font-size: 0.9rem; opacity: 0.5; line-height: 1.6; font-weight: 300; margin: 0; }
+        .process-card:hover .icon-circle { background: var(--neon); color: var(--dark); box-shadow: 0 0 20px rgba(63, 240, 0, 0.4); }
+        .process-card h3 { font-size: 0.8rem; text-transform: uppercase; letter-spacing: 2px; font-weight: 800; margin-bottom: 15px; }
+        .process-card p { font-size: 0.9rem; opacity: 0.5; line-height: 1.6; font-weight: 300; }
 
         /* DESIGN SHOWCASE */
         .design-img-box {
             border-radius: 35px; overflow: hidden;
             border: 1px solid rgba(255, 255, 255, 0.05);
             aspect-ratio: 1/1; margin-bottom: 20px;
-            transition: 0.5s;
         }
         .design-img-box img { width: 100%; height: 100%; object-fit: cover; transition: 0.8s ease; }
         .design-img-box:hover img { transform: scale(1.1); }
-        .design-img-box:hover { border-color: var(--neon); }
 
         /* BUTTON */
         .btn-nv {
             font-family: var(--font-title); background: var(--neon); color: var(--dark);
-            padding: 22px 50px; border-radius: 50px; text-decoration: none;
+            padding: 22px 50px; border-radius: 50px; text-decoration: none !important;
             display: inline-block; font-size: 0.85rem; transition: 0.3s; text-transform: uppercase;
             margin-top: 50px; border: none;
         }
-        .btn-nv:hover { transform: scale(1.05); box-shadow: 0 0 30px rgba(63, 240, 0, 0.3); color: var(--dark); }
+        .btn-nv:hover { transform: scale(1.05); box-shadow: 0 0 30px rgba(63, 240, 0, 0.3); }
 
-        /* FOOTER */
+        /* FOOTER CENTRATO ANCHE SU MOBILE */
         .nv-footer { 
             position: relative; z-index: 10; padding: 100px 20px 60px; 
             background-color: var(--dark); 
@@ -131,21 +112,25 @@
         }
         .footer-container {
             max-width: 1050px; margin: 0 auto;
-            display: flex; justify-content: space-between; align-items: flex-start;
-            flex-wrap: wrap; gap: 50px; text-align: left;
+            display: flex; flex-direction: column; align-items: center; /* Centratura verticale */
+            text-align: center; gap: 60px;
         }
-        .footer-brand { flex: 1; min-width: 200px; }
-        .footer-logo-mini { height: 75px; opacity: 0.5; margin-bottom: 15px; }
-        .footer-nav { display: flex; gap: 60px; }
-        .f-col { display: flex; flex-direction: column; gap: 10px; }
+        .footer-logo-mini { height: 50px; opacity: 0.5; margin-bottom: 15px; }
+        .footer-nav { 
+            display: flex; justify-content: center; gap: 80px; width: 100%; 
+        }
+        .f-col { display: flex; flex-direction: column; gap: 10px; align-items: center; }
         .f-label { font-size: 0.6rem; color: var(--neon); letter-spacing: 2px; font-weight: 800; margin-bottom: 10px; }
-        .f-link { font-size: 0.85rem; color: white !important; opacity: 0.3; transition: 0.3s; }
+        .f-link { font-size: 0.85rem; color: white !important; opacity: 0.3; transition: 0.3s; text-decoration: none; }
         .f-link:hover { opacity: 1; color: var(--neon) !important; }
-        .copyright { margin-top: 80px; opacity: 0.15; font-size: 0.55rem; letter-spacing: 5px; text-align: center; width: 100%; }
+        .copyright { margin-top: 80px; opacity: 0.15; font-size: 0.55rem; letter-spacing: 5px; width: 100%; }
 
         @media (max-width: 768px) {
-            .footer-container { flex-direction: column; text-align: center; }
-            .footer-nav { width: 100%; justify-content: space-around; }
+            header { padding: 40px 0 20px 0; }
+            .logo-trigger { height: 75px; }
+            .nv-subtitle { letter-spacing: 6px; margin-bottom: 40px; }
+            .footer-nav { gap: 40px; flex-direction: row; justify-content: center; } /* Mantieni i social e nav affiancati ma centrati */
+            .impact-box { margin-bottom: 60px; }
         }
     </style>
 </head>
@@ -169,7 +154,7 @@
     <main class="main-wrapper container">
         <div class="impact-box">
             <h1 class="nv-title">NEVER-A-WASTE</h1>
-            <p class="nv-subtitle">UNA SECONDA VITA AL GIOCO</p>
+            <span class="nv-subtitle">UNA SECONDA VITA AL GIOCO</span>
             <div class="huge-number" id="ballCounter" data-target="30000000">0</div>
             <p class="counter-label">Palline utilizzate ogni anno in Italia</p>
         </div>
@@ -199,28 +184,22 @@
         </div>
 
         <a href="mailto:info@neverasports.it" class="btn-nv">
-            <i class="fa-solid fa-envelope me-2"></i> Richiedi Informazioni
+            <i class="fa-solid fa-envelope me-2"></i> Contattaci
         </a>
 
         <div style="margin-top: 120px;">
             <h2 class="nv-title" style="font-size: 2.5rem;">IL DESIGN</h2>
-            <p class="nv-subtitle">Art Meets Sustainability</p>
+            <span class="nv-subtitle">Art Meets Sustainability</span>
             
             <div class="row g-4">
                 <div class="col-lg-4 col-md-6">
-                    <div class="design-img-box">
-                        <img src="images/design_1.jpeg" alt="Sustainability Design 1">
-                    </div>
+                    <div class="design-img-box"><img src="images/design_1.jpeg" alt="Design 1"></div>
                 </div>
                 <div class="col-lg-4 col-md-6">
-                    <div class="design-img-box">
-                        <img src="images/design_2.jpeg" alt="Sustainability Design 2">
-                    </div>
+                    <div class="design-img-box"><img src="images/design_2.jpeg" alt="Design 2"></div>
                 </div>
                 <div class="col-lg-4 col-md-6">
-                    <div class="design-img-box">
-                        <img src="images/design_3.jpeg" alt="Sustainability Design 3">
-                    </div>
+                    <div class="design-img-box"><img src="images/design_3.jpeg" alt="Design 3"></div>
                 </div>
             </div>
         </div>
@@ -230,7 +209,7 @@
         <div class="footer-container">
             <div class="footer-brand">
                 <img src="images/logo.png" class="footer-logo-mini">
-                <p style="font-size:0.6rem; opacity:0.2; letter-spacing:3px; font-weight:700;">PRECISION IN PERFORMANCE.</p>
+                <p style="font-size:0.6rem; opacity:0.2; letter-spacing:3px; font-weight:700; margin:0;">PRECISION IN PERFORMANCE.</p>
             </div>
             
             <div class="footer-nav">
