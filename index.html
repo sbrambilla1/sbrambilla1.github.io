@@ -11,174 +11,149 @@
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
     
-    <style>
-        :root {
-            --neon: #3FF000;
-            --dark: #040404;
-            --white: #FDFDFD;
-            --font-title: 'Archivo Black', sans-serif;
-            --font-body: 'Space Grotesk', sans-serif;
-        }
+   :root {
+    --neon: #3FF000;
+    --dark: #020202; /* Nero più profondo */
+    --white: #FDFDFD;
+    --font-main: 'Space Grotesk', sans-serif;
+    --font-title: 'Archivo Black', sans-serif;
+}
 
-        html, body {
-            margin: 0; padding: 0;
-            background-color: var(--dark);
-            color: var(--white);
-            font-family: var(--font-body);
-            overflow-x: hidden;
-        }
+* { margin: 0; padding: 0; box-sizing: border-box; text-decoration: none !important; }
 
-        /* SFONDO FISSO */
-        .bg-layer {
-            position: fixed; top: 0; left: 0; width: 100%; height: 100%;
-            background-image: url('images/solidblack.png');
-            background-size: cover; background-position: center; z-index: 0;
-        }
+body {
+    background-color: var(--dark);
+    color: var(--white);
+    font-family: var(--font-main);
+    text-align: center;
+    -webkit-font-smoothing: antialiased;
+}
 
-        .bg-overlay {
-            position: fixed; top: 0; left: 0; width: 100%; height: 100%;
-            background: linear-gradient(to bottom, 
-                rgba(4, 4, 4, 0.4) 0%, 
-                rgba(4, 4, 4, 0.7) 70%, 
-                rgba(4, 4, 4, 1) 100%);
-            z-index: 1;
-        }
+/* SFONDO SOFT */
+.bg-layer {
+    position: fixed; top: 0; left: 0; width: 100%; height: 100%;
+    background: radial-gradient(circle at center, #0a0a0a 0%, #020202 100%);
+    z-index: -2;
+}
 
-        /* POPUP MODAL */
-        .nv-modal-overlay {
-            position: fixed; top: 0; left: 0; width: 100%; height: 100%;
-            background: rgba(0, 0, 0, 0.85); backdrop-filter: blur(10px);
-            display: none; align-items: center; justify-content: center;
-            z-index: 10000; opacity: 0; transition: opacity 0.5s ease;
-        }
-        .nv-modal-content {
-            background: var(--dark); border: 1px solid var(--neon);
-            padding: 50px 30px; border-radius: 40px; text-align: center;
-            max-width: 450px; width: 90%; position: relative;
-            box-shadow: 0 0 50px rgba(63, 240, 0, 0.15);
-        }
-        .nv-modal-close {
-            position: absolute; top: 20px; right: 25px;
-            color: var(--white); font-size: 1.5rem; cursor: pointer; opacity: 0.5;
-        }
-        .nv-modal-close:hover { opacity: 1; color: var(--neon); }
-        .nv-modal-content i { font-size: 3rem; color: var(--neon); margin-bottom: 20px; }
-        .nv-modal-content h2 { font-family: var(--font-title); font-size: 2rem; margin-bottom: 15px; text-transform: uppercase; }
-        .nv-modal-content p { font-size: 1rem; opacity: 0.7; margin-bottom: 30px; line-height: 1.5; }
+/* TITOLI LUXURY */
+.nv-title { 
+    font-family: var(--font-title);
+    font-size: clamp(3.5rem, 12vw, 7rem); 
+    letter-spacing: -4px; 
+    line-height: 0.8;
+    margin-top: 40px;
+    text-shadow: 0 10px 30px rgba(0,0,0,0.5);
+}
 
-        /* HEADER */
-        .nav-fix { position: relative; padding: 60px 0 40px 0; text-align: center; z-index: 100; }
-        .logo-trigger { 
-            height: 85px; cursor: pointer; 
-            transition: transform 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275); 
-        }
-        .logo-trigger:hover { 
-            transform: scale(1.1) rotate(2deg); 
-            filter: drop-shadow(0 0 15px var(--neon));
-        }
+.nv-subtitle { 
+    font-weight: 500;
+    color: var(--neon);
+    letter-spacing: 12px; /* Molto spaziato = molto lusso */
+    text-transform: uppercase; 
+    font-size: 0.7rem; 
+    margin: 30px 0 100px 0; 
+    display: block;
+    opacity: 0.9;
+}
 
-        /* MENU OVERLAY */
-        .nv-menu {
-            height: 100%; width: 0; position: fixed; z-index: 9999;
-            top: 0; left: 0; background-color: rgba(4, 4, 4, 0.98); 
-            overflow: hidden; transition: 0.5s; 
-            display: flex; align-items: center; justify-content: center;
-        }
-        .nv-links a { 
-            font-family: var(--font-title); font-size: 2.5rem; color: var(--white); 
-            text-decoration: none; display: block; margin: 20px; text-transform: uppercase; 
-        }
-        .nv-links a:hover { color: var(--neon); transform: scale(1.05); }
-        .nv-close { position: absolute; top: 30px; right: 45px; font-size: 50px; color: var(--neon); text-decoration: none; }
+/* CARD MINIMALISTE */
+.cards-container {
+    display: flex; flex-wrap: wrap; justify-content: center;
+    gap: 30px; max-width: 1300px; margin: 0 auto 120px;
+}
 
-        /* CONTENT WRAPPER */
-        .main-wrapper { 
-            position: relative; z-index: 10; 
-            min-height: 90vh;
-            display: flex; flex-direction: column; 
-            justify-content: center; align-items: center; 
-            padding: 40px 20px 60px 20px; 
-        }
-        
-        .nv-title { font-family: var(--font-title); font-size: clamp(3rem, 10vw, 5rem); text-transform: uppercase; letter-spacing: -2px; margin: 0; line-height: 1; }
-        .nv-subtitle { color: var(--neon); font-weight: 700; text-transform: uppercase; letter-spacing: 6px; margin-bottom: 60px; font-size: 1.1rem; }
+.home-card {
+    background: rgba(255, 255, 255, 0.02); /* Quasi trasparente */
+    border: 1px solid rgba(255, 255, 255, 0.05); /* Bordo finissimo */
+    border-radius: 2px; /* Angoli quasi retti per un look più "architettonico" */
+    padding: 70px 40px;
+    width: 280px;
+    transition: all 0.6s cubic-bezier(0.2, 1, 0.3, 1);
+}
 
-        /* CARD MINIMAL */
-        .home-card {
-            display: flex; flex-direction: column; justify-content: center; align-items: center;
-            background: rgba(255, 255, 255, 0.02); 
-            border: 1px solid rgba(255, 255, 255, 0.05);
-            border-radius: 24px;
-            padding: 50px 10px; text-decoration: none !important; color: white !important;
-            transition: 0.4s cubic-bezier(0.165, 0.84, 0.44, 1); height: 100%;
-            backdrop-filter: blur(10px);
-        }
-        .home-card:hover { 
-            background: rgba(63, 240, 0, 0.05);
-            border-color: var(--neon); 
-            transform: translateY(-8px);
-            box-shadow: 0 15px 40px rgba(0, 0, 0, 0.4);
-        }
-        
-        .home-card i { 
-            display: inline-block;
-            font-family: "Font Awesome 6 Free", "Font Awesome 6 Brands" !important;
-            font-weight: 900;
-            font-size: 2.2rem; 
-            margin-bottom: 20px; 
-            color: var(--white); 
-            opacity: 0.8;
-            transition: 0.3s;
-        }
-        
-        .home-card:hover i { color: var(--neon); opacity: 1; transform: scale(1.1); }
-        .home-card h3 { 
-            font-family: var(--font-body); font-size: 0.75rem; 
-            text-transform: uppercase; letter-spacing: 3px; margin: 0; font-weight: 400;
-        }
+.home-card:hover {
+    background: rgba(255, 255, 255, 0.04);
+    border-color: var(--neon);
+    transform: translateY(-5px);
+}
 
-        /* BANNER GIF */
-        .banner-vpl-wrapper { width: 100%; max-width: 1050px; margin: 60px 0 20px 0; padding: 0 12px; }
-        .vpl-gif-banner { 
-            display: block; width: 100%; border-radius: 30px; 
-            overflow: hidden; border: 1px solid rgba(255, 255, 255, 0.1); 
-            transition: 0.4s ease; 
-        }
-        .vpl-gif-banner img { width: 100%; height: auto; display: block; }
-        .vpl-gif-banner:hover { border-color: var(--neon); box-shadow: 0 0 30px rgba(63, 240, 0, 0.2); }
+.home-card i {
+    font-size: 28px;
+    margin-bottom: 35px;
+    color: var(--white);
+    opacity: 0.2; /* Molto discreto */
+    transition: 0.4s;
+}
 
-        /* REVOLUTION SECTION */
-        .join-section {
-            width: 100%; max-width: 1050px; margin: 40px 0 80px 0; padding: 60px 30px;
-            background: rgba(255, 255, 255, 0.02); border: 1px solid rgba(255, 255, 255, 0.05);
-            border-radius: 40px; text-align: center; backdrop-filter: blur(10px);
-        }
-        .join-section h2 { font-family: var(--font-title); font-size: clamp(1.8rem, 5vw, 2.5rem); margin-bottom: 20px; }
-        .join-section p { opacity: 0.6; max-width: 550px; margin: 0 auto 35px; line-height: 1.6; font-weight: 300; }
-        
-        .btn-revolution {
-            font-family: var(--font-title); background: var(--neon); color: var(--dark);
-            padding: 18px 35px; border-radius: 50px; text-decoration: none;
-            display: inline-block; font-size: 0.8rem; transition: 0.3s; text-transform: uppercase;
-        }
-        .btn-revolution:hover { background: var(--white); transform: scale(1.05); box-shadow: 0 0 20px rgba(63, 240, 0, 0.3); }
+.home-card:hover i {
+    opacity: 1;
+    color: var(--neon);
+    filter: drop-shadow(0 0 10px rgba(63, 240, 0, 0.5));
+}
 
-        /* FOOTER */
-        .nv-footer { 
-            position: relative; z-index: 10; padding: 80px 20px; 
-            text-align: center; background-color: var(--dark); 
-            border-top: 1px solid rgba(255, 255, 255, 0.05);
-        }
-        .social-row a { color: white; font-size: 1.3rem; margin: 0 20px; transition: 0.3s; opacity: 0.6; }
-        .social-row a:hover { color: var(--neon); opacity: 1; transform: translateY(-3px); display: inline-block; }
-        .copyright { opacity: 0.2; font-size: 0.6rem; letter-spacing: 4px; }
+.home-card h3 { 
+    font-size: 0.7rem; 
+    letter-spacing: 5px; 
+    font-weight: 700;
+    opacity: 0.4;
+    color: var(--white) !important;
+}
 
-        @media (max-width: 768px) {
-            .nv-title { font-size: 3rem; }
-            .home-card { padding: 40px 10px; }
-            .btn-revolution { width: 100%; }
-        }
-    </style>
+/* FOOTER NUOVO (Luxury & Mini) */
+.nv-footer {
+    padding: 120px 40px 60px;
+    border-top: 1px solid rgba(255,255,255,0.03);
+    text-align: left;
+}
+
+.footer-grid {
+    max-width: 1200px; margin: 0 auto;
+    display: flex; justify-content: space-between;
+    align-items: flex-start; flex-wrap: wrap; gap: 80px;
+}
+
+.footer-logo-mini {
+    height: 18px; /* Piccolissimo, stile boutique */
+    opacity: 0.4;
+    filter: grayscale(1);
+    margin-bottom: 25px;
+}
+
+.f-title {
+    font-size: 0.6rem;
+    color: var(--neon);
+    letter-spacing: 3px;
+    margin-bottom: 30px;
+    display: block;
+    font-weight: 700;
+}
+
+.f-link {
+    display: block;
+    font-size: 0.8rem;
+    color: var(--white) !important;
+    opacity: 0.3;
+    margin-bottom: 15px;
+    transition: 0.3s;
+    font-weight: 300;
+}
+
+.f-link:hover { opacity: 1; color: var(--neon) !important; }
+
+.footer-bottom {
+    margin-top: 120px;
+    padding-top: 40px;
+    border-top: 1px solid rgba(255,255,255,0.02);
+    display: flex;
+    justify-content: center;
+}
+
+.footer-bottom p {
+    font-size: 0.55rem;
+    letter-spacing: 8px;
+    opacity: 0.15;
+}
 </head>
 <body>
 
