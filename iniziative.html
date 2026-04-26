@@ -26,12 +26,11 @@
             color: var(--white);
             font-family: var(--font-body);
             overflow-x: hidden;
-            text-align: center; /* Forza la centralità globale */
             -webkit-font-smoothing: antialiased;
         }
 
         /* HEADER & MENU */
-        header { position: relative; padding: 60px 0 40px 0; z-index: 100; }
+        header { position: relative; padding: 60px 0 40px 0; z-index: 100; text-align: center; }
         .logo-trigger { 
             height: 85px; cursor: pointer; 
             transition: transform 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275); 
@@ -52,7 +51,7 @@
         .nv-close { position: absolute; top: 30px; right: 45px; font-size: 50px; color: var(--neon); text-decoration: none; }
 
         /* MAIN WRAPPER */
-        .main-wrapper { position: relative; z-index: 10; padding: 40px 20px 80px 20px; }
+        .main-wrapper { position: relative; z-index: 10; padding: 40px 20px 80px 20px; text-align: center; }
         
         .nv-title { font-family: var(--font-title); font-size: clamp(2.2rem, 8vw, 4.5rem); text-transform: uppercase; letter-spacing: -2px; margin: 0 auto; line-height: 1; }
         .nv-subtitle { color: var(--neon); font-weight: 700; text-transform: uppercase; letter-spacing: 12px; margin-bottom: 60px; font-size: 0.75rem; display: block; }
@@ -82,7 +81,6 @@
             border-radius: 50%; display: flex; align-items: center; justify-content: center;
             margin: 0 auto 25px auto; font-size: 1.4rem; transition: 0.3s;
         }
-        .process-card:hover .icon-circle { background: var(--neon); color: var(--dark); box-shadow: 0 0 20px rgba(63, 240, 0, 0.4); }
         .process-card h3 { font-size: 0.8rem; text-transform: uppercase; letter-spacing: 2px; font-weight: 800; margin-bottom: 15px; }
         .process-card p { font-size: 0.9rem; opacity: 0.5; line-height: 1.6; font-weight: 300; }
 
@@ -93,7 +91,6 @@
             aspect-ratio: 1/1; margin-bottom: 20px;
         }
         .design-img-box img { width: 100%; height: 100%; object-fit: cover; transition: 0.8s ease; }
-        .design-img-box:hover img { transform: scale(1.1); }
 
         /* BUTTON */
         .btn-nv {
@@ -102,9 +99,8 @@
             display: inline-block; font-size: 0.85rem; transition: 0.3s; text-transform: uppercase;
             margin-top: 50px; border: none;
         }
-        .btn-nv:hover { transform: scale(1.05); box-shadow: 0 0 30px rgba(63, 240, 0, 0.3); }
 
-        /* FOOTER CENTRATO ANCHE SU MOBILE */
+        /* FOOTER PC (Allineamento originale) */
         .nv-footer { 
             position: relative; z-index: 10; padding: 100px 20px 60px; 
             background-color: var(--dark); 
@@ -112,24 +108,43 @@
         }
         .footer-container {
             max-width: 1050px; margin: 0 auto;
-            display: flex; flex-direction: column; align-items: center; /* Centratura verticale */
-            text-align: center; gap: 60px;
+            display: flex; justify-content: space-between; align-items: flex-start;
+            flex-wrap: wrap; gap: 50px; text-align: left;
         }
         .footer-logo-mini { height: 75px; opacity: 0.5; margin-bottom: 15px; }
-        .footer-nav { 
-            display: flex; justify-content: center; gap: 80px; width: 100%; 
-        }
-        .f-col { display: flex; flex-direction: column; gap: 10px; align-items: center; }
+        .footer-nav { display: flex; gap: 60px; }
+        .f-col { display: flex; flex-direction: column; gap: 10px; }
         .f-label { font-size: 0.6rem; color: var(--neon); letter-spacing: 2px; font-weight: 800; margin-bottom: 10px; }
         .f-link { font-size: 0.85rem; color: white !important; opacity: 0.3; transition: 0.3s; text-decoration: none; }
         .f-link:hover { opacity: 1; color: var(--neon) !important; }
-        .copyright { margin-top: 80px; opacity: 0.15; font-size: 0.55rem; letter-spacing: 5px; width: 100%; }
+        .copyright { margin-top: 80px; opacity: 0.15; font-size: 0.55rem; letter-spacing: 5px; width: 100%; text-align: center; }
 
+        /* --------------------------------------------------- */
+        /* MEDIA QUERY PER MOBILE: Centratura solo qui */
+        /* --------------------------------------------------- */
         @media (max-width: 768px) {
             header { padding: 40px 0 20px 0; }
             .logo-trigger { height: 75px; }
-            .nv-subtitle { letter-spacing: 6px; margin-bottom: 40px; }
-            .footer-nav { gap: 40px; flex-direction: row; justify-content: center; } /* Mantieni i social e nav affiancati ma centrati */
+            .nv-subtitle { letter-spacing: 6px; margin-bottom: 40px; text-align: center; }
+            .nv-title { text-align: center; }
+            
+            /* Footer mobile centrato */
+            .footer-container {
+                flex-direction: column;
+                align-items: center;
+                text-align: center;
+            }
+            .footer-nav {
+                justify-content: center;
+                gap: 40px;
+                width: 100%;
+            }
+            .f-col {
+                align-items: center;
+            }
+            .footer-brand {
+                text-align: center;
+            }
             .impact-box { margin-bottom: 60px; }
         }
     </style>
