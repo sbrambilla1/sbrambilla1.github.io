@@ -53,7 +53,21 @@
         }
         .logo-trigger:hover { transform: scale(1.1); filter: drop-shadow(0 0 15px var(--neon)); }
 
-        /* CONTENT WRAPPER ALLINEATO */
+        /* MENU OVERLAY (RIPRISTINATO) */
+        .nv-menu {
+            height: 100%; width: 0; position: fixed; z-index: 9999;
+            top: 0; left: 0; background-color: rgba(4, 4, 4, 0.98); 
+            overflow: hidden; transition: 0.5s; 
+            display: flex; align-items: center; justify-content: center;
+        }
+        .nv-links a { 
+            font-family: var(--font-title); font-size: 2.5rem; color: var(--white); 
+            text-decoration: none; display: block; margin: 20px; text-transform: uppercase; 
+        }
+        .nv-links a:hover { color: var(--neon); transform: scale(1.05); }
+        .nv-close { position: absolute; top: 30px; right: 45px; font-size: 50px; color: var(--neon); text-decoration: none; }
+
+        /* CONTENT WRAPPER */
         .main-wrapper { 
             position: relative; z-index: 10; 
             display: flex; flex-direction: column; 
@@ -64,12 +78,12 @@
         .nv-title { font-family: var(--font-title); font-size: clamp(3rem, 10vw, 5rem); text-transform: uppercase; letter-spacing: -2px; margin: 0; line-height: 1; }
         .nv-subtitle { color: var(--neon); font-weight: 700; text-transform: uppercase; letter-spacing: 12px; margin-bottom: 60px; font-size: 0.75rem; }
 
-        /* CARD RIPRISTINATE (ROUNDED + LIGHT ICONS) */
+        /* CARD RIPRISTINATE */
         .home-card {
             display: flex; flex-direction: column; justify-content: center; align-items: center;
             background: rgba(255, 255, 255, 0.02); 
             border: 1px solid rgba(255, 255, 255, 0.05);
-            border-radius: 35px; /* Arrotondamento originale */
+            border-radius: 35px;
             padding: 50px 10px; text-decoration: none !important; color: white !important;
             transition: 0.4s cubic-bezier(0.165, 0.84, 0.44, 1); height: 100%;
             backdrop-filter: blur(10px);
@@ -81,12 +95,11 @@
             transform: translateY(-8px);
         }
         
-        /* Icone stile Light Grotesk */
         .home-card i { 
             font-size: 2.2rem; 
             margin-bottom: 20px; 
             color: transparent !important;
-            -webkit-text-stroke: 1px rgba(255, 255, 255, 0.5); /* Effetto Light */
+            -webkit-text-stroke: 1px rgba(255, 255, 255, 0.5);
             transition: 0.3s;
         }
         
@@ -111,7 +124,7 @@
         }
         .vpl-gif-banner img { width: 100%; height: auto; display: block; }
 
-        /* REVOLUTION SECTION ARROTONDATA */
+        /* REVOLUTION SECTION */
         .join-section {
             width: 100%; max-width: 1050px; margin: 40px 0 80px 0; padding: 60px 30px;
             background: rgba(255, 255, 255, 0.02); border: 1px solid rgba(255, 255, 255, 0.05);
@@ -124,7 +137,7 @@
             display: inline-block; font-size: 0.8rem; transition: 0.3s; text-transform: uppercase;
         }
 
-        /* NUOVO FOOTER A GRIGLIA ALLINEATO */
+        /* FOOTER A GRIGLIA */
         .nv-footer { 
             position: relative; z-index: 10; padding: 100px 20px 60px; 
             background-color: var(--dark); 
@@ -180,8 +193,19 @@
     </div>
 
     <header class="nav-fix">
-        <img src="images/logo.png" alt="Nevera Logo" class="logo-trigger">
+        <img src="images/logo.png" alt="Nevera Logo" class="logo-trigger" onclick="openM()">
     </header>
+
+    <div id="m" class="nv-menu">
+        <a href="javascript:void(0)" class="nv-close" onclick="closeM()">&times;</a>
+        <div class="nv-links">
+            <a href="index.html" onclick="closeM()">HOME</a>
+            <a href="eventi.html" onclick="closeM()">EVENTI</a>
+            <a href="community.html" onclick="closeM()">COMMUNITY</a>
+            <a href="sponsor.html" onclick="closeM()">SPONSOR</a>
+            <a href="iniziative.html" onclick="closeM()">INIZIATIVE</a>
+        </div>
+    </div>
 
     <main class="main-wrapper container">
         <h1 class="nv-title">NEVERA</h1>
@@ -254,11 +278,18 @@
     </footer>
 
     <script>
+        // FUNZIONI MENU
+        function openM() { document.getElementById("m").style.width = "100%"; }
+        function closeM() { document.getElementById("m").style.width = "0"; }
+
+        // LOGICA POPUP AUTOMATICO
         window.onload = function() {
             setTimeout(function() {
                 var modal = document.getElementById("popupCommunity");
-                modal.style.display = "flex";
-                setTimeout(function() { modal.style.opacity = "1"; }, 10);
+                if(modal) {
+                    modal.style.display = "flex";
+                    setTimeout(function() { modal.style.opacity = "1"; }, 10);
+                }
             }, 2500);
         };
 
