@@ -1,295 +1,207 @@
-<!DOCTYPE HTML>
+<!DOCTYPE html>
 <html lang="it">
 <head>
-    <title>NEVERA SPORTS | Home</title>
-    <meta charset="utf-8" />
-    <link rel="icon" type="image/png" href="images/logo.png">
-    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=0" />
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>NEVERA SPORTS</title>
     
-    <link href="https://fonts.googleapis.com/css2?family=Archivo+Black&family=Space+Grotesk:wght@300;400;700&display=swap" rel="stylesheet">
-    
+    <link href="https://fonts.googleapis.com/css2?family=Syne:wght@800&family=Bricolage+Grotesque:wght@300;500;800&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
-    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
-    
+
     <style>
         :root {
             --neon: #3FF000;
-            --dark: #040404;
-            --white: #FDFDFD;
-            --font-title: 'Archivo Black', sans-serif;
-            --font-body: 'Space Grotesk', sans-serif;
+            --dark: #000000;
+            --white: #ffffff;
         }
 
-        html, body {
-            margin: 0; padding: 0;
+        * { margin: 0; padding: 0; box-sizing: border-box; text-decoration: none !important; }
+
+        body {
             background-color: var(--dark);
             color: var(--white);
-            font-family: var(--font-body);
+            font-family: 'Bricolage Grotesque', sans-serif;
+            text-align: center;
             overflow-x: hidden;
+            -webkit-font-smoothing: antialiased;
         }
 
-        /* SFONDO FISSO */
+        /* SFONDO PULITO */
         .bg-layer {
             position: fixed; top: 0; left: 0; width: 100%; height: 100%;
-            background-image: url('images/solidblack.png');
-            background-size: cover; background-position: center; z-index: 0;
+            background: var(--dark);
+            z-index: -2;
         }
-
-        .bg-overlay {
-            position: fixed; top: 0; left: 0; width: 100%; height: 100%;
-            background: linear-gradient(to bottom, 
-                rgba(4, 4, 4, 0.4) 0%, 
-                rgba(4, 4, 4, 0.7) 70%, 
-                rgba(4, 4, 4, 1) 100%);
-            z-index: 1;
-        }
-
-        /* POPUP MODAL */
-        .nv-modal-overlay {
-            position: fixed; top: 0; left: 0; width: 100%; height: 100%;
-            background: rgba(0, 0, 0, 0.85); backdrop-filter: blur(10px);
-            display: none; align-items: center; justify-content: center;
-            z-index: 10000; opacity: 0; transition: opacity 0.5s ease;
-        }
-        .nv-modal-content {
-            background: var(--dark); border: 1px solid var(--neon);
-            padding: 50px 30px; border-radius: 40px; text-align: center;
-            max-width: 450px; width: 90%; position: relative;
-            box-shadow: 0 0 50px rgba(63, 240, 0, 0.15);
-        }
-        .nv-modal-close {
-            position: absolute; top: 20px; right: 25px;
-            color: var(--white); font-size: 1.5rem; cursor: pointer; opacity: 0.5;
-        }
-        .nv-modal-close:hover { opacity: 1; color: var(--neon); }
-        .nv-modal-content i { font-size: 3rem; color: var(--neon); margin-bottom: 20px; }
-        .nv-modal-content h2 { font-family: var(--font-title); font-size: 2rem; margin-bottom: 15px; text-transform: uppercase; }
-        .nv-modal-content p { font-size: 1rem; opacity: 0.7; margin-bottom: 30px; line-height: 1.5; }
 
         /* HEADER */
-        .nav-fix { position: relative; padding: 60px 0 40px 0; text-align: center; z-index: 100; }
-        .logo-trigger { 
-            height: 85px; cursor: pointer; 
-            transition: transform 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275); 
-        }
-        .logo-trigger:hover { 
-            transform: scale(1.1) rotate(2deg); 
-            filter: drop-shadow(0 0 15px var(--neon));
+        .nav-fix { padding: 40px 0; }
+        .logo-trigger { height: 50px; cursor: pointer; filter: brightness(1.1); }
+
+        /* HERO SECTION - MASSIMALISTA */
+        .nv-title { 
+            font-family: 'Syne', sans-serif;
+            font-size: clamp(4rem, 15vw, 10rem); 
+            text-transform: uppercase;
+            line-height: 0.75;
+            letter-spacing: -5px;
+            margin-top: 40px;
         }
 
-        /* MENU OVERLAY */
-        .nv-menu {
-            height: 100%; width: 0; position: fixed; z-index: 9999;
-            top: 0; left: 0; background-color: rgba(4, 4, 4, 0.98); 
-            overflow: hidden; transition: 0.5s; 
-            display: flex; align-items: center; justify-content: center;
+        .nv-subtitle { 
+            font-family: 'Bricolage Grotesque', sans-serif;
+            color: var(--neon);
+            letter-spacing: 15px;
+            text-transform: uppercase; 
+            font-size: 0.6rem; 
+            font-weight: 800;
+            margin: 40px 0 100px 0; 
+            display: block;
         }
-        .nv-links a { 
-            font-family: var(--font-title); font-size: 2.5rem; color: var(--white); 
-            text-decoration: none; display: block; margin: 20px; text-transform: uppercase; 
-        }
-        .nv-links a:hover { color: var(--neon); transform: scale(1.05); }
-        .nv-close { position: absolute; top: 30px; right: 45px; font-size: 50px; color: var(--neon); text-decoration: none; }
 
-        /* CONTENT WRAPPER */
-        .main-wrapper { 
-            position: relative; z-index: 10; 
-            min-height: 90vh;
-            display: flex; flex-direction: column; 
-            justify-content: center; align-items: center; 
-            padding: 40px 20px 60px 20px; 
+        /* CARD LUXURY - MINIMALI E SOTTILI */
+        .cards-container {
+            display: flex; flex-wrap: wrap; justify-content: center;
+            gap: 20px; max-width: 1400px; margin: 0 auto 150px; padding: 0 20px;
         }
-        
-        .nv-title { font-family: var(--font-title); font-size: clamp(3rem, 10vw, 5rem); text-transform: uppercase; letter-spacing: -2px; margin: 0; line-height: 1; }
-        .nv-subtitle { color: var(--neon); font-weight: 700; text-transform: uppercase; letter-spacing: 6px; margin-bottom: 60px; font-size: 1.1rem; }
 
-        /* CARD MINIMAL */
         .home-card {
-            display: flex; flex-direction: column; justify-content: center; align-items: center;
-            background: rgba(255, 255, 255, 0.02); 
-            border: 1px solid rgba(255, 255, 255, 0.05);
-            border-radius: 24px;
-            padding: 50px 10px; text-decoration: none !important; color: white !important;
-            transition: 0.4s cubic-bezier(0.165, 0.84, 0.44, 1); height: 100%;
-            backdrop-filter: blur(10px);
+            background: transparent;
+            border: 1px solid rgba(255, 255, 255, 0.08); /* Bordo quasi invisibile */
+            padding: 80px 40px;
+            flex: 1;
+            min-width: 280px;
+            max-width: 320px;
+            transition: 0.5s cubic-bezier(0.16, 1, 0.3, 1);
+            position: relative;
+            overflow: hidden;
         }
-        .home-card:hover { 
-            background: rgba(63, 240, 0, 0.05);
-            border-color: var(--neon); 
-            transform: translateY(-8px);
-            box-shadow: 0 15px 40px rgba(0, 0, 0, 0.4);
+
+        .home-card:hover {
+            border-color: var(--neon);
+            background: rgba(63, 240, 0, 0.02);
         }
-        
-        .home-card i { 
-            display: inline-block;
-            font-family: "Font Awesome 6 Free", "Font Awesome 6 Brands" !important;
-            font-weight: 900;
-            font-size: 2.2rem; 
-            margin-bottom: 20px; 
-            color: var(--white); 
-            opacity: 0.8;
-            transition: 0.3s;
+
+        /* Icone svuotate per effetto Light */
+        .home-card i {
+            font-size: 24px;
+            margin-bottom: 40px;
+            color: transparent !important;
+            -webkit-text-stroke: 1px rgba(255, 255, 255, 0.3);
+            transition: 0.4s;
         }
-        
-        .home-card:hover i { color: var(--neon); opacity: 1; transform: scale(1.1); }
+
+        .home-card:hover i {
+            -webkit-text-stroke: 1px var(--neon);
+            transform: scale(1.2);
+        }
+
         .home-card h3 { 
-            font-family: var(--font-body); font-size: 0.75rem; 
-            text-transform: uppercase; letter-spacing: 3px; margin: 0; font-weight: 400;
+            font-family: 'Bricolage Grotesque', sans-serif;
+            font-size: 0.7rem; 
+            letter-spacing: 6px; 
+            font-weight: 800;
+            color: white !important;
+            opacity: 0.4;
         }
 
-        /* BANNER GIF */
-        .banner-vpl-wrapper { width: 100%; max-width: 1050px; margin: 60px 0 20px 0; padding: 0 12px; }
-        .vpl-gif-banner { 
-            display: block; width: 100%; border-radius: 30px; 
-            overflow: hidden; border: 1px solid rgba(255, 255, 255, 0.1); 
-            transition: 0.4s ease; 
-        }
-        .vpl-gif-banner img { width: 100%; height: auto; display: block; }
-        .vpl-gif-banner:hover { border-color: var(--neon); box-shadow: 0 0 30px rgba(63, 240, 0, 0.2); }
+        .home-card:hover h3 { opacity: 1; color: var(--neon) !important; }
 
-        /* REVOLUTION SECTION */
-        .join-section {
-            width: 100%; max-width: 1050px; margin: 40px 0 80px 0; padding: 60px 30px;
-            background: rgba(255, 255, 255, 0.02); border: 1px solid rgba(255, 255, 255, 0.05);
-            border-radius: 40px; text-align: center; backdrop-filter: blur(10px);
+        /* FOOTER NUOVO - TOTAL BLACK LUXURY */
+        .nv-footer {
+            padding: 150px 60px 60px;
+            border-top: 1px solid rgba(255,255,255,0.05);
+            text-align: left;
         }
-        .join-section h2 { font-family: var(--font-title); font-size: clamp(1.8rem, 5vw, 2.5rem); margin-bottom: 20px; }
-        .join-section p { opacity: 0.6; max-width: 550px; margin: 0 auto 35px; line-height: 1.6; font-weight: 300; }
+
+        .footer-grid {
+            max-width: 1300px; margin: 0 auto;
+            display: flex; justify-content: space-between; align-items: flex-start;
+            flex-wrap: wrap; gap: 100px;
+        }
+
+        .footer-logo-mini {
+            height: 15px; /* Logo piccolissimo richiesto */
+            opacity: 0.3;
+            margin-bottom: 30px;
+        }
+
+        .f-col { display: flex; flex-direction: column; gap: 15px; }
         
-        .btn-revolution {
-            font-family: var(--font-title); background: var(--neon); color: var(--dark);
-            padding: 18px 35px; border-radius: 50px; text-decoration: none;
-            display: inline-block; font-size: 0.8rem; transition: 0.3s; text-transform: uppercase;
+        .f-label { 
+            font-size: 0.55rem; color: var(--neon); letter-spacing: 4px; 
+            margin-bottom: 25px; font-weight: 800; opacity: 0.8;
         }
-        .btn-revolution:hover { background: var(--white); transform: scale(1.05); box-shadow: 0 0 20px rgba(63, 240, 0, 0.3); }
 
-        /* FOOTER */
-        .nv-footer { 
-            position: relative; z-index: 10; padding: 80px 20px; 
-            text-align: center; background-color: var(--dark); 
-            border-top: 1px solid rgba(255, 255, 255, 0.05);
+        .f-link {
+            font-size: 0.85rem; color: white !important;
+            opacity: 0.2; transition: 0.3s; font-weight: 500;
         }
-        .social-row a { color: white; font-size: 1.3rem; margin: 0 20px; transition: 0.3s; opacity: 0.6; }
-        .social-row a:hover { color: var(--neon); opacity: 1; transform: translateY(-3px); display: inline-block; }
-        .copyright { opacity: 0.2; font-size: 0.6rem; letter-spacing: 4px; }
 
-        @media (max-width: 768px) {
-            .nv-title { font-size: 3rem; }
-            .home-card { padding: 40px 10px; }
-            .btn-revolution { width: 100%; }
+        .f-link:hover { opacity: 1; color: var(--neon) !important; }
+
+        .footer-bottom {
+            margin-top: 150px; text-align: center;
+            font-size: 0.5rem; letter-spacing: 10px; opacity: 0.1;
         }
     </style>
 </head>
 <body>
 
     <div class="bg-layer"></div>
-    <div class="bg-overlay"></div>
-
-    <div id="popupCommunity" class="nv-modal-overlay">
-        <div class="nv-modal-content">
-            <span class="nv-modal-close" onclick="closePopup()">&times;</span>
-            <i class="fa-solid fa-users-rays"></i>
-            <h2>JOIN THE REVOLUTION</h2>
-            <p>Il padel come non lo hai mai vissuto. </br> Unisciti alla community WhatsApp per eventi esclusivi, promozioni e tutti i vantaggi del mondo Nevera.</p>
-            <a href="https://chat.whatsapp.com/GItl3C5mrgxJxXAPhHHRFh" class="btn-revolution">Entra ora</a>
-        </div>
-    </div>
 
     <header class="nav-fix">
-        <img src="images/logo.png" alt="Nevera Logo" class="logo-trigger" onclick="openM()">
+        <img src="immagini/logo-white.png" class="logo-trigger" alt="Nevera">
     </header>
 
-    <div id="m" class="nv-menu">
-        <a href="javascript:void(0)" class="nv-close" onclick="closeM()">&times;</a>
-        <div class="nv-links">
-            <a href="index.html" onclick="closeM()">HOME</a>
-            <a href="eventi.html" onclick="closeM()">EVENTI</a>
-            <a href="community.html" onclick="closeM()">COMMUNITY</a>
-            <a href="sponsor.html" onclick="closeM()">SPONSOR</a>
-            <a href="iniziative.html" onclick="closeM()">INIZIATIVE</a>
-        </div>
+    <h1 class="nv-title">NEVERA</h1>
+    <span class="nv-subtitle">Born Under Pressure</span>
+
+    <div class="cards-container">
+        <a href="eventi.html" class="home-card">
+            <i class="fas fa-crosshairs"></i>
+            <h3>EVENTI</h3>
+        </a>
+        <a href="community.html" class="home-card">
+            <i class="fas fa-circle-nodes"></i>
+            <h3>COMMUNITY</h3>
+        </a>
+        <a href="partners.html" class="home-card">
+            <i class="fas fa-microchip"></i>
+            <h3>PARTNERS</h3>
+        </a>
+        <a href="iniziative.html" class="home-card">
+            <i class="fas fa-bolt-lightning"></i>
+            <h3>INIZIATIVE</h3>
+        </a>
     </div>
 
-    <main class="main-wrapper container">
-        <h1 class="nv-title">NEVERA</h1>
-        <p class="nv-subtitle">Born Under Pressure</p>
-
-        <div class="row g-4 w-100" style="max-width: 1050px;">
-            <div class="col-6 col-md-3">
-                <a href="eventi.html" class="home-card">
-                    <i class="fa-regular fa-star"></i>
-                    <h3>Eventi</h3>
-                </a>
-            </div>
-            <div class="col-6 col-md-3">
-                <a href="community.html" class="home-card">
-                    <i class="fa-solid fa-users-line"></i>
-                    <h3>Community</h3>
-                </a>
-            </div>
-            <div class="col-6 col-md-3">
-                <a href="sponsor.html" class="home-card">
-                    <i class="fa-regular fa-link"></i>
-                    <h3>Sponsor</h3>
-                </a>
-            </div>
-            <div class="col-6 col-md-3">
-                <a href="iniziative.html" class="home-card">
-                    <i class="fa-regular fa-bolt"></i>
-                    <h3>Iniziative</h3>
-                </a>
-            </div>
-        </div>
-
-        <div class="banner-vpl-wrapper">
-            <a href="eventi.html" class="vpl-gif-banner">
-                <img src="images/homegif.gif" alt="Volt Padel League">
-            </a>
-        </div>
-
-        <div class="join-section">
-            <h2>YOUR MATCH STARTS HERE.</h2>
-            <p>Il padel come non lo hai mai vissuto. </p>
-            <a href="https://chat.whatsapp.com/GItl3C5mrgxJxXAPhHHRFh" class="btn-revolution">
-                <i class="fa-brands fa-whatsapp me-2"></i> Entra ora
-            </a>
-        </div>
-    </main>
-
     <footer class="nv-footer">
-        <div class="social-row">
-            <a href="https://www.instagram.com/neverasports.it/"><i class="fa-brands fa-instagram"></i></a>
-            <a href="https://chat.whatsapp.com/GItl3C5mrgxJxXAPhHHRFh"><i class="fa-brands fa-whatsapp"></i></a>
+        <div class="footer-grid">
+            <div>
+                <img src="immagini/logo-white.png" class="footer-logo-mini">
+                <p style="font-size: 0.6rem; opacity: 0.2; letter-spacing: 2px;">© 2026 OFFICIAL NEVERA SPORTS HUB</p>
+            </div>
+            
+            <div class="f-col">
+                <span class="f-label">NAVIGAZIONE</span>
+                <a href="#" class="f-link">EVENTI</a>
+                <a href="#" class="f-link">COMMUNITY</a>
+                <a href="#" class="f-link">INIZIATIVE</a>
+            </div>
+
+            <div class="f-col">
+                <span class="f-label">NETWORK</span>
+                <a href="#" class="f-link">INSTAGRAM</a>
+                <a href="#" class="f-link">DISCORD</a>
+                <a href="#" class="f-link">TWITCH</a>
+            </div>
         </div>
-        <p class="copyright" style="margin-top:20px;">© 2026 NEVERA SPORTS | BORN UNDER PRESSURE</p>
+        <div class="footer-bottom">
+            <p>DESIGNED FOR THE TOP 1%</p>
+        </div>
     </footer>
 
-    <script>
-        function openM() { document.getElementById("m").style.width = "100%"; }
-        function closeM() { document.getElementById("m").style.width = "0"; }
-
-        // LOGICA POPUP AUTOMATICO
-        window.onload = function() {
-            setTimeout(function() {
-                var modal = document.getElementById("popupCommunity");
-                modal.style.display = "flex";
-                // Piccolo timeout per attivare l'animazione opacity
-                setTimeout(function() { modal.style.opacity = "1"; }, 10);
-            }, 2000); // Appare dopo 2 secondi
-        };
-
-        function closePopup() {
-            var modal = document.getElementById("popupCommunity");
-            modal.style.opacity = "0";
-            setTimeout(function() { modal.style.display = "none"; }, 500);
-        }
-    </script>
-
 </body>
 </html>
-
-</body>
-</html>
-
 </body>
 </html>
