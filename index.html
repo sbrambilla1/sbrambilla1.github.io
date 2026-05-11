@@ -28,7 +28,7 @@
             -webkit-font-smoothing: antialiased;
         }
 
-        /* --- SEZIONE HERO (FOTO A TUTTO SCHERMO) --- */
+        /* HERO SECTION */
         .hero-section {
             position: relative;
             width: 100%;
@@ -57,18 +57,10 @@
             z-index: 2;
         }
 
-        .hero-content {
-            position: relative;
-            z-index: 10;
-            text-align: center;
-        }
+        .hero-content { position: relative; z-index: 10; text-align: center; }
 
-        /* HEADER (NAV TRASPARENTE SOPRA LA FOTO) */
         .nav-fix { position: absolute; top: 0; width: 100%; padding: 60px 0; text-align: center; z-index: 100; }
-        .logo-trigger { 
-            height: 85px; cursor: pointer; 
-            transition: transform 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275); 
-        }
+        .logo-trigger { height: 85px; cursor: pointer; transition: 0.4s; }
         .logo-trigger:hover { transform: scale(1.1); filter: drop-shadow(0 0 15px var(--neon)); }
 
         /* MENU OVERLAY */
@@ -82,15 +74,16 @@
         .nv-links a:hover { color: var(--neon); }
         .nv-close { position: absolute; top: 30px; right: 45px; font-size: 50px; color: var(--neon); text-decoration: none; }
 
-        /* --- SEZIONE CONTENUTI (SOTTO LA FOTO) --- */
+        /* MAIN WRAPPER */
         .main-wrapper { 
             position: relative; 
             z-index: 10; 
             background-color: var(--dark); 
-            padding: 80px 20px; 
+            padding: 80px 0; 
             display: flex;
             flex-direction: column;
-            align-items: center;
+            align-items: center; /* CENTRA TUTTO IL CONTENUTO */
+            text-align: center;
         }
         
         .nv-title { font-family: var(--font-title); font-size: clamp(3.5rem, 12vw, 6rem); text-transform: uppercase; letter-spacing: -3px; margin: 0; line-height: 0.9; }
@@ -104,22 +97,20 @@
             border-radius: 30px;
             padding: 60px 10px; text-decoration: none !important; color: white !important;
             transition: 0.4s; height: 100%;
-            backdrop-filter: blur(10px);
         }
         .home-card:hover { border-color: var(--neon); transform: translateY(-10px); background: rgba(63, 240, 0, 0.05); }
-        .home-card i { font-size: 2.5rem; margin-bottom: 20px; color: var(--white); opacity: 0.7; transition: 0.3s; }
-        .home-card:hover i { color: var(--neon); opacity: 1; }
+        .home-card i { font-size: 2.5rem; margin-bottom: 20px; }
         .home-card h3 { font-family: var(--font-body); font-size: 0.7rem; text-transform: uppercase; letter-spacing: 3px; font-weight: 800; margin: 0; }
 
-        /* BANNER & JOIN */
-        .banner-vpl-wrapper { width: 100%; max-width: 1100px; margin: 80px 0 40px 0; }
+        /* BANNER */
+        .banner-vpl-wrapper { width: 100%; max-width: 1100px; margin: 80px auto 40px auto; padding: 0 15px; }
         .vpl-gif-banner { display: block; border-radius: 40px; overflow: hidden; border: 1px solid rgba(255, 255, 255, 0.1); }
         .vpl-gif-banner img { width: 100%; height: auto; display: block; }
 
+        /* JOIN SECTION */
         .join-section {
-            width: 100%; max-width: 1100px; margin: 40px 0; padding: 80px 30px;
-            background: linear-gradient(145deg, rgba(255,255,255,0.01) 0%, rgba(255,255,255,0.04) 100%);
-            border: 1px solid rgba(255, 255, 255, 0.05); border-radius: 50px; text-align: center;
+            width: 100%; max-width: 1100px; margin: 40px auto; padding: 80px 30px;
+            background: rgba(255, 255, 255, 0.02); border: 1px solid rgba(255, 255, 255, 0.05); border-radius: 50px;
         }
         .btn-revolution {
             font-family: var(--font-title); background: var(--neon); color: var(--dark);
@@ -127,30 +118,27 @@
             display: inline-block; font-size: 0.85rem; transition: 0.3s; text-transform: uppercase;
         }
 
-        /* ANIMAZIONE FRECCIA */
-        @keyframes bounce {
-            0%, 20%, 50%, 80%, 100% {transform: translateY(0);}
-            40% {transform: translateY(-10px);}
-            60% {transform: translateY(-5px);}
-        }
-        .bounce { animation: bounce 2s infinite; }
-
         /* FOOTER */
-        .nv-footer { padding: 100px 20px 60px; border-top: 1px solid rgba(255, 255, 255, 0.05); }
-        .footer-container { max-width: 1100px; margin: 0 auto; display: flex; justify-content: space-between; flex-wrap: wrap; gap: 50px; }
+        .nv-footer { padding: 100px 20px 60px; border-top: 1px solid rgba(255, 255, 255, 0.05); background: var(--dark); }
+        .footer-container { max-width: 1100px; margin: 0 auto; display: flex; justify-content: space-between; align-items: center; flex-wrap: wrap; gap: 40px; }
+        .footer-brand { flex: 1; text-align: left; min-width: 250px; }
         .footer-logo-mini { height: 70px; opacity: 0.4; margin-bottom: 15px; }
-        .footer-nav { display: flex; gap: 60px; }
-        .f-col { display: flex; flex-direction: column; gap: 10px; }
+        .footer-nav { display: flex; gap: 60px; flex: 1; justify-content: flex-end; }
+        .f-col { display: flex; flex-direction: column; gap: 8px; text-align: left; }
         .f-label { font-size: 0.6rem; color: var(--neon); letter-spacing: 2px; font-weight: 800; margin-bottom: 10px; }
         .f-link { font-size: 0.85rem; color: white !important; opacity: 0.3; text-decoration: none; transition: 0.3s; }
         .f-link:hover { opacity: 1; color: var(--neon) !important; }
         .copyright { margin-top: 80px; opacity: 0.1; font-size: 0.5rem; letter-spacing: 5px; text-align: center; width: 100%; }
 
+        @keyframes bounce { 0%, 20%, 50%, 80%, 100% {transform: translateY(0);} 40% {transform: translateY(-10px);} 60% {transform: translateY(-5px);} }
+        .bounce { animation: bounce 2s infinite; }
+
         @media (max-width: 768px) {
             .bg-layer { background-position: 42% center; }
-            .footer-container { flex-direction: column; align-items: center; text-align: center; }
-            .footer-nav { justify-content: center; width: 100%; gap: 40px; display: flex; }
-            .f-col { align-items: center; }
+            .footer-container { flex-direction: column; text-align: center; }
+            .footer-brand { text-align: center; margin-bottom: 20px; }
+            .footer-nav { justify-content: center; text-align: center; width: 100%; }
+            .f-col { align-items: center; text-align: center; }
         }
     </style>
 </head>
@@ -159,17 +147,13 @@
     <section class="hero-section">
         <div class="bg-layer"></div>
         <div class="bg-overlay"></div>
-        
         <header class="nav-fix">
             <img src="images/logo.png" alt="Nevera Logo" class="logo-trigger" onclick="openM()">
         </header>
-
         <div class="hero-content">
             <h1 class="nv-title">NEVERA</h1>
             <p class="nv-subtitle">Born Under Pressure</p>
-            <div style="margin-top: 30px; opacity: 0.5;">
-                <i class="fa-solid fa-chevron-down bounce" style="font-size: 1.5rem;"></i>
-            </div>
+            <div style="margin-top: 30px; opacity: 0.5;"><i class="fa-solid fa-chevron-down bounce" style="font-size: 1.5rem;"></i></div>
         </div>
     </section>
 
@@ -185,31 +169,20 @@
     </div>
 
     <main class="main-wrapper">
-        <div class="container">
-            <div class="row g-4 w-100 justify-content-center" style="max-width: 1100px; margin: 0 auto;">
+        <div class="container d-flex flex-column align-items-center">
+            
+            <div class="row g-4 w-100 justify-content-center" style="max-width: 1100px;">
                 <div class="col-6 col-md-3">
-                    <a href="eventi.html" class="home-card">
-                        <i class="fa-solid fa-crown"></i>
-                        <h3>Eventi</h3>
-                    </a>
+                    <a href="eventi.html" class="home-card"><i class="fa-solid fa-crown"></i><h3>Eventi</h3></a>
                 </div>
                 <div class="col-6 col-md-3">
-                    <a href="community.html" class="home-card">
-                        <i class="fa-solid fa-circle-nodes"></i>
-                        <h3>Community</h3>
-                    </a>
+                    <a href="community.html" class="home-card"><i class="fa-solid fa-circle-nodes"></i><h3>Community</h3></a>
                 </div>
                 <div class="col-6 col-md-3">
-                    <a href="partners.html" class="home-card">
-                        <i class="fa-solid fa-handshake-angle"></i>
-                        <h3>Sponsor</h3>
-                    </a>
+                    <a href="partners.html" class="home-card"><i class="fa-solid fa-handshake-angle"></i><h3>Sponsor</h3></a>
                 </div>
                 <div class="col-6 col-md-3">
-                    <a href="iniziative.html" class="home-card">
-                        <i class="fa-solid fa-bolt-lightning"></i>
-                        <h3>Iniziative</h3>
-                    </a>
+                    <a href="iniziative.html" class="home-card"><i class="fa-solid fa-bolt-lightning"></i><h3>Iniziative</h3></a>
                 </div>
             </div>
 
