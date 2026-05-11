@@ -7,7 +7,6 @@
     <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=0" />
     
     <link href="https://fonts.googleapis.com/css2?family=Archivo+Black&family=Inter:wght@300;400;600;800&display=swap" rel="stylesheet">
-    
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
     
@@ -29,20 +28,28 @@
             -webkit-font-smoothing: antialiased;
         }
 
-        /* SFONDO */
+        /* LOGICA SFONDO CON IMMAGINE IN ALTO */
+        .bg-wrapper {
+            position: absolute;
+            top: 0; left: 0; width: 100%; height: 100vh;
+            z-index: 0; overflow: hidden;
+        }
+
         .bg-layer {
-            position: fixed; top: 0; left: 0; width: 100%; height: 100%;
-            background-image: url('images/solidblack.png');
-            background-size: cover; background-position: center; z-index: 0;
+            position: absolute; top: 0; left: 0; width: 100%; height: 100%;
+            background-image: url('images/play.png'); /* Inserisci qui il nome del file della foto */
+            background-size: cover; 
+            background-position: center top;
+            z-index: 1;
         }
 
         .bg-overlay {
-            position: fixed; top: 0; left: 0; width: 100%; height: 100%;
+            position: absolute; top: 0; left: 0; width: 100%; height: 100%;
             background: linear-gradient(to bottom, 
-                rgba(4, 4, 4, 0.4) 0%, 
-                rgba(4, 4, 4, 0.7) 70%, 
+                rgba(4, 4, 4, 0.1) 0%, 
+                rgba(4, 4, 4, 0.4) 50%, 
                 rgba(4, 4, 4, 1) 100%);
-            z-index: 1;
+            z-index: 2;
         }
 
         /* HEADER */
@@ -64,7 +71,7 @@
             font-family: var(--font-title); font-size: 2.5rem; color: var(--white); 
             text-decoration: none; display: block; margin: 20px; text-transform: uppercase; 
         }
-        .nv-links a:hover { color: var(--neon); transform: scale(1.05); }
+        .nv-links a:hover { color: var(--neon); }
         .nv-close { position: absolute; top: 30px; right: 45px; font-size: 50px; color: var(--neon); text-decoration: none; }
 
         /* CONTENT WRAPPER */
@@ -75,57 +82,43 @@
             padding: 40px 20px 60px 20px; 
         }
         
-        /* PC: Allineamento originale */
         .nv-title { font-family: var(--font-title); font-size: clamp(3rem, 10vw, 5rem); text-transform: uppercase; letter-spacing: -2px; margin: 0; line-height: 1; }
         .nv-subtitle { color: var(--neon); font-weight: 700; text-transform: uppercase; letter-spacing: 12px; margin-bottom: 60px; font-size: 0.75rem; }
 
-        /* CARDS */
+        /* CARD */
         .home-card {
             display: flex; flex-direction: column; justify-content: center; align-items: center;
-            background: rgba(255, 255, 255, 0.02); 
-            border: 1px solid rgba(255, 255, 255, 0.05);
+            background: rgba(255, 255, 255, 0.05); 
+            border: 1px solid rgba(255, 255, 255, 0.1);
             border-radius: 35px;
             padding: 50px 10px; text-decoration: none !important; color: white !important;
-            transition: 0.4s cubic-bezier(0.165, 0.84, 0.44, 1); height: 100%;
-            backdrop-filter: blur(10px);
+            transition: 0.4s; height: 100%;
+            backdrop-filter: blur(15px);
         }
-        .home-card:hover { background: rgba(63, 240, 0, 0.05); border-color: var(--neon); transform: translateY(-8px); }
-        .home-card i { 
-            font-size: 2.2rem; margin-bottom: 20px; color: transparent !important;
-            -webkit-text-stroke: 1px rgba(255, 255, 255, 0.5); transition: 0.3s;
-        }
-        .home-card:hover i { -webkit-text-stroke: 1px var(--neon); color: rgba(63, 240, 0, 0.1) !important; transform: scale(1.1); }
-        .home-card h3 { font-family: var(--font-body); font-size: 0.75rem; text-transform: uppercase; letter-spacing: 3px; margin: 0; font-weight: 700; opacity: 0.6; }
+        .home-card:hover { background: rgba(63, 240, 0, 0.08); border-color: var(--neon); transform: translateY(-8px); }
+        .home-card i { font-size: 2.2rem; margin-bottom: 20px; color: var(--white); opacity: 0.8; transition: 0.3s; }
+        .home-card:hover i { color: var(--neon); opacity: 1; }
+        .home-card h3 { font-family: var(--font-body); font-size: 0.75rem; text-transform: uppercase; letter-spacing: 3px; font-weight: 700; }
 
-        /* BANNER GIF */
+        /* SEZIONE JOIN & BANNER */
         .banner-vpl-wrapper { width: 100%; max-width: 1050px; margin: 60px 0 20px 0; padding: 0 12px; }
         .vpl-gif-banner { display: block; width: 100%; border-radius: 40px; overflow: hidden; border: 1px solid rgba(255, 255, 255, 0.1); }
         .vpl-gif-banner img { width: 100%; height: auto; display: block; }
 
-        /* REVOLUTION SECTION */
         .join-section {
             width: 100%; max-width: 1050px; margin: 40px 0 80px 0; padding: 60px 30px;
             background: rgba(255, 255, 255, 0.02); border: 1px solid rgba(255, 255, 255, 0.05);
             border-radius: 45px; text-align: center; backdrop-filter: blur(10px);
         }
-        .join-section h2 { font-family: var(--font-title); font-size: clamp(1.8rem, 5vw, 2.5rem); margin-bottom: 20px; }
         .btn-revolution {
             font-family: var(--font-title); background: var(--neon); color: var(--dark);
-            padding: 18px 35px; border-radius: 50px; text-decoration: none;
+            padding: 18px 35px; border-radius: 50px; text-decoration: none !important;
             display: inline-block; font-size: 0.8rem; transition: 0.3s; text-transform: uppercase;
         }
 
-        /* FOOTER PC (Allineamento a sinistra come originale) */
-        .nv-footer { 
-            position: relative; z-index: 10; padding: 100px 20px 60px; 
-            background-color: var(--dark); border-top: 1px solid rgba(255, 255, 255, 0.05);
-        }
-        .footer-container {
-            max-width: 1050px; margin: 0 auto;
-            display: flex; justify-content: space-between; align-items: flex-start;
-            flex-wrap: wrap; gap: 50px; text-align: left;
-        }
-        .footer-brand { flex: 1; min-width: 200px; }
+        /* FOOTER */
+        .nv-footer { position: relative; z-index: 10; padding: 100px 20px 60px; background-color: var(--dark); border-top: 1px solid rgba(255, 255, 255, 0.05); }
+        .footer-container { max-width: 1050px; margin: 0 auto; display: flex; justify-content: space-between; align-items: flex-start; flex-wrap: wrap; gap: 50px; }
         .footer-logo-mini { height: 75px; opacity: 0.5; margin-bottom: 15px; }
         .footer-nav { display: flex; gap: 60px; }
         .f-col { display: flex; flex-direction: column; gap: 10px; }
@@ -134,63 +127,22 @@
         .f-link:hover { opacity: 1; color: var(--neon) !important; }
         .copyright { margin-top: 80px; opacity: 0.15; font-size: 0.55rem; letter-spacing: 5px; text-align: center; width: 100%; }
 
-        /* POPUP MODAL */
-        .nv-modal-overlay {
-            position: fixed; top: 0; left: 0; width: 100%; height: 100%;
-            background: rgba(0, 0, 0, 0.85); backdrop-filter: blur(10px);
-            display: none; align-items: center; justify-content: center;
-            z-index: 10000; opacity: 0; transition: opacity 0.5s ease;
-        }
-        .nv-modal-content {
-            background: var(--dark); border: 1px solid var(--neon);
-            padding: 50px 30px; border-radius: 40px; text-align: center;
-            max-width: 450px; width: 90%; position: relative;
-        }
-
-        /* --------------------------------------------------- */
-        /* MEDIA QUERY PER MOBILE: Qui adattiamo solo il telefono */
-        /* --------------------------------------------------- */
+        /* RESPONSIVE MOBILE */
         @media (max-width: 768px) {
-            .nv-title, .nv-subtitle {
-                text-align: center !important;
-                width: 100%;
-            }
-            .nv-subtitle {
-                letter-spacing: 6px; /* Più leggibile su schermi stretti */
-            }
-            .footer-container { 
-                flex-direction: column; 
-                text-align: center; /* Centra il footer su mobile */
-                align-items: center;
-            }
-            .footer-nav { 
-                width: 100%; 
-                justify-content: center; /* Centra i link social/nav */
-                gap: 40px;
-            }
-            .f-col {
-                align-items: center; /* Centra i singoli link nelle colonne */
-            }
-            .footer-brand { 
-                width: 100%; 
-                margin-bottom: 20px; 
-            }
+            .bg-layer { background-position: 45% top; height: 100vh; }
+            .nv-title { text-align: center; }
+            .nv-subtitle { text-align: center; letter-spacing: 6px; }
+            .footer-container { flex-direction: column; align-items: center; text-align: center; }
+            .footer-nav { justify-content: center; width: 100%; gap: 40px; }
+            .f-col { align-items: center; }
         }
     </style>
 </head>
 <body>
 
-    <div class="bg-layer"></div>
-    <div class="bg-overlay"></div>
-
-    <div id="popupCommunity" class="nv-modal-overlay">
-        <div class="nv-modal-content">
-            <span onclick="closePopup()" style="position:absolute; top:20px; right:25px; cursor:pointer; font-size: 25px;">&times;</span>
-            <i class="fa-solid fa-users-rays" style="font-size:3rem; color:var(--neon); margin-bottom:20px; display:block;"></i>
-            <h2 style="font-family:var(--font-title); color:white;">JOIN THE REVOLUTION</h2>
-            <p style="opacity:0.7; margin-bottom:30px;">Tornei, eventi e tutti i vantaggi del mondo Nevera a portata di click.</p>
-            <a href="https://chat.whatsapp.com/GItl3C5mrgxJxXAPhHHRFh" class="btn-revolution">Entra ora</a>
-        </div>
+    <div class="bg-wrapper">
+        <div class="bg-layer"></div>
+        <div class="bg-overlay"></div>
     </div>
 
     <header class="nav-fix">
@@ -203,7 +155,7 @@
             <a href="index.html" onclick="closeM()">HOME</a>
             <a href="eventi.html" onclick="closeM()">EVENTI</a>
             <a href="community.html" onclick="closeM()">COMMUNITY</a>
-            <a href="partners.html" onclick="closeM()">PARTNERS</a>
+            <a href="partners.html" onclick="closeM()">SPONSOR</a>
             <a href="iniziative.html" onclick="closeM()">INIZIATIVE</a>
         </div>
     </div>
@@ -228,7 +180,7 @@
             <div class="col-6 col-md-3">
                 <a href="partners.html" class="home-card">
                     <i class="fa-solid fa-handshake-angle"></i>
-                    <h3>Partners</h3>
+                    <h3>Sponsor</h3>
                 </a>
             </div>
             <div class="col-6 col-md-3">
@@ -241,13 +193,13 @@
 
         <div class="banner-vpl-wrapper">
             <a href="eventi.html" class="vpl-gif-banner">
-                <img src="images/homegif.gif" alt="Volt Padel League">
+                <img src="images/homegif.gif" alt="Nevera Event">
             </a>
         </div>
 
         <div class="join-section">
-            <h2>YOUR MATCH STARTS HERE.</h2>
-            <p>Il padel come non lo hai mai vissuto.</p>
+            <h2 style="font-family: var(--font-title);">YOUR MATCH STARTS HERE.</h2>
+            <p style="opacity: 0.6;">Il padel come non lo hai mai vissuto.</p>
             <a href="https://chat.whatsapp.com/GItl3C5mrgxJxXAPhHHRFh" class="btn-revolution">
                 <i class="fa-brands fa-whatsapp me-2"></i> Entra ora
             </a>
@@ -260,7 +212,6 @@
                 <img src="images/logo.png" class="footer-logo-mini">
                 <p style="font-size:0.6rem; opacity:0.2; letter-spacing:3px; font-weight:700;">PRECISION IN PERFORMANCE.</p>
             </div>
-            
             <div class="footer-nav">
                 <div class="f-col">
                     <span class="f-label">NAVIGAZIONE</span>
@@ -281,23 +232,6 @@
     <script>
         function openM() { document.getElementById("m").style.width = "100%"; }
         function closeM() { document.getElementById("m").style.width = "0"; }
-
-        window.onload = function() {
-            setTimeout(function() {
-                var modal = document.getElementById("popupCommunity");
-                if(modal) {
-                    modal.style.display = "flex";
-                    setTimeout(function() { modal.style.opacity = "1"; }, 10);
-                }
-            }, 2500);
-        };
-
-        function closePopup() {
-            var modal = document.getElementById("popupCommunity");
-            modal.style.opacity = "0";
-            setTimeout(function() { modal.style.display = "none"; }, 500);
-        }
     </script>
-
 </body>
 </html>
