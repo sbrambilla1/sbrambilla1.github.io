@@ -91,21 +91,21 @@
             font-size: 0.75rem; text-transform: uppercase; transition: 0.2s;
         }
 
-        /* MODALE POPUP */
+        /* MODALE POPUP CORRETTA CON EXTRA PRIORITA' VISIVA */
         .nv-modal {
-            display: none; position: fixed; z-index: 10000; top:0; left:0; width:100%; height:100%;
+            display: none; position: fixed; z-index: 999999 !important; top:0; left:0; width:100%; height:100%;
             background: rgba(4,4,4,0.96); align-items: center; justify-content: center; padding: 20px;
         }
         .modal-content {
-            background: #111; border: 1px solid rgba(255,255,255,0.08);
+            background: #111 !important; border: 1px solid rgba(255,255,255,0.12) !important;
             padding: 35px; border-radius: 25px; max-width: 450px; width: 100%; color: white;
         }
-        .modal-content h3 { font-family: var(--font-title); font-size: 1.4rem; margin-bottom: 20px; text-transform: uppercase;}
+        .modal-content h3 { font-family: var(--font-title); font-size: 1.4rem; margin-bottom: 20px; text-transform: uppercase; color: #FFF;}
         .modal-content input, .modal-content select {
-            background: var(--dark); border: 1px solid rgba(255,255,255,0.1); color: white;
+            background: var(--dark) !important; border: 1px solid rgba(255,255,255,0.15) !important; color: white !important;
             padding: 12px; border-radius: 12px; width: 100%; margin-bottom: 15px;
         }
-        .modal-content label { font-size: 0.8rem; opacity: 0.6; margin-bottom: 5px; display: block; }
+        .modal-content label { font-size: 0.8rem; opacity: 0.6; margin-bottom: 5px; display: block; color: #FFF; }
     </style>
 </head>
 <body>
@@ -181,16 +181,16 @@
     <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
 
     <script>
-        // Gestione Menu e Modale
         function openM() { document.getElementById("m").style.width = "100%"; }
         function closeM() { document.getElementById("m").style.width = "0"; }
         
         function toggleModal(show) {
             const modal = document.getElementById("matchModal");
-            if (modal) modal.style.display = show ? "flex" : "none";
+            if (modal) {
+                modal.style.display = show ? "flex" : "none";
+            }
         }
 
-        // Credenziali Supabase
         const SUPABASE_URL = "https://ennpbtrthwdxsvdbqbmn.supabase.co";
         const SUPABASE_KEY = "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6ImVubnBidHJ0aHdkeHN2ZGJxYm1uIiwicm9sZSI6ImFub24iLCJpYXQiOjE3NzkwNjU0NzUsImV4cCI6MjA5NDY0MTQ3NX0.JL-w7qkp6bktVJMrJ7O0Uw1phxaBpBc9BiP3cH8Q4-0";
         
@@ -218,7 +218,6 @@
             if (supabase) fetchMatches();
         }
 
-        // SCARICA DATI (Colonne: club, date, level, missing, link)
         async function fetchMatches() {
             if (!supabase) return;
             const list = document.getElementById("matchList");
@@ -230,7 +229,7 @@
                 .order('date', { ascending: true });
 
             if (error) {
-                list.innerHTML = `<p style="opacity:0.4;">Errore caricamento bacheca.</p>`;
+                list.innerHTML = `<p style="opacity:0.5; color: #FF4444; margin-top:20px;"><i class="fa-solid fa-triangle-exclamation me-2"></i>Sincronizzazione fallita: sblocca le policy RLS su Supabase.</p>`;
                 return;
             }
 
@@ -260,7 +259,7 @@
                                 </div>
                             </div>
                             <div>
-                                <a href="https://wa.me/${m.link}?text=Ciao!%20Ho%20visto%20il%20tuo%20annuncio%20su%20Match%20Radar%20Nevera%20per%20la%20partita%20del%20${encodeURIComponent(dataFormattata)}.%20Sono%20disponibile!" target="_blank" class="btn-join">
+                                <a href="https://wa.me/${m.link}?text=Ciao!%20Ho%20visto%20il%20tuo%20annuncio%20su%20Match%20Radar%20Nevera!" target="_blank" class="btn-join">
                                     <i class="fa-brands fa-whatsapp me-1"></i> Unisciti
                                 </a>
                             </div>
@@ -274,7 +273,6 @@
             }
         }
 
-        // INVIA DATI PRECISI AL DATABASE (Mappatura esatta sulle colonne correnti)
         async function createMatch() {
             if (!supabase) return;
             
@@ -291,7 +289,7 @@
 
             const payload = {
                 club: club,
-                date: new Date(dataOraInput).toISOString(), // Formato perfetto per timestamptz
+                date: new Date(dataOraInput).toISOString(),
                 level: livello,
                 missing: parseInt(giocatori_mancanti),
                 link: phone
@@ -300,13 +298,13 @@
             const { error } = await supabase.from('matches').insert([payload]);
 
             if (error) {
-                alert("Errore d'inserimento: " + error.message);
+                alert("Errore d'inserimento. Verifica i permessi RLS su Supabase: " + error.message);
             } else {
                 toggleModal(false);
                 document.getElementById("matchClub").value = "";
                 document.getElementById("matchTime").value = "";
                 document.getElementById("matchPhone").value = "";
-                fetchMatches(); // Aggiorna subito la lista dopo il salvataggio
+                fetchMatches();
             }
         }
     </script>
