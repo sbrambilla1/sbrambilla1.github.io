@@ -14,6 +14,8 @@
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
     
+    <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+    
     <style>
         :root {
             --neon: #3FF000;
@@ -70,7 +72,7 @@
         .btn-action {
             font-family: var(--font-title); background: transparent; color: var(--white);
             border: 1px solid rgba(255, 255, 255, 0.2); padding: 15px 30px; border-radius: 50px;
-            text-decoration: none !important; font-size: 0.8rem; transition: 0.3s; text-transform: uppercase; margin-bottom: 40px;
+            text-decoration: none !important; font-size: 0.8rem; transition: 0.3s; text-transform: uppercase; margin-bottom: 40px; cursor: pointer;
         }
         .btn-action:hover { border-color: var(--neon); color: var(--neon); background: rgba(63, 240, 0, 0.02); }
 
@@ -194,17 +196,21 @@
         </div>
     </footer>
 
-    <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
-
     <script>
         function openM() { document.getElementById("m").style.width = "100%"; }
         function closeM() { document.getElementById("m").style.width = "0"; }
         
+        // CORREZIONE APERTURA/CHIUSURA SCHERMATA INTERATTIVA
         function toggleModal(show) {
-            document.getElementById("matchModal").style.display = show ? "flex" : "none";
+            const modal = document.getElementById("matchModal");
+            if (show) {
+                modal.style.display = "flex";
+            } else {
+                modal.style.display = "none";
+            }
         }
 
-        // --- DATI SUPABASE UTENTE ---
+        // CONFIGURAZIONE SUPABASE
         const SUPABASE_URL = "https://ennpbtrthwdxsvdbqbmn.supabase.co";
         const SUPABASE_KEY = "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6ImVubnBidHJ0aHdkeHN2ZGJxYm1uIiwicm9sZSI6ImFub24iLCJpYXQiOjE3NzkwNjU0NzUsImV4cCI6MjA5NDY0MTQ3NX0.JL-w7qkp6bktVJMrJ7O0Uw1phxaBpBc9BiP3cH8Q4-0";
         
@@ -216,7 +222,7 @@
             }
             fetchMatches();
             
-            // Realtime
+            // Sincronizzazione in tempo reale con Supabase
             supabase
                 .channel('schema-db-changes')
                 .on('postgres_changes', { event: '*', schema: 'public', table: 'matches' }, payload => {
@@ -230,6 +236,7 @@
             fetchMatches();
         }
 
+        // SCARICA I MATCH DA SUPABASE
         async function fetchMatches() {
             const list = document.getElementById("matchList");
             const filter = document.getElementById("userLevel").value;
@@ -264,7 +271,6 @@
                                 <a href="https://wa.me/${m.link}?text=Ciao!%20Ho%20visto%20il%20tuo%20annuncio%20su%20Match%20Radar%20Nevera%20per%20la%20partita%20al%20${encodeURIComponent(m.club)}.%20Sono%20disponibile!" target="_blank" class="btn-join">
                                     <i class="fa-brands fa-whatsapp me-1"></i> Unisciti
                                 </a>
-                                <button class="btn-action admin-btn" onclick="deleteMatch('${m.id}')" style="display:none; margin:0; padding:5px 15px; border-color:#ff4444; color:#ff4444;">Elimina</button>
                             </div>
                         </div>
                     `;
@@ -274,10 +280,9 @@
             if(!hasMatches) {
                 list.innerHTML = `<p style="opacity:0.4; margin-top:20px;">Nessun SOS attivo per questo livello. Lancia tu il primo!</p>`;
             }
-            
-            checkAdminStatus();
         }
 
+        // CARICA IL MATCH SU SUPABASE MAZZATO CON LA COLONNA "LINK"
         async function createMatch() {
             const club = document.getElementById("matchClub").value;
             const time = document.getElementById("matchTime").value;
@@ -290,7 +295,6 @@
             phone = phone.replace(/\s+/g, '');
             if(!phone.startsWith('39') && !phone.startsWith('+39')) phone = '39' + phone;
 
-            // Mappato con la tua colonna "link" di Supabase
             const { error } = await supabase
                 .from('matches')
                 .insert([
@@ -301,27 +305,10 @@
                 alert("Errore nell'invio: " + error.message);
             } else {
                 toggleModal(false);
+                // Reset dei campi interni del pop-up
                 document.getElementById("matchClub").value = "";
                 document.getElementById("matchTime").value = "";
                 document.getElementById("matchPhone").value = "";
-            }
-        }
-
-        function checkAdminStatus() {
-            const urlParams = new URLSearchParams(window.location.search);
-            if (urlParams.get('admin') === 'true') {
-                document.querySelectorAll('.admin-btn').forEach(btn => btn.style.display = 'inline-block');
-            }
-        }
-
-        async function deleteMatch(id) {
-            if(confirm("Vuoi davvero eliminare questo match?")) {
-                const { error } = await supabase
-                    .from('matches')
-                    .delete()
-                    .eq('id', id);
-                
-                if (error) alert("Errore durante l'eliminazione");
             }
         }
     </script>
