@@ -292,98 +292,105 @@
             if (dbClient) fetchMatches();
         }
 
-        async function fetchMatches() {
-            if (!dbClient) return;
-            const grid = document.getElementById("radarGrid");
-            const filter = document.getElementById("userLevel").value;
+        
+            async function fetchMatches() {
+    if (!dbClient) return;
+    const grid = document.getElementById("radarGrid");
+    const filter = document.getElementById("userLevel").value;
 
-            // Puntiamo a 'Matches' con la M maiuscola coerente con Supabase
-            let { data: matches, error } = await dbClient
-                .from('Matches')
-                .select('*')
-                .order('date', { ascending: true });
+    let { data: matches, error } = await dbClient
+        .from('Matches')
+        .select('*')
+        .order('date', { ascending: true });
 
-            if (error) {
-                grid.innerHTML = `<p style="opacity:0.6; color: #FF4444; margin-top:20px; font-weight:600;"><i class="fa-solid fa-triangle-exclamation me-2"></i>Errore di sincronizzazione. Controlla la tabella su Supabase.</p>`;
-                console.error(error);
-                return;
-            }
+    if (error) {
+        grid.innerHTML = `<p style="opacity:0.6; color: #FF4444; margin-top:20px; font-weight:600;"><i class="fa-solid fa-triangle-exclamation me-2"></i>Errore di sincronizzazione.</p>`;
+        console.error(error);
+        return;
+    }
 
-            grid.innerHTML = "";
-            let hasMatches = false;
+    grid.innerHTML = "";
+    let hasMatches = false;
 
-            matches.forEach((m) => {
-                const mancanti = m.missing || 1;
-                const liv = m.level || 'all';
-                
-                let dataFormattata = "In aggiornamento";
-                if (m.date) {
-                    const d = new Date(m.date);
-                    dataFormattata = d.toLocaleDateString('it-IT', { day: '2-digit', month: '2-digit' }) + " ore " + d.toLocaleTimeString('it-IT', { hour: '2-digit', minute: '2-digit' });
-                }
+    matches.forEach((m) => {
+        const mancanti = m.missing || 1;
+        const liv = m.level || 'all';
+        
+        let dataFormattata = "In aggiornamento";
+        if (m.date) {
+            const d = new Date(m.date);
+            dataFormattata = d.toLocaleDateString('it-IT', { day: '2-digit', month: '2-digit' }) + " ore " + d.toLocaleTimeString('it-IT', { hour: '2-digit', minute: '2-digit' });
+        }
 
-                if (filter === "all" || liv === filter) {
-                    hasMatches = true;
-                    grid.innerHTML += `
-                        <div class="radar-card">
-                            <div class="match-info">
-                                <h4>${m.club || 'Club Sportivo'}</h4>
-                                <p><i class="fa-regular fa-clock me-2"></i>${dataFormattata}</p>
-                                <div class="match-meta">
-                                    <span class="badge-radar badge-neon">${liv}</span>
-                                    <span class="badge-radar">Mancano: ${mancanti}</span>
-                                </div>
-                            </div>
-                            <div>
-                                <a href="https://wa.me/${m.link}?text=Ciao!%20Ho%20visto%20il%20tuo%20annuncio%20su%20Match%20Radar%20Nevera%20per%20la%20partita%20del%20${encodeURIComponent(dataFormattata)}.%20Sono%20disponibile!" target="_blank" class="btn-join">
-                                    <i class="fa-brands fa-whatsapp me-1"></i> Unisciti
-                                </a>
-                            </div>
+        if (filter === "all" || liv === filter) {
+            hasMatches = true;
+            
+            // Se nel database non c'è un link valido, usiamo un fallback o lo lasciamo vuoto
+            const urlPartita = m.link || "#";
+
+            grid.innerHTML += `
+                <div class="radar-card">
+                    <div class="match-info">
+                        <h4>${m.club || 'Club Sportivo'}</h4>
+                        <p><i class="fa-regular fa-clock me-2"></i>${dataFormattata}</p>
+                        <div class="match-meta">
+                            <span class="badge-radar badge-neon">${liv}</span>
+                            <span class="badge-radar">Mancano: ${mancanti}</span>
                         </div>
-                    `;
-                }
-            });
-
-            if(!hasMatches) {
-                grid.innerHTML = `<p style="opacity:0.4; margin-top:25px; font-size:0.95rem;">Nessun SOS inserito per questa categoria.</p>`;
-            }
+                    </div>
+                    <div>
+                        <a href="${urlPartita}" target="_blank" class="btn-join">
+                            <i class="fa-solid fa-arrow-up-right-from-square me-1"></i> Apri Link
+                        </a>
+                    </div>
+                </div>
+            `;
         }
+    });
 
-        async function createMatch() {
-            if (!dbClient) return;
-            
-            const club = document.getElementById("matchClub").value;
-            const dataOraInput = document.getElementById("matchTime").value;
-            const livello = document.getElementById("matchLevel").value;
-            const giocatori_mancanti = document.getElementById("matchMissing").value;
-            let phone = document.getElementById("matchPhone").value;
+    if(!hasMatches) {
+        grid.innerHTML = `<p style="opacity:0.4; margin-top:25px; font-size:0.95rem;">Nessun SOS inserito per questa categoria.</p>`;
+    }
+}
 
-            if(!club || !dataOraInput || !phone) { alert("Tutti i campi contrassegnati sono obbligatori!"); return; }
-            
-            phone = phone.replace(/\s+/g, '');
-            if(!phone.startsWith('39') && !phone.startsWith('+39')) phone = '39' + phone;
+async function createMatch() {
+    if (!dbClient) return;
+    
+    const club = document.getElementById("matchClub").value;
+    const dataOraInput = document.getElementById("matchTime").value;
+    const livello = document.getElementById("matchLevel").value;
+    const giocatori_mancanti = document.getElementById("matchMissing").value;
+    
+    // Prendiamo il valore dal nuovo campo URL
+    const partitaLink = document.getElementById("matchLink").value;
 
-            const payload = {
-                club: club,
-                date: new Date(dataOraInput).toISOString(),
-                level: livello,
-                missing: parseInt(giocatori_mancanti),
-                link: link
-            };
+    if(!club || !dataOraInput || !partitaLink || !giocatori_mancanti) { 
+        alert("Tutti i campi sono obbligatori!"); 
+        return; 
+    }
 
-            const { error } = await dbClient.from('Matches').insert([payload]);
+    const payload = {
+        club: club,
+        date: new Date(dataOraInput).toISOString(),
+        level: livello,
+        missing: parseInt(giocatori_mancanti),
+        link: partitaLink // Salva direttamente l'URL di Playtomic nella colonna text 'link'
+    };
 
-            if (error) {
-                alert("Errore d'inserimento: " + error.message);
-            } else {
-                toggleModal(false);
-                document.getElementById("matchClub").value = "";
-                document.getElementById("matchTime").value = "";
-                document.getElementById("matchPhone").value = "";
-                document.getElementById("matchMissing").value = "";
-                fetchMatches();
-            }
-        }
+    const { error } = await dbClient.from('Matches').insert([payload]);
+
+    if (error) {
+        alert("Errore d'inserimento: " + error.message);
+        console.error(error);
+    } else {
+        toggleModal(false);
+        document.getElementById("matchClub").value = "";
+        document.getElementById("matchTime").value = "";
+        document.getElementById("matchMissing").value = "";
+        document.getElementById("matchLink").value = ""; // Svuota il campo link
+        fetchMatches();
+    }
+}
     </script>
 </body>
 </html>
