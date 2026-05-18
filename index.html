@@ -308,5 +308,92 @@
             }, 1500); // 1.5 secondi di rotazione e poi sfuma sul sito
         });
     </script>
+    <div id="pwaPrompt" style="display: none; position: fixed; bottom: 20px; left: 50%; transform: translateX(-50%); width: 90%; max-width: 400px; background: rgba(13, 13, 13, 0.95); border: 1px solid var(--neon); border-radius: 24px; padding: 20px; z-index: 9999999; backdrop-filter: blur(10px); box-shadow: 0 10px 30px rgba(63, 240, 0, 0.15); color: white;">
+    <div class="d-flex align-items-center gap-3">
+        <img src="images/logo.png" style="height: 45px; width: auto;" alt="Nevera App">
+        <div style="flex: 1; text-align: left;">
+            <h5 style="font-family: var(--font-title); font-size: 0.9rem; margin: 0; text-transform: uppercase; letter-spacing: 0.5px;">Porta NEVERA sul tuo schermo</h5>
+            <p id="pwaInstructions" style="font-size: 0.75rem; opacity: 0.7; margin: 3px 0 0 0;">Installa l'app per un accesso rapido ai match e agli eventi.</p>
+        </div>
+    </div>
+    <div class="d-flex gap-2 mt-3" id="pwaActionArea">
+        </div>
+</div>
+
+<script>
+    // 1. Registriamo il Service Worker e il Manifest nella pagina
+    if ('serviceWorker' in navigator) {
+        navigator.serviceWorker.register('sw.js').catch(err => console.log("SW Error:", err));
+        
+        // Linkiamo dinamicamente il manifest nell'head della pagina
+        let link = document.createElement('link');
+        link.rel = 'manifest';
+        link.href = 'manifest.json';
+        document.head.appendChild(link);
+    }
+
+    let deferredPrompt;
+    const pwaPrompt = document.getElementById('pwaPrompt');
+    const pwaActionArea = document.getElementById('pwaActionArea');
+    const pwaInstructions = document.getElementById('pwaInstructions');
+
+    // Rileva se l'utente è su un dispositivo Mobile o Tablet
+    const isMobileOrTablet = /Android|webOS|iPhone|iPad|iPod|BlackBerry|IEMobile|Opera Mini/i.test(navigator.userAgent);
+
+    // Rileva se la Web App è già stata installata e aperta come App autonoma
+    const isRunningStandalone = window.matchMedia('(display-mode: standalone)').matches || window.navigator.standalone;
+
+    if (isMobileOrTablet && !isRunningStandalone) {
+        
+        // Rileviamo se siamo su iOS (iPhone/iPad) perché Safari richiede una procedura manuale
+        const isIOS = /iPhone|iPad|iPod/.test(navigator.userAgent) && !window.MSStream;
+
+        if (isIOS) {
+            // Logica per iPhone/iPad: mostriamo il popup spiegando come fare (Safari non supporta il click diretto)
+            pwaInstructions.innerHTML = "Tocca l'icona di **Condivisione** <i class='fa-solid fa-share-from-square color-neon'></i> in basso e seleziona **'Aggiungi alla schermata Home'**.";
+            pwaActionArea.innerHTML = `
+                <button onclick="closePwaPrompt()" class="btn-action" style="margin:0; width:100%; padding: 10px; font-size:0.7rem;">Ho capito</button>
+            `;
+            // Mostra il popup dopo 3 secondi dal caricamento
+            setTimeout(() => { pwaPrompt.style.display = 'block'; }, 3000);
+        } else {
+            // Logica per Android / Altri Browser: intercettiamo l'evento nativo di installazione
+            window.addEventListener('beforeinstallprompt', (e) => {
+                e.preventDefault();
+                deferredPrompt = e;
+                
+                // Generiamo il bottone cliccabile per l'installazione diretta
+                pwaActionArea.innerHTML = `
+                    <button onclick="triggerPwaInstall()" class="btn-join" style="flex:1; padding: 10px 0; font-size:0.75rem; text-align:center;">Installa Ora</button>
+                    <button onclick="closePwaPrompt()" class="btn-action" style="margin:0; padding: 10px 20px; font-size:0.75rem;">Annulla</button>
+                `;
+                
+                // Mostra il popup dopo 3 secondi
+                setTimeout(() => { pwaPrompt.style.display = 'block'; }, 3000);
+            });
+        }
+    }
+
+    // Funzione attivata dal click sul bottone "Installa Ora" (Android)
+    async function triggerPwaInstall() {
+        if (!deferredPrompt) return;
+        pwaPrompt.style.display = 'none';
+        deferredPrompt.prompt();
+        const { outcome } = await deferredPrompt.userChoice;
+        console.log(`User response to the install prompt: ${outcome}`);
+        deferredPrompt = null;
+    }
+
+    function closePwaPrompt() {
+        pwaPrompt.style.display = 'none';
+        // Opzionale: salva nel localStorage per non rompergli le scatole ad ogni refresh
+        localStorage.setItem('pwa-prompt-dismissed', 'true');
+    }
+    
+    // Se l'utente lo ha già chiuso una volta, nascondilo subito al caricamento successivo
+    if(localStorage.getItem('pwa-prompt-dismissed') === 'true') {
+        pwaPrompt.style.display = 'none';
+    }
+</script>
 </body>
 </html>
