@@ -3,11 +3,6 @@
 <head>
     <title>NEVERA SPORTS | Match Radar</title>
     <meta charset="utf-8" />
-    
-    <link rel="icon" type="image/png" href="images/logo.png">
-    <link rel="apple-touch-icon" href="images/logo.png">
-    <link rel="icon" sizes="192x192" href="images/logo.png">
-    
     <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=0" />
     
     <link href="https://fonts.googleapis.com/css2?family=Archivo+Black&family=Inter:wght@300;400;600;800&display=swap" rel="stylesheet">
@@ -32,45 +27,49 @@
             -webkit-font-smoothing: antialiased;
         }
 
-        /* HEADER & NAV */
+        /* HEADER & MENU LOGO */
         .nav-fix { 
-            position: absolute; top: 0; width: 100%; padding: 30px 0; text-align: center; z-index: 100;
+            position: absolute; top: 0; width: 100%; padding: 25px 0; text-align: center; z-index: 100;
             background: linear-gradient(to bottom, rgba(4, 4, 4, 0.9) 0%, transparent 100%);
         }
-        .logo-trigger { height: 60px; cursor: pointer; transition: 0.4s; z-index: 101; position: relative; }
-        .logo-trigger:hover { transform: scale(1.1); filter: drop-shadow(0 0 15px var(--neon)); }
+        .logo-text {
+            font-family: var(--font-title); font-size: 1.8rem; color: var(--white); 
+            cursor: pointer; transition: 0.3s; letter-spacing: -1px; display: inline-block;
+        }
+        .logo-text span { color: var(--neon); }
+        .logo-text:hover { transform: scale(1.05); text-shadow: 0 0 10px var(--neon); }
 
         /* MENU OVERLAY */
         .nv-menu {
             height: 100%; width: 0; position: fixed; z-index: 9999;
             top: 0; left: 0; background-color: rgba(4, 4, 4, 0.98); 
-            overflow: hidden; transition: 0.5s; display: flex; align-items: center; justify-content: center;
+            overflow: hidden; transition: 0.4s; display: flex; align-items: center; justify-content: center;
         }
-        .nv-links a { font-family: var(--font-title); font-size: 2.5rem; color: var(--white); text-decoration: none; display: block; margin: 20px; text-transform: uppercase; }
+        .nv-links a { font-family: var(--font-title); font-size: 2.3rem; color: var(--white); text-decoration: none; display: block; margin: 20px; text-transform: uppercase; }
         .nv-links a:hover { color: var(--neon); }
         .nv-close { position: absolute; top: 30px; right: 45px; font-size: 50px; color: var(--neon); text-decoration: none; }
 
-        /* MAIN CONTENT */
-        .main-wrapper { position: relative; z-index: 10; padding: 140px 0 80px 0; display: flex; flex-direction: column; align-items: center; }
-        .nv-title { font-family: var(--font-title); font-size: clamp(2.5rem, 8vw, 4.5rem); text-transform: uppercase; letter-spacing: -2px; margin: 0; line-height: 0.9; text-align: center;}
-        .nv-subtitle { color: var(--neon); font-weight: 700; text-transform: uppercase; letter-spacing: 6px; margin-bottom: 40px; font-size: 0.8rem; text-align: center; }
+        /* MAIN WRAPPER */
+        .main-wrapper { position: relative; z-index: 10; padding: 140px 20px 80px 20px; display: flex; flex-direction: column; align-items: center; }
+        .nv-title { font-family: var(--font-title); font-size: clamp(2.3rem, 7vw, 4.2rem); text-transform: uppercase; letter-spacing: -2px; margin: 0; line-height: 0.9; text-align: center;}
+        .nv-subtitle { color: var(--neon); font-weight: 700; text-transform: uppercase; letter-spacing: 5px; margin-bottom: 40px; font-size: 0.8rem; text-align: center; }
 
-        /* SEZIONE FILTRI */
+        /* FILTRI */
         .profile-box {
             background: rgba(255, 255, 255, 0.02); border: 1px solid rgba(255, 255, 255, 0.05);
             border-radius: 20px; padding: 20px; width: 100%; max-width: 800px; margin-bottom: 30px;
         }
         .level-select {
             background: var(--dark); border: 1px solid rgba(255, 255, 255, 0.1); color: white;
-            padding: 10px 15px; border-radius: 10px; font-weight: 600; width: 100%; margin-top: 10px;
+            padding: 12px 15px; border-radius: 12px; font-weight: 600; width: 100%; margin-top: 10px;
         }
-        .level-select:focus { border-color: var(--neon); outline: none; }
 
         /* BOTTONE SOS */
         .btn-action {
             font-family: var(--font-title); background: transparent; color: var(--white);
-            border: 1px solid rgba(255, 255, 255, 0.2); padding: 15px 30px; border-radius: 50px;
-            text-decoration: none !important; font-size: 0.8rem; transition: 0.3s; text-transform: uppercase; margin-bottom: 40px; cursor: pointer; display: inline-block;
+            border: 1px solid rgba(255, 255, 255, 0.2); padding: 15px 35px; border-radius: 50px;
+            text-decoration: none !important; font-size: 0.8rem; transition: 0.3s; text-transform: uppercase; 
+            margin-bottom: 40px; cursor: pointer; display: inline-block;
         }
         .btn-action:hover { border-color: var(--neon); color: var(--neon); background: rgba(63, 240, 0, 0.02); }
 
@@ -78,57 +77,41 @@
         .radar-card {
             background: rgba(255, 255, 255, 0.03); border: 1px solid rgba(255, 255, 255, 0.08);
             border-radius: 25px; padding: 25px; margin-bottom: 20px; width: 100%; max-width: 800px;
-            transition: 0.3s; display: flex; justify-content: space-between; align-items: center;
-            backdrop-filter: blur(10px); text-align: left;
+            display: flex; justify-content: space-between; align-items: center; text-align: left;
         }
-        .radar-card:hover { border-color: var(--neon); background: rgba(255, 255, 255, 0.05); }
-        .match-info h4 { font-family: var(--font-body); font-weight: 800; font-size: 1.2rem; margin: 0 0 5px 0; }
+        .match-info h4 { font-weight: 800; font-size: 1.2rem; margin: 0 0 5px 0; }
         .match-info p { margin: 0; opacity: 0.6; font-size: 0.9rem; }
-        .match-meta { display: flex; gap: 15px; margin-top: 10px; }
-        .badge-radar { background: rgba(255,255,255,0.05); padding: 5px 12px; border-radius: 30px; font-size: 0.75rem; font-weight: 700; text-transform: uppercase; border: 1px solid rgba(255,255,255,0.05); }
+        .match-meta { display: flex; gap: 12px; margin-top: 10px; }
+        .badge-radar { background: rgba(255,255,255,0.04); padding: 5px 12px; border-radius: 30px; font-size: 0.75rem; font-weight: 700; text-transform: uppercase; border: 1px solid rgba(255,255,255,0.05); }
         .badge-neon { border-color: var(--neon); color: var(--neon); }
 
         .btn-join {
             background: var(--neon); color: var(--dark); font-family: var(--font-title);
             padding: 12px 25px; border-radius: 50px; text-decoration: none !important;
-            font-size: 0.75rem; text-transform: uppercase; transition: 0.3s; box-shadow: 0 0 15px rgba(63, 240, 0, 0.2);
+            font-size: 0.75rem; text-transform: uppercase; transition: 0.2s;
         }
-        .btn-join:hover { transform: scale(1.05); box-shadow: 0 0 25px rgba(63, 240, 0, 0.4); color: var(--dark); }
 
         /* MODALE POPUP */
         .nv-modal {
             display: none; position: fixed; z-index: 10000; top:0; left:0; width:100%; height:100%;
-            background: rgba(4,4,4,0.95); align-items: center; justify-content: center; padding: 20px;
+            background: rgba(4,4,4,0.96); align-items: center; justify-content: center; padding: 20px;
         }
         .modal-content {
-            background: rgba(255,255,255,0.02); border: 1px solid rgba(255,255,255,0.1);
-            padding: 40px; border-radius: 30px; max-width: 500px; width: 100%; backdrop-filter: blur(20px); color: white;
+            background: #111; border: 1px solid rgba(255,255,255,0.08);
+            padding: 35px; border-radius: 25px; max-width: 450px; width: 100%; color: white;
         }
-        .modal-content h3 { font-family: var(--font-title); font-size: 1.5rem; margin-bottom: 20px; text-transform: uppercase;}
+        .modal-content h3 { font-family: var(--font-title); font-size: 1.4rem; margin-bottom: 20px; text-transform: uppercase;}
         .modal-content input, .modal-content select {
             background: var(--dark); border: 1px solid rgba(255,255,255,0.1); color: white;
             padding: 12px; border-radius: 12px; width: 100%; margin-bottom: 15px;
         }
-        .modal-content input:focus, .modal-content select:focus { border-color: var(--neon); outline: none;}
-
-        /* FOOTER */
-        .nv-footer { padding: 80px 20px 40px; border-top: 1px solid rgba(255, 255, 255, 0.05); background: var(--dark); width: 100%;}
-        .footer-container { max-width: 1100px; margin: 0 auto; display: flex; justify-content: space-between; align-items: center; flex-wrap: wrap; gap: 40px; }
-        .footer-logo-mini { height: 60px; opacity: 0.3; }
-        .f-link { font-size: 0.85rem; color: white !important; opacity: 0.3; text-decoration: none; transition: 0.3s; }
-        .f-link:hover { opacity: 1; color: var(--neon) !important; }
-
-        @media (max-width: 768px) {
-            .radar-card { flex-direction: column; align-items: flex-start; gap: 20px; }
-            .btn-join { width: 100%; text-align: center; }
-            .footer-container { flex-direction: column; text-align: center; }
-        }
+        .modal-content label { font-size: 0.8rem; opacity: 0.6; margin-bottom: 5px; display: block; }
     </style>
 </head>
 <body>
 
     <header class="nav-fix">
-        <img src="images/logo.png" alt="Nevera Logo" class="logo-trigger" onclick="openM()">
+        <div class="logo-text" onclick="openM()">NEVERA<span>.</span></div>
     </header>
 
     <div id="m" class="nv-menu">
@@ -142,12 +125,12 @@
         </div>
     </div>
 
-    <main class="main-wrapper container">
+    <main class="main-wrapper container text-center">
         <h1 class="nv-title">MATCH RADAR</h1>
         <p class="nv-subtitle">SOS QUARTO GIOCATORE</p>
 
-        <div class="profile-box">
-            <label style="font-weight: 600; font-size: 0.85rem; opacity: 0.7; text-transform: uppercase; letter-spacing: 1px;">Il Tuo Livello Attuale:</label>
+        <div class="profile-box text-start">
+            <label style="font-weight: 600; font-size: 0.85rem; opacity: 0.7; text-transform: uppercase;">Il Tuo Livello Attuale:</label>
             <select id="userLevel" class="level-select" onchange="saveLevel()">
                 <option value="all">Mostra tutti i match</option>
                 <option value="principiante">Principiante (Liv. 1.0 - 2.5)</option>
@@ -156,57 +139,58 @@
             </select>
         </div>
 
-        <button class="btn-action" onclick="toggleModal(true)"><i class="fa-solid fa-plus me-2"></i> Lancia un SOS Match</button>
+        <div>
+            <button class="btn-action" onclick="toggleModal(true)"><i class="fa-solid fa-plus me-2"></i> Lancia un SOS Match</button>
+        </div>
 
         <div id="matchList" style="width: 100%; display: flex; flex-direction: column; align-items: center;">
-            </div>
+            <p style="opacity:0.3; margin-top:20px;">Caricamento bacheca radar in corso...</p>
+        </div>
     </main>
 
     <div id="matchModal" class="nv-modal">
-        <div class="modal-content">
+        <div class="modal-content text-start">
             <h3>Nuovo SOS Match</h3>
-            <input type="text" id="matchClub" placeholder="Nome del Club (es. Padel Hub Milano)" required>
-            <input type="text" id="matchTime" placeholder="Giorno e Ora (es. Stasera ore 20:30)" required>
+            
+            <label>Circolo / Club Sportivo:</label>
+            <input type="text" id="matchClub" placeholder="es. Padel Hub Milano" required>
+            
+            <label>Data e Ora Partita:</label>
+            <input type="datetime-local" id="matchTime" required>
+            
+            <label>Livello Richiesto:</label>
             <select id="matchLevel">
-                <option value="principiante">Livello: Principiante</option>
-                <option value="intermedio">Livello: Intermedio</option>
-                <option value="avanzato">Livello: Avanzato</option>
+                <option value="principiante">Principiante</option>
+                <option value="intermedio">Intermedio</option>
+                <option value="avanzato">Avanzato</option>
             </select>
-            <input type="number" id="matchMissing" placeholder="Quanti giocatori mancano? (es. 1)" min="1" max="3" required>
-            <input type="tel" id="matchPhone" placeholder="Tuo numero WhatsApp (es. 3331234567)" required>
+            
+            <label>Giocatori Mancanti:</label>
+            <input type="number" id="matchMissing" placeholder="es. 1" min="1" max="3" required>
+            
+            <label>Tuo Numero WhatsApp:</label>
+            <input type="tel" id="matchPhone" placeholder="es. 3331234567" required>
             
             <div class="d-flex gap-2 mt-3">
                 <button class="btn-join" onclick="createMatch()" style="flex: 1;">Pubblica</button>
-                <button class="btn-action" onclick="toggleModal(false)" style="margin: 0; padding: 10px;">Annulla</button>
+                <button class="btn-action" onclick="toggleModal(false)" style="margin: 0; padding: 10px 20px;">Annulla</button>
             </div>
         </div>
     </div>
 
-    <footer class="nv-footer">
-        <div class="footer-container">
-            <div>
-                <img src="images/logo.png" class="footer-logo-mini">
-            </div>
-            <div class="d-flex gap-4">
-                <a href="index.html" class="f-link">HOME</a>
-                <a href="https://www.instagram.com/neverasports.it/" class="f-link">INSTAGRAM</a>
-            </div>
-        </div>
-    </footer>
-
     <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
 
     <script>
+        // Gestione Menu e Modale
         function openM() { document.getElementById("m").style.width = "100%"; }
         function closeM() { document.getElementById("m").style.width = "0"; }
         
         function toggleModal(show) {
             const modal = document.getElementById("matchModal");
-            if (modal) {
-                modal.style.display = show ? "flex" : "none";
-            }
+            if (modal) modal.style.display = show ? "flex" : "none";
         }
 
+        // Credenziali Supabase
         const SUPABASE_URL = "https://ennpbtrthwdxsvdbqbmn.supabase.co";
         const SUPABASE_KEY = "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6ImVubnBidHJ0aHdkeHN2ZGJxYm1uIiwicm9sZSI6ImFub24iLCJpYXQiOjE3NzkwNjU0NzUsImV4cCI6MjA5NDY0MTQ3NX0.JL-w7qkp6bktVJMrJ7O0Uw1phxaBpBc9BiP3cH8Q4-0";
         
@@ -216,23 +200,16 @@
             if (window.supabase) {
                 supabase = window.supabase.createClient(SUPABASE_URL, SUPABASE_KEY);
             }
-        } catch (err) {
-            console.error("Errore Supabase:", err);
+        } catch (e) {
+            console.error("Connessione fallita:", e);
         }
 
         window.onload = function() {
             if(localStorage.getItem('nevera-level')) {
                 document.getElementById('userLevel').value = localStorage.getItem('nevera-level');
             }
-            
             if (supabase) {
                 fetchMatches();
-                supabase
-                    .channel('schema-db-changes')
-                    .on('postgres_changes', { event: '*', schema: 'public', table: 'matches' }, payload => {
-                        fetchMatches();
-                    })
-                    .subscribe();
             }
         }
 
@@ -241,6 +218,7 @@
             if (supabase) fetchMatches();
         }
 
+        // SCARICA DATI (Colonne: club, date, level, missing, link)
         async function fetchMatches() {
             if (!supabase) return;
             const list = document.getElementById("matchList");
@@ -249,10 +227,10 @@
             let { data: matches, error } = await supabase
                 .from('matches')
                 .select('*')
-                .order('created_at', { ascending: false });
+                .order('date', { ascending: true });
 
             if (error) {
-                console.error("Errore:", error);
+                list.innerHTML = `<p style="opacity:0.4;">Errore caricamento bacheca.</p>`;
                 return;
             }
 
@@ -260,25 +238,29 @@
             let hasMatches = false;
 
             matches.forEach((m) => {
-                // Riconosce sia "giocatori mancanti" che "giocatori_mancanti" per sicurezza
-                const mancanti = m.giocatori_mancanti || m['giocatori mancanti'] || 1;
-                const liv = m.livello || 'tutti';
-                const dataOra = m.data || '';
+                const mancanti = m.missing || 1;
+                const liv = m.level || 'all';
+                
+                let dataFormattata = "Da definire";
+                if (m.date) {
+                    const d = new Date(m.date);
+                    dataFormattata = d.toLocaleDateString('it-IT', { day: '2-digit', month: '2-digit' }) + " ore " + d.toLocaleTimeString('it-IT', { hour: '2-digit', minute: '2-digit' });
+                }
 
                 if (filter === "all" || liv === filter) {
                     hasMatches = true;
                     list.innerHTML += `
                         <div class="radar-card" id="card-${m.id}">
                             <div class="match-info">
-                                <h4>${m.club}</h4>
-                                <p><i class="fa-regular fa-clock me-2"></i>${dataOra}</p>
+                                <h4>${m.club || 'Club Sportivo'}</h4>
+                                <p><i class="fa-regular fa-clock me-2"></i>${dataFormattata}</p>
                                 <div class="match-meta">
                                     <span class="badge-radar badge-neon">${liv}</span>
                                     <span class="badge-radar">Mancano: ${mancanti}</span>
                                 </div>
                             </div>
-                            <div class="d-flex gap-2 flex-wrap">
-                                <a href="https://wa.me/${m.link}?text=Ciao!%20Ho%20visto%20il%20tuo%20annuncio%20su%20Match%20Radar%20Nevera%20per%20la%20partita%20al%20${encodeURIComponent(m.club)}.%20Sono%20disponibile!" target="_blank" class="btn-join">
+                            <div>
+                                <a href="https://wa.me/${m.link}?text=Ciao!%20Ho%20visto%20il%20tuo%20annuncio%20su%20Match%20Radar%20Nevera%20per%20la%20partita%20del%20${encodeURIComponent(dataFormattata)}.%20Sono%20disponibile!" target="_blank" class="btn-join">
                                     <i class="fa-brands fa-whatsapp me-1"></i> Unisciti
                                 </a>
                             </div>
@@ -288,48 +270,43 @@
             });
 
             if(!hasMatches) {
-                list.innerHTML = `<p style="opacity:0.4; margin-top:20px;">Nessun SOS attivo per questo livello. Lancia tu il primo!</p>`;
+                list.innerHTML = `<p style="opacity:0.4; margin-top:20px;">Nessun SOS attivo per questo livello.</p>`;
             }
         }
 
+        // INVIA DATI PRECISI AL DATABASE (Mappatura esatta sulle colonne correnti)
         async function createMatch() {
             if (!supabase) return;
             
             const club = document.getElementById("matchClub").value;
-            const dataOra = document.getElementById("matchTime").value;
+            const dataOraInput = document.getElementById("matchTime").value;
             const livello = document.getElementById("matchLevel").value;
             const giocatori_mancanti = document.getElementById("matchMissing").value;
             let phone = document.getElementById("matchPhone").value;
 
-            if(!club || !dataOra || !phone) { alert("Compila tutti i campi!"); return; }
+            if(!club || !dataOraInput || !phone) { alert("Tutti i campi sono obbligatori!"); return; }
             
             phone = phone.replace(/\s+/g, '');
             if(!phone.startsWith('39') && !phone.startsWith('+39')) phone = '39' + phone;
 
-            // Invia i dati usando ESATTAMENTE i tuoi nomi colonna in italiano
-            // Gestisce sia il nome con lo spazio che col trattino basso per evitare qualsiasi errore
             const payload = {
                 club: club,
-                data: dataOra,
-                livello: livello,
+                date: new Date(dataOraInput).toISOString(), // Formato perfetto per timestamptz
+                level: livello,
+                missing: parseInt(giocatori_mancanti),
                 link: phone
             };
-            
-            // Inserisce il campo corretto per i giocatori mancanti
-            payload['giocatori_mancanti'] = parseInt(giocatori_mancanti);
-            payload['giocatori mancanti'] = parseInt(giocatori_mancanti);
 
-            const { error } = await supabase
-                .from('matches')
-                .insert([payload]);
+            const { error } = await supabase.from('matches').insert([payload]);
 
             if (error) {
-                alert("Errore nell'invio. Verifica i nomi delle colonne su Supabase: " + error.message);
+                alert("Errore d'inserimento: " + error.message);
             } else {
                 toggleModal(false);
                 document.getElementById("matchClub").value = "";
                 document.getElementById("matchTime").value = "";
                 document.getElementById("matchPhone").value = "";
+                fetchMatches(); // Aggiorna subito la lista dopo il salvataggio
             }
         }
     </script>
