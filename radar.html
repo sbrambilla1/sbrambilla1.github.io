@@ -27,7 +27,7 @@
             -webkit-font-smoothing: antialiased;
         }
 
-        /* HEADER & MENU LOGO */
+        /* HEADER NAV REGOLARE */
         .nav-fix { 
             position: absolute; top: 0; width: 100%; padding: 25px 0; text-align: center; z-index: 100;
             background: linear-gradient(to bottom, rgba(4, 4, 4, 0.9) 0%, transparent 100%);
@@ -35,77 +35,95 @@
         .logo-text {
             font-family: var(--font-title); font-size: 1.8rem; color: var(--white); 
             cursor: pointer; transition: 0.3s; letter-spacing: -1px; display: inline-block;
+            text-transform: uppercase;
         }
         .logo-text span { color: var(--neon); }
         .logo-text:hover { transform: scale(1.05); text-shadow: 0 0 10px var(--neon); }
 
-        /* MENU OVERLAY */
+        /* MENU IN OVERLAY SCREEN */
         .nv-menu {
-            height: 100%; width: 0; position: fixed; z-index: 9999;
+            height: 100%; width: 0; position: fixed; z-index: 99999;
             top: 0; left: 0; background-color: rgba(4, 4, 4, 0.98); 
             overflow: hidden; transition: 0.4s; display: flex; align-items: center; justify-content: center;
         }
-        .nv-links a { font-family: var(--font-title); font-size: 2.3rem; color: var(--white); text-decoration: none; display: block; margin: 20px; text-transform: uppercase; }
-        .nv-links a:hover { color: var(--neon); }
+        .nv-links a { font-family: var(--font-title); font-size: 2.3rem; color: var(--white); text-decoration: none; display: block; margin: 20px; text-transform: uppercase; transition: 0.2s; }
+        .nv-links a:hover { color: var(--neon); text-shadow: 0 0 15px var(--neon); }
         .nv-close { position: absolute; top: 30px; right: 45px; font-size: 50px; color: var(--neon); text-decoration: none; }
 
-        /* MAIN WRAPPER */
-        .main-wrapper { position: relative; z-index: 10; padding: 140px 20px 80px 20px; display: flex; flex-direction: column; align-items: center; }
-        .nv-title { font-family: var(--font-title); font-size: clamp(2.3rem, 7vw, 4.2rem); text-transform: uppercase; letter-spacing: -2px; margin: 0; line-height: 0.9; text-align: center;}
-        .nv-subtitle { color: var(--neon); font-weight: 700; text-transform: uppercase; letter-spacing: 5px; margin-bottom: 40px; font-size: 0.8rem; text-align: center; }
+        /* STRUTTURA CONTENUTI */
+        .main-wrapper { position: relative; z-index: 10; padding: 160px 20px 80px 20px; display: flex; flex-direction: column; align-items: center; }
+        .nv-title { font-family: var(--font-title); font-size: clamp(2.5rem, 8vw, 4.5rem); text-transform: uppercase; letter-spacing: -2px; margin: 0; line-height: 0.9; text-align: center;}
+        .nv-subtitle { color: var(--neon); font-weight: 700; text-transform: uppercase; letter-spacing: 5px; margin-bottom: 50px; font-size: 0.85rem; text-align: center; text-shadow: 0 0 5px rgba(63, 240, 0, 0.3); }
 
-        /* FILTRI */
+        /* SCATOLA DEL FILTRO */
         .profile-box {
-            background: rgba(255, 255, 255, 0.02); border: 1px solid rgba(255, 255, 255, 0.05);
-            border-radius: 20px; padding: 20px; width: 100%; max-width: 800px; margin-bottom: 30px;
+            background: rgba(255, 255, 255, 0.02); border: 1px solid rgba(255, 255, 255, 0.06);
+            border-radius: 20px; padding: 25px; width: 100%; max-width: 750px; margin-bottom: 35px;
+            backdrop-filter: blur(10px);
         }
         .level-select {
-            background: var(--dark); border: 1px solid rgba(255, 255, 255, 0.1); color: white;
-            padding: 12px 15px; border-radius: 12px; font-weight: 600; width: 100%; margin-top: 10px;
+            background: var(--dark); border: 1px solid rgba(255, 255, 255, 0.12); color: white;
+            padding: 14px 18px; border-radius: 12px; font-weight: 600; width: 100%; margin-top: 10px;
+            outline: none; transition: 0.3s;
         }
+        .level-select:focus { border-color: var(--neon); }
 
-        /* BOTTONE SOS */
+        /* BOTTONI UNIFORMI */
         .btn-action {
             font-family: var(--font-title); background: transparent; color: var(--white);
-            border: 1px solid rgba(255, 255, 255, 0.2); padding: 15px 35px; border-radius: 50px;
-            text-decoration: none !important; font-size: 0.8rem; transition: 0.3s; text-transform: uppercase; 
-            margin-bottom: 40px; cursor: pointer; display: inline-block;
+            border: 1px solid rgba(255, 255, 255, 0.2); padding: 16px 40px; border-radius: 50px;
+            text-decoration: none !important; font-size: 0.85rem; transition: 0.3s; text-transform: uppercase; 
+            margin-bottom: 50px; cursor: pointer; display: inline-block; letter-spacing: 0.5px;
         }
-        .btn-action:hover { border-color: var(--neon); color: var(--neon); background: rgba(63, 240, 0, 0.02); }
+        .btn-action:hover { border-color: var(--neon); color: var(--neon); background: rgba(63, 240, 0, 0.03); box-shadow: 0 0 15px rgba(63, 240, 0, 0.1); }
 
-        /* CARDS */
+        /* GRIGLIA CARDS BACHECA */
         .radar-card {
-            background: rgba(255, 255, 255, 0.03); border: 1px solid rgba(255, 255, 255, 0.08);
-            border-radius: 25px; padding: 25px; margin-bottom: 20px; width: 100%; max-width: 800px;
+            background: rgba(255, 255, 255, 0.02); border: 1px solid rgba(255, 255, 255, 0.06);
+            border-radius: 24px; padding: 25px 30px; margin-bottom: 20px; width: 100%; max-width: 750px;
             display: flex; justify-content: space-between; align-items: center; text-align: left;
+            transition: 0.3s ease; backdrop-filter: blur(5px);
         }
-        .match-info h4 { font-weight: 800; font-size: 1.2rem; margin: 0 0 5px 0; }
-        .match-info p { margin: 0; opacity: 0.6; font-size: 0.9rem; }
-        .match-meta { display: flex; gap: 12px; margin-top: 10px; }
-        .badge-radar { background: rgba(255,255,255,0.04); padding: 5px 12px; border-radius: 30px; font-size: 0.75rem; font-weight: 700; text-transform: uppercase; border: 1px solid rgba(255,255,255,0.05); }
-        .badge-neon { border-color: var(--neon); color: var(--neon); }
+        .radar-card:hover { border-color: rgba(255,255,255,0.15); background: rgba(255, 255, 255, 0.03); transform: translateY(-2px); }
+        .match-info h4 { font-weight: 800; font-size: 1.25rem; margin: 0 0 6px 0; letter-spacing: -0.3px; text-transform: uppercase; }
+        .match-info p { margin: 0; opacity: 0.5; font-size: 0.9rem; font-weight: 400; }
+        .match-meta { display: flex; gap: 10px; margin-top: 12px; }
+        
+        .badge-radar { background: rgba(255,255,255,0.04); padding: 6px 14px; border-radius: 30px; font-size: 0.75rem; font-weight: 700; text-transform: uppercase; border: 1px solid rgba(255,255,255,0.06); color: rgba(255,255,255,0.8); }
+        .badge-neon { border-color: var(--neon); color: var(--neon); background: rgba(63, 240, 0, 0.02); }
 
         .btn-join {
             background: var(--neon); color: var(--dark); font-family: var(--font-title);
-            padding: 12px 25px; border-radius: 50px; text-decoration: none !important;
-            font-size: 0.75rem; text-transform: uppercase; transition: 0.2s;
+            padding: 12px 28px; border-radius: 50px; text-decoration: none !important;
+            font-size: 0.75rem; text-transform: uppercase; transition: 0.2s; display: inline-block;
         }
+        .btn-join:hover { transform: scale(1.05); background: #35cc00; box-shadow: 0 0 15px rgba(63, 240, 0, 0.4); color: var(--dark); }
 
-        /* MODALE POPUP CORRETTA CON EXTRA PRIORITA' VISIVA */
+        /* POPUP MODALE (Risolto bug z-index e oscuramento) */
         .nv-modal {
-            display: none; position: fixed; z-index: 999999 !important; top:0; left:0; width:100%; height:100%;
-            background: rgba(4,4,4,0.96); align-items: center; justify-content: center; padding: 20px;
+            display: none; position: fixed; z-index: 999999 !important; top: 0; left: 0; width: 100%; height: 100%;
+            background: rgba(4, 4, 4, 0.96); align-items: center; justify-content: center; padding: 20px;
+            backdrop-filter: blur(8px);
         }
         .modal-content {
-            background: #111 !important; border: 1px solid rgba(255,255,255,0.12) !important;
-            padding: 35px; border-radius: 25px; max-width: 450px; width: 100%; color: white;
+            background: #0d0d0d !important; border: 1px solid rgba(255, 255, 255, 0.1) !important;
+            padding: 35px; border-radius: 28px; max-width: 460px; width: 100%; color: white;
+            box-shadow: 0 20px 50px rgba(0,0,0,0.8);
         }
-        .modal-content h3 { font-family: var(--font-title); font-size: 1.4rem; margin-bottom: 20px; text-transform: uppercase; color: #FFF;}
+        .modal-content h3 { font-family: var(--font-title); font-size: 1.5rem; margin-bottom: 25px; text-transform: uppercase; letter-spacing: -0.5px; color: #FFF; }
         .modal-content input, .modal-content select {
-            background: var(--dark) !important; border: 1px solid rgba(255,255,255,0.15) !important; color: white !important;
-            padding: 12px; border-radius: 12px; width: 100%; margin-bottom: 15px;
+            background: var(--dark) !important; border: 1px solid rgba(255, 255, 255, 0.12) !important; color: white !important;
+            padding: 13px; border-radius: 12px; width: 100%; margin-bottom: 18px; outline: none; font-size: 0.95rem;
         }
-        .modal-content label { font-size: 0.8rem; opacity: 0.6; margin-bottom: 5px; display: block; color: #FFF; }
+        .modal-content input:focus, .modal-content select:focus { border-color: var(--neon); }
+        .modal-content label { font-size: 0.8rem; font-weight: 600; opacity: 0.5; margin-bottom: 6px; display: block; text-transform: uppercase; letter-spacing: 0.5px; color: #FFF; }
+        
+        /* Layout Mobile Responsive */
+        @media (max-width: 576px) {
+            .radar-card { flex-direction: column; align-items: flex-start; gap: 20px; padding: 20px; }
+            .btn-join { width: 100%; text-align: center; }
+            .modal-content { padding: 25px; }
+        }
     </style>
 </head>
 <body>
@@ -130,9 +148,9 @@
         <p class="nv-subtitle">SOS QUARTO GIOCATORE</p>
 
         <div class="profile-box text-start">
-            <label style="font-weight: 600; font-size: 0.85rem; opacity: 0.7; text-transform: uppercase;">Il Tuo Livello Attuale:</label>
+            <label style="font-weight: 600; font-size: 0.8rem; opacity: 0.5; text-transform: uppercase; letter-spacing: 0.5px;">Il Tuo Livello Attuale:</label>
             <select id="userLevel" class="level-select" onchange="saveLevel()">
-                <option value="all">Mostra tutti i match</option>
+                <option value="all">Mostra tutti i match attivi</option>
                 <option value="principiante">Principiante (Liv. 1.0 - 2.5)</option>
                 <option value="intermedio">Intermedio (Liv. 3.0 - 4.0)</option>
                 <option value="avanzato">Avanzato (Liv. 4.5 - 5.5)</option>
@@ -144,7 +162,7 @@
         </div>
 
         <div id="matchList" style="width: 100%; display: flex; flex-direction: column; align-items: center;">
-            <p style="opacity:0.3; margin-top:20px;">Caricamento bacheca radar in corso...</p>
+            <p style="opacity:0.3; margin-top:20px;">Sincronizzazione radar in corso...</p>
         </div>
     </main>
 
@@ -165,15 +183,15 @@
                 <option value="avanzato">Avanzato</option>
             </select>
             
-            <label>Giocatori Mancanti:</label>
+            <label>Quanti giocatori mancano?</label>
             <input type="number" id="matchMissing" placeholder="es. 1" min="1" max="3" required>
             
             <label>Tuo Numero WhatsApp:</label>
             <input type="tel" id="matchPhone" placeholder="es. 3331234567" required>
             
-            <div class="d-flex gap-2 mt-3">
-                <button class="btn-join" onclick="createMatch()" style="flex: 1;">Pubblica</button>
-                <button class="btn-action" onclick="toggleModal(false)" style="margin: 0; padding: 10px 20px;">Annulla</button>
+            <div class="d-flex gap-2 mt-4">
+                <button class="btn-join" onclick="createMatch()" style="flex: 1; padding: 14px 0; font-size: 0.8rem;">Pubblica</button>
+                <button class="btn-action" onclick="toggleModal(false)" style="margin: 0; padding: 12px 20px; font-size: 0.8rem;">Annulla</button>
             </div>
         </div>
     </div>
@@ -181,6 +199,7 @@
     <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
 
     <script>
+        // Funzioni Menu Overlay e Finestra Modale
         function openM() { document.getElementById("m").style.width = "100%"; }
         function closeM() { document.getElementById("m").style.width = "0"; }
         
@@ -191,6 +210,7 @@
             }
         }
 
+        // Configurazione e aggancio credenziali Supabase
         const SUPABASE_URL = "https://ennpbtrthwdxsvdbqbmn.supabase.co";
         const SUPABASE_KEY = "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6ImVubnBidHJ0aHdkeHN2ZGJxYm1uIiwicm9sZSI6ImFub24iLCJpYXQiOjE3NzkwNjU0NzUsImV4cCI6MjA5NDY0MTQ3NX0.JL-w7qkp6bktVJMrJ7O0Uw1phxaBpBc9BiP3cH8Q4-0";
         
@@ -201,7 +221,7 @@
                 supabase = window.supabase.createClient(SUPABASE_URL, SUPABASE_KEY);
             }
         } catch (e) {
-            console.error("Connessione fallita:", e);
+            console.error("Connessione interrotta:", e);
         }
 
         window.onload = function() {
@@ -218,6 +238,7 @@
             if (supabase) fetchMatches();
         }
 
+        // CARICAMENTO RECORD (Mappatura esatta sulle colonne in Inglese)
         async function fetchMatches() {
             if (!supabase) return;
             const list = document.getElementById("matchList");
@@ -229,7 +250,7 @@
                 .order('date', { ascending: true });
 
             if (error) {
-                list.innerHTML = `<p style="opacity:0.5; color: #FF4444; margin-top:20px;"><i class="fa-solid fa-triangle-exclamation me-2"></i>Sincronizzazione fallita: sblocca le policy RLS su Supabase.</p>`;
+                list.innerHTML = `<p style="opacity:0.6; color: #FF4444; margin-top:20px; font-weight:600;"><i class="fa-solid fa-triangle-exclamation me-2"></i>Bacheca protetta. Ricorda di abilitare le regole di lettura RLS su Supabase.</p>`;
                 return;
             }
 
@@ -240,7 +261,7 @@
                 const mancanti = m.missing || 1;
                 const liv = m.level || 'all';
                 
-                let dataFormattata = "Da definire";
+                let dataFormattata = "In aggiornamento";
                 if (m.date) {
                     const d = new Date(m.date);
                     dataFormattata = d.toLocaleDateString('it-IT', { day: '2-digit', month: '2-digit' }) + " ore " + d.toLocaleTimeString('it-IT', { hour: '2-digit', minute: '2-digit' });
@@ -259,7 +280,7 @@
                                 </div>
                             </div>
                             <div>
-                                <a href="https://wa.me/${m.link}?text=Ciao!%20Ho%20visto%20il%20tuo%20annuncio%20su%20Match%20Radar%20Nevera!" target="_blank" class="btn-join">
+                                <a href="https://wa.me/${m.link}?text=Ciao!%20Ho%20visto%20il%20tuo%20annuncio%20su%20Match%20Radar%20Nevera%20per%20la%20partita%20del%20${encodeURIComponent(dataFormattata)}.%20Sono%20disponibile!" target="_blank" class="btn-join">
                                     <i class="fa-brands fa-whatsapp me-1"></i> Unisciti
                                 </a>
                             </div>
@@ -269,10 +290,11 @@
             });
 
             if(!hasMatches) {
-                list.innerHTML = `<p style="opacity:0.4; margin-top:20px;">Nessun SOS attivo per questo livello.</p>`;
+                list.innerHTML = `<p style="opacity:0.4; margin-top:25px; font-size:0.95rem;">Nessun SOS inserito per questa categoria.</p>`;
             }
         }
 
+        // AGGIUNTA RECORD (Mappatura esatta sulle colonne in Inglese)
         async function createMatch() {
             if (!supabase) return;
             
@@ -282,14 +304,14 @@
             const giocatori_mancanti = document.getElementById("matchMissing").value;
             let phone = document.getElementById("matchPhone").value;
 
-            if(!club || !dataOraInput || !phone) { alert("Tutti i campi sono obbligatori!"); return; }
+            if(!club || !dataOraInput || !phone) { alert("Tutti i campi contrassegnati sono obbligatori!"); return; }
             
             phone = phone.replace(/\s+/g, '');
             if(!phone.startsWith('39') && !phone.startsWith('+39')) phone = '39' + phone;
 
             const payload = {
                 club: club,
-                date: new Date(dataOraInput).toISOString(),
+                date: new Date(dataOraInput).toISOString(), // Formattazione adatta per timestamptz
                 level: livello,
                 missing: parseInt(giocatori_mancanti),
                 link: phone
@@ -298,13 +320,14 @@
             const { error } = await supabase.from('matches').insert([payload]);
 
             if (error) {
-                alert("Errore d'inserimento. Verifica i permessi RLS su Supabase: " + error.message);
+                alert("Errore d'inserimento. Verifica se hai sbloccato l'accesso INSERT nelle policy RLS: " + error.message);
             } else {
                 toggleModal(false);
                 document.getElementById("matchClub").value = "";
                 document.getElementById("matchTime").value = "";
                 document.getElementById("matchPhone").value = "";
-                fetchMatches();
+                document.getElementById("matchMissing").value = "";
+                fetchMatches(); // rinfresca la lista istantaneamente
             }
         }
     </script>
