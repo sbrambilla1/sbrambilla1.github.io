@@ -1,0 +1,288 @@
+<!DOCTYPE HTML>
+<html lang="it">
+<head>
+    <title>NEVERA SPORTS | Match Radar</title>
+    <meta charset="utf-8" />
+    
+    <link rel="icon" type="image/png" href="images/logo.png">
+    <link rel="apple-touch-icon" href="images/logo.png">
+    <link rel="icon" sizes="192x192" href="images/logo.png">
+    
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=0" />
+    
+    <link href="https://fonts.googleapis.com/css2?family=Archivo+Black&family=Inter:wght@300;400;600;800&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+    
+    <style>
+        :root {
+            --neon: #3FF000;
+            --dark: #040404;
+            --white: #FDFDFD;
+            --font-title: 'Archivo Black', sans-serif;
+            --font-body: 'Inter', sans-serif;
+        }
+
+        html, body {
+            margin: 0; padding: 0;
+            background-color: var(--dark);
+            color: var(--white);
+            font-family: var(--font-body);
+            overflow-x: hidden;
+            -webkit-font-smoothing: antialiased;
+        }
+
+        /* HEADER & NAV */
+        .nav-fix { 
+            position: absolute; top: 0; width: 100%; padding: 30px 0; text-align: center; z-index: 100;
+            background: linear-gradient(to bottom, rgba(4, 4, 4, 0.9) 0%, transparent 100%);
+        }
+        .logo-trigger { height: 60px; cursor: pointer; transition: 0.4s; }
+        .logo-trigger:hover { transform: scale(1.1); filter: drop-shadow(0 0 15px var(--neon)); }
+
+        /* MENU OVERLAY */
+        .nv-menu {
+            height: 100%; width: 0; position: fixed; z-index: 9999;
+            top: 0; left: 0; background-color: rgba(4, 4, 4, 0.98); 
+            overflow: hidden; transition: 0.5s; display: flex; align-items: center; justify-content: center;
+        }
+        .nv-links a { font-family: var(--font-title); font-size: 2.5rem; color: var(--white); text-decoration: none; display: block; margin: 20px; text-transform: uppercase; }
+        .nv-links a:hover { color: var(--neon); }
+        .nv-close { position: absolute; top: 30px; right: 45px; font-size: 50px; color: var(--neon); text-decoration: none; }
+
+        /* MAIN CONTENT */
+        .main-wrapper { position: relative; z-index: 10; padding: 140px 0 80px 0; display: flex; flex-direction: column; align-items: center; }
+        .nv-title { font-family: var(--font-title); font-size: clamp(2.5rem, 8vw, 4.5rem); text-transform: uppercase; letter-spacing: -2px; margin: 0; line-height: 0.9; text-align: center;}
+        .nv-subtitle { color: var(--neon); font-weight: 700; text-transform: uppercase; letter-spacing: 6px; margin-bottom: 40px; font-size: 0.8rem; text-align: center; }
+
+        /* SEZIONE FILTRI E LIVELLO */
+        .profile-box {
+            background: rgba(255, 255, 255, 0.02); border: 1px solid rgba(255, 255, 255, 0.05);
+            border-radius: 20px; padding: 20px; width: 100%; max-width: 800px; margin-bottom: 30px;
+        }
+        .level-select {
+            background: var(--dark); border: 1px solid rgba(255, 255, 255, 0.1); color: white;
+            padding: 10px 15px; border-radius: 10px; font-weight: 600; width: 100%; margin-top: 10px;
+        }
+        .level-select:focus { border-color: var(--neon); outline: none; }
+
+        /* FORM INSERIMENTO */
+        .btn-action {
+            font-family: var(--font-title); background: transparent; color: var(--white);
+            border: 1px solid rgba(255, 255, 255, 0.2); padding: 15px 30px; border-radius: 50px;
+            text-decoration: none !important; font-size: 0.8rem; transition: 0.3s; text-transform: uppercase; margin-bottom: 40px;
+        }
+        .btn-action:hover { border-color: var(--neon); color: var(--neon); background: rgba(63, 240, 0, 0.02); }
+
+        /* CARDS DEI MATCH */
+        .radar-card {
+            background: rgba(255, 255, 255, 0.03); border: 1px solid rgba(255, 255, 255, 0.08);
+            border-radius: 25px; padding: 25px; margin-bottom: 20px; width: 100%; max-width: 800px;
+            transition: 0.3s; display: flex; justify-content: space-between; align-items: center;
+            backdrop-filter: blur(10px); text-align: left;
+        }
+        .radar-card:hover { border-color: var(--neon); background: rgba(255, 255, 255, 0.05); }
+        .match-info h4 { font-family: var(--font-body); font-weight: 800; font-size: 1.2rem; margin: 0 0 5px 0; }
+        .match-info p { margin: 0; opacity: 0.6; font-size: 0.9rem; }
+        .match-meta { display: flex; gap: 15px; margin-top: 10px; }
+        .badge-radar { background: rgba(255,255,255,0.05); padding: 5px 12px; border-radius: 30px; font-size: 0.75rem; font-weight: 700; text-transform: uppercase; border: 1px solid rgba(255,255,255,0.05); }
+        .badge-neon { border-color: var(--neon); color: var(--neon); }
+
+        .btn-join {
+            background: var(--neon); color: var(--dark); font-family: var(--font-title);
+            padding: 12px 25px; border-radius: 50px; text-decoration: none !important;
+            font-size: 0.75rem; text-transform: uppercase; transition: 0.3s; box-shadow: 0 0 15px rgba(63, 240, 0, 0.2);
+        }
+        .btn-join:hover { transform: scale(1.05); box-shadow: 0 0 25px rgba(63, 240, 0, 0.4); color: var(--dark); }
+
+        /* MODALE INSERIMENTO MATRICOLA */
+        .nv-modal {
+            display: none; position: fixed; z-index: 10000; top:0; left:0; width:100%; height:100%;
+            background: rgba(4,4,4,0.95); align-items: center; justify-content: center; padding: 20px;
+        }
+        .modal-content {
+            background: rgba(255,255,255,0.02); border: 1px solid rgba(255,255,255,0.1);
+            padding: 40px; border-radius: 30px; max-width: 500px; width: 100%; backdrop-filter: blur(20px);
+        }
+        .modal-content h3 { font-family: var(--font-title); font-size: 1.5rem; margin-bottom: 20px; text-transform: uppercase;}
+        .modal-content input, .modal-content select {
+            background: var(--dark); border: 1px solid rgba(255,255,255,0.1); color: white;
+            padding: 12px; border-radius: 12px; width: 100%; margin-bottom: 15px;
+        }
+        .modal-content input:focus, .modal-content select:focus { border-color: var(--neon); outline: none;}
+
+        /* FOOTER */
+        .nv-footer { padding: 80px 20px 40px; border-top: 1px solid rgba(255, 255, 255, 0.05); background: var(--dark); width: 100%;}
+        .footer-container { max-width: 1100px; margin: 0 auto; display: flex; justify-content: space-between; align-items: center; flex-wrap: wrap; gap: 40px; }
+        .footer-logo-mini { height: 60px; opacity: 0.3; }
+        .f-link { font-size: 0.85rem; color: white !important; opacity: 0.3; text-decoration: none; transition: 0.3s; }
+        .f-link:hover { opacity: 1; color: var(--neon) !important; }
+
+        @media (max-width: 768px) {
+            .radar-card { flex-direction: column; align-items: flex-start; gap: 20px; }
+            .btn-join { width: 100%; text-align: center; }
+            .footer-container { flex-direction: column; text-align: center; }
+        }
+    </style>
+</head>
+<body>
+
+    <header class="nav-fix">
+        <img src="images/logo.png" alt="Nevera Logo" class="logo-trigger" onclick="openM()">
+    </header>
+
+    <div id="m" class="nv-menu">
+        <a href="javascript:void(0)" class="nv-close" onclick="closeM()">&times;</a>
+        <div class="nv-links">
+            <a href="index.html">HOME</a>
+            <a href="eventi.html">EVENTI</a>
+            <a href="community.html">COMMUNITY</a>
+            <a href="partners.html">SPONSOR</a>
+            <a href="iniziative.html">INIZIATIVE</a>
+        </div>
+    </div>
+
+    <main class="main-wrapper container">
+        <h1 class="nv-title">MATCH RADAR</h1>
+        <p class="nv-subtitle">SOS QUARTO GIOCATORE</p>
+
+        <div class="profile-box">
+            <label style="font-weight: 600; font-size: 0.85rem; opacity: 0.7; text-transform: uppercase; letter-spacing: 1px;">Il Tuo Livello Attuale:</label>
+            <select id="userLevel" class="level-select" onchange="saveLevel()">
+                <option value="all">Mostra tutti i match</option>
+                <option value="principiante">Principiante (Liv. 1.0 - 2.5)</option>
+                <option value="intermedio">Intermedio (Liv. 3.0 - 4.0)</option>
+                <option value="avanzato">Avanzato (Liv. 4.5 - 5.5)</option>
+            </select>
+        </div>
+
+        <button class="btn-action" onclick="toggleModal(true)"><i class="fa-solid fa-plus me-2"></i> Lancia un SOS Match</button>
+
+        <div id="matchList" style="width: 100%; display: flex; flex-direction: column; align-items: center;">
+            </div>
+    </main>
+
+    <div id="matchModal" class="nv-modal">
+        <div class="modal-content">
+            <h3>Nuovo SOS Match</h3>
+            <input type="text" id="matchClub" placeholder="Nome del Club (es. Padel Hub Milano)" required>
+            <input type="text" id="matchTime" placeholder="Giorno e Ora (es. Stasera ore 20:30)" required>
+            <select id="matchLevel">
+                <option value="principiante">Livello: Principiante</option>
+                <option value="intermedio">Livello: Intermedio</option>
+                <option value="avanzato">Livello: Avanzato</option>
+            </select>
+            <input type="number" id="matchMissing" placeholder="Quanti giocatori mancano? (es. 1)" min="1" max="3" required>
+            <input type="tel" id="matchPhone" placeholder="Tuo numero WhatsApp (es. 3331234567)" required>
+            
+            <div class="d-flex gap-2 mt-3">
+                <button class="btn-join" onclick="createMatch()" style="flex: 1;">Pubblica</button>
+                <button class="btn-action" onclick="toggleModal(false)" style="margin: 0; padding: 10px;">Annulla</button>
+            </div>
+        </div>
+    </div>
+
+    <footer class="nv-footer">
+        <div class="footer-container">
+            <div>
+                <img src="images/logo.png" class="footer-logo-mini">
+            </div>
+            <div class="d-flex gap-4">
+                <a href="index.html" class="f-link">HOME</a>
+                <a href="https://www.instagram.com/neverasports.it/" class="f-link">INSTAGRAM</a>
+            </div>
+        </div>
+    </footer>
+
+    <script>
+        function openM() { document.getElementById("m").style.width = "100%"; }
+        function closeM() { document.getElementById("m").style.width = "0"; }
+        
+        function toggleModal(show) {
+            document.getElementById("matchModal").style.display = show ? "flex" : "none";
+        }
+
+        // DATABASE MATCH IN MEMORIA (Per renderlo globale e definitivo servirebbe un database online Firebase/Supabase, questa è la logica front-end pronta)
+        let matches = [
+            { id: 1, club: "VPL Padel Club", time: "Oggi, ore 19:00", level: "intermedio", missing: 1, phone: "393331234567" },
+            { id: 2, club: "Nevera Arena Indoor", time: "Domani, ore 20:30", level: "avanzato", missing: 2, phone: "393337654321" }
+        ];
+
+        // Carica livello salvato
+        window.onload = function() {
+            if(localStorage.getItem('nevera-level')) {
+                document.getElementById('userLevel').value = localStorage.getItem('nevera-level');
+            }
+            renderMatches();
+        }
+
+        function saveLevel() {
+            localStorage.setItem('nevera-level', document.getElementById('userLevel').value);
+            renderMatches();
+        }
+
+        function renderMatches() {
+            const list = document.getElementById("matchList");
+            const filter = document.getElementById("userLevel").value;
+            list.innerHTML = "";
+
+            const filtered = matches.filter(m => filter === "all" || m.level === filter);
+
+            if(filtered.length === 0) {
+                list.innerHTML = `<p style="opacity:0.4; margin-top:20px;">Nessun SOS attivo per questo livello. Lancia tu il primo!</p>`;
+                return;
+            }
+
+            filtered.forEach(m => {
+                list.innerHTML += `
+                    <div class="radar-card">
+                        <div class="match-info">
+                            <h4>${m.club}</h4>
+                            <p><i class="fa-regular fa-clock me-2"></i>${m.time}</p>
+                            <div class="match-meta">
+                                <span class="badge-radar badge-neon">${m.level}</span>
+                                <span class="badge-radar">Mancano: ${m.missing}</span>
+                            </div>
+                        </div>
+                        <a href="https://wa.me/${m.phone}?text=Ciao!%20Ho%20visto%20il%20tuo%20annuncio%20su%20Match%20Radar%20Nevera%20per%20la%20partita%20al%20${encodeURIComponent(m.club)}.%20Sono%20disponibile!" target="_blank" class="btn-join">
+                            <i class="fa-brands fa-whatsapp me-1"></i> Unisciti
+                        </a>
+                    </div>
+                `;
+            });
+        }
+
+        function createMatch() {
+            const club = document.getElementById("matchClub").value;
+            const time = document.getElementById("matchTime").value;
+            const level = document.getElementById("matchLevel").value;
+            const missing = document.getElementById("matchMissing").value;
+            let phone = document.getElementById("matchPhone").value;
+
+            if(!club || !time || !phone) { alert("Compila tutti i campi!"); return; }
+            
+            // Pulisce il numero aggiungendo il prefisso italia se necessario
+            phone = phone.replace(/\s+/g, '');
+            if(!phone.startsWith('39') && !phone.startsWith('+39')) phone = '39' + phone;
+
+            const newMatch = {
+                id: Date.now(),
+                club: club,
+                time: time,
+                level: level,
+                missing: missing,
+                phone: phone
+            };
+
+            matches.unshift(newMatch); // Aggiunge in cima
+            renderMatches();
+            toggleModal(false);
+
+            // Resetta form
+            document.getElementById("matchClub").value = "";
+            document.getElementById("matchTime").value = "";
+            document.getElementById("matchPhone").value = "";
+        }
+    </script>
+</body>
+</html>
