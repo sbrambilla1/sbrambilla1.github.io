@@ -99,7 +99,7 @@
         }
         .btn-join:hover { transform: scale(1.05); background: #35cc00; box-shadow: 0 0 15px rgba(63, 240, 0, 0.4); color: var(--dark); }
 
-        /* POPUP MODALE (Risolto bug z-index e oscuramento) */
+        /* POPUP MODALE FIXED */
         .nv-modal {
             display: none; position: fixed; z-index: 999999 !important; top: 0; left: 0; width: 100%; height: 100%;
             background: rgba(4, 4, 4, 0.96); align-items: center; justify-content: center; padding: 20px;
@@ -118,7 +118,6 @@
         .modal-content input:focus, .modal-content select:focus { border-color: var(--neon); }
         .modal-content label { font-size: 0.8rem; font-weight: 600; opacity: 0.5; margin-bottom: 6px; display: block; text-transform: uppercase; letter-spacing: 0.5px; color: #FFF; }
         
-        /* Layout Mobile Responsive */
         @media (max-width: 576px) {
             .radar-card { flex-direction: column; align-items: flex-start; gap: 20px; padding: 20px; }
             .btn-join { width: 100%; text-align: center; }
@@ -199,58 +198,46 @@
     <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
 
     <script>
-        // Funzioni Menu Overlay e Finestra Modale
         function openM() { document.getElementById("m").style.width = "100%"; }
         function closeM() { document.getElementById("m").style.width = "0"; }
         
         function toggleModal(show) {
             const modal = document.getElementById("matchModal");
-            if (modal) {
-                modal.style.display = show ? "flex" : "none";
-            }
+            if (modal) { modal.style.display = show ? "flex" : "none"; }
         }
 
-        // Configurazione e aggancio credenziali Supabase
         const SUPABASE_URL = "https://ennpbtrthwdxsvdbqbmn.supabase.co";
         const SUPABASE_KEY = "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6ImVubnBidHJ0aHdkeHN2ZGJxYm1uIiwicm9sZSI6ImFub24iLCJpYXQiOjE3NzkwNjU0NzUsImV4cCI6MjA5NDY0MTQ3NX0.JL-w7qkp6bktVJMrJ7O0Uw1phxaBpBc9BiP3cH8Q4-0";
         
-        let supabase = null;
-
-        try {
-            if (window.supabase) {
-                supabase = window.supabase.createClient(SUPABASE_URL, SUPABASE_KEY);
-            }
-        } catch (e) {
-            console.error("Connessione interrotta:", e);
-        }
+        // CORREZIONE CRITICA: Definiamo il client globale una sola volta qui sotto
+        const dbClient = window.supabase ? window.supabase.createClient(SUPABASE_URL, SUPABASE_KEY) : null;
 
         window.onload = function() {
             if(localStorage.getItem('nevera-level')) {
                 document.getElementById('userLevel').value = localStorage.getItem('nevera-level');
             }
-            if (supabase) {
+            if (dbClient) {
                 fetchMatches();
             }
         }
 
         function saveLevel() {
             localStorage.setItem('nevera-level', document.getElementById('userLevel').value);
-            if (supabase) fetchMatches();
+            if (dbClient) fetchMatches();
         }
 
-        // CARICAMENTO RECORD (Mappatura esatta sulle colonne in Inglese)
         async function fetchMatches() {
-            if (!supabase) return;
+            if (!dbClient) return;
             const list = document.getElementById("matchList");
             const filter = document.getElementById("userLevel").value;
 
-            let { data: matches, error } = await supabase
+            let { data: matches, error } = await dbClient
                 .from('matches')
                 .select('*')
                 .order('date', { ascending: true });
 
             if (error) {
-                list.innerHTML = `<p style="opacity:0.6; color: #FF4444; margin-top:20px; font-weight:600;"><i class="fa-solid fa-triangle-exclamation me-2"></i>Bacheca protetta. Ricorda di abilitare le regole di lettura RLS su Supabase.</p>`;
+                list.innerHTML = `<p style="opacity:0.6; color: #FF4444; margin-top:20px; font-weight:600;"><i class="fa-solid fa-triangle-exclamation me-2"></i>Bacheca protetta. Ricorda di disabilitare l'RLS su Supabase.</p>`;
                 return;
             }
 
@@ -294,9 +281,8 @@
             }
         }
 
-        // AGGIUNTA RECORD (Mappatura esatta sulle colonne in Inglese)
         async function createMatch() {
-            if (!supabase) return;
+            if (!dbClient) return;
             
             const club = document.getElementById("matchClub").value;
             const dataOraInput = document.getElementById("matchTime").value;
@@ -311,23 +297,23 @@
 
             const payload = {
                 club: club,
-                date: new Date(dataOraInput).toISOString(), // Formattazione adatta per timestamptz
+                date: new Date(dataOraInput).toISOString(),
                 level: livello,
                 missing: parseInt(giocatori_mancanti),
                 link: phone
             };
 
-            const { error } = await supabase.from('matches').insert([payload]);
+            const { error } = await dbClient.from('matches').insert([payload]);
 
             if (error) {
-                alert("Errore d'inserimento. Verifica se hai sbloccato l'accesso INSERT nelle policy RLS: " + error.message);
+                alert("Errore d'inserimento: " + error.message);
             } else {
                 toggleModal(false);
                 document.getElementById("matchClub").value = "";
                 document.getElementById("matchTime").value = "";
                 document.getElementById("matchPhone").value = "";
                 document.getElementById("matchMissing").value = "";
-                fetchMatches(); // rinfresca la lista istantaneamente
+                fetchMatches();
             }
         }
     </script>
