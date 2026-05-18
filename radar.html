@@ -289,13 +289,15 @@
             const grid = document.getElementById("radarGrid");
             const filter = document.getElementById("userLevel").value;
 
+            // Puntiamo a 'Matches' con la M maiuscola coerente con Supabase
             let { data: matches, error } = await dbClient
-                .from('matches')
+                .from('Matches')
                 .select('*')
                 .order('date', { ascending: true });
 
             if (error) {
-                grid.innerHTML = `<p style="opacity:0.6; color: #FF4444; margin-top:20px; font-weight:600;"><i class="fa-solid fa-triangle-exclamation me-2"></i>Bacheca protetta. Controlla di aver disattivato l'RLS e premuto Save su Supabase.</p>`;
+                grid.innerHTML = `<p style="opacity:0.6; color: #FF4444; margin-top:20px; font-weight:600;"><i class="fa-solid fa-triangle-exclamation me-2"></i>Errore di sincronizzazione. Controlla la tabella su Supabase.</p>`;
+                console.error(error);
                 return;
             }
 
@@ -361,7 +363,7 @@
                 link: phone
             };
 
-            const { error } = await dbClient.from('matches').insert([payload]);
+            const { error } = await dbClient.from('Matches').insert([payload]);
 
             if (error) {
                 alert("Errore d'inserimento: " + error.message);
