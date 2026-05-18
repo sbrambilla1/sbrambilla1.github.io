@@ -14,8 +14,6 @@
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
     
-    <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
-    
     <style>
         :root {
             --neon: #3FF000;
@@ -39,7 +37,7 @@
             position: absolute; top: 0; width: 100%; padding: 30px 0; text-align: center; z-index: 100;
             background: linear-gradient(to bottom, rgba(4, 4, 4, 0.9) 0%, transparent 100%);
         }
-        .logo-trigger { height: 60px; cursor: pointer; transition: 0.4s; }
+        .logo-trigger { height: 60px; cursor: pointer; transition: 0.4s; z-index: 101; position: relative; }
         .logo-trigger:hover { transform: scale(1.1); filter: drop-shadow(0 0 15px var(--neon)); }
 
         /* MENU OVERLAY */
@@ -57,7 +55,7 @@
         .nv-title { font-family: var(--font-title); font-size: clamp(2.5rem, 8vw, 4.5rem); text-transform: uppercase; letter-spacing: -2px; margin: 0; line-height: 0.9; text-align: center;}
         .nv-subtitle { color: var(--neon); font-weight: 700; text-transform: uppercase; letter-spacing: 6px; margin-bottom: 40px; font-size: 0.8rem; text-align: center; }
 
-        /* SEZIONE FILTRI E LIVELLO */
+        /* SEZIONE FILTRI */
         .profile-box {
             background: rgba(255, 255, 255, 0.02); border: 1px solid rgba(255, 255, 255, 0.05);
             border-radius: 20px; padding: 20px; width: 100%; max-width: 800px; margin-bottom: 30px;
@@ -68,15 +66,15 @@
         }
         .level-select:focus { border-color: var(--neon); outline: none; }
 
-        /* FORM INSERIMENTO */
+        /* BOTTONE SOS */
         .btn-action {
             font-family: var(--font-title); background: transparent; color: var(--white);
             border: 1px solid rgba(255, 255, 255, 0.2); padding: 15px 30px; border-radius: 50px;
-            text-decoration: none !important; font-size: 0.8rem; transition: 0.3s; text-transform: uppercase; margin-bottom: 40px; cursor: pointer;
+            text-decoration: none !important; font-size: 0.8rem; transition: 0.3s; text-transform: uppercase; margin-bottom: 40px; cursor: pointer; display: inline-block;
         }
         .btn-action:hover { border-color: var(--neon); color: var(--neon); background: rgba(63, 240, 0, 0.02); }
 
-        /* CARDS DEI MATCH */
+        /* CARDS */
         .radar-card {
             background: rgba(255, 255, 255, 0.03); border: 1px solid rgba(255, 255, 255, 0.08);
             border-radius: 25px; padding: 25px; margin-bottom: 20px; width: 100%; max-width: 800px;
@@ -97,14 +95,14 @@
         }
         .btn-join:hover { transform: scale(1.05); box-shadow: 0 0 25px rgba(63, 240, 0, 0.4); color: var(--dark); }
 
-        /* MODALE INSERIMENTO MATCH */
+        /* MODALE POPUP */
         .nv-modal {
             display: none; position: fixed; z-index: 10000; top:0; left:0; width:100%; height:100%;
             background: rgba(4,4,4,0.95); align-items: center; justify-content: center; padding: 20px;
         }
         .modal-content {
             background: rgba(255,255,255,0.02); border: 1px solid rgba(255,255,255,0.1);
-            padding: 40px; border-radius: 30px; max-width: 500px; width: 100%; backdrop-filter: blur(20px);
+            padding: 40px; border-radius: 30px; max-width: 500px; width: 100%; backdrop-filter: blur(20px); color: white;
         }
         .modal-content h3 { font-family: var(--font-title); font-size: 1.5rem; margin-bottom: 20px; text-transform: uppercase;}
         .modal-content input, .modal-content select {
@@ -196,48 +194,55 @@
         </div>
     </footer>
 
+    <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+
     <script>
         function openM() { document.getElementById("m").style.width = "100%"; }
         function closeM() { document.getElementById("m").style.width = "0"; }
         
-        // CORREZIONE APERTURA/CHIUSURA SCHERMATA INTERATTIVA
         function toggleModal(show) {
             const modal = document.getElementById("matchModal");
-            if (show) {
-                modal.style.display = "flex";
-            } else {
-                modal.style.display = "none";
+            if (modal) {
+                modal.style.display = show ? "flex" : "none";
             }
         }
 
-        // CONFIGURAZIONE SUPABASE
         const SUPABASE_URL = "https://ennpbtrthwdxsvdbqbmn.supabase.co";
         const SUPABASE_KEY = "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6ImVubnBidHJ0aHdkeHN2ZGJxYm1uIiwicm9sZSI6ImFub24iLCJpYXQiOjE3NzkwNjU0NzUsImV4cCI6MjA5NDY0MTQ3NX0.JL-w7qkp6bktVJMrJ7O0Uw1phxaBpBc9BiP3cH8Q4-0";
         
-        const supabase = window.supabase.createClient(SUPABASE_URL, SUPABASE_KEY);
+        let supabase = null;
+
+        try {
+            if (window.supabase) {
+                supabase = window.supabase.createClient(SUPABASE_URL, SUPABASE_KEY);
+            }
+        } catch (err) {
+            console.error("Errore Supabase:", err);
+        }
 
         window.onload = function() {
             if(localStorage.getItem('nevera-level')) {
                 document.getElementById('userLevel').value = localStorage.getItem('nevera-level');
             }
-            fetchMatches();
             
-            // Sincronizzazione in tempo reale con Supabase
-            supabase
-                .channel('schema-db-changes')
-                .on('postgres_changes', { event: '*', schema: 'public', table: 'matches' }, payload => {
-                    fetchMatches();
-                })
-                .subscribe();
+            if (supabase) {
+                fetchMatches();
+                supabase
+                    .channel('schema-db-changes')
+                    .on('postgres_changes', { event: '*', schema: 'public', table: 'matches' }, payload => {
+                        fetchMatches();
+                    })
+                    .subscribe();
+            }
         }
 
         function saveLevel() {
             localStorage.setItem('nevera-level', document.getElementById('userLevel').value);
-            fetchMatches();
+            if (supabase) fetchMatches();
         }
 
-        // SCARICA I MATCH DA SUPABASE
         async function fetchMatches() {
+            if (!supabase) return;
             const list = document.getElementById("matchList");
             const filter = document.getElementById("userLevel").value;
 
@@ -247,7 +252,7 @@
                 .order('created_at', { ascending: false });
 
             if (error) {
-                console.error("Errore nel caricamento:", error);
+                console.error("Errore:", error);
                 return;
             }
 
@@ -255,16 +260,21 @@
             let hasMatches = false;
 
             matches.forEach((m) => {
-                if (filter === "all" || m.level === filter) {
+                // Riconosce sia "giocatori mancanti" che "giocatori_mancanti" per sicurezza
+                const mancanti = m.giocatori_mancanti || m['giocatori mancanti'] || 1;
+                const liv = m.livello || 'tutti';
+                const dataOra = m.data || '';
+
+                if (filter === "all" || liv === filter) {
                     hasMatches = true;
                     list.innerHTML += `
                         <div class="radar-card" id="card-${m.id}">
                             <div class="match-info">
                                 <h4>${m.club}</h4>
-                                <p><i class="fa-regular fa-clock me-2"></i>${m.time}</p>
+                                <p><i class="fa-regular fa-clock me-2"></i>${dataOra}</p>
                                 <div class="match-meta">
-                                    <span class="badge-radar badge-neon">${m.level}</span>
-                                    <span class="badge-radar">Mancano: ${m.missing}</span>
+                                    <span class="badge-radar badge-neon">${liv}</span>
+                                    <span class="badge-radar">Mancano: ${mancanti}</span>
                                 </div>
                             </div>
                             <div class="d-flex gap-2 flex-wrap">
@@ -282,30 +292,41 @@
             }
         }
 
-        // CARICA IL MATCH SU SUPABASE MAZZATO CON LA COLONNA "LINK"
         async function createMatch() {
+            if (!supabase) return;
+            
             const club = document.getElementById("matchClub").value;
-            const time = document.getElementById("matchTime").value;
-            const level = document.getElementById("matchLevel").value;
-            const missing = document.getElementById("matchMissing").value;
+            const dataOra = document.getElementById("matchTime").value;
+            const livello = document.getElementById("matchLevel").value;
+            const giocatori_mancanti = document.getElementById("matchMissing").value;
             let phone = document.getElementById("matchPhone").value;
 
-            if(!club || !time || !phone) { alert("Compila tutti i campi!"); return; }
+            if(!club || !dataOra || !phone) { alert("Compila tutti i campi!"); return; }
             
             phone = phone.replace(/\s+/g, '');
             if(!phone.startsWith('39') && !phone.startsWith('+39')) phone = '39' + phone;
 
+            // Invia i dati usando ESATTAMENTE i tuoi nomi colonna in italiano
+            // Gestisce sia il nome con lo spazio che col trattino basso per evitare qualsiasi errore
+            const payload = {
+                club: club,
+                data: dataOra,
+                livello: livello,
+                link: phone
+            };
+            
+            // Inserisce il campo corretto per i giocatori mancanti
+            payload['giocatori_mancanti'] = parseInt(giocatori_mancanti);
+            payload['giocatori mancanti'] = parseInt(giocatori_mancanti);
+
             const { error } = await supabase
                 .from('matches')
-                .insert([
-                    { club: club, time: time, level: level, missing: parseInt(missing), link: phone }
-                ]);
+                .insert([payload]);
 
             if (error) {
-                alert("Errore nell'invio: " + error.message);
+                alert("Errore nell'invio. Verifica i nomi delle colonne su Supabase: " + error.message);
             } else {
                 toggleModal(false);
-                // Reset dei campi interni del pop-up
                 document.getElementById("matchClub").value = "";
                 document.getElementById("matchTime").value = "";
                 document.getElementById("matchPhone").value = "";
