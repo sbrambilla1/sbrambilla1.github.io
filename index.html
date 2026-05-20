@@ -544,5 +544,21 @@
             pwaPrompt.style.display = 'none';
         }
     </script>
+    <script src="https://cdn.onesignal.com/sdks/web/v16/OneSignalSDK.page.js" defer></script>
+<script>
+  window.OneSignalDeferred = window.OneSignalDeferred || [];
+  OneSignalDeferred.push(async function(OneSignal) {
+    await OneSignal.init({
+      appId: "907b9331-51c9-4b9d-a87e-65df7bd815f2",
+      allowLocalhostAsSecureOrigin: true, // Ti permette di fare test anche in locale se usi localhost
+      notifyButton: {
+        enable: false, // Lo teniamo disattivato per attivare il prompt in modo più elegante tramite PWA
+      },
+    });
+
+    // Chiede automaticamente il permesso per le notifiche all'utente quando entra nel sito
+    await OneSignal.Notifications.requestPermission();
+  });
+</script>
 </body>
 </html>
