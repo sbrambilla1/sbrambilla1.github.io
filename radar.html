@@ -66,7 +66,7 @@
 
         /* COMPONENTI SPECIFICI MATCH RADAR */
         .filter-box {
-            margin: 0 auto 35px auto; max-width: 600px;
+            margin: 0 auto 20px auto; max-width: 600px;
             background: rgba(255, 255, 255, 0.02); border: 1px solid rgba(255, 255, 255, 0.06);
             border-radius: 25px; padding: 25px; text-align: left;
             backdrop-filter: blur(10px);
@@ -78,6 +78,16 @@
         }
         .level-select:focus { border-color: var(--neon); }
 
+        /* BOX SEZIONE NOTIFICHE PWA */
+        .push-box {
+            margin: 0 auto 35px auto; max-width: 600px;
+            background: rgba(63, 240, 0, 0.02); border: 1px solid rgba(63, 240, 0, 0.15);
+            border-radius: 20px; padding: 18px; text-align: center;
+            backdrop-filter: blur(10px); display: flex; align-items: center; justify-content: space-between; gap: 15px;
+        }
+        .push-text { text-align: left; color: rgba(255, 255, 255, 0.8); font-size: 0.85rem; margin: 0; }
+        .push-text strong { color: var(--neon); }
+
         .btn-action {
             font-family: var(--font-title); background: transparent; color: var(--white);
             border: 1px solid rgba(255, 255, 255, 0.2); padding: 16px 40px; border-radius: 50px;
@@ -85,6 +95,13 @@
             margin-bottom: 50px; cursor: pointer; display: inline-block; letter-spacing: 2px;
         }
         .btn-action:hover { border-color: var(--neon); color: var(--neon); background: rgba(63, 240, 0, 0.03); box-shadow: 0 0 15px rgba(63, 240, 0, 0.1); }
+
+        .btn-push-trigger {
+            font-family: var(--font-title); background: var(--neon); color: var(--dark);
+            border: none; padding: 10px 20px; border-radius: 50px; font-size: 0.65rem;
+            text-transform: uppercase; letter-spacing: 1px; transition: 0.3s; font-weight: bold; white-space: nowrap;
+        }
+        .btn-push-trigger:hover { transform: scale(1.05); box-shadow: 0 0 15px rgba(63, 240, 0, 0.4); }
 
         /* GRIGLIA ED ELEMENTI DEL RADAR */
         #radarGrid { margin: 0 auto; max-width: 600px; width: 100%; }
@@ -151,6 +168,9 @@
         .copyright { margin-top: 80px; opacity: 0.15; font-size: 0.55rem; letter-spacing: 5px; text-align: center; width: 100%; }
 
         @media (max-width: 768px) {
+            .push-box { flex-direction: column; text-align: center; padding: 20px; }
+            .push-text { text-align: center; }
+            .btn-push-trigger { width: 100%; }
             .radar-card { flex-direction: column; align-items: flex-start; gap: 20px; padding: 20px; }
             .btn-join { width: 100%; text-align: center; }
             .footer-container { flex-direction: column; text-align: center; }
@@ -196,6 +216,11 @@
             </select>
         </div>
 
+        <div class="push-box">
+            <p class="push-text"><i class="fa-solid fa-bell me-2 text-warning"></i>Resta aggiornato: attiva le <strong>Notifiche Push</strong> per non perdere nessun SOS Match sul tuo telefono.</p>
+            <button id="btnPushNotify" class="btn-push-trigger">Attiva ora</button>
+        </div>
+
         <div>
             <button class="btn-action" onclick="toggleModal(true)"><i class="fa-solid fa-plus me-2"></i> Lancia un SOS Match</button>
         </div>
@@ -234,7 +259,6 @@
             <div class="d-flex gap-2 mt-4">
                 <button class="btn-action" onclick="toggleModal(false)" style="margin: 0; padding: 12px 20px; font-size: 0.8rem;">Annulla</button>
                 <button class="btn-join" onclick="createMatch()" style="flex: 1; padding: 14px 0; font-size: 0.8rem;">Pubblica</button>
-                
             </div>
         </div>
     </div>
@@ -264,20 +288,45 @@
     </footer>
 
     <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+    <script src="https://cdn.onesignal.com/sdks/web/v16/OneSignalSDK.page.js" defer></script>
 
     <script>
+        // Gestione Menu Overlay
         function openM() { document.getElementById("m").style.width = "100%"; }
         function closeM() { document.getElementById("m").style.width = "0"; }
         
+        // Gestione Modale Inserimento
         function toggleModal(show) {
             const modal = document.getElementById("matchModal");
             if (modal) { modal.style.display = show ? "flex" : "none"; }
         }
 
+        // Configurazione Supabase Client
         const SUPABASE_URL = "https://ennpbtrthwdxsvdbqbmn.supabase.co";
         const SUPABASE_KEY = "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6ImVubnBidHJ0aHdkeHN2ZGJxYm1uIiwicm9sZSI6ImFub24iLCJpYXQiOjE3NzkwNjU0NzUsImV4cCI6MjA5NDY0MTQ3NX0.JL-w7qkp6bktVJMrJ7O0Uw1phxaBpBc9BiP3cH8Q4-0";
-        
         const dbClient = window.supabase ? window.supabase.createClient(SUPABASE_URL, SUPABASE_KEY) : null;
+
+        // Inizializzazione SDK OneSignal v16 e Gestione Bottone iOS/Android
+        window.OneSignalDeferred = window.OneSignalDeferred || [];
+        window.OneSignalDeferred.push(async function(OneSignal) {
+            await OneSignal.init({
+                appId: "907b9331-51c9-4b9d-a87e-65df7bd815f2",
+                allowLocalhostAsSecureOrigin: true
+            });
+
+            const pushBtn = document.getElementById('btnPushNotify');
+            if (pushBtn) {
+                pushBtn.addEventListener('click', async function() {
+                    try {
+                        // Richiede nativamente i permessi (Bypassa i blocchi Safari iOS guidando l'azione utente)
+                        await OneSignal.Notifications.requestPermission();
+                        alert("Notifiche attivate! Riceverai un avviso in tempo reale ad ogni SOS Match.");
+                    } catch (err) {
+                        console.error("Errore attivazione notifiche:", err);
+                    }
+                });
+            }
+        });
 
         window.onload = function() {
             if(localStorage.getItem('nevera-level')) {
@@ -291,105 +340,102 @@
             if (dbClient) fetchMatches();
         }
 
-        
-            async function fetchMatches() {
-    if (!dbClient) return;
-    const grid = document.getElementById("radarGrid");
-    const filter = document.getElementById("userLevel").value;
+        // Lettura Match dal Database Supabase
+        async function fetchMatches() {
+            if (!dbClient) return;
+            const grid = document.getElementById("radarGrid");
+            const filter = document.getElementById("userLevel").value;
 
-    let { data: matches, error } = await dbClient
-        .from('Matches')
-        .select('*')
-        .order('date', { ascending: true });
+            let { data: matches, error } = await dbClient
+                .from('Matches')
+                .select('*')
+                .order('date', { ascending: true });
 
-    if (error) {
-        grid.innerHTML = `<p style="opacity:0.6; color: #FF4444; margin-top:20px; font-weight:600;"><i class="fa-solid fa-triangle-exclamation me-2"></i>Errore di sincronizzazione.</p>`;
-        console.error(error);
-        return;
-    }
+            if (error) {
+                grid.innerHTML = `<p style="opacity:0.6; color: #FF4444; margin-top:20px; font-weight:600;"><i class="fa-solid fa-triangle-exclamation me-2"></i>Errore di sincronizzazione.</p>`;
+                console.error(error);
+                return;
+            }
 
-    grid.innerHTML = "";
-    let hasMatches = false;
+            grid.innerHTML = "";
+            let hasMatches = false;
 
-    matches.forEach((m) => {
-        const mancanti = m.missing || 1;
-        const liv = m.level || 'all';
-        
-        let dataFormattata = "In aggiornamento";
-        if (m.date) {
-            const d = new Date(m.date);
-            dataFormattata = d.toLocaleDateString('it-IT', { day: '2-digit', month: '2-digit' }) + " ore " + d.toLocaleTimeString('it-IT', { hour: '2-digit', minute: '2-digit' });
-        }
+            matches.forEach((m) => {
+                const mancanti = m.missing || 1;
+                const liv = m.level || 'all';
+                
+                let dataFormattata = "In aggiornamento";
+                if (m.date) {
+                    const d = new Date(m.date);
+                    dataFormattata = d.toLocaleDateString('it-IT', { day: '2-digit', month: '2-digit' }) + " ore " + d.toLocaleTimeString('it-IT', { hour: '2-digit', minute: '2-digit' });
+                }
 
-        if (filter === "all" || liv === filter) {
-            hasMatches = true;
-            
-            // Se nel database non c'è un link valido, usiamo un fallback o lo lasciamo vuoto
-            const urlPartita = m.link || "#";
+                if (filter === "all" || liv === filter) {
+                    hasMatches = true;
+                    const urlPartita = m.link || "#";
 
-            grid.innerHTML += `
-                <div class="radar-card">
-                    <div class="match-info">
-                        <h4>${m.club || 'Club Sportivo'}</h4>
-                        <p><i class="fa-regular fa-clock me-2"></i>${dataFormattata}</p>
-                        <div class="match-meta">
-                            <span class="badge-radar badge-neon">${liv}</span>
-                            <span class="badge-radar">Mancano: ${mancanti}</span>
+                    grid.innerHTML += `
+                        <div class="radar-card">
+                            <div class="match-info">
+                                <h4>${m.club || 'Club Sportivo'}</h4>
+                                <p><i class="fa-regular fa-clock me-2"></i>${dataFormattata}</p>
+                                <div class="match-meta">
+                                    <span class="badge-radar badge-neon">${liv}</span>
+                                    <span class="badge-radar">Mancano: ${mancanti}</span>
+                                </div>
+                            </div>
+                            <div>
+                                <a href="${urlPartita}" target="_blank" class="btn-join">
+                                    <i class="fa-solid fa-arrow-up-right-from-square me-1"></i> Apri Link
+                                </a>
+                            </div>
                         </div>
-                    </div>
-                    <div>
-                        <a href="${urlPartita}" target="_blank" class="btn-join">
-                            <i class="fa-solid fa-arrow-up-right-from-square me-1"></i> Apri Link
-                        </a>
-                    </div>
-                </div>
-            `;
+                    `;
+                }
+            });
+
+            if(!hasMatches) {
+                grid.innerHTML = `<p style="opacity:0.4; margin-top:25px; font-size:0.95rem;">Nessun SOS inserito per questa categoria.</p>`;
+            }
         }
-    });
 
-    if(!hasMatches) {
-        grid.innerHTML = `<p style="opacity:0.4; margin-top:25px; font-size:0.95rem;">Nessun SOS inserito per questa categoria.</p>`;
-    }
-}
+        // Creazione Nuovo Match ed invio Webhook automatico via Supabase
+        async function createMatch() {
+            if (!dbClient) return;
+            
+            const club = document.getElementById("matchClub").value;
+            const dataOraInput = document.getElementById("matchTime").value;
+            const livello = document.getElementById("matchLevel").value;
+            const giocatori_mancanti = document.getElementById("matchMissing").value;
+            const partitaLink = document.getElementById("matchLink").value;
 
-async function createMatch() {
-    if (!dbClient) return;
-    
-    const club = document.getElementById("matchClub").value;
-    const dataOraInput = document.getElementById("matchTime").value;
-    const livello = document.getElementById("matchLevel").value;
-    const giocatori_mancanti = document.getElementById("matchMissing").value;
-    
-    // Prendiamo il valore dal nuovo campo URL
-    const partitaLink = document.getElementById("matchLink").value;
+            if(!club || !dataOraInput || !partitaLink || !giocatori_mancanti) { 
+                alert("Tutti i campi sono obbligatori!"); 
+                return; 
+            }
 
-    if(!club || !dataOraInput || !partitaLink || !giocatori_mancanti) { 
-        alert("Tutti i campi sono obbligatori!"); 
-        return; 
-    }
+            const payload = {
+                club: club,
+                date: new Date(dataOraInput).toISOString(),
+                level: livello,
+                missing: parseInt(giocatori_mancanti),
+                link: partitaLink
+            };
 
-    const payload = {
-        club: club,
-        date: new Date(dataOraInput).toISOString(),
-        level: livello,
-        missing: parseInt(giocatori_mancanti),
-        link: partitaLink // Salva direttamente l'URL di Playtomic nella colonna text 'link'
-    };
+            const { error } = await dbClient.from('Matches').insert([payload]);
 
-    const { error } = await dbClient.from('Matches').insert([payload]);
-
-    if (error) {
-        alert("Errore d'inserimento: " + error.message);
-        console.error(error);
-    } else {
-        toggleModal(false);
-        document.getElementById("matchClub").value = "";
-        document.getElementById("matchTime").value = "";
-        document.getElementById("matchMissing").value = "";
-        document.getElementById("matchLink").value = ""; // Svuota il campo link
-        fetchMatches();
-    }
-}
+            if (error) {
+                alert("Errore d'inserimento: " + error.message);
+                console.error(error);
+            } else {
+                toggleModal(false);
+                document.getElementById("matchClub").value = "";
+                document.getElementById("matchTime").value = "";
+                document.getElementById("matchMissing").value = "";
+                document.getElementById("matchLink").value = "";
+                fetchMatches();
+            }
+        }
     </script>
 </body>
 </html>
