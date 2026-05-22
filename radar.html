@@ -1,7 +1,7 @@
 <!DOCTYPE HTML>
 <html lang="it">
 <head>
-    <title>FINDER | NEVERA SPORTS</title>
+    <title>RADAR FINDER | NEVERA SPORTS</title>
     <meta charset="utf-8" />
     <link rel="icon" type="image/png" href="images/logo.png">
     <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=0" />
@@ -120,8 +120,8 @@
             <button class="btn-logout" onclick="handleLogout()"><i class="fa-solid fa-right-from-bracket"></i></button>
         </div>
 
-        <h1 class="radar-title">FINDER</h1>
-        <p class="radar-subtitle">READY SET PLAY!</p>
+        <h1 class="radar-title">SOS MATCH RADAR</h1>
+        <p class="radar-subtitle">Trova o lancia una chiamata alle armi sui campi</p>
 
         <div class="map-container">
             <div id="radarMap"></div>
@@ -151,7 +151,7 @@
         <div class="modal-dialog modal-dialog-centered">
             <div class="modal-content">
                 <div class="modal-header">
-                    <h5 class="modal-title">Aggiungi Match</h5>
+                    <h5 class="modal-title">Lancia un SOS Match</h5>
                     <button type="button" class="btn-close btn-close-white" data-bs-dismiss="modal"></button>
                 </div>
                 <form id="newMatchForm" onsubmit="createMatch(event)">
@@ -159,7 +159,7 @@
                         
                         <label class="small text-uppercase opacity-50 mb-1 fw-bold">Cerca e seleziona il Club / Centro Sportivo</label>
                         <div class="autocomplete-wrapper">
-                            <input type="text" id="matchClub" class="form-control-custom" placeholder="Digita il nome del centro... " autocomplete="off" oninput="searchClub(this.value)" required>
+                            <input type="text" id="matchClub" class="form-control-custom" placeholder="Digita il nome del centro... (es. Monviso Padel)" autocomplete="off" oninput="searchClub(this.value)" required>
                             <div id="autocompleteResults" class="autocomplete-results"></div>
                         </div>
 
@@ -239,7 +239,6 @@
             }
         }
 
-        // FUNZIONE DI RICERCA INTELLIGENTE DEL CENTRO SPORTIVO
         function searchClub(query) {
             clearTimeout(searchTimeout);
             const resultsBox = document.getElementById("autocompleteResults");
@@ -249,9 +248,7 @@
                 return;
             }
 
-            // Aspetta che l'utente si fermi un attimo di digitare prima di cercare (anti-lag)
             searchTimeout = setTimeout(async () => {
-                // Interroga OpenStreetMap limitando i risultati all'Italia
                 const url = `https://nominatim.openstreetmap.org/search?format=json&q=${encodeURIComponent(query)}&countrycodes=it&addressdetails=1&limit=5`;
                 
                 try {
@@ -268,7 +265,6 @@
                     data.forEach(item => {
                         const div = document.createElement("div");
                         div.className = "autocomplete-item";
-                        // Mostra un nome pulito leggibile
                         const displayName = item.display_name.split(',').slice(0, 3).join(',');
                         div.innerText = displayName;
                         
@@ -282,18 +278,15 @@
             }, 400);
         }
 
-        // SELEZIONE DEL CLUB DAL MENU A TENDINA
         function selectClub(item) {
             document.getElementById("matchClub").value = item.display_name.split(',')[0] + " (" + item.display_name.split(',')[1].trim() + ")";
             document.getElementById("matchLat").value = item.lat;
             document.getElementById("matchLng").value = item.lon;
             document.getElementById("autocompleteResults").style.display = "none";
 
-            // Estrazione automatica della sigla provincia dall'indirizzo fornito da OSM
-            let provinceSigla = "MI"; // Default di sicurezza
+            let provinceSigla = "MI"; 
             if (item.address) {
                 if (item.address.province) {
-                    // Cerca corrispondenze con il nostro dizionario per estrarre la sigla
                     const provNome = item.address.province.toLowerCase();
                     if (provNome.includes("bergamo")) provinceSigla = "BG";
                     else if (provNome.includes("brescia")) provinceSigla = "BS";
@@ -306,13 +299,11 @@
             }
             document.getElementById("matchProvince").value = provinceSigla;
 
-            // Mostra un feedback visivo di successo all'utente
             const feedback = document.getElementById("locationFeedback");
             feedback.innerText = `📍 Localizzato a: ${provinceSigla} (Pronto al posizionamento GPS)`;
             feedback.style.display = "block";
         }
 
-        // CARICAMENTO E RENDERING DEI MATCH SUL RADAR
         async function loadMatches() {
             const grid = document.getElementById("matchesGrid");
             const selectedProvince = document.getElementById("geoFilter").value;
@@ -320,7 +311,8 @@
             grid.innerHTML = `<div class="text-center opacity-50 w-100 py-5"><i class="fa-solid fa-circle-notch fa-spin fa-2x mb-3"></i><br>Scansione radar in corso...</div>`;
             markerLayer.clearLayers();
 
-            let query = dbClient.from('sos_matches').select('*').order('date_time', { ascending: true });
+            // CORREZIONE: Puntamento alla tabella 'matches'
+            let query = dbClient.from('matches').select('*').order('date_time', { ascending: true });
 
             if (selectedProvince !== "ALL") {
                 query = query.eq('province', selectedProvince);
@@ -344,7 +336,6 @@
                 const waMessage = encodeURIComponent(`Ciao! Ho visto il tuo SOS su Nevera Sports per la partita del ${dataFormattata} al club ${match.club}. C'è ancora posto?`);
                 const waUrl = `https://wa.me/${match.creator_phone || ''}?text=${waMessage}`;
 
-                // SE INSERITO CON GPS, USA LE COORDINATE PRECISE, ALTRIMENTI USA IL CENTRO PROVINCIA (VECCHI MATCH)
                 let lat = match.latitude;
                 let lng = match.longitude;
 
@@ -387,12 +378,11 @@
             });
         }
 
-        // SALVATAGGIO SOS MATCH CON DATI GEOGRAFICI PRECISI
         async function createMatch(event) {
             event.preventDefault();
             
             const club = document.getElementById("matchClub").value;
-            const province = document.getElementById("matchProvince").value || "MI"; // Default fall-back
+            const province = document.getElementById("matchProvince").value || "MI"; 
             const lat = document.getElementById("matchLat").value ? parseFloat(document.getElementById("matchLat").value) : null;
             const lng = document.getElementById("matchLng").value ? parseFloat(document.getElementById("matchLng").value) : null;
             
@@ -400,6 +390,7 @@
             const playersNeeded = parseInt(document.getElementById("matchPlayers").value);
             const creatorPhone = currentUser?.user_metadata?.phone || '';
 
+            // CORREZIONE: Puntamento alla tabella 'matches'
             const { error } = await dbClient.from('matches').insert([{
                 club: club,
                 province: province,
@@ -422,7 +413,6 @@
             }
         }
 
-        // Chiude la tendina dei suggerimenti se clicchi fuori
         document.addEventListener("click", function (e) {
             if (e.target.id !== "matchClub") {
                 document.getElementById("autocompleteResults").style.display = "none";
