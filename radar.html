@@ -1,7 +1,7 @@
 <!DOCTYPE HTML>
 <html lang="it">
 <head>
-    <title>RADAR FINDER | NEVERA SPORTS</title>
+    <title>FINDER | NEVERA SPORTS</title>
     <meta charset="utf-8" />
     <link rel="icon" type="image/png" href="images/logo.png">
     <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=0" />
@@ -223,15 +223,15 @@
     </div>
 
     <main class="main-wrapper container">
-        <h1 class="nv-title">MATCH RADAR</h1>
-        <p class="nv-subtitle">Scansione Campi Attivi</p>
+        <h1 class="nv-title">FINDER</h1>
+        <p class="nv-subtitle">ready set play</p>
 
         <div class="radar-panel">
             <div id="radarMap"></div>
             
             <div class="filter-bar">
                 <div class="filter-group">
-                    <label>Area di Scansione</label>
+                    <label>MATCH RADAR</label>
                     <select id="geoFilter" class="filter-select" onchange="loadMatches()">
                         <option value="ALL">Tutte le province</option>
                         <option value="BG">Bergamo</option>
@@ -244,25 +244,21 @@
                     </select>
                 </div>
                 <button class="btn-action-nevera" data-bs-toggle="modal" data-bs-target="#newMatchModal">
-                    <i class="fa-solid fa-satellite-dish me-2"></i>Lancia un SOS
+                    <i class="fa-solid fa-satellite-dish me-2"></i>Inserisci Match
                 </button>
             </div>
         </div>
 
         <div id="matchesGrid" class="row g-4 justify-content-center"></div>
 
-        <div class="cta-section">
-            <a href="javascript:void(0)" class="btn-logout-radar" onclick="handleLogout()">
-                <i class="fa-solid fa-right-from-bracket me-2"></i>Scollega Account Radar
-            </a>
-        </div>
+        
     </main>
 
     <div class="modal fade" id="newMatchModal" tabindex="-1" aria-hidden="true">
         <div class="modal-dialog modal-dialog-centered">
             <div class="modal-content">
                 <div class="modal-header border-0 pb-0">
-                    <h5 class="modal-title">Lancia Chiamata SOS</h5>
+                    <h5 class="modal-title">Invia</h5>
                     <button type="button" class="btn-close btn-close-white" data-bs-dismiss="modal"></button>
                 </div>
                 <form id="newMatchForm" onsubmit="createMatch(event)">
@@ -270,7 +266,7 @@
                         
                         <label>Cerca Centro Sportivo</label>
                         <div class="autocomplete-wrapper">
-                            <input type="text" id="matchClub" class="form-control-custom w-100 mb-3" placeholder="Es. Monviso Padel..." autocomplete="off" oninput="searchClub(this.value)" required>
+                            <input type="text" id="matchClub" class="form-control-custom w-100 mb-3" placeholder="..." autocomplete="off" oninput="searchClub(this.value)" required>
                             <div id="autocompleteResults" class="autocomplete-results"></div>
                         </div>
 
@@ -280,21 +276,21 @@
                         
                         <div id="locationFeedback" class="small mb-3 text-uppercase fw-bold text-center" style="color: var(--neon); display:none; font-size:0.7rem; letter-spacing: 1px;"></div>
 
-                        <label>Data e Ora Incontro</label>
+                        <label>Data e Ora</label>
                         <input type="datetime-local" id="matchDate" class="form-control-custom w-100 mb-3" required>
                         
-                        <label>Giocatori Mancanti alla Partita</label>
+                        <label>Giocatori Mancanti</label>
                         <select id="matchPlayers" class="form-control-custom w-100 mb-3" required>
                             <option value="1">1 Giocatore</option>
                             <option value="2">2 Giocatori</option>
                             <option value="3">3 Giocatori</option>
                         </select>
 
-                        <label>Link della Partita (Opzionale - Es. Playtomic)</label>
+                        <label>Link della Partita</label>
                         <input type="url" id="matchLink" class="form-control-custom w-100 mb-2" placeholder="https://playtomic.io/match/...">
                     </div>
                     <div class="modal-footer border-0 pt-0">
-                        <button type="submit" id="publishBtn" class="btn-action-nevera w-100 m-0">Invia Segnale</button>
+                        <button type="submit" id="publishBtn" class="btn-action-nevera w-100 m-0">Invia</button>
                     </div>
                 </form>
             </div>
@@ -464,7 +460,7 @@
             const grid = document.getElementById("matchesGrid");
             const selectedProvince = document.getElementById("geoFilter").value;
             
-            grid.innerHTML = `<div class="text-center opacity-50 py-5 w-100"><i class="fa-solid fa-circle-notch fa-spin fa-2x mb-3" style="color:var(--neon)"></i><br><span style="font-size:0.75rem; letter-spacing:2px; font-weight:800; text-transform:uppercase;">Scansione frequenze radar...</span></div>`;
+            grid.innerHTML = `<div class="text-center opacity-50 py-5 w-100"><i class="fa-solid fa-circle-notch fa-spin fa-2x mb-3" style="color:var(--neon)"></i><br><span style="font-size:0.75rem; letter-spacing:2px; font-weight:800; text-transform:uppercase;">Finding your next match...</span></div>`;
             markerLayer.clearLayers();
 
             // Sincronizzato su 'matches' minuscolo
@@ -479,7 +475,7 @@
 
             const { data: matches, error } = await query;
             if (error || !matches || matches.length === 0) {
-                grid.innerHTML = `<div class="text-center opacity-30 py-5 w-100"><i class="fa-solid fa-satellite-dish fa-3x mb-3"></i><br><span style="font-size:0.75rem; letter-spacing:2px; font-weight:800; text-transform:uppercase;">Nessun Segnale SOS in questa zona</span></div>`;
+                grid.innerHTML = `<div class="text-center opacity-30 py-5 w-100"><i class="fa-solid fa-satellite-dish fa-3x mb-3"></i><br><span style="font-size:0.75rem; letter-spacing:2px; font-weight:800; text-transform:uppercase;">Nessun match in questa zona</span></div>`;
                 return;
             }
 
@@ -489,7 +485,7 @@
                 const dataFormattata = dateObj.toLocaleDateString('it-IT', { day: '2-digit', month: '2-digit' });
                 const oraFormattata = dateObj.toLocaleTimeString('it-IT', { hour: '2-digit', minute: '2-digit' });
 
-                const waMessage = encodeURIComponent(`Ciao! Rispondo alla chiamata SOS su Nevera Sports per la partita del ${dataFormattata} al club ${match.club}. Avete ancora bisogno?`);
+                const waMessage = encodeURIComponent(`Ciao, ti contatto tramite Nevera Sports per la partita del ${dataFormattata} al club ${match.club}. Avete ancora bisogno?`);
                 const waUrl = `https://wa.me/${match.creator_phone || ''}?text=${waMessage}`;
 
                 let lat = match.latitude;
@@ -518,7 +514,7 @@
 
                 let linkButtonHtml = "";
                 if(match.match_link && match.match_link.trim() !== "") {
-                    linkButtonHtml = `<a href="${match.match_link}" target="_blank" class="btn-link-app"><i class="fa-solid fa-bolt me-2"></i>Apri in App/Playtomic</a>`;
+                    linkButtonHtml = `<a href="${match.match_link}" target="_blank" class="btn-link-app"><i class="fa-solid fa-bolt me-2"></i>Apri in App</a>`;
                 }
 
                 const col = document.createElement("div");
@@ -536,7 +532,7 @@
                         </div>
                         <div class="card-actions">
                             ${linkButtonHtml}
-                            <a href="${waUrl}" target="_blank" class="btn-join-match"><i class="fa-brands fa-whatsapp me-2"></i>Contatta su WA</a>
+                            <a href="${waUrl}" target="_blank" class="btn-join-match"><i class="fa-brands fa-whatsapp me-2"></i>Contatta su Whatsapp</a>
                         </div>
                     </div>
                 `;
