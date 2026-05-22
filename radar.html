@@ -1,7 +1,7 @@
 <!DOCTYPE HTML>
 <html lang="it">
 <head>
-    <title>RADAR FINDER | NEVERA SPORTS</title>
+    <title>FINDER | NEVERA SPORTS</title>
     <meta charset="utf-8" />
     <link rel="icon" type="image/png" href="images/logo.png">
     <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=0" />
@@ -228,8 +228,8 @@
     </div>
 
     <main class="main-wrapper container">
-        <h1 class="nv-title">MATCH RADAR</h1>
-        <p class="nv-subtitle">Scansione Campi Attivi</p>
+        <h1 class="nv-title">FINDER</h1>
+        <p class="nv-subtitle">READY SET PLAY</p>
 
         <div class="radar-panel">
             <div id="radarMap"></div>
@@ -256,18 +256,14 @@
 
         <div id="matchesGrid" class="row g-4 justify-content-center"></div>
 
-        <div class="cta-section">
-            <a href="javascript:void(0)" class="btn-logout-radar" onclick="handleLogout()">
-                <i class="fa-solid fa-right-from-bracket me-2"></i>Scollega Account Radar
-            </a>
-        </div>
+        
     </main>
 
     <div class="modal fade" id="newMatchModal" tabindex="-1" aria-hidden="true">
         <div class="modal-dialog modal-dialog-centered">
             <div class="modal-content">
                 <div class="modal-header border-0 pb-0">
-                    <h5 class="modal-title">Lancia Chiamata SOS</h5>
+                    <h5 class="modal-title">Inserisci Match</h5>
                     <button type="button" class="btn-close btn-close-white" data-bs-dismiss="modal"></button>
                 </div>
                 <form id="newMatchForm" onsubmit="createMatch(event)">
@@ -275,7 +271,7 @@
                         
                         <label>Cerca Centro Sportivo</label>
                         <div class="autocomplete-wrapper">
-                            <input type="text" id="matchClub" class="form-control-custom w-100 mb-3" placeholder="Es. Monviso Padel..." autocomplete="off" oninput="searchClub(this.value)" required>
+                            <input type="text" id="matchClub" class="form-control-custom w-100 mb-3" placeholder="..." autocomplete="off" oninput="searchClub(this.value)" required>
                             <div id="autocompleteResults" class="autocomplete-results"></div>
                         </div>
 
@@ -285,10 +281,10 @@
                         
                         <div id="locationFeedback" class="small mb-3 text-uppercase fw-bold text-center" style="color: var(--neon); display:none; font-size:0.7rem; letter-spacing: 1px;"></div>
 
-                        <label>Data e Ora Incontro</label>
+                        <label>Data e Ora</label>
                         <input type="datetime-local" id="matchDate" class="form-control-custom w-100 mb-3" required>
                         
-                        <label>Giocatori Mancanti alla Partita</label>
+                        <label>Giocatori Mancanti </label>
                         <select id="matchPlayers" class="form-control-custom w-100 mb-3" required>
                             <option value="1">1 Giocatore</option>
                             <option value="2">2 Giocatori</option>
@@ -296,7 +292,7 @@
                         </select>
                     </div>
                     <div class="modal-footer border-0 pt-0">
-                        <button type="submit" id="publishBtn" class="btn-action-nevera w-100 m-0">Invia Segnale</button>
+                        <button type="submit" id="publishBtn" class="btn-action-nevera w-100 m-0">Invia</button>
                     </div>
                 </form>
             </div>
