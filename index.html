@@ -101,24 +101,15 @@
             margin-top: 80px;
         }
 
-        /* HEADER NUOVO CON STRUTTURA ALLINEATA A FINDER */
-        header { 
+        /* HEADER CON SFUMATURA DEDICATA IN ALTO */
+        .nav-fix { 
             position: absolute; 
             top: 0; 
-            width: 100%;
-            padding: 40px 0; 
+            width: 100%; 
+            padding: 50px 0 80px 0; 
+            text-align: center; 
             z-index: 100;
             background: linear-gradient(to bottom, rgba(4, 4, 4, 0.9) 0%, transparent 100%);
-        }
-        
-        .header-container {
-            max-width: 1200px;
-            margin: 0 auto;
-            padding: 0 20px;
-            display: flex;
-            justify-content: center;
-            align-items: center;
-            position: relative;
         }
 
         .logo-trigger { 
@@ -131,72 +122,66 @@
             filter: drop-shadow(0 0 15px var(--neon)); 
         }
 
-                /* User Menu Styles */
+        /* --- DROPDOWN MENU UTENTE IDENTICO AL FINDER --- */
         .user-menu-container {
             position: absolute;
-            right: 20px;
             top: 50%;
+            right: 30px;
             transform: translateY(-50%);
+            z-index: 101;
         }
+
         .user-avatar {
             width: 45px;
             height: 45px;
             border-radius: 50%;
-            background: rgba(255, 255, 255, 0.05);
-            border: 1px solid rgba(255, 255, 255, 0.1);
-            color: var(--white);
+            background: linear-gradient(135deg, #0072ff, #00f2fe);
+            color: white;
             display: flex;
             align-items: center;
             justify-content: center;
-            font-family: var(--font-title);
-            font-size: 1rem;
+            font-weight: bold;
+            font-size: 1.1rem;
             cursor: pointer;
-            transition: 0.3s;
+            border: 2px solid rgba(255, 255, 255, 0.2);
+            transition: all 0.3s ease;
         }
+
         .user-avatar:hover {
-            border-color: var(--neon);
-            box-shadow: 0 0 15px rgba(63, 240, 0, 0.2);
-            color: var(--neon);
+            box-shadow: 0 0 15px rgba(0, 242, 254, 0.6);
+            border-color: #00f2fe;
         }
+
         .dropdown-menu-nevera {
-            background: rgba(12, 12, 12, 0.98) !important;
-            border: 1px solid rgba(255, 255, 255, 0.08) !important;
-            border-radius: 16px !important;
-            backdrop-filter: blur(10px);
-            padding: 8px !important;
-            margin-top: 10px !important;
+            background-color: #161925 !important;
+            border: 1px solid rgba(255, 255, 255, 0.1) !important;
+            box-shadow: 0 10px 30px rgba(0,0,0,0.5) !important;
+            border-radius: 12px !important;
+            padding: 8px 0 !important;
+            min-width: 200px !important;
         }
+
         .dropdown-item-nevera {
-            color: rgba(255, 255, 255, 0.7) !important;
-            font-size: 0.8rem;
-            font-weight: 600;
-            letter-spacing: 1px;
-            text-transform: uppercase;
+            color: #8f9cae !important;
             padding: 10px 20px !important;
-            border-radius: 10px;
-            transition: 0.2s;
+            font-size: 0.95rem !important;
+            transition: all 0.2s ease !important;
+            text-align: left;
+            display: flex;
+            align-items: center;
         }
+
         .dropdown-item-nevera:hover {
-            background: var(--neon) !important;
-            color: var(--dark) !important;
+            background-color: rgba(0, 242, 254, 0.1) !important;
+            color: #00f2fe !important;
         }
+
         .dropdown-item-nevera.logout:hover {
-            background: #FF4444 !important;
-            color: var(--white) !important;
+            background-color: rgba(255, 75, 75, 0.1) !important;
+            color: #ff4b4b !important;
         }
 
-        /* MENU DI NAVIGAZIONE FULLSCREEN OVERLAY */
-        .nv-menu {
-            height: 100%; width: 0; position: fixed; z-index: 9999;
-            top: 0; left: 0; background-color: rgba(4, 4, 4, 0.98); 
-            overflow: hidden; transition: 0.5s; 
-            display: flex; align-items: center; justify-content: center;
-        }
-        .nv-links a { font-family: var(--font-title); font-size: 2.5rem; color: var(--white); text-decoration: none; display: block; margin: 20px; text-transform: uppercase; }
-        .nv-links a:hover { color: var(--neon); transform: scale(1.05); }
-        .nv-close { position: absolute; top: 30px; right: 45px; font-size: 50px; color: var(--neon); text-decoration: none; }
-
-        /* --- SEZIONE CONTENUTI --- */
+        /* --- SEZIONE CONTENUTI (SOTTO LA FOTO) --- */
         .main-wrapper { 
             position: relative; 
             z-index: 10; 
@@ -211,7 +196,7 @@
         .nv-title { font-family: var(--font-title); font-size: clamp(3.5rem, 12vw, 6rem); text-transform: uppercase; letter-spacing: -3px; margin: 0; line-height: 0.9; }
         .nv-subtitle { color: var(--neon); font-weight: 700; text-transform: uppercase; letter-spacing: 12px; margin-bottom: 20px; font-size: 0.8rem; }
 
-        /* CARDS GRIGLIA PRINCIPALE */
+        /* CARDS */
         .home-card {
             display: flex; flex-direction: column; justify-content: center; align-items: center;
             background: rgba(255, 255, 255, 0.03); 
@@ -238,45 +223,126 @@
         .btn-revolution {
             font-family: var(--font-title); background: var(--neon); color: var(--dark);
             padding: 20px 40px; border-radius: 50px; text-decoration: none !important;
-            display: inline-block; font-size: 0.85rem; transition: 0.3s; text-transform: uppercase; border: none;
+            display: inline-block; font-size: 0.85rem; transition: 0.3s; text-transform: uppercase;
         }
-        .btn-revolution:hover { transform: scale(1.05); box-shadow: 0 0 25px rgba(63, 240, 0, 0.4); color: var(--dark); cursor: pointer; }
+        .btn-revolution:hover { transform: scale(1.05); box-shadow: 0 0 25px rgba(63, 240, 0, 0.4); color: var(--dark); }
 
-        /* BANNER DETTAGLIO FINDER RADAR */
+        /* --- STILI BANNER CON IMMAGINE RADAR / MAPPA --- */
         .nv-radar-banner {
-            width: 100%; max-width: 1100px; margin: 80px auto 40px auto; padding: 0 15px; position: relative; z-index: 10;
+            width: 100%;
+            max-width: 1100px;
+            margin: 80px auto 40px auto;
+            padding: 0 15px;
+            position: relative;
+            z-index: 10;
         }
+
         .radar-banner-inside {
             background: linear-gradient(135deg, rgba(255, 255, 255, 0.03) 0%, rgba(255, 255, 255, 0.01) 100%);
-            border: 1px solid rgba(255, 255, 255, 0.08); border-radius: 50px; padding: 60px;
-            display: flex; align-items: center; justify-content: space-between; gap: 40px; text-align: left;
-            backdrop-filter: blur(15px); overflow: hidden; position: relative;
+            border: 1px solid rgba(255, 255, 255, 0.08);
+            border-radius: 50px;
+            padding: 60px;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            gap: 40px;
+            text-align: left;
+            backdrop-filter: blur(15px);
+            overflow: hidden;
+            position: relative;
         }
-        .radar-banner-text { flex: 1.2; max-width: 550px; }
-        .radar-tag { color: var(--neon); font-size: 0.7rem; font-weight: 800; letter-spacing: 3px; text-transform: uppercase; display: inline-flex; align-items: center; gap: 8px; margin-bottom: 20px; }
-        .pulse-dot { width: 8px; height: 8px; background-color: #FF3333; border-radius: 50%; display: inline-block; animation: pulseAlpha 1.5s infinite; box-shadow: 0 0 10px #FF3333; }
-        .radar-banner-graphic { flex: 0.8; display: flex; justify-content: center; align-items: center; position: relative; width: 100%; }
-        .radar-image-container { width: 100%; max-width: 340px; aspect-ratio: 1 / 1; border-radius: 35px; overflow: hidden; border: 1px solid rgba(63, 240, 0, 0.2); box-shadow: 0 15px 40px rgba(0, 0, 0, 0.4), 0 0 20px rgba(63, 240, 0, 0.05); position: relative; }
-        .radar-image-container img { width: 100%; height: 100%; object-fit: cover; transition: transform 0.6s ease; }
-        .radar-banner-inside:hover .radar-image-container img { transform: scale(1.05); }
-        .radar-image-overlay { position: absolute; top: 0; left: 0; width: 100%; height: 100%; background: linear-gradient(to top, rgba(4, 4, 4, 0.4) 0%, transparent 100%); pointer-events: none; }
 
-        @keyframes pulseAlpha { 0%, 100% { opacity: 0.3; } 50% { opacity: 1; } }
+        .radar-banner-text {
+            flex: 1.2;
+            max-width: 550px;
+        }
+
+        .radar-tag {
+            color: var(--neon);
+            font-size: 0.7rem;
+            font-weight: 800;
+            letter-spacing: 3px;
+            text-transform: uppercase;
+            display: inline-flex;
+            align-items: center;
+            gap: 8px;
+            margin-bottom: 20px;
+        }
+
+        .pulse-dot {
+            width: 8px;
+            height: 8px;
+            background-color: #FF3333;
+            border-radius: 50%;
+            display: inline-block;
+            animation: pulseAlpha 1.5s infinite;
+            box-shadow: 0 0 10px #FF3333;
+        }
+
+        .radar-banner-text h2 {
+            font-family: var(--font-title);
+            font-size: clamp(2.2rem, 5vw, 3.8rem);
+            line-height: 0.95;
+            margin-bottom: 20px;
+            letter-spacing: -2px;
+        }
+
+        .radar-banner-text p {
+            opacity: 0.5;
+            font-size: 0.95rem;
+            line-height: 1.6;
+            margin-bottom: 35px;
+            font-weight: 400;
+        }
+
+        /* Contenitore Immagine Mappa / Finder */
+        .radar-banner-graphic {
+            flex: 0.8;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            position: relative;
+            width: 100%;
+        }
+
+        .radar-image-container {
+            width: 100%;
+            max-width: 340px;
+            aspect-ratio: 1 / 1;
+            border-radius: 35px;
+            overflow: hidden;
+            border: 1px solid rgba(63, 240, 0, 0.2);
+            box-shadow: 0 15px 40px rgba(0, 0, 0, 0.4), 0 0 20px rgba(63, 240, 0, 0.05);
+            position: relative;
+        }
+
+        .radar-image-container img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            transition: transform 0.6s ease;
+        }
+
+        .radar-banner-inside:hover .radar-image-container img {
+            transform: scale(1.05);
+        }
+
+        /* Overlay scuro sopra l'immagine per dar profondità cyberpunk */
+        .radar-image-overlay {
+            position: absolute;
+            top: 0; left: 0; width: 100%; height: 100%;
+            background: linear-gradient(to top, rgba(4, 4, 4, 0.4) 0%, transparent 100%);
+            pointer-events: none;
+        }
+
+        @keyframes pulseAlpha {
+            0%, 100% { opacity: 0.3; }
+            50% { opacity: 1; }
+        }
+
+        /* ANIMAZIONE FRECCIA */
         @keyframes bounce { 0%, 20%, 50%, 80%, 100% {transform: translateY(0);} 40% {transform: translateY(-10px);} 60% {transform: translateY(-5px);} }
         .bounce { animation: bounce 2s infinite; }
-
-        /* BLOCCO PRENOTAZIONI PERSONALI UTENTE (INTEGRATO NEL MODALE DASHBOARD PER SOSTITUIRE L'OFFCANVAS) */
-        .my-match-item { background: rgba(255,255,255,0.02); border: 1px solid rgba(255,255,255,0.05); border-radius: 18px; padding: 15px; margin-bottom: 15px; position: relative; text-align: left; }
-        .my-match-club { font-weight: 700; font-size: 0.85rem; text-transform: uppercase; color: white; padding-right: 30px; }
-        .my-match-time { font-size: 0.75rem; color: rgba(255,255,255,0.4); margin-top: 5px; }
-        .btn-delete-match { position: absolute; top: 15px; right: 15px; background: none; border: none; color: rgba(255,68,68,0.5); transition: 0.2s; font-size: 0.9rem; cursor: pointer; }
-        .btn-delete-match:hover { color: #FF4444; transform: scale(1.1); }
-
-        .modal-content-nevera { background: #0c0c0c; border: 1px solid rgba(255,255,255,0.08); border-radius: 35px; color: white; padding: 25px; backdrop-filter: blur(20px); }
-        .profile-data-box { background: rgba(255,255,255,0.02); border: 1px solid rgba(255,255,255,0.05); border-radius: 20px; padding: 20px; margin-bottom: 25px; text-align: left; }
-        .profile-label { font-size: 0.6rem; font-weight: 800; color: rgba(255,255,255,0.4); text-transform: uppercase; letter-spacing: 1.5px; margin-bottom: 4px; }
-        .profile-value { font-size: 0.95rem; font-weight: 600; color: white; margin-bottom: 15px; }
-        .profile-value:last-child { margin-bottom: 0; }
 
         /* FOOTER */
         .nv-footer { padding: 100px 20px 60px; border-top: 1px solid rgba(255, 255, 255, 0.05); background: var(--dark); position: relative; z-index: 10; }
@@ -292,18 +358,30 @@
 
         /* RESPONSIVE */
         @media (max-width: 991px) {
-            .radar-banner-inside { flex-direction: column-reverse; padding: 40px 30px; text-align: center; gap: 40px; }
-            .radar-banner-text { display: flex; flex-direction: column; align-items: center; }
+            .radar-banner-inside {
+                flex-direction: column-reverse;
+                padding: 40px 30px;
+                text-align: center;
+                gap: 40px;
+            }
+            .radar-banner-text {
+                display: flex;
+                flex-direction: column;
+                align-items: center;
+            }
             .radar-tag { justify-content: center; }
             .radar-image-container { max-width: 280px; }
         }
 
         @media (max-width: 768px) {
+            .bg-layer { background-position: 42% center; }
             .footer-container { flex-direction: column; text-align: center; }
             .footer-brand { text-align: center; margin-bottom: 20px; }
             .footer-nav { justify-content: center; text-align: center; width: 100%; }
             .f-col { align-items: center; text-align: center; }
-            .user-menu-container { right: 10px; }
+            .btn-action, .btn-join { font-size: 0.7rem !important; }
+            .user-menu-container { right: 20px; }
+            .user-avatar { width: 40px; height: 40px; font-size: 1rem; }
         }
     </style>
 </head>
@@ -313,24 +391,14 @@
         <img src="images/logo.png" alt="Nevera Loading" class="splash-logo">
     </div>
 
-    <script>
-        window.addEventListener('load', function() {
-            const splash = document.getElementById('splash-screen');
-            setTimeout(() => {
-                if(splash) splash.classList.add('splash-hidden');
-            }, 1500);
-        });
-    </script>
-
     <section class="hero-section">
         <div class="bg-layer"></div>
         <div class="bg-overlay"></div>
         
-        <header>
-            <div class="header-container">
-                <img src="images/logo.png" alt="Nevera Logo" class="logo-trigger" onclick="openM()">
-                
-                <div class="user-menu-container dropdown">
+        <header class="nav-fix">
+            <img src="images/logo.png" alt="Nevera Logo" class="logo-trigger" onclick="openM()">
+            
+            <div class="user-menu-container dropdown">
                 <div class="user-avatar" id="userMenuBtn" data-bs-toggle="dropdown" aria-expanded="false">
                     <i class="fa-solid fa-user"></i>
                 </div>
@@ -339,7 +407,6 @@
                     <li><hr class="dropdown-divider border-secondary opacity-20"></li>
                     <li><a class="dropdown-item dropdown-item-nevera logout" href="javascript:void(0)" onclick="handleLogout()"><i class="fa-solid fa-right-from-bracket me-2"></i>Logout</a></li>
                 </ul>
-            </div>
             </div>
         </header>
 
@@ -361,34 +428,6 @@
             <a href="radar.html" onclick="closeM()">FINDER</a>
             <a href="partners.html" onclick="closeM()">SPONSOR</a>
             <a href="iniziative.html" onclick="closeM()">INIZIATIVE</a>
-        </div>
-    </div>
-
-    <div class="modal fade" id="dashboardModal" tabindex="-1" aria-hidden="true">
-        <div class="modal-dialog modal-dialog-centered">
-            <div class="modal-content modal-content-nevera">
-                <div class="modal-header border-0 pb-0 justify-content-between align-items-center">
-                    <h5 class="modal-title" style="font-family: var(--font-title); font-size: 1.1rem; letter-spacing: 1px;">DASHBOARD PROFILO</h5>
-                    <button type="button" class="btn-close btn-close-white" data-bs-dismiss="modal" aria-label="Close"></button>
-                </div>
-                <div class="modal-body px-0 py-3">
-                    <div class="profile-data-box">
-                        <div class="profile-label">Nome</div>
-                        <div class="profile-value" id="dashName">-</div>
-                        
-                        <div class="profile-label">Telefono</div>
-                        <div class="profile-value" id="dashPhone">-</div>
-                        
-                        <div class="profile-label">Provincia di Riferimento</div>
-                        <div class="profile-value" id="dashProvince">-</div>
-                    </div>
-                    
-                    <h6 style="font-family:var(--font-title); font-size:0.75rem; letter-spacing:1px; margin-bottom:15px; text-align:left; padding-left:10px;">I MIEI MATCH ATTIVI</h6>
-                    <div id="myMatchesList">
-                        <p style="font-size:0.8rem; opacity:0.4; text-align:left; padding-left:10px;">Nessun match pubblicato.</p>
-                    </div>
-                </div>
-            </div>
         </div>
     </div>
 
@@ -471,117 +510,71 @@
 
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+    
     <script>
-        const SUPABASE_URL = "https://ennpbtrthwdxsvdbqbmn.supabase.co";
-        const SUPABASE_KEY = "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6ImVubnBidHJ0aHdkeHN2ZGJxYm1uIiwicm9sZSI6ImFub24iLCJpYXQiOjE3NzkwNjU0NzUsImV4cCI6MjA5NDY0MTQ3NX0.JL-w7qkp6bktVJMrJ7O0Uw1phxaBpBc9BiP3cH8Q4-0";
-        const dbClient = window.supabase ? window.supabase.createClient(SUPABASE_URL, SUPABASE_KEY) : null;
-        let currentUser = null;
-
         function openM() { document.getElementById("m").style.width = "100%"; }
         function closeM() { document.getElementById("m").style.width = "0"; }
 
-        // Gestione asincrona dell'autenticazione utente e del Dropdown
+        // Sfondamento dello splash screen al caricamento completo della pagina
+        window.addEventListener('load', function() {
+            const splash = document.getElementById('splash-screen');
+            setTimeout(() => {
+                splash.classList.add('splash-hidden');
+            }, 1500);
+        });
+
+        // Configurazione Client Supabase per la gestione sessione dell'icona header
+        const SUPABASE_URL = "https://ennpbtrthwdxsvdbqbmn.supabase.co";
+        const SUPABASE_KEY = "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6ImVubnBidHJ0aHdkeHN2ZGJxYm1uIiwicm9sZSI6ImFub24iLCJpYXQiOjE3NzkwNjU0NzUsImV4cCI6MjA5NDY0MTQ3NX0.JL-w7qkp6bktVJMrJ7O0Uw1phxaBpBc9BiP3cH8Q4-0";
+        const dbClient = window.supabase ? window.supabase.createClient(SUPABASE_URL, SUPABASE_KEY) : null;
+
+        // Gestione asincrona menu utente nell'header (Esatta copia della logica Finder)
         document.addEventListener("DOMContentLoaded", async function() {
             const avatarBtn = document.getElementById('userMenuBtn');
-            const dropdownMenu = document.getElementById('dropdownMenuItems');
 
             if (dbClient) {
                 try {
-                    const { data: { session } } = await dbClient.auth.getSession();
+                    const { data: { session }, error: sessionError } = await dbClient.auth.getSession();
+                    
+                    if (sessionError) {
+                        console.error("Errore sessione database:", sessionError);
+                        window.location.href = "login.html";
+                        return;
+                    }
                     
                     if (session) {
-                        currentUser = session.user;
-                        const meta = currentUser.user_metadata || {};
-
-                        // 1. Imposta l'iniziale nell'avatar tondo
-                        if (meta.first_name) {
-                            avatarBtn.innerHTML = meta.first_name.charAt(0).toUpperCase();
+                        // UTENTE LOGGATO: Estrai l'iniziale del nome dal profilo Supabase
+                        const currentUser = session.user;
+                        let userInitial = "?";
+                        
+                        if (currentUser.user_metadata?.first_name) {
+                            userInitial = currentUser.user_metadata.first_name.charAt(0).toUpperCase();
                         } else if (currentUser.email) {
-                            avatarBtn.innerHTML = currentUser.email.charAt(0).toUpperCase();
+                            userInitial = currentUser.email.charAt(0).toUpperCase();
                         }
-
-                        // 2. Genera gli elementi per il menu dropdown dell'utente loggato (incluso il link alla Dashboard Modale)
-                        dropdownMenu.innerHTML = `
-                            <li><a class="dropdown-item dropdown-item-nevera" href="javascript:void(0)" data-bs-toggle="modal" data-bs-target="#dashboardModal"><i class="fa-solid fa-id-card me-2"></i>La Mia Dashboard</a></li>
-                            <li><a class="dropdown-item dropdown-item-nevera" href="profilo.html"><i class="fa-solid fa-user-gear me-2"></i>Modifica Profilo</a></li>
-                            <li><hr class="dropdown-divider border-secondary opacity-20"></li>
-                            <li><a class="dropdown-item dropdown-item-nevera logout" href="javascript:void(0)" onclick="handleLogout()"><i class="fa-solid fa-right-from-bracket me-2"></i>Logout</a></li>
-                        `;
-
-                        // Popolamento dei dati all'interno del modale Dashboard
-                        document.getElementById("dashName").innerText = (meta.first_name || '') + " " + (meta.last_name || '');
-                        document.getElementById("dashPhone").innerText = meta.phone || 'Non inserito';
-                        document.getElementById("dashProvince").innerText = meta.province || 'Non specificata';
-
-                        // Carica i match dell'utente
-                        await loadMyMatches();
-
+                        avatarBtn.innerHTML = userInitial;
                     } else {
-                        // UTENTE OSPITE: Icona utente vuota classica e dropdown per reindirizzare al login
-                        avatarBtn.innerHTML = `<i class="fa-regular fa-user"></i>`;
-                        dropdownMenu.innerHTML = `
-                            <li><a class="dropdown-item dropdown-item-nevera" href="login.html"><i class="fa-solid fa-right-to-bracket me-2"></i>Accedi / Login</a></li>
-                        `;
+                        // UTENTE OSPITE: Cliccando sull'avatar rimanda direttamente a login.html
+                        avatarBtn.innerHTML = `<i class="fa-regular fa-user" title="Accedi"></i>`;
+                        avatarBtn.removeAttribute('data-bs-toggle'); // Rimuove l'apertura del dropdown per gli ospiti
+                        avatarBtn.onclick = function() {
+                            window.location.href = "login.html";
+                        };
                     }
-                } catch (err) {
-                    console.error("Errore autenticazione:", err);
+                } catch (globalError) {
+                    console.error("Errore generale nell'autenticazione:", globalError);
+                    window.location.href = "login.html";
                 }
             }
         });
 
-        async function loadMyMatches() {
-            if (!currentUser) return;
-            const listContainer = document.getElementById("myMatchesList");
-            if (!listContainer) return;
-
-            try {
-                const { data: matches, error } = await dbClient
-                    .from('matches')
-                    .select('*')
-                    .eq('user_id', currentUser.id)
-                    .order('date_time', { ascending: true });
-
-                if (error || !matches || matches.length === 0) {
-                    listContainer.innerHTML = `<p style="font-size:0.8rem; opacity:0.4; text-align:left; padding-left:10px;">Nessun match pubblicato da te.</p>`;
-                    return;
-                }
-
-                listContainer.innerHTML = "";
-                matches.forEach(match => {
-                    const d = new Date(match.date_time);
-                    const formattedDate = d.toLocaleDateString('it-IT', { day: '2-digit', month: '2-digit' }) + " alle " + d.toLocaleTimeString('it-IT', { hour: '2-digit', minute: '2-digit' });
-                    
-                    const div = document.createElement("div");
-                    div.className = "my-match-item";
-                    div.innerHTML = `
-                        <div class="my-match-club">${match.club}</div>
-                        <div class="my-match-time">📅 ${formattedDate} (${match.province})</div>
-                        <button class="btn-delete-match" onclick="deleteMatch('${match.id}')" title="Elimina Partita">
-                            <i class="fa-solid fa-trash-can"></i>
-                        </button>
-                    `;
-                    listContainer.appendChild(div);
-                });
-            } catch (e) {
-                console.error("Errore elenco match:", e);
-            }
-        }
-
-        async function deleteMatch(matchId) {
-            if (confirm("Vuoi rimuovere questo match dal Radar?")) {
-                const { error } = await dbClient.from('matches').delete().eq('id', matchId);
-                if (error) {
-                    alert("Errore durante l'eliminazione: " + error.message);
-                } else {
-                    loadMyMatches();
-                }
-            }
-        }
-
+        // Funzione di Logout identica al Finder
         async function handleLogout() {
-            if(confirm("Vuoi disconnetterti da Nevera Sports?")) {
-                await dbClient.auth.signOut();
-                window.location.reload();
+            if (confirm("Vuoi scollegarti dal radar?")) {
+                if (dbClient) {
+                    await dbClient.auth.signOut();
+                    window.location.reload();
+                }
             }
         }
     </script>
@@ -600,6 +593,7 @@
     <script>
         if ('serviceWorker' in navigator) {
             navigator.serviceWorker.register('sw.js').catch(err => console.log("SW Error:", err));
+            
             let link = document.createElement('link');
             link.rel = 'manifest';
             link.href = 'manifest.json';
@@ -627,6 +621,7 @@
                 window.addEventListener('beforeinstallprompt', (e) => {
                     e.preventDefault();
                     deferredPrompt = e;
+                    
                     pwaActionArea.innerHTML = `
                         <button onclick="triggerPwaInstall()" class="btn-revolution" style="flex:1; padding: 10px 0; font-size:0.75rem; text-align:center; background-color: var(--neon); color: var(--dark);">Installa Ora</button>
                         <button onclick="closePwaPrompt()" class="btn-revolution" style="margin:0; padding: 10px 20px; font-size:0.75rem; background: transparent; border: 1px solid rgba(255,255,255,0.2); color: white;">Annulla</button>
