@@ -392,27 +392,6 @@
             background: rgba(4, 4, 4, 0.8);
         }
 
-        .nv-dropdown-menu {
-            position: absolute; top: 55px; right: 0;
-            background: rgba(12, 12, 12, 0.98); border: 1px solid rgba(255, 255, 255, 0.08);
-            border-radius: 20px; width: 240px; padding: 15px;
-            box-shadow: 0 15px 35px rgba(0,0,0,0.8); backdrop-filter: blur(15px);
-            z-index: 1000; display: none; opacity: 0;
-            transform: translateY(-10px); transition: opacity 0.3s, transform 0.3s;
-        }
-        .nv-dropdown-menu.show { display: block; opacity: 1; transform: translateY(0); }
-        .user-menu-header { border-bottom: 1px solid rgba(255,255,255,0.05); padding-bottom: 10px; margin-bottom: 10px; text-align: left; }
-        .user-menu-name { font-family: var(--font-title); font-size: 0.85rem; text-transform: uppercase; margin: 0; color: white; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; display: block; }
-        
-        .nv-dropdown-item {
-            display: flex; align-items: center; gap: 12px; padding: 12px; color: rgba(255,255,255,0.6);
-            font-size: 0.8rem; font-weight: 600; text-decoration: none; border-radius: 10px; transition: 0.2s; cursor: pointer; text-align: left;
-        }
-        .nv-dropdown-item:hover { background: rgba(255,255,255,0.04); color: var(--neon); }
-        .nv-dropdown-item i { width: 16px; font-size: 0.9rem; }
-        .btn-logout-new { border-top: 1px solid rgba(255,255,255,0.05); color: #FF4444 !important; margin-top: 5px; padding-top: 12px; }
-        .btn-logout-new:hover { background: rgba(255, 68, 68, 0.05); color: #FF4444; }
-
         /* PANNELLO STRUTTURALE LATERALE DESTRO (DASHBOARD) */
         .nv-offcanvas {
             position: fixed; top: 0; right: -450px; width: 100%; max-width: 420px; height: 100%;
@@ -427,7 +406,7 @@
         .btn-close-offcanvas { background: none; border: none; color: var(--neon); font-size: 1.5rem; cursor: pointer; }
         .nv-offcanvas-body { flex: 1; overflow-y: auto; padding-right: 5px; }
 
-        .profile-data-box { background: rgba(255,255,255,0.02); border: 1px solid rgba(255,255,255,0.05); border-radius: 20px; padding: 20px; }
+        .profile-data-box { background: rgba(255,255,255,0.02); border: 1px solid rgba(255,255,255,0.05); border-radius: 20px; padding: 20px; margin-bottom: 25px; }
         .profile-label { font-size: 0.6rem; font-weight: 800; color: rgba(255,255,255,0.4); text-transform: uppercase; letter-spacing: 1.5px; margin-bottom: 4px; }
         .profile-value { font-size: 0.95rem; font-weight: 600; color: white; margin-bottom: 15px; }
         .profile-value:last-child { margin-bottom: 0; }
@@ -456,7 +435,7 @@
             </div>
             
             <div class="nav-fix-right">
-                <div id="authHeaderBtn" class="auth-header-icon">
+                <div id="authHeaderBtn" class="auth-header-icon" onclick="handleAuthButtonClick()">
                     <i class="fa-regular fa-user"></i>
                 </div>
             </div>
@@ -485,11 +464,250 @@
 
     <div class="nv-offcanvas" id="userOffcanvas">
         <div class="nv-offcanvas-header">
-            <h5 class="nv-offcanvas-title" id="offcanvasTitle">Dashboard</h5>
+            <h5 class="nv-offcanvas-title">DASHBOARD UTENTE</h5>
             <button class="btn-close-offcanvas" onclick="closeUserPanel()">&times;</button>
         </div>
-        <div class="nv-offcanvas-body" id="offcanvasBody"></div>
+        <div class="nv-offcanvas-body" id="offcanvasBody">
+            <div class="profile-data-box">
+                <div class="profile-label">Nome</div>
+                <div class="profile-value" id="dashName">-</div>
+                
+                <div class="profile-label">Telefono</div>
+                <div class="profile-value" id="dashPhone">-</div>
+                
+                <div class="profile-label">Provincia di Riferimento</div>
+                <div class="profile-value" id="dashProvince">-</div>
+            </div>
+            
+            <h6 style="font-family:var(--font-title); font-size:0.75rem; letter-spacing:1px; margin-bottom:15px;">I MIEI MATCH ATTIVI</h6>
+            <div id="myMatchesList">
+                <p style="font-size:0.8rem; opacity:0.4;">Nessun match pubblicato.</p>
+            </div>
+            
+            <button class="btn-revolution w-100" style="background:#FF4444; color:white; margin-top:30px; font-size:0.75rem;" onclick="handleLogout()">
+                <i class="fa-solid fa-right-from-bracket me-2"></i>Scollegati / Logout
+            </button>
+        </div>
     </div>
 
     <main class="main-wrapper">
-        <div class="container d-flex
+        <div class="container">
+            <div class="row g-4 justify-content-center w-100 m-0 px-2" style="max-width: 1100px;">
+                <div class="col-6 col-md-3">
+                    <a href="radar.html" class="home-card">
+                        <i class="fa-solid fa-satellite-dish"></i>
+                        <h3>Finder</h3>
+                    </a>
+                </div>
+                <div class="col-6 col-md-3">
+                    <a href="eventi.html" class="home-card">
+                        <i class="fa-regular fa-calendar-star"></i>
+                        <h3>Eventi</h3>
+                    </a>
+                </div>
+                <div class="col-6 col-md-3">
+                    <a href="community.html" class="home-card">
+                        <i class="fa-solid fa-users"></i>
+                        <h3>Community</h3>
+                    </a>
+                </div>
+                <div class="col-6 col-md-3">
+                    <a href="partners.html" class="home-card">
+                        <i class="fa-solid fa-handshake"></i>
+                        <h3>Sponsor</h3>
+                    </a>
+                </div>
+            </div>
+        </div>
+
+        <div class="banner-vpl-wrapper">
+            <a href="iniziative.html" class="vpl-gif-banner">
+                <img src="images/neveravpl.gif" alt="Nevera VPL">
+            </a>
+        </div>
+
+        <section class="nv-radar-banner">
+            <div class="radar-banner-inside">
+                <div class="radar-banner-text">
+                    <div class="radar-tag">
+                        <span class="pulse-dot"></span> MATCH RADAR LIVE
+                    </div>
+                    <h2>TROVA COMPAGNI IN ZONA</h2>
+                    <p>Accedi al Finder per visualizzare in tempo reale sulla mappa i match aperti nella tua provincia. Mancano giocatori per la tua partita? Pubblica il tuo slot e chiudi il campo in pochi minuti.</p>
+                    <a href="radar.html" class="btn-revolution">APRI IL FINDER</a>
+                </div>
+                <div class="radar-banner-graphic">
+                    <div class="radar-image-container">
+                        <img src="images/radar_prev.png" alt="Radar Preview">
+                        <div class="radar-image-overlay"></div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <section class="join-section text-center">
+            <h2 style="font-family: var(--font-title); font-size: clamp(1.8rem, 4vw, 3rem); margin-bottom: 20px;">ENTRA NELLA COMMUNITY</h2>
+            <p style="max-width: 600px; margin: 0 auto 40px auto; opacity: 0.5; font-size: 0.95rem;">Unisciti a centinaia di atleti. Ricevi notifiche sui tornei, trova nuovi partner di livello e partecipa alle iniziative esclusive di Nevera Sports.</p>
+            <a href="https://chat.whatsapp.com/GItl3C5mrgxJxXAPhHHRFh" target="_blank" class="btn-revolution" style="background: #25D366; color: white;">
+                <i class="fa-brands fa-whatsapp me-2" style="font-size: 1.1rem; vertical-align: middle;"></i> Gruppo Whatsapp
+            </a>
+        </section>
+    </main>
+
+    <footer class="nv-footer">
+        <div class="footer-container">
+            <div class="footer-brand">
+                <img src="images/logo.png" class="footer-logo-mini" alt="Logo mini">
+                <p style="font-size:0.6rem; opacity:0.2; letter-spacing:3px; font-weight:700; margin:0;">PRECISION IN PERFORMANCE.</p>
+            </div>
+            <div class="footer-nav">
+                <div class="f-col">
+                    <span class="f-label">NAVIGAZIONE</span>
+                    <a href="index.html" class="f-link">HOME</a>
+                    <a href="eventi.html" class="f-link">EVENTI</a>
+                    <a href="community.html" class="f-link">COMMUNITY</a>
+                </div>
+                <div class="f-col">
+                    <span class="f-label">SOCIAL</span>
+                    <a href="https://www.instagram.com/neverasports.it/" class="f-link">INSTAGRAM</a>
+                    <a href="https://chat.whatsapp.com/GItl3C5mrgxJxXAPhHHRFh" class="f-link">WHATSAPP</a>
+                </div>
+            </div>
+        </div>
+        <p class="copyright">© 2026 NEVERA SPORTS | BORN UNDER PRESSURE</p>
+    </footer>
+
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+
+    <script>
+        const SUPABASE_URL = "https://ennpbtrthwdxsvdbqbmn.supabase.co";
+        const SUPABASE_KEY = "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6ImVubnBidHJ0aHdkeHN2ZGJxYm1uIiwicm9sZSI6ImFub24iLCJpYXQiOjE3NzkwNjU0NzUsImV4cCI6MjA5NDY0MTQ3NX0.JL-w7qkp6bktVJMrJ7O0Uw1phxaBpBc9BiP3cH8Q4-0";
+        let dbClient = null;
+        let currentUser = null;
+
+        function openM() { document.getElementById("m").style.width = "100%"; }
+        function closeM() { document.getElementById("m").style.width = "0"; }
+
+        function openUserPanel() { document.getElementById("userOffcanvas").classList.add("open"); }
+        function closeUserPanel() { document.getElementById("userOffcanvas").classList.remove("remove"); document.getElementById("userOffcanvas").classList.remove("open"); }
+
+        function hideSplashScreen() {
+            const screen = document.getElementById("splash-screen");
+            if (screen) screen.classList.add("splash-hidden");
+        }
+
+        // Gestione click sul tasto utente in alto a destra
+        function handleAuthButtonClick() {
+            if (currentUser) {
+                // Utente connesso -> Apri il pannello
+                openUserPanel();
+            } else {
+                // Utente non connesso -> Vai al login
+                window.location.href = "login.html";
+            }
+        }
+
+        window.onload = async function() {
+            // Sblocco di sicurezza per lo splash screen
+            setTimeout(hideSplashScreen, 2500);
+
+            if (!window.supabase) {
+                console.error("Supabase non trovato");
+                hideSplashScreen();
+                return;
+            }
+
+            dbClient = window.supabase.createClient(SUPABASE_URL, SUPABASE_KEY);
+
+            try {
+                const { data: { session }, error: sessionError } = await dbClient.auth.getSession();
+
+                // Se non c'è sessione, non blocchiamo l'utente: nascondiamo solo lo splash screen
+                if (sessionError || !session) {
+                    currentUser = null;
+                    hideSplashScreen();
+                    return;
+                }
+
+                currentUser = session.user;
+
+                // Popoliamo la dashboard nel caso in cui decidesse di aprirla
+                const meta = currentUser.user_metadata || {};
+                document.getElementById("dashName").innerText = (meta.first_name || '') + " " + (meta.last_name || '');
+                document.getElementById("dashPhone").innerText = meta.phone || 'Non inserito';
+                document.getElementById("dashProvince").innerText = meta.province || 'Non specificata';
+
+                // Se l'utente ha salvato il nome, mostriamo l'iniziale stilizzata al posto dell'omino
+                if (meta.first_name) {
+                    document.getElementById("authHeaderBtn").innerHTML = `<span style="font-family:var(--font-title); font-size:0.9rem; color:var(--neon); font-weight:bold;">${meta.first_name.charAt(0).toUpperCase()}</span>`;
+                }
+
+                await loadMyMatches();
+                hideSplashScreen();
+
+            } catch (err) {
+                console.error("Errore nel recupero sessione:", err);
+                hideSplashScreen();
+            }
+        };
+
+        async function loadMyMatches() {
+            if (!currentUser) return;
+            const listContainer = document.getElementById("myMatchesList");
+            if (!listContainer) return;
+
+            try {
+                const { data: matches, error } = await dbClient
+                    .from('matches')
+                    .select('*')
+                    .eq('user_id', currentUser.id)
+                    .order('date_time', { ascending: true });
+
+                if (error || !matches || matches.length === 0) {
+                    listContainer.innerHTML = `<p style="font-size:0.8rem; opacity:0.4;">Nessun match pubblicato da te.</p>`;
+                    return;
+                }
+
+                listContainer.innerHTML = "";
+                matches.forEach(match => {
+                    const d = new Date(match.date_time);
+                    const formattedDate = d.toLocaleDateString('it-IT', { day: '2-digit', month: '2-digit' }) + " alle " + d.toLocaleTimeString('it-IT', { hour: '2-digit', minute: '2-digit' });
+                    
+                    const div = document.createElement("div");
+                    div.className = "my-match-item";
+                    div.innerHTML = `
+                        <div class="my-match-club">${match.club}</div>
+                        <div class="my-match-time">📅 ${formattedDate} (${match.province})</div>
+                        <button class="btn-delete-match" onclick="deleteMatch('${match.id}')" title="Elimina Partita">
+                            <i class="fa-solid fa-trash-can"></i>
+                        </button>
+                    `;
+                    listContainer.appendChild(div);
+                });
+
+            } catch (e) {
+                console.error("Errore match personali:", e);
+            }
+        }
+
+        async function deleteMatch(matchId) {
+            if (confirm("Vuoi rimuovere questo match dal Radar?")) {
+                const { error } = await dbClient.from('matches').delete().eq('id', matchId);
+                if (error) {
+                    alert("Errore durante l'eliminazione: " + error.message);
+                } else {
+                    loadMyMatches();
+                }
+            }
+        }
+
+        async function handleLogout() {
+            if (confirm("Vuoi disconnetterti da Nevera Sports?")) {
+                await dbClient.auth.signOut();
+                window.location.reload(); // Ricarica la pagina aggiornando l'header
+            }
+        }
+    </script>
+</body>
+</html>
