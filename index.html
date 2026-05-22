@@ -122,36 +122,32 @@
             filter: drop-shadow(0 0 15px var(--neon)); 
         }
 
-        /* --- DROPDOWN MENU UTENTE IDENTICO AL FINDER --- */
-        .user-menu-container {
+        /* ICONA DI LOGIN NELL'HEADER (MANTENUTO LE TUE CLASSI ORIGINALI) */
+        .auth-header-icon {
             position: absolute;
             top: 50%;
             right: 30px;
             transform: translateY(-50%);
-            z-index: 101;
-        }
-
-        .user-avatar {
+            font-size: 1.4rem;
+            color: var(--white);
+            cursor: pointer;
+            transition: 0.3s;
             width: 45px;
             height: 45px;
-            border-radius: 50%;
-            background: linear-gradient(135deg, #0072ff, #00f2fe);
-            color: white;
             display: flex;
             align-items: center;
             justify-content: center;
-            font-weight: bold;
-            font-size: 1.1rem;
-            cursor: pointer;
-            border: 2px solid rgba(255, 255, 255, 0.2);
-            transition: all 0.3s ease;
+            border-radius: 50%;
+            background: rgba(255, 255, 255, 0.02);
+            border: 1px solid rgba(255, 255, 255, 0.08);
+        }
+        .auth-header-icon:hover {
+            color: var(--neon);
+            border-color: var(--neon);
+            box-shadow: 0 0 15px rgba(63, 240, 0, 0.2);
         }
 
-        .user-avatar:hover {
-            box-shadow: 0 0 15px rgba(0, 242, 254, 0.6);
-            border-color: #00f2fe;
-        }
-
+        /* STILI AGGIUNTIVI PER DROPDOWN FINDER */
         .dropdown-menu-nevera {
             background-color: #161925 !important;
             border: 1px solid rgba(255, 255, 255, 0.1) !important;
@@ -167,8 +163,6 @@
             font-size: 0.95rem !important;
             transition: all 0.2s ease !important;
             text-align: left;
-            display: flex;
-            align-items: center;
         }
 
         .dropdown-item-nevera:hover {
@@ -180,6 +174,17 @@
             background-color: rgba(255, 75, 75, 0.1) !important;
             color: #ff4b4b !important;
         }
+
+        /* MENU OVERLAY */
+        .nv-menu {
+            height: 100%; width: 0; position: fixed; z-index: 9999;
+            top: 0; left: 0; background-color: rgba(4, 4, 4, 0.98); 
+            overflow: hidden; transition: 0.5s; 
+            display: flex; align-items: center; justify-content: center;
+        }
+        .nv-links a { font-family: var(--font-title); font-size: 2.5rem; color: var(--white); text-decoration: none; display: block; margin: 20px; text-transform: uppercase; }
+        .nv-links a:hover { color: var(--neon); }
+        .nv-close { position: absolute; top: 30px; right: 45px; font-size: 50px; color: var(--neon); text-decoration: none; }
 
         /* --- SEZIONE CONTENUTI (SOTTO LA FOTO) --- */
         .main-wrapper { 
@@ -380,8 +385,7 @@
             .footer-nav { justify-content: center; text-align: center; width: 100%; }
             .f-col { align-items: center; text-align: center; }
             .btn-action, .btn-join { font-size: 0.7rem !important; }
-            .user-menu-container { right: 20px; }
-            .user-avatar { width: 40px; height: 40px; font-size: 1rem; }
+            .auth-header-icon { right: 20px; font-size: 1.2rem; width: 40px; height: 40px; }
         }
     </style>
 </head>
@@ -398,9 +402,9 @@
         <header class="nav-fix">
             <img src="images/logo.png" alt="Nevera Logo" class="logo-trigger" onclick="openM()">
             
-            <div class="user-menu-container dropdown">
-                <div class="user-avatar" id="userMenuBtn" data-bs-toggle="dropdown" aria-expanded="false">
-                    <i class="fa-solid fa-user"></i>
+            <div id="authHeaderBtn" class="auth-header-icon dropdown">
+                <div id="userMenuBtn" data-bs-toggle="dropdown" aria-expanded="false" style="width:100%; height:100%; display:flex; align-items:center; justify-content:center; font-weight:bold;">
+                    <i class="fa-regular fa-user"></i>
                 </div>
                 <ul class="dropdown-menu dropdown-menu-end dropdown-menu-nevera" aria-labelledby="userMenuBtn">
                     <li><a class="dropdown-item dropdown-item-nevera" href="profilo.html"><i class="fa-solid fa-id-card me-2"></i>Il Mio Profilo</a></li>
@@ -510,7 +514,6 @@
 
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
-    
     <script>
         function openM() { document.getElementById("m").style.width = "100%"; }
         function closeM() { document.getElementById("m").style.width = "0"; }
@@ -528,7 +531,7 @@
         const SUPABASE_KEY = "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6ImVubnBidHJ0aHdkeHN2ZGJxYm1uIiwicm9sZSI6ImFub24iLCJpYXQiOjE3NzkwNjU0NzUsImV4cCI6MjA5NDY0MTQ3NX0.JL-w7qkp6bktVJMrJ7O0Uw1phxaBpBc9BiP3cH8Q4-0";
         const dbClient = window.supabase ? window.supabase.createClient(SUPABASE_URL, SUPABASE_KEY) : null;
 
-        // Gestione asincrona menu utente nell'header (Esatta copia della logica Finder)
+        // Gestione asincrona icona login nell'header modificata con il menu della pagina finder
         document.addEventListener("DOMContentLoaded", async function() {
             const avatarBtn = document.getElementById('userMenuBtn');
 
@@ -541,12 +544,12 @@
                         window.location.href = "login.html";
                         return;
                     }
-                    
+
                     if (session) {
-                        // UTENTE LOGGATO: Estrai l'iniziale del nome dal profilo Supabase
                         const currentUser = session.user;
                         let userInitial = "?";
                         
+                        // Imposta l'iniziale del nome dentro l'avatar del menu utente (Identico al Finder)
                         if (currentUser.user_metadata?.first_name) {
                             userInitial = currentUser.user_metadata.first_name.charAt(0).toUpperCase();
                         } else if (currentUser.email) {
@@ -554,9 +557,9 @@
                         }
                         avatarBtn.innerHTML = userInitial;
                     } else {
-                        // UTENTE OSPITE: Cliccando sull'avatar rimanda direttamente a login.html
+                        // Se l'utente non è loggato, rimuove l'attributo dropdown e manda alla pagina login al click
                         avatarBtn.innerHTML = `<i class="fa-regular fa-user" title="Accedi"></i>`;
-                        avatarBtn.removeAttribute('data-bs-toggle'); // Rimuove l'apertura del dropdown per gli ospiti
+                        avatarBtn.removeAttribute('data-bs-toggle');
                         avatarBtn.onclick = function() {
                             window.location.href = "login.html";
                         };
@@ -568,7 +571,7 @@
             }
         });
 
-        // Funzione di Logout identica al Finder
+        // Funzione handleLogout identica al Finder
         async function handleLogout() {
             if (confirm("Vuoi scollegarti dal radar?")) {
                 if (dbClient) {
