@@ -643,7 +643,7 @@
                     .order('date_time', { ascending: false });
 
                 if (error || !myMatches || myMatches.length === 0) {
-                    body.innerHTML = `<p class="text-center opacity-40 mt-5 small">Non hai lanciato segnali SOS attivi.</p>`;
+                    body.innerHTML = `<p class="text-center opacity-40 mt-5 small">Nessun match.</p>`;
                     return;
                 }
 
