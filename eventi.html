@@ -3,11 +3,14 @@
 <head>
     <title>EVENTI | NEVERA SPORTS</title>
     <meta charset="utf-8" />
+    
     <link rel="icon" type="image/png" href="images/logo.png">
+    <link rel="apple-touch-icon" href="images/logo.png">
+    <link rel="icon" sizes="192x192" href="images/logo.png">
+    
     <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=0" />
     
     <link href="https://fonts.googleapis.com/css2?family=Archivo+Black&family=Inter:wght@300;400;600;800&display=swap" rel="stylesheet">
-    
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
     
@@ -36,13 +39,68 @@
             background-size: cover; background-position: center; z-index: 0;
         }
 
-        /* HEADER */
-        header { position: relative; padding: 60px 0 40px 0; text-align: center; z-index: 100; }
+        /* HEADER STRUTTURATO PER ALLINEAMENTO COASSIALE PERFETTO (STILE HOME) */
+        .nav-fix { 
+            position: relative; 
+            width: 100%; 
+            padding: 40px 40px 20px 40px; 
+            z-index: 100;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+        }
+
+        .nav-fix-spacer {
+            flex: 1;
+            display: flex;
+            align-items: center;
+        }
+
+        .nav-fix-center {
+            text-align: center;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+        }
+
+        .nav-fix-right {
+            flex: 1;
+            display: flex;
+            justify-content: flex-end;
+            align-items: center;
+        }
+
         .logo-trigger { 
-            height: 85px; cursor: pointer; 
+            height: 85px; 
+            cursor: pointer; 
             transition: transform 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275); 
         }
-        .logo-trigger:hover { transform: scale(1.1); filter: drop-shadow(0 0 15px var(--neon)); }
+        .logo-trigger:hover { 
+            transform: scale(1.1); 
+            filter: drop-shadow(0 0 15px var(--neon)); 
+        }
+
+        /* ICONA DI LOGIN RICALIBRATA */
+        .auth-header-icon {
+            font-size: 1.4rem;
+            color: var(--white);
+            cursor: pointer;
+            transition: 0.3s;
+            width: 45px;
+            height: 45px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            border-radius: 50%;
+            background: rgba(255, 255, 255, 0.02);
+            border: 1px solid rgba(255, 255, 255, 0.08);
+            position: relative;
+        }
+        .auth-header-icon:hover {
+            color: var(--neon);
+            border-color: var(--neon);
+            box-shadow: 0 0 15px rgba(63, 240, 0, 0.2);
+        }
 
         /* MENU OVERLAY */
         .nv-menu {
@@ -51,15 +109,12 @@
             overflow: hidden; transition: 0.5s; 
             display: flex; align-items: center; justify-content: center;
         }
-        .nv-links a { 
-            font-family: var(--font-title); font-size: 2.5rem; color: var(--white); 
-            text-decoration: none; display: block; margin: 20px; text-transform: uppercase; 
-        }
+        .nv-links a { font-family: var(--font-title); font-size: 2.5rem; color: var(--white); text-decoration: none; display: block; margin: 20px; text-transform: uppercase; }
         .nv-links a:hover { color: var(--neon); transform: scale(1.05); }
         .nv-close { position: absolute; top: 30px; right: 45px; font-size: 50px; color: var(--neon); text-decoration: none; }
 
         /* MAIN CONTENT */
-        .main-wrapper { position: relative; z-index: 10; padding: 40px 20px 80px 20px; text-align: center; }
+        .main-wrapper { position: relative; z-index: 10; padding: 20px 20px 80px 20px; text-align: center; }
         
         .nv-title { font-family: var(--font-title); font-size: clamp(2.5rem, 8vw, 4.5rem); text-transform: uppercase; letter-spacing: -2px; margin: 0; line-height: 1; }
         .nv-subtitle { color: var(--neon); font-weight: 700; text-transform: uppercase; letter-spacing: 12px; margin-bottom: 60px; font-size: 0.75rem; }
@@ -70,7 +125,7 @@
         .card-container {
             position: relative;
             width: 100%;
-            border-radius: 35px; /* Arrotondamento coerente */
+            border-radius: 35px;
             overflow: hidden;
             border: 1px solid rgba(255, 255, 255, 0.1);
             transition: 0.5s cubic-bezier(0.165, 0.84, 0.44, 1);
@@ -143,9 +198,66 @@
         .footer-nav { display: flex; gap: 60px; }
         .f-col { display: flex; flex-direction: column; gap: 10px; }
         .f-label { font-size: 0.6rem; color: var(--neon); letter-spacing: 2px; font-weight: 800; margin-bottom: 10px; }
-        .f-link { font-size: 0.85rem; color: white !important; opacity: 0.3; transition: 0.3s; }
+        .f-link { font-size: 0.85rem; color: white !important; opacity: 0.3; text-decoration: none; transition: 0.3s; }
         .f-link:hover { opacity: 1; color: var(--neon) !important; }
         .copyright { margin-top: 80px; opacity: 0.15; font-size: 0.55rem; letter-spacing: 5px; text-align: center; width: 100%; }
+
+        /* SPECIFICHE E STILI STRUTTURALI MENU UTENTE A DESTRA */
+        .user-profile-dropdown { position: relative; display: flex; align-items: center; justify-content: center; }
+        
+        .avatar-btn {
+            width: 45px; height: 45px; border-radius: 50%;
+            display: flex; align-items: center; justify-content: center;
+            font-family: var(--font-title); font-size: 0.85rem; color: var(--neon);
+            cursor: pointer; text-transform: uppercase; border: 2px solid var(--neon);
+            background: rgba(4, 4, 4, 0.8);
+        }
+
+        .nv-dropdown-menu {
+            position: absolute; top: 55px; right: 0;
+            background: rgba(12, 12, 12, 0.98); border: 1px solid rgba(255, 255, 255, 0.08);
+            border-radius: 20px; width: 240px; padding: 15px;
+            box-shadow: 0 15px 35px rgba(0,0,0,0.8); backdrop-filter: blur(15px);
+            z-index: 1000; display: none; opacity: 0;
+            transform: translateY(-10px); transition: opacity 0.3s, transform 0.3s;
+        }
+        .nv-dropdown-menu.show { display: block; opacity: 1; transform: translateY(0); }
+        .user-menu-header { border-bottom: 1px solid rgba(255,255,255,0.05); padding-bottom: 10px; margin-bottom: 10px; text-align: left; }
+        .user-menu-name { font-family: var(--font-title); font-size: 0.85rem; text-transform: uppercase; margin: 0; color: white; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; display: block; }
+        
+        .nv-dropdown-item {
+            display: flex; align-items: center; gap: 12px; padding: 12px; color: rgba(255,255,255,0.6);
+            font-size: 0.8rem; font-weight: 600; text-decoration: none; border-radius: 10px; transition: 0.2s; cursor: pointer; text-align: left;
+        }
+        .nv-dropdown-item:hover { background: rgba(255,255,255,0.04); color: var(--neon); }
+        .nv-dropdown-item i { width: 16px; font-size: 0.9rem; }
+        .btn-logout-new { border-top: 1px solid rgba(255,255,255,0.05); color: #FF4444 !important; margin-top: 5px; padding-top: 12px; }
+        .btn-logout-new:hover { background: rgba(255, 68, 68, 0.05); color: #FF4444; }
+
+        /* PANNELLO STRUTTURALE LATERALE DESTRO (DASHBOARD) */
+        .nv-offcanvas {
+            position: fixed; top: 0; right: -450px; width: 100%; max-width: 420px; height: 100%;
+            background: rgba(8, 8, 8, 0.96); border-left: 1px solid rgba(255,255,255,0.05);
+            z-index: 10050; backdrop-filter: blur(20px);
+            transition: right 0.4s cubic-bezier(0.165, 0.84, 0.44, 1);
+            padding: 40px 30px; display: flex; flex-direction: column; text-align: left; color: white;
+        }
+        .nv-offcanvas.open { right: 0; box-shadow: -15px 0 40px rgba(0,0,0,0.8); }
+        .nv-offcanvas-header { display: flex; justify-content: space-between; align-items: center; margin-bottom: 35px; }
+        .nv-offcanvas-title { font-family: var(--font-title); font-size: 1.2rem; text-transform: uppercase; color: white; margin: 0; }
+        .btn-close-offcanvas { background: none; border: none; color: var(--neon); font-size: 1.5rem; cursor: pointer; }
+        .nv-offcanvas-body { flex: 1; overflow-y: auto; padding-right: 5px; }
+
+        .profile-data-box { background: rgba(255,255,255,0.02); border: 1px solid rgba(255,255,255,0.05); border-radius: 20px; padding: 20px; }
+        .profile-label { font-size: 0.6rem; font-weight: 800; color: rgba(255,255,255,0.4); text-transform: uppercase; letter-spacing: 1.5px; margin-bottom: 4px; }
+        .profile-value { font-size: 0.95rem; font-weight: 600; color: white; margin-bottom: 15px; }
+        .profile-value:last-child { margin-bottom: 0; }
+
+        .my-match-item { background: rgba(255,255,255,0.02); border: 1px solid rgba(255,255,255,0.05); border-radius: 18px; padding: 15px; margin-bottom: 15px; position: relative; }
+        .my-match-club { font-weight: 700; font-size: 0.85rem; text-transform: uppercase; color: white; padding-right: 30px; }
+        .my-match-time { font-size: 0.75rem; color: rgba(255,255,255,0.4); margin-top: 5px; }
+        .btn-delete-match { position: absolute; top: 15px; right: 15px; background: none; border: none; color: rgba(255,68,68,0.5); transition: 0.2s; font-size: 0.9rem; cursor: pointer; }
+        .btn-delete-match:hover { color: #FF4444; transform: scale(1.1); }
 
         @media (max-width: 768px) {
             .card-actions { 
@@ -156,7 +268,9 @@
             }
             .footer-container { flex-direction: column; text-align: center; }
             .footer-nav { width: 100%; justify-content: space-around; }
-            .footer-brand { width: 100%; margin-bottom: 20px; }
+            .footer-brand { width: 100%; margin-bottom: 20px; text-align: center; }
+            .nav-fix { padding: 30px 20px; }
+            .logo-trigger { height: 65px; }
         }
     </style>
 </head>
@@ -164,8 +278,17 @@
 
     <div id="bg"></div>
 
-    <header>
-        <img src="images/logo.png" class="logo-trigger" onclick="openM()" alt="Nevera Logo">
+    <header class="nav-fix">
+        <div class="nav-fix-spacer"></div> 
+        <div class="nav-fix-center">
+            <img src="images/logo.png" alt="Nevera Logo" class="logo-trigger" onclick="openM()">
+        </div>
+        
+        <div class="nav-fix-right">
+            <div id="authHeaderBtn" class="auth-header-icon">
+                <i class="fa-regular fa-user"></i>
+            </div>
+        </div>
     </header>
 
     <div id="m" class="nv-menu">
@@ -175,9 +298,17 @@
             <a href="eventi.html" onclick="closeM()">EVENTI</a>
             <a href="community.html" onclick="closeM()">COMMUNITY</a>
             <a href="radar.html" onclick="closeM()">FINDER</a>
-            <a href="partners.html" onclick="closeM()">PARTNERS</a>
+            <a href="partners.html" onclick="closeM()">SPONSOR</a>
             <a href="iniziative.html" onclick="closeM()">INIZIATIVE</a>
         </div>
+    </div>
+
+    <div class="nv-offcanvas" id="userOffcanvas">
+        <div class="nv-offcanvas-header">
+            <h5 class="nv-offcanvas-title" id="offcanvasTitle">Dashboard</h5>
+            <button class="btn-close-offcanvas" onclick="closeUserPanel()">&times;</button>
+        </div>
+        <div class="nv-offcanvas-body" id="offcanvasBody"></div>
     </div>
 
     <main class="main-wrapper container">
@@ -203,7 +334,7 @@
     <footer class="nv-footer">
         <div class="footer-container">
             <div class="footer-brand">
-                <img src="images/logo.png" class="footer-logo-mini">
+                <img src="images/logo.png" class="footer-logo-mini" alt="Nevera Mini Logo">
                 <p style="font-size:0.6rem; opacity:0.2; letter-spacing:3px; font-weight:700;">PRECISION IN PERFORMANCE.</p>
             </div>
             
@@ -224,10 +355,148 @@
         <p class="copyright">© 2026 NEVERA SPORTS | BORN UNDER PRESSURE</p>
     </footer>
 
+    <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
     <script>
         function openM() { document.getElementById("m").style.width = "100%"; }
         function closeM() { document.getElementById("m").style.width = "0"; }
-    </script>
 
+        const SUPABASE_URL = "https://ennpbtrthwdxsvdbqbmn.supabase.co";
+        const SUPABASE_KEY = "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6ImVubnBidHJ0aHdkeHN2ZGJxYm1uIiwicm9sZSI6ImFub24iLCJpYXQiOjE3NzkwNjU0NzUsImV4cCI6MjA5NDY0MTQ3NX0.JL-w7qkp6bktVJMrJ7O0Uw1phxaBpBc9BiP3cH8Q4-0";
+        const dbClient = window.supabase ? window.supabase.createClient(SUPABASE_URL, SUPABASE_KEY) : null;
+
+        let globalUser = null;
+
+        function toggleUserMenu(event) {
+            event.stopPropagation();
+            document.getElementById("userMenu").classList.toggle("show");
+        }
+
+        window.addEventListener('click', function(event) {
+            const menu = document.getElementById("userMenu");
+            if (menu && menu.classList.contains("show")) {
+                if (!event.target.matches('.avatar-btn') && !event.target.closest('.nv-dropdown-menu')) {
+                    menu.classList.remove("show");
+                }
+            }
+        });
+
+        async function openUserPanel(type) {
+            const menu = document.getElementById("userMenu");
+            if (menu) menu.classList.remove("show");
+            
+            const panel = document.getElementById("userOffcanvas");
+            const title = document.getElementById("offcanvasTitle");
+            const body = document.getElementById("offcanvasBody");
+
+            body.innerHTML = `<div class="text-center py-5 opacity-50"><i class="fa-solid fa-spinner fa-spin fa-2x" style="color:var(--neon)"></i></div>`;
+            panel.classList.add("open");
+
+            if (!globalUser) return;
+
+            if (type === 'info') {
+                title.innerText = "Info Profilo";
+                const fullName = globalUser.user_metadata?.full_name || globalUser.email.split('@')[0];
+                const phone = globalUser.user_metadata?.phone || "Non configurato";
+                const province = globalUser.user_metadata?.province || "MI";
+                
+                body.innerHTML = `
+                    <div class="profile-data-box">
+                        <div class="profile-label">Nome Completo</div>
+                        <div class="profile-value">${fullName}</div>
+                        <div class="profile-label">Indirizzo Email</div>
+                        <div class="profile-value">${globalUser.email}</div>
+                        <div class="profile-label">Numero WhatsApp</div>
+                        <div class="profile-value">${phone}</div>
+                        <div class="profile-label">Provincia di Riferimento</div>
+                        <div class="profile-value">Lombardia, ${province.toUpperCase()}</div>
+                    </div>
+                `;
+            } 
+            else if (type === 'matches') {
+                title.innerText = "I miei Match";
+                
+                const { data: myMatches, error } = await dbClient
+                    .from('matches')
+                    .select('*')
+                    .eq('user_id', globalUser.id)
+                    .order('date_time', { ascending: false });
+
+                if (error || !myMatches || myMatches.length === 0) {
+                    body.innerHTML = `<p class="text-center opacity-40 mt-5 small">Nessun match.</p>`;
+                    return;
+                }
+
+                body.innerHTML = "";
+                myMatches.forEach(m => {
+                    const d = new Date(m.date_time);
+                    const formatted = d.toLocaleDateString('it-IT') + " alle " + d.toLocaleTimeString('it-IT', { hour: '2-digit', minute: '2-digit' });
+                    
+                    const div = document.createElement("div");
+                    div.className = "my-match-item";
+                    div.innerHTML = `
+                        <div class="my-match-club">${m.club}</div>
+                        <div class="my-match-time"><i class="fa-regular fa-calendar-days me-1"></i> ${formatted}</div>
+                        <button class="btn-delete-match" onclick="deleteMatchFromPanel(${m.id}, this)">
+                            <i class="fa-solid fa-trash-can"></i>
+                        </button>
+                    `;
+                    body.appendChild(div);
+                });
+            }
+        }
+
+        function closeUserPanel() {
+            document.getElementById("userOffcanvas").classList.remove("open");
+        }
+
+        async function deleteMatchFromPanel(id, element) {
+            if (confirm("Vuoi rimuovere questo SOS dal radar?")) {
+                const { error } = await dbClient.from('matches').delete().eq('id', id);
+                if (!error) {
+                    element.parentElement.remove();
+                }
+            }
+        }
+
+        async function handleLogout() {
+            if (confirm("Vuoi disconnetterti da Nevera Sports?")) {
+                await dbClient.auth.signOut();
+                window.location.reload();
+            }
+        }
+
+        document.addEventListener("DOMContentLoaded", async function() {
+            const authBtn = document.getElementById('authHeaderBtn');
+
+            if (dbClient) {
+                const { data: { session } } = await dbClient.auth.getSession();
+                
+                if (session) {
+                    globalUser = session.user;
+                    const fullName = globalUser.user_metadata?.full_name || globalUser.email.split('@')[0];
+                    const initials = fullName.split(' ').map(n => n[0]).join('').substring(0, 2).toUpperCase();
+
+                    authBtn.className = "auth-header-icon user-profile-dropdown";
+                    authBtn.innerHTML = `
+                        <div class="avatar-btn" id="userAvatar" onclick="toggleUserMenu(event)">${initials}</div>
+                        <div class="nv-dropdown-menu" id="userMenu">
+                            <div class="user-menu-header">
+                                <span class="user-menu-name" id="menuUserName">${fullName}</span>
+                            </div>
+                            <div class="nv-dropdown-item" onclick="openUserPanel('info')">
+                                <i class="fa-solid fa-user-gear"></i> Info Profilo
+                            </div>
+                            <div class="nv-dropdown-item" onclick="openUserPanel('matches')">
+                                <i class="fa-solid fa-calendar-days"></i> I miei Match
+                            </div>
+                            <div class="nv-dropdown-item btn-logout-new" onclick="handleLogout()">
+                                <i class="fa-solid fa-power-off"></i> Scollega
+                            </div>
+                        </div>
+                    `;
+                }
+            }
+        });
+    </script>
 </body>
 </html>
