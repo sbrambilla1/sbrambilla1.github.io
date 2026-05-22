@@ -5,7 +5,7 @@
     <meta charset="utf-8" />
     
     <link rel="icon" type="image/png" href="images/logo.png">
-    <link rel="apple-touch-icon" href="images/logo.png">
+    <link class="apple-touch-icon" href="images/logo.png">
     <link rel="icon" sizes="192x192" href="images/logo.png">
     
     <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=0" />
@@ -101,38 +101,15 @@
             margin-top: 80px;
         }
 
-        /* HEADER AGGIORNATO PER ALLINEAMENTO PERFETTO COASSIALE */
+        /* HEADER CON SFUMATURA DEDICATA IN ALTO */
         .nav-fix { 
             position: absolute; 
             top: 0; 
             width: 100%; 
-            padding: 40px 40px 80px 40px; 
+            padding: 50px 0 80px 0; 
+            text-align: center; 
             z-index: 100;
             background: linear-gradient(to bottom, rgba(4, 4, 4, 0.9) 0%, transparent 100%);
-            display: flex;
-            align-items: center;
-            justify-content: space-between;
-        }
-
-        /* Elementi civetta laterali interni a flex per forzare il logo al centro millimetrico */
-        .nav-fix-spacer {
-            flex: 1;
-            display: flex;
-            align-items: center;
-        }
-
-        .nav-fix-center {
-            text-align: center;
-            display: flex;
-            justify-content: center;
-            align-items: center;
-        }
-
-        .nav-fix-right {
-            flex: 1;
-            display: flex;
-            justify-content: flex-end;
-            align-items: center;
         }
 
         .logo-trigger { 
@@ -145,8 +122,12 @@
             filter: drop-shadow(0 0 15px var(--neon)); 
         }
 
-        /* ICONA DI LOGIN RICALIBRATA DENTRO IL FLEX DI DESTRA */
+        /* ICONA DI LOGIN NELL'HEADER */
         .auth-header-icon {
+            position: absolute;
+            top: 50%;
+            right: 30px;
+            transform: translateY(-50%);
             font-size: 1.4rem;
             color: var(--white);
             cursor: pointer;
@@ -159,7 +140,6 @@
             border-radius: 50%;
             background: rgba(255, 255, 255, 0.02);
             border: 1px solid rgba(255, 255, 255, 0.08);
-            position: relative;
         }
         .auth-header-icon:hover {
             color: var(--neon);
@@ -276,22 +256,6 @@
             box-shadow: 0 0 10px #FF3333;
         }
 
-        .radar-banner-text h2 {
-            font-family: var(--font-title);
-            font-size: clamp(2.2rem, 5vw, 3.8rem);
-            line-height: 0.95;
-            margin-bottom: 20px;
-            letter-spacing: -2px;
-        }
-
-        .radar-banner-text p {
-            opacity: 0.5;
-            font-size: 0.95rem;
-            line-height: 1.6;
-            margin-bottom: 35px;
-            font-weight: 400;
-        }
-
         /* Contenitore Immagine Mappa / Finder */
         .radar-banner-graphic {
             flex: 0.8;
@@ -377,22 +341,10 @@
             .footer-nav { justify-content: center; text-align: center; width: 100%; }
             .f-col { align-items: center; text-align: center; }
             .btn-action, .btn-join { font-size: 0.7rem !important; }
-            .nav-fix { padding: 30px 20px; }
-            .logo-trigger { height: 65px; }
+            .auth-header-icon { right: 20px; font-size: 1.2rem; width: 40px; height: 40px; }
         }
 
-        /* --- SPECIFICHE E STILI STRUTTURALI MENU UTENTE A DESTRA --- */
-        .user-profile-dropdown { position: relative; display: flex; align-items: center; justify-content: center; }
-        
-        .avatar-btn {
-            width: 45px; height: 45px; border-radius: 50%;
-            display: flex; align-items: center; justify-content: center;
-            font-family: var(--font-title); font-size: 0.85rem; color: var(--neon);
-            cursor: pointer; text-transform: uppercase; border: 2px solid var(--neon);
-            background: rgba(4, 4, 4, 0.8);
-        }
-
-        /* PANNELLO STRUTTURALE LATERALE DESTRO (DASHBOARD) */
+        /* --- INTEGRAZIONE E STRUTTURE STILI MENU DASHBOARD UTENTE LATERALE --- */
         .nv-offcanvas {
             position: fixed; top: 0; right: -450px; width: 100%; max-width: 420px; height: 100%;
             background: rgba(8, 8, 8, 0.96); border-left: 1px solid rgba(255,255,255,0.05);
@@ -429,15 +381,9 @@
         <div class="bg-overlay"></div>
         
         <header class="nav-fix">
-            <div class="nav-fix-spacer"></div> 
-            <div class="nav-fix-center">
-                <img src="images/logo.png" alt="Nevera Logo" class="logo-trigger" onclick="openM()">
-            </div>
-            
-            <div class="nav-fix-right">
-                <div id="authHeaderBtn" class="auth-header-icon" onclick="handleAuthButtonClick()">
-                    <i class="fa-regular fa-user"></i>
-                </div>
+            <img src="images/logo.png" alt="Nevera Logo" class="logo-trigger" onclick="openM()">
+            <div id="authHeaderBtn" class="auth-header-icon">
+                <i class="fa-regular fa-user"></i>
             </div>
         </header>
 
@@ -491,74 +437,64 @@
     </div>
 
     <main class="main-wrapper">
-        <div class="container">
-            <div class="row g-4 justify-content-center w-100 m-0 px-2" style="max-width: 1100px;">
+        <div class="container d-flex flex-column align-items-center">
+            
+            <div class="row g-4 w-100 justify-content-center" style="max-width: 1100px;">
                 <div class="col-6 col-md-3">
-                    <a href="radar.html" class="home-card">
-                        <i class="fa-solid fa-satellite-dish"></i>
-                        <h3>Finder</h3>
-                    </a>
+                    <a href="eventi.html" class="home-card"><i class="fa-solid fa-crown"></i><h3>Eventi</h3></a>
                 </div>
                 <div class="col-6 col-md-3">
-                    <a href="eventi.html" class="home-card">
-                        <i class="fa-regular fa-calendar-star"></i>
-                        <h3>Eventi</h3>
-                    </a>
+                    <a href="community.html" class="home-card"><i class="fa-solid fa-circle-nodes"></i><h3>Community</h3></a>
                 </div>
                 <div class="col-6 col-md-3">
-                    <a href="community.html" class="home-card">
-                        <i class="fa-solid fa-users"></i>
-                        <h3>Community</h3>
-                    </a>
+                    <a href="partners.html" class="home-card"><i class="fa-solid fa-handshake-angle"></i><h3>Sponsor</h3></a>
                 </div>
                 <div class="col-6 col-md-3">
-                    <a href="partners.html" class="home-card">
-                        <i class="fa-solid fa-handshake"></i>
-                        <h3>Sponsor</h3>
-                    </a>
+                    <a href="iniziative.html" class="home-card"><i class="fa-solid fa-bolt-lightning"></i><h3>Iniziative</h3></a>
                 </div>
             </div>
-        </div>
 
-        <div class="banner-vpl-wrapper">
-            <a href="iniziative.html" class="vpl-gif-banner">
-                <img src="images/neveravpl.gif" alt="Nevera VPL">
-            </a>
-        </div>
-
-        <section class="nv-radar-banner">
-            <div class="radar-banner-inside">
-                <div class="radar-banner-text">
-                    <div class="radar-tag">
-                        <span class="pulse-dot"></span> MATCH RADAR LIVE
+            <section class="nv-radar-banner">
+                <div class="radar-banner-inside">
+                    <div class="radar-banner-text">
+                        <span class="radar-tag"><span class="pulse-dot"></span> FINDER</span>
+                        <h2 style="font-family: var(--font-title); line-height: 0.95; margin-bottom: 20px; letter-spacing: -2px;">Find your match.</h2>
+                        <p>Controlla in tempo reale chi sta cercando giocatori e unisciti subito alla partita.</p>
+                        <a href="radar.html" class="btn-revolution">
+                            <i class="fa-solid fa-satellite-dish me-2"></i> Apri Finder
+                        </a>
                     </div>
-                    <h2>TROVA COMPAGNI IN ZONA</h2>
-                    <p>Accedi al Finder per visualizzare in tempo reale sulla mappa i match aperti nella tua provincia. Mancano giocatori per la tua partita? Pubblica il tuo slot e chiudi il campo in pochi minuti.</p>
-                    <a href="radar.html" class="btn-revolution">APRI IL FINDER</a>
-                </div>
-                <div class="radar-banner-graphic">
-                    <div class="radar-image-container">
-                        <img src="images/radar_prev.png" alt="Radar Preview">
-                        <div class="radar-image-overlay"></div>
+                    
+                    <div class="radar-banner-graphic">
+                        <div class="radar-image-container">
+                            <img src="images/finder.png" alt="Finder">
+                            <div class="radar-image-overlay"></div>
+                        </div>
                     </div>
                 </div>
+            </section>
+
+            <div class="banner-vpl-wrapper">
+                <a href="eventi.html" class="vpl-gif-banner">
+                    <img src="images/homegif.gif" alt="Nevera Event">
+                </a>
             </div>
-        </section>
 
-        <section class="join-section text-center">
-            <h2 style="font-family: var(--font-title); font-size: clamp(1.8rem, 4vw, 3rem); margin-bottom: 20px;">ENTRA NELLA COMMUNITY</h2>
-            <p style="max-width: 600px; margin: 0 auto 40px auto; opacity: 0.5; font-size: 0.95rem;">Unisciti a centinaia di atleti. Ricevi notifiche sui tornei, trova nuovi partner di livello e partecipa alle iniziative esclusive di Nevera Sports.</p>
-            <a href="https://chat.whatsapp.com/GItl3C5mrgxJxXAPhHHRFh" target="_blank" class="btn-revolution" style="background: #25D366; color: white;">
-                <i class="fa-brands fa-whatsapp me-2" style="font-size: 1.1rem; vertical-align: middle;"></i> Gruppo Whatsapp
-            </a>
-        </section>
+            <div class="join-section">
+                <h2 style="font-family: var(--font-title); font-size: 2rem;">JOIN THE REVOLUTION.</h2>
+                <p style="opacity: 0.5; margin-bottom: 30px;">Unisciti alla nostra community ufficiale su WhatsApp.</p>
+                <a href="https://chat.whatsapp.com/GItl3C5mrgxJxXAPhHHRFh" class="btn-revolution">
+                    <i class="fa-brands fa-whatsapp me-2"></i> Entra ora
+                </a>
+            </div>
+        </div>
     </main>
 
     <footer class="nv-footer">
         <div class="footer-container">
             <div class="footer-brand">
-                <img src="images/logo.png" class="footer-logo-mini" alt="Logo mini">
-                <p style="font-size:0.6rem; opacity:0.2; letter-spacing:3px; font-weight:700; margin:0;">PRECISION IN PERFORMANCE.</p>
+                <img src="images/logo.png" class="footer-logo-mini">
+                <p style="font-size:0.6rem; opacity:0.2; letter-spacing:3px; font-weight:700;">PRECISION IN PERFORMANCE.</p>
             </div>
             <div class="footer-nav">
                 <div class="f-col">
@@ -579,78 +515,72 @@
 
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
-
     <script>
         const SUPABASE_URL = "https://ennpbtrthwdxsvdbqbmn.supabase.co";
         const SUPABASE_KEY = "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6ImVubnBidHJ0aHdkeHN2ZGJxYm1uIiwicm9sZSI6ImFub24iLCJpYXQiOjE3NzkwNjU0NzUsImV4cCI6MjA5NDY0MTQ3NX0.JL-w7qkp6bktVJMrJ7O0Uw1phxaBpBc9BiP3cH8Q4-0";
-        let dbClient = null;
+        const dbClient = window.supabase ? window.supabase.createClient(SUPABASE_URL, SUPABASE_KEY) : null;
         let currentUser = null;
 
         function openM() { document.getElementById("m").style.width = "100%"; }
         function closeM() { document.getElementById("m").style.width = "0"; }
 
         function openUserPanel() { document.getElementById("userOffcanvas").classList.add("open"); }
-        function closeUserPanel() { document.getElementById("userOffcanvas").classList.remove("remove"); document.getElementById("userOffcanvas").classList.remove("open"); }
+        function closeUserPanel() { document.getElementById("userOffcanvas").classList.remove("open"); }
 
-        function hideSplashScreen() {
-            const screen = document.getElementById("splash-screen");
-            if (screen) screen.classList.add("splash-hidden");
-        }
+        // Sfondamento dello splash screen al caricamento completo della pagina
+        window.addEventListener('load', function() {
+            const splash = document.getElementById('splash-screen');
+            setTimeout(() => {
+                if(splash) splash.classList.add('splash-hidden');
+            }, 1500);
+        });
 
-        // Gestione click sul tasto utente in alto a destra
-        function handleAuthButtonClick() {
-            if (currentUser) {
-                // Utente connesso -> Apri il pannello
-                openUserPanel();
-            } else {
-                // Utente non connesso -> Vai al login
-                window.location.href = "login.html";
-            }
-        }
+        // Gestione asincrona icona login nell'header ed estrazione dati
+        document.addEventListener("DOMContentLoaded", async function() {
+            const authBtn = document.getElementById('authHeaderBtn');
 
-        window.onload = async function() {
-            // Sblocco di sicurezza per lo splash screen
-            setTimeout(hideSplashScreen, 2500);
+            if (dbClient) {
+                try {
+                    const { data: { session } } = await dbClient.auth.getSession();
+                    
+                    if (session) {
+                        currentUser = session.user;
+                        const meta = currentUser.user_metadata || {};
 
-            if (!window.supabase) {
-                console.error("Supabase non trovato");
-                hideSplashScreen();
-                return;
-            }
+                        // Popolamento dinamico della Dashboard
+                        document.getElementById("dashName").innerText = (meta.first_name || '') + " " + (meta.last_name || '');
+                        document.getElementById("dashPhone").innerText = meta.phone || 'Non inserito';
+                        document.getElementById("dashProvince").innerText = meta.province || 'Non specificata';
 
-            dbClient = window.supabase.createClient(SUPABASE_URL, SUPABASE_KEY);
+                        // Cambia icona: Se c'è un nome mettiamo l'iniziale, altrimenti icona utente attiva
+                        if (meta.first_name) {
+                            authBtn.innerHTML = `<span style="font-family:var(--font-title); font-size:0.9rem; color:var(--neon); font-weight:bold;">${meta.first_name.charAt(0).toUpperCase()}</span>`;
+                            authBtn.style.border = "2px solid var(--neon)";
+                        } else {
+                            authBtn.innerHTML = `<i class="fa-solid fa-user" title="Dashboard"></i>`;
+                            authBtn.style.color = var(--neon);
+                        }
 
-            try {
-                const { data: { session }, error: sessionError } = await dbClient.auth.getSession();
+                        // Azione click per utente loggato -> Apri la dashboard
+                        authBtn.onclick = function() {
+                            openUserPanel();
+                        };
 
-                // Se non c'è sessione, non blocchiamo l'utente: nascondiamo solo lo splash screen
-                if (sessionError || !session) {
-                    currentUser = null;
-                    hideSplashScreen();
-                    return;
+                        // Carica i match personali dell'utente loggato
+                        await loadMyMatches();
+
+                    } else {
+                        // UTENTE OSPITE: Rimane l'icona originale che punta al login
+                        authBtn.innerHTML = `<i class="fa-regular fa-user" title="Accedi"></i>`;
+                        authBtn.onclick = function() {
+                            window.location.href = "login.html";
+                        };
+                    }
+                } catch (err) {
+                    console.error("Errore autenticazione:", err);
                 }
-
-                currentUser = session.user;
-
-                // Popoliamo la dashboard nel caso in cui decidesse di aprirla
-                const meta = currentUser.user_metadata || {};
-                document.getElementById("dashName").innerText = (meta.first_name || '') + " " + (meta.last_name || '');
-                document.getElementById("dashPhone").innerText = meta.phone || 'Non inserito';
-                document.getElementById("dashProvince").innerText = meta.province || 'Non specificata';
-
-                // Se l'utente ha salvato il nome, mostriamo l'iniziale stilizzata al posto dell'omino
-                if (meta.first_name) {
-                    document.getElementById("authHeaderBtn").innerHTML = `<span style="font-family:var(--font-title); font-size:0.9rem; color:var(--neon); font-weight:bold;">${meta.first_name.charAt(0).toUpperCase()}</span>`;
-                }
-
-                await loadMyMatches();
-                hideSplashScreen();
-
-            } catch (err) {
-                console.error("Errore nel recupero sessione:", err);
-                hideSplashScreen();
             }
-        };
+        });
 
         async function loadMyMatches() {
             if (!currentUser) return;
@@ -685,9 +615,8 @@
                     `;
                     listContainer.appendChild(div);
                 });
-
             } catch (e) {
-                console.error("Errore match personali:", e);
+                console.error("Errore elenco match:", e);
             }
         }
 
@@ -703,11 +632,94 @@
         }
 
         async function handleLogout() {
-            if (confirm("Vuoi disconnetterti da Nevera Sports?")) {
+            if(confirm("Vuoi disconnetterti da Nevera Sports?")) {
                 await dbClient.auth.signOut();
-                window.location.reload(); // Ricarica la pagina aggiornando l'header
+                window.location.reload();
             }
         }
+    </script>
+
+    <div id="pwaPrompt" style="display: none; position: fixed; bottom: 20px; left: 50%; transform: translateX(-50%); width: 90%; max-width: 400px; background: rgba(13, 13, 13, 0.95); border: 1px solid var(--neon); border-radius: 24px; padding: 20px; z-index: 9999999; backdrop-filter: blur(10px); box-shadow: 0 10px 30px rgba(63, 240, 0, 0.15); color: white;">
+        <div class="d-flex align-items-center gap-3">
+            <img src="images/logo.png" style="height: 45px; width: auto;" alt="Nevera App">
+            <div style="flex: 1; text-align: left;">
+                <h5 style="font-family: var(--font-title); font-size: 0.9rem; margin: 0; text-transform: uppercase; letter-spacing: 0.5px;">Porta NEVERA sul tuo schermo</h5>
+                <p id="pwaInstructions" style="font-size: 0.75rem; opacity: 0.7; margin: 3px 0 0 0;">Installa l'app per un accesso rapido ai match e agli eventi.</p>
+            </div>
+        </div>
+        <div class="d-flex gap-2 mt-3" id="pwaActionArea"></div>
+    </div>
+
+    <script>
+        if ('serviceWorker' in navigator) {
+            navigator.serviceWorker.register('sw.js').catch(err => console.log("SW Error:", err));
+            
+            let link = document.createElement('link');
+            link.rel = 'manifest';
+            link.href = 'manifest.json';
+            document.head.appendChild(link);
+        }
+
+        let deferredPrompt;
+        const pwaPrompt = document.getElementById('pwaPrompt');
+        const pwaActionArea = document.getElementById('pwaActionArea');
+        const pwaInstructions = document.getElementById('pwaInstructions');
+
+        const isMobileOrTablet = /Android|webOS|iPhone|iPad|iPod|BlackBerry|IEMobile|Opera Mini/i.test(navigator.userAgent);
+        const isRunningStandalone = window.matchMedia('(display-mode: standalone)').matches || window.navigator.standalone;
+
+        if (isMobileOrTablet && !isRunningStandalone) {
+            const isIOS = /iPhone|iPad|iPod/.test(navigator.userAgent) && !window.MSStream;
+
+            if (isIOS) {
+                pwaInstructions.innerHTML = "Tocca l'icona di **Condivisione** <i class='fa-solid fa-share-from-square text-success'></i> in basso e seleziona **'Aggiungi alla schermata Home'**.";
+                pwaActionArea.innerHTML = `
+                    <button onclick="closePwaPrompt()" class="btn-revolution" style="margin:0; width:100%; padding: 10px; font-size:0.7rem;">Ho capito</button>
+                `;
+                setTimeout(() => { pwaPrompt.style.display = 'block'; }, 3000);
+            } else {
+                window.addEventListener('beforeinstallprompt', (e) => {
+                    e.preventDefault();
+                    deferredPrompt = e;
+                    
+                    pwaActionArea.innerHTML = `
+                        <button onclick="triggerPwaInstall()" class="btn-revolution" style="flex:1; padding: 10px 0; font-size:0.75rem; text-align:center; background-color: var(--neon); color: var(--dark);">Installa Ora</button>
+                        <button onclick="closePwaPrompt()" class="btn-revolution" style="margin:0; padding: 10px 20px; font-size:0.75rem; background: transparent; border: 1px solid rgba(255,255,255,0.2); color: white;">Annulla</button>
+                    `;
+                    setTimeout(() => { pwaPrompt.style.display = 'block'; }, 3000);
+                });
+            }
+        }
+
+        async function triggerPwaInstall() {
+            if (!deferredPrompt) return;
+            pwaPrompt.style.display = 'none';
+            deferredPrompt.prompt();
+            const { outcome } = await deferredPrompt.userChoice;
+            deferredPrompt = null;
+        }
+
+        function closePwaPrompt() {
+            pwaPrompt.style.display = 'none';
+            localStorage.setItem('pwa-prompt-dismissed', 'true');
+        }
+        
+        if(localStorage.getItem('pwa-prompt-dismissed') === 'true') {
+            pwaPrompt.style.display = 'none';
+        }
+    </script>
+    
+    <script src="https://cdn.onesignal.com/sdks/web/v16/OneSignalSDK.page.js" defer></script>
+    <script>
+        window.OneSignalDeferred = window.OneSignalDeferred || [];
+        OneSignalDeferred.push(async function(OneSignal) {
+            await OneSignal.init({
+                appId: "907b9331-51c9-4b9d-a87e-65df7bd815f2",
+                allowLocalhostAsSecureOrigin: true,
+                notifyButton: { enable: false }
+            });
+            await OneSignal.Notifications.requestPermission();
+        });
     </script>
 </body>
 </html>
