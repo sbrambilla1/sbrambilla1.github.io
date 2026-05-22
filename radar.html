@@ -236,7 +236,7 @@
             
             <div class="filter-bar">
                 <div class="filter-group">
-                    <label>Area di Scansione</label>
+                    <label>MATCH RADAR</label>
                     <select id="geoFilter" class="filter-select" onchange="loadMatches()">
                         <option value="ALL">Tutte le province</option>
                         <option value="BG">Bergamo</option>
@@ -249,7 +249,7 @@
                     </select>
                 </div>
                 <button class="btn-action-nevera" data-bs-toggle="modal" data-bs-target="#newMatchModal">
-                    <i class="fa-solid fa-satellite-dish me-2"></i>Lancia un SOS
+                    <i class="fa-solid fa-satellite-dish me-2"></i>Inserisci Match
                 </button>
             </div>
         </div>
@@ -462,7 +462,7 @@
             const grid = document.getElementById("matchesGrid");
             const selectedProvince = document.getElementById("geoFilter").value;
             
-            grid.innerHTML = `<div class="text-center opacity-50 py-5 w-100"><i class="fa-solid fa-circle-notch fa-spin fa-2x mb-3" style="color:var(--neon)"></i><br><span style="font-size:0.75rem; letter-spacing:2px; font-weight:800; text-transform:uppercase;">Scansione frequenze radar...</span></div>`;
+            grid.innerHTML = `<div class="text-center opacity-50 py-5 w-100"><i class="fa-solid fa-circle-notch fa-spin fa-2x mb-3" style="color:var(--neon)"></i><br><span style="font-size:0.75rem; letter-spacing:2px; font-weight:800; text-transform:uppercase;">Searching for Matches...</span></div>`;
             markerLayer.clearLayers();
 
             let query = dbClient.from('matches').select('*').order('date_time', { ascending: true });
@@ -476,7 +476,7 @@
 
             const { data: matches, error } = await query;
             if (error || !matches || matches.length === 0) {
-                grid.innerHTML = `<div class="text-center opacity-30 py-5 w-100"><i class="fa-solid fa-satellite-dish fa-3x mb-3"></i><br><span style="font-size:0.75rem; letter-spacing:2px; font-weight:800; text-transform:uppercase;">Nessun Segnale SOS in questa zona</span></div>`;
+                grid.innerHTML = `<div class="text-center opacity-30 py-5 w-100"><i class="fa-solid fa-satellite-dish fa-3x mb-3"></i><br><span style="font-size:0.75rem; letter-spacing:2px; font-weight:800; text-transform:uppercase;">Nessun Match in questa zona</span></div>`;
                 return;
             }
 
@@ -486,7 +486,7 @@
                 const dataFormattata = dateObj.toLocaleDateString('it-IT', { day: '2-digit', month: '2-digit' });
                 const oraFormattata = dateObj.toLocaleTimeString('it-IT', { hour: '2-digit', minute: '2-digit' });
 
-                const waMessage = encodeURIComponent(`Ciao! Rispondo alla chiamata SOS su Nevera Sports per la partita del ${dataFormattata} al club ${match.club}. Avete ancora bisogno?`);
+                const waMessage = encodeURIComponent(`Ciao! Ti scrivo per la partita del ${dataFormattata} al club ${match.club}. Avete ancora bisogno?`);
                 const waUrl = `https://wa.me/${match.creator_phone || ''}?text=${waMessage}`;
 
                 let lat = match.latitude;
