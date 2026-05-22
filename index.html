@@ -376,6 +376,15 @@
         <img src="images/logo.png" alt="Nevera Loading" class="splash-logo">
     </div>
 
+    <script>
+        window.addEventListener('load', function() {
+            const splash = document.getElementById('splash-screen');
+            setTimeout(() => {
+                if(splash) splash.classList.add('splash-hidden');
+            }, 1500);
+        });
+    </script>
+
     <section class="hero-section">
         <div class="bg-layer"></div>
         <div class="bg-overlay"></div>
@@ -527,15 +536,7 @@
         function openUserPanel() { document.getElementById("userOffcanvas").classList.add("open"); }
         function closeUserPanel() { document.getElementById("userOffcanvas").classList.remove("open"); }
 
-        // Sfondamento dello splash screen al caricamento completo della pagina
-        window.addEventListener('load', function() {
-            const splash = document.getElementById('splash-screen');
-            setTimeout(() => {
-                if(splash) splash.classList.add('splash-hidden');
-            }, 1500);
-        });
-
-        // Gestione asincrona icona login nell'header ed estrazione dati
+        // Gestione asincrona icona login ed estrazione dati Dashboard
         document.addEventListener("DOMContentLoaded", async function() {
             const authBtn = document.getElementById('authHeaderBtn');
 
@@ -552,13 +553,13 @@
                         document.getElementById("dashPhone").innerText = meta.phone || 'Non inserito';
                         document.getElementById("dashProvince").innerText = meta.province || 'Non specificata';
 
-                        // Cambia icona: Se c'è un nome mettiamo l'iniziale, altrimenti icona utente attiva
+                        // Cambia icona: Se c'è un nome mettiamo l'iniziale, altrimenti icona utente attiva verde neon
                         if (meta.first_name) {
                             authBtn.innerHTML = `<span style="font-family:var(--font-title); font-size:0.9rem; color:var(--neon); font-weight:bold;">${meta.first_name.charAt(0).toUpperCase()}</span>`;
                             authBtn.style.border = "2px solid var(--neon)";
                         } else {
                             authBtn.innerHTML = `<i class="fa-solid fa-user" title="Dashboard"></i>`;
-                            authBtn.style.color = var(--neon);
+                            authBtn.style.color = "#3FF000"; // Fix di sintassi applicato qui
                         }
 
                         // Azione click per utente loggato -> Apri la dashboard
