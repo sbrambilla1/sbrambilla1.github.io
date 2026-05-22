@@ -1,0 +1,182 @@
+<!DOCTYPE HTML>
+<html lang="it">
+<head>
+    <title>LOGIN | NEVERA SPORTS</title>
+    <meta charset="utf-8" />
+    <link rel="icon" type="image/png" href="images/logo.png">
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=0" />
+    
+    <link href="https://fonts.googleapis.com/css2?family=Archivo+Black&family=Inter:wght@300;400;600;800&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+    
+    <style>
+        :root {
+            --neon: #3FF000;
+            --dark: #040404;
+            --white: #FDFDFD;
+            --font-title: 'Archivo Black', sans-serif;
+            --font-body: 'Inter', sans-serif;
+        }
+
+        html, body {
+            margin: 0; padding: 0; height: 100%;
+            background-color: var(--dark);
+            color: var(--white);
+            font-family: var(--font-body);
+            overflow: hidden;
+            -webkit-font-smoothing: antialiased;
+        }
+
+        #bg {
+            position: fixed; top: 0; left: 0; width: 100%; height: 100%;
+            background-image: linear-gradient(rgba(4, 4, 4, 0.75), rgba(4, 4, 4, 0.95)), url('images/image_c3c605.jpg');
+            background-size: cover; background-position: center; z-index: 0;
+        }
+
+        .login-container {
+            position: relative; z-index: 10;
+            height: 100%; display: flex; flex-direction: column;
+            justify-content: center; align-items: center; padding: 20px;
+        }
+
+        .login-box {
+            background: rgba(255, 255, 255, 0.02); border: 1px solid rgba(255, 255, 255, 0.08);
+            border-radius: 30px; padding: 40px 30px; max-width: 420px; width: 100%;
+            backdrop-filter: blur(15px); text-align: center;
+            box-shadow: 0 20px 50px rgba(0,0,0,0.5);
+        }
+
+        .logo-login { height: 70px; margin-bottom: 25px; }
+        
+        .login-title { font-family: var(--font-title); font-size: 1.8rem; text-transform: uppercase; letter-spacing: -1px; margin-bottom: 5px; }
+        .login-subtitle { color: var(--neon); font-size: 0.65rem; font-weight: 800; text-transform: uppercase; letter-spacing: 4px; margin-bottom: 35px; }
+
+        .form-group { text-align: left; margin-bottom: 20px; }
+        .form-group label { font-size: 0.75rem; font-weight: 600; opacity: 0.4; margin-bottom: 6px; display: block; text-transform: uppercase; letter-spacing: 0.5px; }
+        
+        .form-group input {
+            background: var(--dark) !important; border: 1px solid rgba(255, 255, 255, 0.12) !important; color: white !important;
+            padding: 14px; border-radius: 12px; width: 100%; outline: none; font-size: 0.95rem; transition: 0.3s;
+        }
+        .form-group input:focus { border-color: var(--neon); box-shadow: 0 0 10px rgba(63, 240, 0, 0.2); }
+
+        .btn-login-submit {
+            background: var(--neon); color: var(--dark); font-family: var(--font-title);
+            padding: 15px 0; border-radius: 50px; text-decoration: none; width: 100%;
+            font-size: 0.8rem; text-transform: uppercase; transition: 0.3s; border: none;
+            letter-spacing: 1px; font-weight: bold; margin-top: 15px;
+        }
+        .btn-login-submit:hover { transform: scale(1.02); background: #35cc00; box-shadow: 0 0 20px rgba(63, 240, 0, 0.4); }
+
+        .toggle-auth { font-size: 0.8rem; opacity: 0.5; margin-top: 20px; cursor: pointer; transition: 0.3s; display: inline-block; }
+        .toggle-auth:hover { opacity: 1; color: var(--neon); }
+        
+        .error-msg { color: #ff4444; font-size: 0.8rem; margin-top: 15px; display: none; font-weight: 600; }
+    </style>
+</head>
+<body>
+
+    <div id="bg"></div>
+
+    <div class="login-container">
+        <div class="login-box">
+            <img src="images/logo.png" class="logo-login" alt="Nevera Logo">
+            <h2 id="authTitle" class="login-title">ACCEDI</h2>
+            <p id="authSubtitle" class="login-subtitle">BORN UNDER PRESSURE</p>
+
+            <form id="authForm" onsubmit="handleAuth(event)">
+                <div class="form-group">
+                    <label>Indirizzo Email</label>
+                    <input type="email" id="email" placeholder="es. player@nevera.it" required>
+                </div>
+                <div class="form-group">
+                    <label>Password</label>
+                    <input type="password" id="password" placeholder="••••••••" required minlength="6">
+                </div>
+
+                <div id="errorBox" class="error-msg"></div>
+
+                <button type="submit" id="btnSubmit" class="btn-login-submit">Entra</button>
+            </form>
+
+            <span id="toggleMode" class="toggle-auth" onclick="switchMode()">Non hai un account? Registrati</span>
+        </div>
+    </div>
+
+    <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+    <script>
+        const SUPABASE_URL = "https://ennpbtrthwdxsvdbqbmn.supabase.co";
+        const SUPABASE_KEY = "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6ImVubnBidHJ0aHdkeHN2ZGJxYm1uIiwicm9sZSI6ImFub24iLCJpYXQiOjE3NzkwNjU0NzUsImV4cCI6MjA5NDY0MTQ3NX0.JL-w7qkp6bktVJMrJ7O0Uw1phxaBpBc9BiP3cH8Q4-0";
+        const dbClient = window.supabase.createClient(SUPABASE_URL, SUPABASE_KEY);
+
+        let isLoginMode = true;
+
+        // Se l'utente è già loggato, rimandalo al Finder (radar.html)
+        window.onload = async function() {
+            const { data: { session } } = await dbClient.auth.getSession();
+            if (session) {
+                window.location.href = "radar.html";
+            }
+        }
+
+        function switchMode() {
+            isLoginMode = !isLoginMode;
+            const title = document.getElementById("authTitle");
+            const btn = document.getElementById("btnSubmit");
+            const toggle = document.getElementById("toggleMode");
+            const errorBox = document.getElementById("errorBox");
+            
+            errorBox.style.display = "none";
+
+            if (isLoginMode) {
+                title.innerText = "ACCEDI";
+                btn.innerText = "Entra";
+                toggle.innerText = "Non hai un account? Registrati";
+            } else {
+                title.innerText = "REGISTRATI";
+                btn.innerText = "Crea Account";
+                toggle.innerText = "Hai già un account? Accedi";
+            }
+        }
+
+        async function handleAuth(e) {
+            e.preventDefault();
+            const email = document.getElementById("email").value;
+            const password = document.getElementById("password").value;
+            const errorBox = document.getElementById("errorBox");
+            const btn = document.getElementById("btnSubmit");
+
+            errorBox.style.display = "none";
+            btn.disabled = true;
+            btn.innerText = "Elaborazione...";
+
+            if (isLoginMode) {
+                // LOGICA LOGIN
+                const { data, error } = await dbClient.auth.signInWithPassword({ email, password });
+                if (error) {
+                    errorBox.innerText = "Credenziali errate o utente inesistente.";
+                    errorBox.style.display = "block";
+                    btn.disabled = false;
+                    btn.innerText = "Entra";
+                } else {
+                    window.location.href = "radar.html";
+                }
+            } else {
+                // LOGICA REGISTRAZIONE
+                const { data, error } = await dbClient.auth.signUp({ email, password });
+                if (error) {
+                    errorBox.innerText = "Errore durante la registrazione: " + error.message;
+                    errorBox.style.display = "block";
+                    btn.disabled = false;
+                    btn.innerText = "Crea Account";
+                } else {
+                    alert("Registrazione completata! Controlla la tua email per confermare l'account (se richiesto da Supabase) oppure effettua l'accesso.");
+                    isLoginMode = true;
+                    switchMode();
+                }
+            }
+        }
+    </script>
+</body>
+</html>
