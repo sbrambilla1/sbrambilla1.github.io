@@ -1,7 +1,7 @@
 <!DOCTYPE HTML>
 <html lang="it">
 <head>
-    <title>RADAR FINDER | NEVERA SPORTS</title>
+    <title>FINDER | NEVERA SPORTS</title>
     <meta charset="utf-8" />
     <link rel="icon" type="image/png" href="images/logo.png">
     <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=0" />
@@ -21,7 +21,7 @@
         }
 
         html, body {
-            margin: 0; padding: 0; height: 100%;
+            margin: 0; padding: 0; min-height: 100%;
             background-color: var(--dark); color: var(--white);
             font-family: var(--font-body); -webkit-font-smoothing: antialiased;
         }
@@ -32,90 +32,65 @@
             background-size: cover; background-position: center; z-index: 0;
         }
 
-        /* Allineamento e Centratura Perfetta in Stile Nevera */
-        .wrapper {
-            position: relative; z-index: 10; min-height: 100vh;
-            display: flex; flex-direction: column; align-items: center; justify-content: center;
-            padding: 40px 20px; box-sizing: border-box;
-        }
+        /* Layout fluido e ampio identico a index / tracker */
+        .container-custom { position: relative; z-index: 10; max-width: 1100px; margin: 0 auto; padding: 40px 20px; }
 
-        .radar-box {
-            background: rgba(255, 255, 255, 0.02);
-            border: 1px solid rgba(255, 255, 255, 0.08);
-            border-radius: 30px; padding: 40px; width: 100%; max-width: 500px;
-            text-align: center; backdrop-filter: blur(20px);
-            box-shadow: 0 20px 50px rgba(0, 0, 0, 0.5);
-            margin-bottom: 30px;
-        }
+        .radar-header { display: flex; justify-content: space-between; align-items: center; margin-bottom: 40px; }
+        .logo-radar { height: 50px; }
+        .btn-logout { background: none; border: none; color: #FF4444; font-size: 1.3rem; cursor: pointer; transition: 0.3s; }
+        .btn-logout:hover { transform: scale(1.1); filter: drop-shadow(0 0 10px #FF4444); }
 
-        .logo-radar { height: 60px; margin-bottom: 25px; }
-        
-        .radar-title { font-family: var(--font-title); font-size: 1.8rem; text-transform: uppercase; letter-spacing: -1px; margin-bottom: 5px; color: var(--white); }
-        .radar-subtitle { font-size: 0.8rem; opacity: 0.5; text-transform: uppercase; letter-spacing: 2px; margin-bottom: 35px; }
+        .radar-title { font-family: var(--font-title); font-size: 2.5rem; text-transform: uppercase; letter-spacing: -1px; margin-bottom: 5px; }
+        .radar-subtitle { font-size: 0.9rem; opacity: 0.5; text-transform: uppercase; letter-spacing: 2px; margin-bottom: 40px; }
 
-        /* Mappa integrata e centrata */
+        /* Mappa panoramica e lussuosa */
         .map-container {
-            border: 1px solid rgba(255, 255, 255, 0.1);
-            border-radius: 20px; padding: 8px; margin-bottom: 25px; background: rgba(0,0,0,0.4);
+            background: rgba(255, 255, 255, 0.02); border: 1px solid rgba(255, 255, 255, 0.08);
+            border-radius: 30px; padding: 15px; margin-bottom: 40px; backdrop-filter: blur(10px);
+            box-shadow: 0 20px 40px rgba(0,0,0,0.4);
         }
-        #radarMap { height: 220px; border-radius: 14px; background: #0d0d0d; }
+        #radarMap { height: 380px; border-radius: 20px; background: #0d0d0d; border: 1px solid rgba(255, 255, 255, 0.05); }
 
-        .leaflet-popup-content-wrapper { background: #0c0c0c !important; color: white !important; border: 1px solid var(--neon); border-radius: 12px; font-family: var(--font-body); text-align: center; }
+        .leaflet-popup-content-wrapper { background: #0c0c0c !important; color: white !important; border: 1px solid var(--neon); border-radius: 12px; font-family: var(--font-body); }
         .leaflet-popup-tip { background: #0c0c0c !important; border-left: 1px solid var(--neon); border-bottom: 1px solid var(--neon); }
 
-        /* Form Controls e Tendine Uniformate alle altre Pagine */
-        .form-group-custom { text-align: left; margin-bottom: 20px; position: relative; }
-        .form-group-custom label { font-size: 0.75rem; font-weight: 600; text-transform: uppercase; opacity: 0.5; letter-spacing: 1px; margin-bottom: 8px; display: block; }
-        
-        .form-control-custom, .filter-select {
-            background: rgba(255, 255, 255, 0.03); border: 1px solid rgba(255, 255, 255, 0.1);
-            color: white !important; padding: 14px 20px; border-radius: 15px; width: 100%; outline: none;
-            font-size: 0.9rem; transition: 0.3s; box-sizing: border-box;
+        /* Barra dei filtri orizzontale coordinata */
+        .filter-section {
+            background: rgba(255, 255, 255, 0.02); border: 1px solid rgba(255, 255, 255, 0.08);
+            border-radius: 24px; padding: 25px; margin-bottom: 40px; backdrop-filter: blur(10px);
+            display: flex; align-items: center; justify-content: space-between; gap: 20px; flex-wrap: wrap;
         }
-        .form-control-custom:focus, .filter-select:focus { border-color: var(--neon); background: rgba(255, 255, 255, 0.06); }
+        .filter-group { display: flex; align-items: center; gap: 15px; }
+        .filter-group label { font-size: 0.8rem; font-weight: 600; text-transform: uppercase; opacity: 0.5; letter-spacing: 1px; }
         
-        /* Dropdown custom per la ricerca dei club */
-        .autocomplete-results {
-            position: absolute; top: calc(100% - 2px); left: 0; width: 100%;
-            background: #0d0d0d; border: 1px solid rgba(255,255,255,0.15);
-            border-bottom-left-radius: 15px; border-bottom-right-radius: 15px;
-            z-index: 9999; max-height: 180px; overflow-y: auto; display: none;
-            box-shadow: 0 10px 30px rgba(0,0,0,0.8); padding: 5px 0;
+        .filter-select, .form-control-custom { 
+            background: var(--dark); border: 1px solid rgba(255, 255, 255, 0.1); color: white !important; 
+            padding: 12px 20px; border-radius: 12px; outline: none; transition: 0.3s;
         }
-        .autocomplete-item { padding: 12px 20px; cursor: pointer; font-size: 0.85rem; text-align: left; color: rgba(255,255,255,0.7); border-bottom: 1px solid rgba(255,255,255,0.03); }
-        .autocomplete-item:hover { background: var(--neon); color: var(--dark); font-weight: 600; }
+        .filter-select:focus, .form-control-custom:focus { border-color: var(--neon); }
 
-        /* Bottoni */
-        .btn-action {
+        .btn-create {
             background: var(--neon); color: var(--dark); font-family: var(--font-title); font-size: 0.85rem;
-            text-transform: uppercase; padding: 16px; border-radius: 50px; border: none; font-weight: bold;
-            width: 100%; transition: 0.3s; margin-top: 10px; letter-spacing: 0.5px;
+            text-transform: uppercase; padding: 14px 28px; border-radius: 50px; border: none; font-weight: bold; transition: 0.3s;
         }
-        .btn-action:hover { transform: scale(1.02); box-shadow: 0 0 25px rgba(63, 240, 0, 0.4); cursor: pointer; }
+        .btn-create:hover { transform: scale(1.02); box-shadow: 0 0 20px rgba(63, 240, 0, 0.3); }
 
-        .btn-secondary-custom {
-            background: transparent; color: rgba(255,255,255,0.4); font-size: 0.75rem;
-            text-transform: uppercase; border: none; font-weight: 600; letter-spacing: 1px;
-            margin-top: 20px; cursor: pointer; transition: 0.3s; display: inline-block; text-decoration: none;
-        }
-        .btn-secondary-custom:hover { color: #FF4444; }
-
-        /* Griglia dei Match Sottostante Centrata */
-        .matches-container { width: 100%; max-width: 500px; display: flex; flex-direction: column; gap: 20px; margin-top: 10px; }
+        /* Griglia dei Match Ampia a 2/3 colonne */
+        .matches-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(320px, 1fr)); gap: 25px; }
         
         .match-card {
             background: rgba(255, 255, 255, 0.02); border: 1px solid rgba(255, 255, 255, 0.06);
-            border-radius: 24px; padding: 25px; backdrop-filter: blur(20px); position: relative; text-align: left;
-            transition: 0.3s ease; box-shadow: 0 10px 30px rgba(0,0,0,0.2);
+            border-radius: 24px; padding: 25px; backdrop-filter: blur(10px); position: relative;
+            transition: 0.3s ease; display: flex; flex-direction: column; justify-content: space-between;
         }
-        .match-card:hover { border-color: var(--neon); transform: translateY(-3px); }
+        .match-card:hover { border-color: var(--neon); transform: translateY(-5px); box-shadow: 0 10px 30px rgba(0,0,0,0.3); }
 
-        .match-badge { position: absolute; top: 22px; right: 25px; background: rgba(63, 240, 0, 0.1); color: var(--neon); padding: 5px 12px; border-radius: 30px; font-size: 0.7rem; font-weight: bold; text-transform: uppercase; }
-        .match-club { font-family: var(--font-title); font-size: 1.1rem; text-transform: uppercase; margin-bottom: 8px; color: var(--white); padding-right: 60px; }
-        .match-info { font-size: 0.85rem; opacity: 0.6; margin-bottom: 8px; display: flex; align-items: center; gap: 8px; }
+        .match-badge { position: absolute; top: 22px; right: 25px; background: rgba(63, 240, 0, 0.1); color: var(--neon); padding: 5px 12px; border-radius: 30px; font-size: 0.75rem; font-weight: bold; text-transform: uppercase; }
+        .match-club { font-family: var(--font-title); font-size: 1.2rem; text-transform: uppercase; margin-bottom: 8px; color: var(--white); padding-right: 60px; }
+        .match-info { font-size: 0.9rem; opacity: 0.6; margin-bottom: 12px; display: flex; align-items: center; gap: 8px; }
         
-        .players-needed { font-size: 0.9rem; font-weight: 700; color: var(--white); margin: 15px 0; display: flex; align-items: center; gap: 10px; }
-        .players-count { background: var(--white); color: var(--dark); width: 22px; height: 22px; display: flex; align-items: center; justify-content: center; border-radius: 50%; font-size: 0.75rem; font-weight: 800; }
+        .players-needed { font-size: 0.95rem; font-weight: 700; color: var(--white); margin-bottom: 20px; display: flex; align-items: center; gap: 10px; }
+        .players-count { background: var(--white); color: var(--dark); width: 22px; height: 22px; display: flex; align-items: center; justify-content: center; border-radius: 50%; font-size: 0.8rem; font-weight: 800; }
 
         .btn-join {
             background: transparent; border: 1px solid var(--neon); color: var(--neon);
@@ -124,29 +99,43 @@
         }
         .btn-join:hover { background: var(--neon); color: var(--dark); box-shadow: 0 0 15px rgba(63, 240, 0, 0.2); }
 
-        /* Modal Scurito in Sintonia */
-        .modal-content { background: #0c0c0c; border: 1px solid rgba(255,255,255,0.1); border-radius: 26px; color: white; padding: 25px; }
-        .modal-title { font-family: var(--font-title); text-transform: uppercase; font-size: 1.2rem; }
+        /* Autocomplete integrato nella tendina scura */
+        .autocomplete-wrapper { position: relative; }
+        .autocomplete-results {
+            position: absolute; top: calc(100% - 15px); left: 0; width: 100%;
+            background: #0d0d0d; border: 1px solid rgba(255,255,255,0.15);
+            border-bottom-left-radius: 12px; border-bottom-right-radius: 12px;
+            z-index: 9999; max-height: 180px; overflow-y: auto; display: none;
+            box-shadow: 0 10px 25px rgba(0,0,0,0.6);
+        }
+        .autocomplete-item { padding: 12px 15px; cursor: pointer; font-size: 0.85rem; border-bottom: 1px solid rgba(255,255,255,0.05); color: rgba(255,255,255,0.8); }
+        .autocomplete-item:hover { background: var(--neon); color: var(--dark); font-weight: 600; }
+
+        .modal-content { background: #0c0c0c; border: 1px solid rgba(255,255,255,0.1); border-radius: 24px; color: white; padding: 20px; }
+        .modal-title { font-family: var(--font-title); text-transform: uppercase; font-size: 1.3rem; }
+        label { font-size: 0.75rem; font-weight: 600; opacity: 0.6; text-transform: uppercase; letter-spacing: 1px; margin-bottom: 8px; display: block; }
     </style>
 </head>
 <body>
 
     <div id="bg"></div>
 
-    <div class="wrapper">
-        
-        <div class="radar-box">
+    <div class="container-custom">
+        <div class="radar-header">
             <a href="index.html"><img src="images/logo.png" class="logo-radar" alt="Nevera Logo"></a>
-            
-            <h1 class="radar-title">SOS MATCH RADAR</h1>
-            <p class="radar-subtitle">Trova o lancia una chiamata alle armi</p>
+            <button class="btn-logout" onclick="handleLogout()"><i class="fa-solid fa-right-from-bracket"></i></button>
+        </div>
 
-            <div class="map-container">
-                <div id="radarMap"></div>
-            </div>
+        <h1 class="radar-title">FINDER</h1>
+        <p class="radar-subtitle">READY SET PLAY</p>
 
-            <div class="form-group-custom">
-                <label>Seleziona Provincia attiva</label>
+        <div class="map-container">
+            <div id="radarMap"></div>
+        </div>
+
+        <div class="filter-section">
+            <div class="filter-group">
+                <label>Filtra Provincia:</label>
                 <select id="geoFilter" class="filter-select" onchange="loadMatches()">
                     <option value="ALL">Tutte le province</option>
                     <option value="BG">Bergamo</option>
@@ -158,34 +147,27 @@
                     <option value="VA">Varese</option>
                 </select>
             </div>
-
-            <button class="btn-action" data-bs-toggle="modal" data-bs-target="#newMatchModal">
+            <button class="btn-create" data-bs-toggle="modal" data-bs-target="#newMatchModal">
                 <i class="fa-solid fa-plus me-2"></i>Lancia un SOS
-            </button>
-
-            <br>
-            <button class="btn-secondary-custom" onclick="handleLogout()">
-                <i class="fa-solid fa-right-from-bracket me-1"></i> Esci dal Radar
             </button>
         </div>
 
-        <div id="matchesGrid" class="matches-container"></div>
-
+        <div id="matchesGrid" class="matches-grid"></div>
     </div>
 
     <div class="modal fade" id="newMatchModal" tabindex="-1" aria-hidden="true">
-        <div class="modal-dialog modal-dialog-centered" style="max-width: 450px;">
+        <div class="modal-dialog modal-dialog-centered">
             <div class="modal-content">
-                <div class="modal-header border-0 pb-0">
-                    <h5 class="modal-title">Lancia un SOS</h5>
+                <div class="modal-header border-0">
+                    <h5 class="modal-title">Lancia un SOS Match</h5>
                     <button type="button" class="btn-close btn-close-white" data-bs-dismiss="modal"></button>
                 </div>
                 <form id="newMatchForm" onsubmit="createMatch(event)">
                     <div class="modal-body">
                         
-                        <div class="form-group-custom">
-                            <label>Club / Centro Sportivo</label>
-                            <input type="text" id="matchClub" class="form-control-custom" placeholder="Cerca o inserisci il centro..." autocomplete="off" oninput="searchClub(this.value)" required>
+                        <label>Cerca Centro Sportivo</label>
+                        <div class="autocomplete-wrapper">
+                            <input type="text" id="matchClub" class="form-control-custom w-100 mb-3" placeholder="Digita il nome del centro..." autocomplete="off" oninput="searchClub(this.value)" required>
                             <div id="autocompleteResults" class="autocomplete-results"></div>
                         </div>
 
@@ -193,24 +175,20 @@
                         <input type="hidden" id="matchLat">
                         <input type="hidden" id="matchLng">
                         
-                        <div id="locationFeedback" class="small mb-3 text-uppercase fw-bold text-center" style="color: var(--neon); display:none; font-size: 0.75rem;"></div>
+                        <div id="locationFeedback" class="small mb-3 text-uppercase fw-bold text-center" style="color: var(--neon); display:none; font-size:0.75rem;"></div>
 
-                        <div class="form-group-custom">
-                            <label>Data e Ora partita</label>
-                            <input type="datetime-local" id="matchDate" class="form-control-custom" required>
-                        </div>
+                        <label>Data e Ora della partita</label>
+                        <input type="datetime-local" id="matchDate" class="form-control-custom w-100 mb-3" required>
                         
-                        <div class="form-group-custom">
-                            <label>Giocatori Mancanti</label>
-                            <select id="matchPlayers" class="form-control-custom" required>
-                                <option value="1">1 Giocatore mancante</option>
-                                <option value="2">2 Giocatori mancanti</option>
-                                <option value="3">3 Giocatori mancanti</option>
-                            </select>
-                        </div>
+                        <label>Giocatori Mancanti</label>
+                        <select id="matchPlayers" class="form-control-custom w-100 mb-3" required>
+                            <option value="1">1 Giocatore mancante</option>
+                            <option value="2">2 Giocatori mancanti</option>
+                            <option value="3">3 Giocatori mancanti</option>
+                        </select>
                     </div>
-                    <div class="modal-footer border-0 pt-0">
-                        <button type="submit" id="publishBtn" class="btn-action w-100 m-0">Pubblica Chiamata</button>
+                    <div class="modal-footer border-0">
+                        <button type="submit" id="publishBtn" class="btn-create w-100 m-0">Pubblica Chiamata</button>
                     </div>
                 </form>
             </div>
@@ -269,7 +247,6 @@
             }
         }
 
-        // RICERCA INTELLIGENTE POTENZIATA CON AGENT & MANUALE
         function searchClub(query) {
             clearTimeout(searchTimeout);
             const resultsBox = document.getElementById("autocompleteResults");
@@ -354,7 +331,7 @@
             const grid = document.getElementById("matchesGrid");
             const selectedProvince = document.getElementById("geoFilter").value;
             
-            grid.innerHTML = `<div class="text-center opacity-50 py-4"><i class="fa-solid fa-circle-notch fa-spin fa-lg mb-2"></i><br>Scansione radar...</div>`;
+            grid.innerHTML = `<div class="text-center opacity-50 w-100 py-5"><i class="fa-solid fa-circle-notch fa-spin fa-2x mb-3"></i><br>Scansione radar...</div>`;
             markerLayer.clearLayers();
 
             let query = dbClient.from('matches').select('*').order('date_time', { ascending: true });
@@ -368,7 +345,7 @@
 
             const { data: matches, error } = await query;
             if (error || !matches || matches.length === 0) {
-                grid.innerHTML = `<div class="text-center opacity-40 py-5"><i class="fa-solid fa-satellite-dish fa-2x mb-2" style="color: var(--neon)"></i><br>Nessun SOS attivo in zona.</div>`;
+                grid.innerHTML = `<div class="text-center opacity-40 w-100 py-5"><i class="fa-solid fa-satellite-dish fa-3x mb-3" style="color: var(--neon)"></i><br>Nessun SOS attivo in zona.</div>`;
                 return;
             }
 
