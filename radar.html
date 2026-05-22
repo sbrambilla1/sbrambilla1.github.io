@@ -240,43 +240,68 @@
         }
 
         function searchClub(query) {
-            clearTimeout(searchTimeout);
-            const resultsBox = document.getElementById("autocompleteResults");
+    clearTimeout(searchTimeout);
+    const resultsBox = document.getElementById("autocompleteResults");
+    const feedback = document.getElementById("locationFeedback");
+    
+    if (query.length < 3) {
+        resultsBox.style.display = "none";
+        return;
+    }
+
+    // Se l'utente sta scrivendo, pre-impostiamo la sua provincia come fall-back di sicurezza
+    const userProv = currentUser?.user_metadata?.province || "MI";
+    document.getElementById("matchProvince").value = userProv;
+
+    searchTimeout = setTimeout(async () => {
+        // Includiamo "Lombardia" nella ricerca per forzare la precisione locale
+        const url = `https://nominatim.openstreetmap.org/search?format=json&q=${encodeURIComponent(query + " Lombardia")}&countrycodes=it&addressdetails=1&limit=5`;
+        
+        try {
+            const response = await fetch(url, { 
+                headers: { 
+                    'Accept-Language': 'it',
+                    'User-Agent': 'NeveraSportsApp/1.0 (info@neverasports.com)' // Identificativo richiesto da OpenStreetMap
+                } 
+            });
+            const data = await response.json();
             
-            if (query.length < 3) {
-                resultsBox.style.display = "none";
+            if (!data || data.length === 0) {
+                resultsBox.innerHTML = `<div class="autocomplete-item" style="opacity:0.6;">Centro non in lista? Clicca qui per inserirlo comunque</div>`;
+                resultsBox.style.display = "block";
+                
+                // Fallback: se clicca sul messaggio di errore, accetta il testo libero
+                resultsBox.firstChild.onclick = () => {
+                    resultsBox.style.display = "none";
+                    feedback.innerText = `📍 Inserimento manuale attivo (${userProv})`;
+                    feedback.style.display = "block";
+                };
                 return;
             }
 
-            searchTimeout = setTimeout(async () => {
-                const url = `https://nominatim.openstreetmap.org/search?format=json&q=${encodeURIComponent(query)}&countrycodes=it&addressdetails=1&limit=5`;
+            resultsBox.innerHTML = "";
+            data.forEach(item => {
+                const div = document.createElement("div");
+                div.className = "autocomplete-item";
                 
-                try {
-                    const response = await fetch(url, { headers: { 'Accept-Language': 'it' } });
-                    const data = await response.json();
-                    
-                    if (data.length === 0) {
-                        resultsBox.innerHTML = `<div class="autocomplete-item">Nessun centro trovato. Continua a scrivere l'indirizzo a mano.</div>`;
-                        resultsBox.style.display = "block";
-                        return;
-                    }
-
-                    resultsBox.innerHTML = "";
-                    data.forEach(item => {
-                        const div = document.createElement("div");
-                        div.className = "autocomplete-item";
-                        const displayName = item.display_name.split(',').slice(0, 3).join(',');
-                        div.innerText = displayName;
-                        
-                        div.onclick = () => selectClub(item);
-                        resultsBox.appendChild(div);
-                    });
-                    resultsBox.style.display = "block";
-                } catch (e) {
-                    console.error("Errore geocoding", e);
-                }
-            }, 400);
+                // Pulizia del nome per renderlo leggibile nel design luxury
+                const parts = item.display_name.split(',');
+                const displayName = parts[0] + (parts[1] ? `, ${parts[1].trim()}` : '') + (parts[2] ? ` (${parts[2].trim()})` : '');
+                
+                div.innerText = displayName;
+                div.onclick = () => selectClub(item);
+                resultsBox.appendChild(div);
+            });
+            resultsBox.style.display = "block";
+        } catch (e) {
+            console.error("Errore geocoding:", e);
+            // In caso di blocco di rete, sblocca comunque l'inserimento manuale
+            feedback.innerText = `📍 Modalità manuale attiva (${userProv})`;
+            feedback.style.display = "block";
         }
+    }, 500);
+}
+
 
         function selectClub(item) {
             document.getElementById("matchClub").value = item.display_name.split(',')[0] + " (" + item.display_name.split(',')[1].trim() + ")";
