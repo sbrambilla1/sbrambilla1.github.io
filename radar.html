@@ -1,7 +1,7 @@
 <!DOCTYPE HTML>
 <html lang="it">
 <head>
-    <title>RADER FINDER | NEVERA SPORTS</title>
+    <title>RADAR FINDER | NEVERA SPORTS</title>
     <meta charset="utf-8" />
     <link rel="icon" type="image/png" href="images/logo.png">
     <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=0" />
@@ -9,6 +9,7 @@
     <link href="https://fonts.googleapis.com/css2?family=Archivo+Black&family=Inter:wght@300;400;600;800&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+    <link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css" />
     
     <style>
         :root {
@@ -33,7 +34,6 @@
 
         .container-custom { position: relative; z-index: 10; max-width: 1200px; margin: 0 auto; padding: 40px 20px; }
 
-        /* Header Navbar */
         .radar-header { display: flex; justify-content: space-between; align-items: center; margin-bottom: 40px; }
         .logo-radar { height: 50px; }
         .btn-logout { background: none; border: none; color: #FF4444; font-size: 1.5rem; cursor: pointer; transition: 0.3s; }
@@ -42,7 +42,16 @@
         .radar-title { font-family: var(--font-title); font-size: 2.5rem; text-transform: uppercase; letter-spacing: -1px; margin-bottom: 5px; }
         .radar-subtitle { font-size: 0.9rem; opacity: 0.5; text-transform: uppercase; letter-spacing: 2px; margin-bottom: 30px; }
 
-        /* Filtri */
+        .map-container {
+            background: rgba(255, 255, 255, 0.02); border: 1px solid rgba(255, 255, 255, 0.08);
+            border-radius: 30px; padding: 15px; margin-bottom: 40px; backdrop-filter: blur(10px);
+            box-shadow: 0 20px 40px rgba(0,0,0,0.4);
+        }
+        #radarMap { height: 350px; border-radius: 20px; background: #0d0d0d; border: 1px solid rgba(255, 255, 255, 0.05); }
+
+        .leaflet-popup-content-wrapper { background: #0c0c0c !important; color: white !important; border: 1px solid var(--neon); border-radius: 12px; font-family: var(--font-body); }
+        .leaflet-popup-tip { background: #0c0c0c !important; border-left: 1px solid var(--neon); border-bottom: 1px solid var(--neon); }
+
         .filter-section {
             background: rgba(255, 255, 255, 0.02); border: 1px solid rgba(255, 255, 255, 0.08);
             border-radius: 20px; padding: 20px; margin-bottom: 30px; backdrop-filter: blur(10px);
@@ -59,7 +68,6 @@
         }
         .btn-create:hover { transform: scale(1.03); box-shadow: 0 0 20px rgba(63, 240, 0, 0.3); }
 
-        /* Grid Match */
         .matches-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(320px, 1fr)); gap: 25px; }
         
         .match-card {
@@ -83,13 +91,23 @@
         }
         .btn-join:hover { background: var(--neon); color: var(--dark); box-shadow: 0 0 15px rgba(63, 240, 0, 0.2); }
 
-        /* Modal di inserimento */
+        /* Modal e Autocomplete Scuro Cyberpunk */
         .modal-content { background: #0c0c0c; border: 1px solid rgba(255,255,255,0.1); border-radius: 24px; color: white; padding: 20px; }
-        .modal-header { border-bottom: none; }
-        .modal-footer { border-top: none; }
         .form-control-custom { background: var(--dark); border: 1px solid rgba(255,255,255,0.1); color: white; padding: 12px; border-radius: 12px; width: 100%; margin-bottom: 15px; outline: none; }
         .form-control-custom:focus { border-color: var(--neon); color: white; background: var(--dark); }
         .modal-title { font-family: var(--font-title); text-transform: uppercase; font-size: 1.3rem; }
+
+        /* Suggerimenti indirizzo */
+        .autocomplete-wrapper { position: relative; }
+        .autocomplete-results {
+            position: absolute; top: calc(100% - 15px); left: 0; width: 100%;
+            background: #121212; border: 1px solid rgba(255,255,255,0.15);
+            border-bottom-left-radius: 12px; border-bottom-right-radius: 12px;
+            z-index: 9999; max-height: 200px; overflow-y: auto; display: none;
+            box-shadow: 0 10px 25px rgba(0,0,0,0.6);
+        }
+        .autocomplete-item { padding: 12px 15px; cursor: pointer; font-size: 0.85rem; border-bottom: 1px solid rgba(255,255,255,0.05); color: rgba(255,255,255,0.8); }
+        .autocomplete-item:hover { background: var(--neon); color: var(--dark); font-weight: 600; }
     </style>
 </head>
 <body>
@@ -99,11 +117,15 @@
     <div class="container-custom">
         <div class="radar-header">
             <a href="index.html"><img src="images/logo.png" class="logo-radar" alt="Nevera Logo"></a>
-            <button class="btn-logout" onclick="handleLogout()" title="Disconnetti"><i class="fa-solid fa-right-from-bracket"></i></button>
+            <button class="btn-logout" onclick="handleLogout()"><i class="fa-solid fa-right-from-bracket"></i></button>
         </div>
 
         <h1 class="radar-title">SOS MATCH RADAR</h1>
         <p class="radar-subtitle">Trova o lancia una chiamata alle armi sui campi</p>
+
+        <div class="map-container">
+            <div id="radarMap"></div>
+        </div>
 
         <div class="filter-section">
             <div class="filter-group">
@@ -122,8 +144,7 @@
             <button class="btn-create" data-bs-toggle="modal" data-bs-target="#newMatchModal"><i class="fa-solid fa-plus me-2"></i>Lancia un SOS</button>
         </div>
 
-        <div id="matchesGrid" class="matches-grid">
-            </div>
+        <div id="matchesGrid" class="matches-grid"></div>
     </div>
 
     <div class="modal fade" id="newMatchModal" tabindex="-1" aria-hidden="true">
@@ -131,24 +152,22 @@
             <div class="modal-content">
                 <div class="modal-header">
                     <h5 class="modal-title">Lancia un SOS Match</h5>
-                    <button type="button" class="btn-close btn-close-white" data-bs-with="modal" data-bs-dismiss="modal" aria-label="Close"></button>
+                    <button type="button" class="btn-close btn-close-white" data-bs-dismiss="modal"></button>
                 </div>
                 <form id="newMatchForm" onsubmit="createMatch(event)">
                     <div class="modal-body">
-                        <label class="small text-uppercase opacity-50 mb-1 fw-bold">Nome del Club / Circolo</label>
-                        <input type="text" id="matchClub" class="form-control-custom" placeholder="es. Nevera Sports Academy" required>
                         
-                        <label class="small text-uppercase opacity-50 mb-1 fw-bold">Provincia del Circolo</label>
-                        <select id="matchProvince" class="form-control-custom" required>
-                            <option value="" disabled selected>Seleziona Provincia</option>
-                            <option value="BG">Bergamo</option>
-                            <option value="BS">Brescia</option>
-                            <option value="CO">Como</option>
-                            <option value="LC">Lecco</option>
-                            <option value="MB">Monza e Brianza</option>
-                            <option value="MI">Milano</option>
-                            <option value="VA">Varese</option>
-                        </select>
+                        <label class="small text-uppercase opacity-50 mb-1 fw-bold">Cerca e seleziona il Club / Centro Sportivo</label>
+                        <div class="autocomplete-wrapper">
+                            <input type="text" id="matchClub" class="form-control-custom" placeholder="Digita il nome del centro... (es. Monviso Padel)" autocomplete="off" oninput="searchClub(this.value)" required>
+                            <div id="autocompleteResults" class="autocomplete-results"></div>
+                        </div>
+
+                        <input type="hidden" id="matchProvince">
+                        <input type="hidden" id="matchLat">
+                        <input type="hidden" id="matchLng">
+                        
+                        <div id="locationFeedback" class="small mb-3 text-uppercase fw-bold" style="color: var(--neon); display:none;"></div>
 
                         <label class="small text-uppercase opacity-50 mb-1 fw-bold">Data e Ora della partita</label>
                         <input type="datetime-local" id="matchDate" class="form-control-custom" required>
@@ -161,7 +180,7 @@
                         </select>
                     </div>
                     <div class="modal-footer">
-                        <button type="submit" class="btn-create w-100">Pubblica Chiamata</button>
+                        <button type="submit" id="publishBtn" class="btn-create w-100">Pubblica Chiamata</button>
                     </div>
                 </form>
             </div>
@@ -170,37 +189,49 @@
 
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+    <script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js"></script>
+
     <script>
         const SUPABASE_URL = "https://ennpbtrthwdxsvdbqbmn.supabase.co";
         const SUPABASE_KEY = "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6ImVubnBidHJ0aHdkeHN2ZGJxYm1uIiwicm9sZSI6ImFub24iLCJpYXQiOjE3NzkwNjU0NzUsImV4cCI6MjA5NDY0MTQ3NX0.JL-w7qkp6bktVJMrJ7O0Uw1phxaBpBc9BiP3cH8Q4-0";
         const dbClient = window.supabase ? window.supabase.createClient(SUPABASE_URL, SUPABASE_KEY) : null;
 
         let currentUser = null;
+        let map = null;
+        let markerLayer = null;
+        let searchTimeout = null;
 
-        // Controllo Sessione e Caricamento Profilo
+        const PROVINCE_COORDS = {
+            "MI": [45.4642, 9.1900], "BG": [45.6983, 9.6773], "BS": [45.5416, 10.2118],
+            "CO": [45.8081, 9.0852], "LC": [45.8566, 9.3973], "MB": [45.5845, 9.2735], "VA": [45.8175, 8.8262]
+        };
+
+        function initMap() {
+            map = L.map('radarMap', { zoomControl: false }).setView([45.65, 9.5], 8);
+            L.tileLayer('https://{s}.basemaps.cartocdn.com/dark_all/{z}/{x}/{y}{r}.png', {
+                attribution: '&copy; OpenStreetMap &copy; CARTO'
+            }).addTo(map);
+            markerLayer = L.layerGroup().addTo(map);
+        }
+
         window.onload = async function() {
             if (!dbClient) return;
-            
-            const { data: { session }, error } = await dbClient.auth.getSession();
+            initMap();
+
+            const { data: { session } } = await dbClient.auth.getSession();
             if (!session) {
-                // Non loggato -> Ritorna al login
                 window.location.href = "login.html";
             } else {
                 currentUser = session.user;
-                
-                // Prendi la provincia salvata nei metadati dell'utente registrato
                 const userProvince = currentUser.user_metadata?.province;
                 if (userProvince) {
-                    // Imposta il filtro geografico sulla provincia dell'utente automaticamente
                     document.getElementById("geoFilter").value = userProvince;
+                    if(PROVINCE_COORDS[userProvince]) map.setView(PROVINCE_COORDS[userProvince], 9);
                 }
-                
-                // Carica i match filtrati
                 loadMatches();
             }
         }
 
-        // Forza il Logout
         async function handleLogout() {
             if (confirm("Vuoi davvero uscire dal radar?")) {
                 await dbClient.auth.signOut();
@@ -208,28 +239,99 @@
             }
         }
 
-        // Caricamento dei Match filtrati per Provincia
-        async function loadMatches() {
-            const grid = document.getElementById("matchesGrid");
-            const selectedProvince = document.getElementById("geoFilter").value;
-            grid.innerHTML = `<div class="text-center opacity-50 w-100 py-5"><i class="fa-solid fa-circle-notch fa-spin fa-2x mb-3"></i><br>Scansione radar in corso...</div>`;
-
-            let query = dbClient.from('sos_matches').select('*').order('date_time', { ascending: true });
-
-            // Se il filtro non è su "ALL", applica il filtro per provincia
-            if (selectedProvince !== "ALL") {
-                query = query.eq('province', selectedProvince);
-            }
-
-            const { data: matches, error } = await query;
-
-            if (error) {
-                grid.innerHTML = `<div class="text-center text-danger w-100 py-5">Errore durante il caricamento del radar.</div>`;
+        // FUNZIONE DI RICERCA INTELLIGENTE DEL CENTRO SPORTIVO
+        function searchClub(query) {
+            clearTimeout(searchTimeout);
+            const resultsBox = document.getElementById("autocompleteResults");
+            
+            if (query.length < 3) {
+                resultsBox.style.display = "none";
                 return;
             }
 
-            if (!matches || matches.length === 0) {
-                grid.innerHTML = `<div class="text-center opacity-40 w-100 py-5"><i class="fa-solid fa-satellite-dish fa-3x mb-3" style="color: var(--neon)"></i><br>Nessun SOS attivo in questa provincia al momento.</div>`;
+            // Aspetta che l'utente si fermi un attimo di digitare prima di cercare (anti-lag)
+            searchTimeout = setTimeout(async () => {
+                // Interroga OpenStreetMap limitando i risultati all'Italia
+                const url = `https://nominatim.openstreetmap.org/search?format=json&q=${encodeURIComponent(query)}&countrycodes=it&addressdetails=1&limit=5`;
+                
+                try {
+                    const response = await fetch(url, { headers: { 'Accept-Language': 'it' } });
+                    const data = await response.json();
+                    
+                    if (data.length === 0) {
+                        resultsBox.innerHTML = `<div class="autocomplete-item">Nessun centro trovato. Continua a scrivere l'indirizzo a mano.</div>`;
+                        resultsBox.style.display = "block";
+                        return;
+                    }
+
+                    resultsBox.innerHTML = "";
+                    data.forEach(item => {
+                        const div = document.createElement("div");
+                        div.className = "autocomplete-item";
+                        // Mostra un nome pulito leggibile
+                        const displayName = item.display_name.split(',').slice(0, 3).join(',');
+                        div.innerText = displayName;
+                        
+                        div.onclick = () => selectClub(item);
+                        resultsBox.appendChild(div);
+                    });
+                    resultsBox.style.display = "block";
+                } catch (e) {
+                    console.error("Errore geocoding", e);
+                }
+            }, 400);
+        }
+
+        // SELEZIONE DEL CLUB DAL MENU A TENDINA
+        function selectClub(item) {
+            document.getElementById("matchClub").value = item.display_name.split(',')[0] + " (" + item.display_name.split(',')[1].trim() + ")";
+            document.getElementById("matchLat").value = item.lat;
+            document.getElementById("matchLng").value = item.lon;
+            document.getElementById("autocompleteResults").style.display = "none";
+
+            // Estrazione automatica della sigla provincia dall'indirizzo fornito da OSM
+            let provinceSigla = "MI"; // Default di sicurezza
+            if (item.address) {
+                if (item.address.province) {
+                    // Cerca corrispondenze con il nostro dizionario per estrarre la sigla
+                    const provNome = item.address.province.toLowerCase();
+                    if (provNome.includes("bergamo")) provinceSigla = "BG";
+                    else if (provNome.includes("brescia")) provinceSigla = "BS";
+                    else if (provNome.includes("como")) provinceSigla = "CO";
+                    else if (provNome.includes("lecco")) provinceSigla = "LC";
+                    else if (provNome.includes("monza")) provinceSigla = "MB";
+                    else if (provNome.includes("milano")) provinceSigla = "MI";
+                    else if (provNome.includes("varese")) provinceSigla = "VA";
+                }
+            }
+            document.getElementById("matchProvince").value = provinceSigla;
+
+            // Mostra un feedback visivo di successo all'utente
+            const feedback = document.getElementById("locationFeedback");
+            feedback.innerText = `📍 Localizzato a: ${provinceSigla} (Pronto al posizionamento GPS)`;
+            feedback.style.display = "block";
+        }
+
+        // CARICAMENTO E RENDERING DEI MATCH SUL RADAR
+        async function loadMatches() {
+            const grid = document.getElementById("matchesGrid");
+            const selectedProvince = document.getElementById("geoFilter").value;
+            
+            grid.innerHTML = `<div class="text-center opacity-50 w-100 py-5"><i class="fa-solid fa-circle-notch fa-spin fa-2x mb-3"></i><br>Scansione radar in corso...</div>`;
+            markerLayer.clearLayers();
+
+            let query = dbClient.from('sos_matches').select('*').order('date_time', { ascending: true });
+
+            if (selectedProvince !== "ALL") {
+                query = query.eq('province', selectedProvince);
+                if (PROVINCE_COORDS[selectedProvince]) map.flyTo(PROVINCE_COORDS[selectedProvince], 10);
+            } else {
+                map.flyTo([45.65, 9.5], 8);
+            }
+
+            const { data: matches, error } = await query;
+            if (error || !matches || matches.length === 0) {
+                grid.innerHTML = `<div class="text-center opacity-40 w-100 py-5"><i class="fa-solid fa-satellite-dish fa-3x mb-3" style="color: var(--neon)"></i><br>Nessun SOS attivo.</div>`;
                 return;
             }
 
@@ -239,9 +341,33 @@
                 const dataFormattata = dateObj.toLocaleDateString('it-IT', { day: '2-digit', month: '2-digit' });
                 const oraFormattata = dateObj.toLocaleTimeString('it-IT', { hour: '2-digit', minute: '2-digit' });
 
-                // Link diretto a WhatsApp con messaggio precompilato (Usa il telefono dell'utente che ha creato il match, se salvato)
                 const waMessage = encodeURIComponent(`Ciao! Ho visto il tuo SOS su Nevera Sports per la partita del ${dataFormattata} al club ${match.club}. C'è ancora posto?`);
                 const waUrl = `https://wa.me/${match.creator_phone || ''}?text=${waMessage}`;
+
+                // SE INSERITO CON GPS, USA LE COORDINATE PRECISE, ALTRIMENTI USA IL CENTRO PROVINCIA (VECCHI MATCH)
+                let lat = match.latitude;
+                let lng = match.longitude;
+
+                if (!lat || !lng) {
+                    if(PROVINCE_COORDS[match.province]) {
+                        lat = PROVINCE_COORDS[match.province][0];
+                        lng = PROVINCE_COORDS[match.province][1];
+                    }
+                }
+
+                if (lat && lng) {
+                    const marker = L.circleMarker([lat, lng], {
+                        radius: 9, fillColor: "#3FF000", color: "#040404", weight: 2, opacity: 1, fillOpacity: 0.85
+                    });
+
+                    marker.bindPopup(`
+                        <strong style="color:var(--neon); text-transform:uppercase;">${match.club}</strong><br>
+                        <span style="font-size:0.8rem;">📅 ${dataFormattata} alle ${oraFormattata}</span><br>
+                        <span style="font-size:0.8rem; font-weight:bold;">👥 Mancano ${match.players_needed} players</span><br>
+                        <a href="${waUrl}" target="_blank" style="color:var(--neon); text-decoration:none; display:inline-block; margin-top:5px; font-weight:bold;">Candidati Ora →</a>
+                    `);
+                    markerLayer.addLayer(marker);
+                }
 
                 const card = document.createElement("div");
                 card.className = "match-card";
@@ -252,8 +378,7 @@
                         <div class="match-info"><i class="fa-regular fa-calendar me-2"></i>${dataFormattata}</div>
                         <div class="match-info"><i class="fa-regular fa-clock me-2"></i>${oraFormattata}</div>
                         <div class="players-needed">
-                            <div class="players-count">${match.players_needed}</div> 
-                            <span>${match.players_needed === 1 ? 'Giocatore mancante' : 'Giocatori mancanti'}</span>
+                            <div class="players-count">${match.players_needed}</div> <span>Giocatori mancanti</span>
                         </div>
                     </div>
                     <a href="${waUrl}" target="_blank" class="btn-join"><i class="fa-brands fa-whatsapp me-2"></i>Candidati Ora</a>
@@ -262,21 +387,24 @@
             });
         }
 
-        // Creazione di un nuovo SOS Match
+        // SALVATAGGIO SOS MATCH CON DATI GEOGRAFICI PRECISI
         async function createMatch(event) {
             event.preventDefault();
             
             const club = document.getElementById("matchClub").value;
-            const province = document.getElementById("matchProvince").value;
+            const province = document.getElementById("matchProvince").value || "MI"; // Default fall-back
+            const lat = document.getElementById("matchLat").value ? parseFloat(document.getElementById("matchLat").value) : null;
+            const lng = document.getElementById("matchLng").value ? parseFloat(document.getElementById("matchLng").value) : null;
+            
             const dateTime = document.getElementById("matchDate").value;
             const playersNeeded = parseInt(document.getElementById("matchPlayers").value);
-
-            // Recupera il numero di telefono del creatore dai suoi metadati
             const creatorPhone = currentUser?.user_metadata?.phone || '';
 
             const { error } = await dbClient.from('sos_matches').insert([{
                 club: club,
                 province: province,
+                latitude: lat,
+                longitude: lng,
                 date_time: dateTime,
                 players_needed: playersNeeded,
                 creator_phone: creatorPhone,
@@ -284,18 +412,22 @@
             }]);
 
             if (error) {
-                alert("Errore nella pubblicazione dell'SOS: " + error.message);
+                alert("Errore: " + error.message);
             } else {
-                // Reset form e chiusura modal
                 document.getElementById("newMatchForm").reset();
+                document.getElementById("locationFeedback").style.display = "none";
                 const modalEl = document.getElementById('newMatchModal');
-                const modal = bootstrap.Modal.getInstance(modalEl);
-                modal.hide();
-                
-                // Ricarica la griglia
+                bootstrap.Modal.getInstance(modalEl).hide();
                 loadMatches();
             }
         }
+
+        // Chiude la tendina dei suggerimenti se clicchi fuori
+        document.addEventListener("click", function (e) {
+            if (e.target.id !== "matchClub") {
+                document.getElementById("autocompleteResults").style.display = "none";
+            }
+        });
     </script>
 </body>
 </html>
