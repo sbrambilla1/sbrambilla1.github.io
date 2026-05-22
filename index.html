@@ -6,6 +6,7 @@
     
     <link rel="icon" type="image/png" href="images/logo.png">
     <link class="apple-touch-icon" href="images/logo.png">
+    <link class="apple-touch-icon" href="images/logo.png">
     <link rel="icon" sizes="192x192" href="images/logo.png">
     
     <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=0" />
@@ -122,7 +123,7 @@
             filter: drop-shadow(0 0 15px var(--neon)); 
         }
 
-        /* ICONA DI LOGIN NELL'HEADER */
+        /* ICONA DI LOGIN / CONTENITORE UTENTE NELL'HEADER */
         .auth-header-icon {
             position: absolute;
             top: 50%;
@@ -328,6 +329,7 @@
         .footer-logo-mini { height: 70px; opacity: 0.4; margin-bottom: 15px; }
         .footer-nav { display: flex; gap: 60px; flex: 1; justify-content: flex-end; }
         .f-col { display: flex; flex-direction: column; gap: 8px; text-align: left; }
+        .f-col { display: flex; flex-direction: column; gap: 8px; text-align: left; }
         .f-label { font-size: 0.6rem; color: var(--neon); letter-spacing: 2px; font-weight: 800; margin-bottom: 10px; }
         .f-link { font-size: 0.85rem; color: white !important; opacity: 0.3; text-decoration: none; transition: 0.3s; }
         .f-link:hover { opacity: 1; color: var(--neon) !important; }
@@ -357,8 +359,64 @@
             .footer-nav { justify-content: center; text-align: center; width: 100%; }
             .f-col { align-items: center; text-align: center; }
             .btn-action, .btn-join { font-size: 0.7rem !important; }
-            .auth-header-icon { right: 20px; font-size: 1.2rem; width: 40px; height: 40px; }
+            .auth-header-icon { right: 20px; font-size: 1.2rem; width: 45px; height: 45px; }
         }
+
+        /* --- SPECIFICHE E STILI STRUTTURALI MENU UTENTE A DESTRA --- */
+        .user-profile-dropdown { position: relative; width: 100%; height: 100%; display: flex; align-items: center; justify-content: center; }
+        
+        .avatar-btn {
+            width: 100%; height: 100%; border-radius: 50%;
+            display: flex; align-items: center; justify-content: center;
+            font-family: var(--font-title); font-size: 0.85rem; color: var(--neon);
+            cursor: pointer; text-transform: uppercase;
+        }
+
+        .nv-dropdown-menu {
+            position: absolute; top: 55px; right: 0;
+            background: rgba(12, 12, 12, 0.98); border: 1px solid rgba(255, 255, 255, 0.08);
+            border-radius: 20px; width: 240px; padding: 15px;
+            box-shadow: 0 15px 35px rgba(0,0,0,0.8); backdrop-filter: blur(15px);
+            z-index: 1000; display: none; opacity: 0;
+            transform: translateY(-10px); transition: opacity 0.3s, transform 0.3s;
+        }
+        .nv-dropdown-menu.show { display: block; opacity: 1; transform: translateY(0); }
+        .user-menu-header { border-bottom: 1px solid rgba(255,255,255,0.05); padding-bottom: 10px; margin-bottom: 10px; text-align: left; }
+        .user-menu-name { font-family: var(--font-title); font-size: 0.85rem; text-transform: uppercase; margin: 0; color: white; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; display: block; }
+        
+        .nv-dropdown-item {
+            display: flex; align-items: center; gap: 12px; padding: 12px; color: rgba(255,255,255,0.6);
+            font-size: 0.8rem; font-weight: 600; text-decoration: none; border-radius: 10px; transition: 0.2s; cursor: pointer; text-align: left;
+        }
+        .nv-dropdown-item:hover { background: rgba(255,255,255,0.04); color: var(--neon); }
+        .nv-dropdown-item i { width: 16px; font-size: 0.9rem; }
+        .btn-logout-new { border-top: 1px solid rgba(255,255,255,0.05); color: #FF4444 !important; margin-top: 5px; padding-top: 12px; }
+        .btn-logout-new:hover { background: rgba(255, 68, 68, 0.05); color: #FF4444; }
+
+        /* PANNELLO STRUTTURALE LATERALE DESTRO (DASHBOARD) */
+        .nv-offcanvas {
+            position: fixed; top: 0; right: -450px; width: 100%; max-width: 420px; height: 100%;
+            background: rgba(8, 8, 8, 0.96); border-left: 1px solid rgba(255,255,255,0.05);
+            z-index: 10050; backdrop-filter: blur(20px);
+            transition: right 0.4s cubic-bezier(0.165, 0.84, 0.44, 1);
+            padding: 40px 30px; display: flex; flex-direction: column; text-align: left; color: white;
+        }
+        .nv-offcanvas.open { right: 0; box-shadow: -15px 0 40px rgba(0,0,0,0.8); }
+        .nv-offcanvas-header { display: flex; justify-content: space-between; align-items: center; margin-bottom: 35px; }
+        .nv-offcanvas-title { font-family: var(--font-title); font-size: 1.2rem; text-transform: uppercase; color: white; margin: 0; }
+        .btn-close-offcanvas { background: none; border: none; color: var(--neon); font-size: 1.5rem; cursor: pointer; }
+        .nv-offcanvas-body { flex: 1; overflow-y: auto; padding-right: 5px; }
+
+        .profile-data-box { background: rgba(255,255,255,0.02); border: 1px solid rgba(255,255,255,0.05); border-radius: 20px; padding: 20px; }
+        .profile-label { font-size: 0.6rem; font-weight: 800; color: rgba(255,255,255,0.4); text-transform: uppercase; letter-spacing: 1.5px; margin-bottom: 4px; }
+        .profile-value { font-size: 0.95rem; font-weight: 600; color: white; margin-bottom: 15px; }
+        .profile-value:last-child { margin-bottom: 0; }
+
+        .my-match-item { background: rgba(255,255,255,0.02); border: 1px solid rgba(255,255,255,0.05); border-radius: 18px; padding: 15px; margin-bottom: 15px; position: relative; }
+        .my-match-club { font-weight: 700; font-size: 0.85rem; text-transform: uppercase; color: white; padding-right: 30px; }
+        .my-match-time { font-size: 0.75rem; color: rgba(255,255,255,0.4); margin-top: 5px; }
+        .btn-delete-match { position: absolute; top: 15px; right: 15px; background: none; border: none; color: rgba(255,68,68,0.5); transition: 0.2s; font-size: 0.9rem; cursor: pointer; }
+        .btn-delete-match:hover { color: #FF4444; transform: scale(1.1); }
     </style>
 </head>
 <body>
@@ -373,6 +431,7 @@
         
         <header class="nav-fix">
             <img src="images/logo.png" alt="Nevera Logo" class="logo-trigger" onclick="openM()">
+            
             <div id="authHeaderBtn" class="auth-header-icon">
                 <i class="fa-regular fa-user"></i>
             </div>
@@ -397,6 +456,15 @@
             <a href="partners.html" onclick="closeM()">SPONSOR</a>
             <a href="iniziative.html" onclick="closeM()">INIZIATIVE</a>
         </div>
+    </div>
+
+    <div class="nv-offcanvas" id="userOffcanvas">
+        <div class="nv-offcanvas-header">
+            <h5 class="nv-offcanvas-title" id="offcanvasTitle">Dashboard</h5>
+            <button class="btn-close-offcanvas" onclick="closeUserPanel()">&times;</button>
+        </div>
+        <div class="nv-offcanvas-body" id="offcanvasBody">
+            </div>
     </div>
 
     <main class="main-wrapper">
@@ -489,12 +557,105 @@
             }, 1500);
         });
 
-        // Configurazione Client Supabase per la gestione sessione dell'icona header
+        // Configurazione Client Supabase per la gestione sessione globale
         const SUPABASE_URL = "https://ennpbtrthwdxsvdbqbmn.supabase.co";
         const SUPABASE_KEY = "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6ImVubnBidHJ0aHdkeHN2ZGJxYm1uIiwicm9sZSI6ImFub24iLCJpYXQiOjE3NzkwNjU0NzUsImV4cCI6MjA5NDY0MTQ3NX0.JL-w7qkp6bktVJMrJ7O0Uw1phxaBpBc9BiP3cH8Q4-0";
         const dbClient = window.supabase ? window.supabase.createClient(SUPABASE_URL, SUPABASE_KEY) : null;
 
-        // Gestione asincrona icona login nell'header
+        let globalUser = null;
+
+        // Gestione tendina utente a comparsa
+        function toggleUserMenu(event) {
+            event.stopPropagation();
+            document.getElementById("userMenu").classList.toggle("show");
+        }
+
+        // Apertura pannello laterale destro (Info Profilo o Match) con fetch Supabase dedicato
+        async function openUserPanel(type) {
+            document.getElementById("userMenu").classList.remove("show");
+            const panel = document.getElementById("userOffcanvas");
+            const title = document.getElementById("offcanvasTitle");
+            const body = document.getElementById("offcanvasBody");
+
+            body.innerHTML = `<div class="text-center py-5 opacity-50"><i class="fa-solid fa-spinner fa-spin fa-2x" style="color:var(--neon)"></i></div>`;
+            panel.classList.add("open");
+
+            if (!globalUser) return;
+
+            if (type === 'info') {
+                title.innerText = "Info Profilo";
+                const fullName = globalUser.user_metadata?.full_name || globalUser.email.split('@')[0];
+                const phone = globalUser.user_metadata?.phone || "Non configurato";
+                const province = globalUser.user_metadata?.province || "MI";
+                
+                body.innerHTML = `
+                    <div class="profile-data-box">
+                        <div class="profile-label">Nome Completo</div>
+                        <div class="profile-value">${fullName}</div>
+                        <div class="profile-label">Indirizzo Email</div>
+                        <div class="profile-value">${globalUser.email}</div>
+                        <div class="profile-label">Numero WhatsApp</div>
+                        <div class="profile-value">${phone}</div>
+                        <div class="profile-label">Provincia di Riferimento</div>
+                        <div class="profile-value">Lombardia, ${province.toUpperCase()}</div>
+                    </div>
+                `;
+            } 
+            else if (type === 'matches') {
+                title.innerText = "I miei Match";
+                
+                const { data: myMatches, error } = await dbClient
+                    .from('matches')
+                    .select('*')
+                    .eq('user_id', globalUser.id)
+                    .order('date_time', { ascending: false });
+
+                if (error || !myMatches || myMatches.length === 0) {
+                    body.innerHTML = `<p class="text-center opacity-40 mt-5 small">Non hai lanciato segnali SOS attivi.</p>`;
+                    return;
+                }
+
+                body.innerHTML = "";
+                myMatches.forEach(m => {
+                    const d = new Date(m.date_time);
+                    const formatted = d.toLocaleDateString('it-IT') + " alle " + d.toLocaleTimeString('it-IT', { hour: '2-digit', minute: '2-digit' });
+                    
+                    const div = document.createElement("div");
+                    div.className = "my-match-item";
+                    div.innerHTML = `
+                        <div class="my-match-club">${m.club}</div>
+                        <div class="my-match-time"><i class="fa-regular fa-calendar-days me-1"></i> ${formatted}</div>
+                        <button class="btn-delete-match" onclick="deleteMatchFromPanel(${m.id}, this)">
+                            <i class="fa-solid fa-trash-can"></i>
+                        </button>
+                    `;
+                    body.appendChild(div);
+                });
+            }
+        }
+
+        function closeUserPanel() {
+            document.getElementById("userOffcanvas").classList.remove("open");
+        }
+
+        async function deleteMatchFromPanel(id, element) {
+            if (confirm("Vuoi rimuovere questo SOS dal radar?")) {
+                const { error } = await dbClient.from('matches').delete().eq('id', id);
+                if (!error) {
+                    element.parentElement.remove();
+                    if (typeof loadMatches === "function") loadMatches(); 
+                }
+            }
+        }
+
+        async function handleLogout() {
+            if (confirm("Vuoi disconnetterti da Nevera Sports?")) {
+                await dbClient.auth.signOut();
+                window.location.reload();
+            }
+        }
+
+        // Aggancio asincrono all'inizializzazione del DOM per autenticazione/Avatar a destra
         document.addEventListener("DOMContentLoaded", async function() {
             const authBtn = document.getElementById('authHeaderBtn');
 
@@ -502,23 +663,49 @@
                 const { data: { session } } = await dbClient.auth.getSession();
                 
                 if (session) {
-                    // UTENTE LOGGATO: Mostra icona Logout (Exit)
-                    authBtn.innerHTML = `<i class="fa-solid fa-right-from-bracket" title="Disconnetti"></i>`;
-                    authBtn.style.color = "#FF4444";
-                    
-                    authBtn.onclick = async function() {
-                        if(confirm("Vuoi disconnetterti da Nevera Sports?")) {
-                            await dbClient.auth.signOut();
-                            window.location.reload();
-                        }
-                    };
+                    globalUser = session.user;
+                    const fullName = globalUser.user_metadata?.full_name || globalUser.email.split('@')[0];
+                    const initials = fullName.split(' ').map(n => n[0]).join('').substring(0, 2).toUpperCase();
+
+                    // TRASFORMA L'ICONA DI DESTRA NEL PULSANTE PROFILO + TENDINA UTENTE
+                    authBtn.className = "auth-header-icon user-profile-dropdown";
+                    authBtn.innerHTML = `
+                        <div class="avatar-btn" id="userAvatar" onclick="toggleUserMenu(event)">${initials}</div>
+                        <div class="nv-dropdown-menu" id="userMenu">
+                            <div class="user-menu-header">
+                                <span class="user-menu-name" id="menuUserName">${fullName}</span>
+                            </div>
+                            <div class="nv-dropdown-item" onclick="openUserPanel('info')">
+                                <i class="fa-solid fa-user-gear"></i> Info Profilo
+                            </div>
+                            <div class="nv-dropdown-item" onclick="openUserPanel('matches')">
+                                <i class="fa-solid fa-calendar-days"></i> I miei Match
+                            </div>
+                            <div class="nv-dropdown-item btn-logout-new" onclick="handleLogout()">
+                                <i class="fa-solid fa-power-off"></i> Scollega
+                            </div>
+                        </div>
+                    `;
+                    authBtn.onclick = null; // Rimuove handler precedenti per non interferire con la tendina
                 } else {
-                    // UTENTE OSPITE: Mostra icona Login standard
+                    // UTENTE NON LOGGATO: Mantiene l'icona e il redirect standard a login.html
                     authBtn.innerHTML = `<i class="fa-regular fa-user" title="Accedi"></i>`;
                     authBtn.onclick = function() {
                         window.location.href = "login.html";
                     };
                 }
+            }
+        });
+
+        // Chiusura automatica dei menu cliccando fuori dall'avatar o dall'offcanvas destro
+        document.addEventListener("click", function (e) {
+            const menu = document.getElementById("userMenu");
+            if (menu && !e.target.closest(".user-profile-dropdown") && menu.classList.contains("show")) {
+                menu.classList.remove("show");
+            }
+            const panel = document.getElementById("userOffcanvas");
+            if (panel && !e.target.closest("#userOffcanvas") && !e.target.closest(".nv-dropdown-item") && !e.target.closest("#userAvatar") && panel.classList.contains("open")) {
+                panel.classList.remove("open");
             }
         });
     </script>
