@@ -44,6 +44,32 @@
         }
         .logo-trigger:hover { transform: scale(1.1); filter: drop-shadow(0 0 15px var(--neon)); }
 
+        /* ICONA AUTH HEADER */
+        .auth-header-icon {
+            position: absolute;
+            top: 50%;
+            right: 25px;
+            transform: translateY(-50%);
+            font-size: 1.35rem;
+            color: rgba(255, 255, 255, 0.6);
+            cursor: pointer;
+            transition: 0.3s ease;
+            width: 45px;
+            height: 45px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            background: rgba(255, 255, 255, 0.03);
+            border: 1px solid rgba(255, 255, 255, 0.08);
+            border-radius: 50%;
+            backdrop-filter: blur(5px);
+        }
+        .auth-header-icon:hover {
+            color: var(--neon);
+            border-color: var(--neon);
+            box-shadow: 0 0 15px rgba(63, 240, 0, 0.2);
+        }
+
         /* MENU OVERLAY */
         .nv-menu {
             height: 100%; width: 0; position: fixed; z-index: 9999;
@@ -168,6 +194,8 @@
         .copyright { margin-top: 80px; opacity: 0.15; font-size: 0.55rem; letter-spacing: 5px; text-align: center; width: 100%; }
 
         @media (max-width: 768px) {
+            header { padding: 40px 0 30px 0; }
+            .auth-header-icon { right: 15px; width: 40px; height: 40px; font-size: 1.1rem; }
             .push-box { flex-direction: column; text-align: center; padding: 20px; }
             .push-text { text-align: center; }
             .btn-push-trigger { width: 100%; }
@@ -183,8 +211,11 @@
 
     <div id="bg"></div>
 
-    <header>
+    <header class="position-relative">
         <img src="images/logo.png" class="logo-trigger" onclick="openM()" alt="Nevera Logo">
+        <div id="authHeaderBtn" class="auth-header-icon">
+            <i class="fa-regular fa-user"></i>
+        </div>
     </header>
 
     <div id="m" class="nv-menu">
@@ -318,7 +349,6 @@
             const pushBtn = document.getElementById('btnPushNotify');
             if (pushBtn) {
                 pushBtn.addEventListener('click', function() {
-                    // Sincronizzazione immediata sul thread del click utente
                     window.OneSignalDeferred.push(async function(OneSignal) {
                         try {
                             await OneSignal.Notifications.requestPermission();
@@ -332,10 +362,41 @@
             }
         });
 
-        window.onload = function() {
+        // Controllo Sessione Supabase & Inizializzazione Dati Radar
+        window.onload = async function() {
+            const authBtn = document.getElementById('authHeaderBtn');
+
+            if (dbClient) {
+                // Controlla lo stato della sessione utente
+                const { data: { session } } = await dbClient.auth.getSession();
+                
+                if (!session) {
+                    // Se non è loggato, blocca e reindirizza alla pagina di login
+                    window.location.href = "login.html";
+                    return;
+                } else {
+                    // Se è loggato, imposta il pulsante come interruttore di Logout rosso
+                    if (authBtn) {
+                        authBtn.innerHTML = `<i class="fa-solid fa-right-from-bracket" title="Disconnetti"></i>`;
+                        authBtn.style.color = "#FF4444";
+                        authBtn.style.borderColor = "rgba(255, 68, 68, 0.2)";
+                        
+                        authBtn.onclick = async function() {
+                            if(confirm("Vuoi disconnetterti da Nevera Sports?")) {
+                                await dbClient.auth.signOut();
+                                window.location.href = "login.html";
+                            }
+                        };
+                    }
+                }
+            }
+
+            // Ripristina livello memorizzato locale
             if(localStorage.getItem('nevera-level')) {
                 document.getElementById('userLevel').value = localStorage.getItem('nevera-level');
             }
+            
+            // Scarica i match dal database se autenticato
             if (dbClient) { fetchMatches(); }
         }
 
