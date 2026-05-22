@@ -101,15 +101,24 @@
             margin-top: 80px;
         }
 
-        /* HEADER CON SFUMATURA DEDICATA IN ALTO */
-        .nav-fix { 
+        /* HEADER NUOVO CON STRUTTURA ALLINEATA A FINDER */
+        header { 
             position: absolute; 
             top: 0; 
-            width: 100%; 
-            padding: 50px 0 80px 0; 
-            text-align: center; 
+            width: 100%;
+            padding: 40px 0; 
             z-index: 100;
             background: linear-gradient(to bottom, rgba(4, 4, 4, 0.9) 0%, transparent 100%);
+        }
+        
+        .header-container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 20px;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            position: relative;
         }
 
         .logo-trigger { 
@@ -122,32 +131,65 @@
             filter: drop-shadow(0 0 15px var(--neon)); 
         }
 
-        /* ICONA DI LOGIN NELL'HEADER */
-        .auth-header-icon {
+        /* USER MENU DROPDOWN IDENTICO A FINDER */
+        .user-menu-container {
             position: absolute;
+            right: 20px;
             top: 50%;
-            right: 30px;
             transform: translateY(-50%);
-            font-size: 1.4rem;
-            color: var(--white);
-            cursor: pointer;
-            transition: 0.3s;
+        }
+        
+        .user-avatar {
             width: 45px;
             height: 45px;
+            border-radius: 50%;
+            background: rgba(255, 255, 255, 0.05);
+            border: 1px solid rgba(255, 255, 255, 0.1);
+            color: var(--white);
             display: flex;
             align-items: center;
             justify-content: center;
-            border-radius: 50%;
-            background: rgba(255, 255, 255, 0.02);
-            border: 1px solid rgba(255, 255, 255, 0.08);
+            font-family: var(--font-title);
+            font-size: 1rem;
+            cursor: pointer;
+            transition: 0.3s;
         }
-        .auth-header-icon:hover {
-            color: var(--neon);
+        .user-avatar:hover {
             border-color: var(--neon);
             box-shadow: 0 0 15px rgba(63, 240, 0, 0.2);
+            color: var(--neon);
+        }
+        
+        .dropdown-menu-nevera {
+            background: rgba(12, 12, 12, 0.98) !important;
+            border: 1px solid rgba(255, 255, 255, 0.08) !important;
+            border-radius: 16px !important;
+            backdrop-filter: blur(10px);
+            padding: 8px !important;
+            margin-top: 10px !important;
+        }
+        
+        .dropdown-item-nevera {
+            color: rgba(255, 255, 255, 0.7) !important;
+            font-size: 0.8rem;
+            font-weight: 600;
+            letter-spacing: 1px;
+            text-transform: uppercase;
+            padding: 10px 20px !important;
+            border-radius: 10px;
+            transition: 0.2s;
+            text-align: left;
+        }
+        .dropdown-item-nevera:hover {
+            background: var(--neon) !important;
+            color: var(--dark) !important;
+        }
+        .dropdown-item-nevera.logout:hover {
+            background: #FF4444 !important;
+            color: var(--white) !important;
         }
 
-        /* MENU OVERLAY */
+        /* MENU DI NAVIGAZIONE FULLSCREEN OVERLAY */
         .nv-menu {
             height: 100%; width: 0; position: fixed; z-index: 9999;
             top: 0; left: 0; background-color: rgba(4, 4, 4, 0.98); 
@@ -155,10 +197,10 @@
             display: flex; align-items: center; justify-content: center;
         }
         .nv-links a { font-family: var(--font-title); font-size: 2.5rem; color: var(--white); text-decoration: none; display: block; margin: 20px; text-transform: uppercase; }
-        .nv-links a:hover { color: var(--neon); }
+        .nv-links a:hover { color: var(--neon); transform: scale(1.05); }
         .nv-close { position: absolute; top: 30px; right: 45px; font-size: 50px; color: var(--neon); text-decoration: none; }
 
-        /* --- SEZIONE CONTENUTI (SOTTO LA FOTO) --- */
+        /* --- SEZIONE CONTENUTI --- */
         .main-wrapper { 
             position: relative; 
             z-index: 10; 
@@ -173,7 +215,7 @@
         .nv-title { font-family: var(--font-title); font-size: clamp(3.5rem, 12vw, 6rem); text-transform: uppercase; letter-spacing: -3px; margin: 0; line-height: 0.9; }
         .nv-subtitle { color: var(--neon); font-weight: 700; text-transform: uppercase; letter-spacing: 12px; margin-bottom: 20px; font-size: 0.8rem; }
 
-        /* CARDS */
+        /* CARDS GRIGLIA PRINCIPALE */
         .home-card {
             display: flex; flex-direction: column; justify-content: center; align-items: center;
             background: rgba(255, 255, 255, 0.03); 
@@ -200,110 +242,45 @@
         .btn-revolution {
             font-family: var(--font-title); background: var(--neon); color: var(--dark);
             padding: 20px 40px; border-radius: 50px; text-decoration: none !important;
-            display: inline-block; font-size: 0.85rem; transition: 0.3s; text-transform: uppercase;
+            display: inline-block; font-size: 0.85rem; transition: 0.3s; text-transform: uppercase; border: none;
         }
-        .btn-revolution:hover { transform: scale(1.05); box-shadow: 0 0 25px rgba(63, 240, 0, 0.4); color: var(--dark); }
+        .btn-revolution:hover { transform: scale(1.05); box-shadow: 0 0 25px rgba(63, 240, 0, 0.4); color: var(--dark); cursor: pointer; }
 
-        /* --- STILI BANNER CON IMMAGINE RADAR / MAPPA --- */
+        /* BANNER DETTAGLIO FINDER RADAR */
         .nv-radar-banner {
-            width: 100%;
-            max-width: 1100px;
-            margin: 80px auto 40px auto;
-            padding: 0 15px;
-            position: relative;
-            z-index: 10;
+            width: 100%; max-width: 1100px; margin: 80px auto 40px auto; padding: 0 15px; position: relative; z-index: 10;
         }
-
         .radar-banner-inside {
             background: linear-gradient(135deg, rgba(255, 255, 255, 0.03) 0%, rgba(255, 255, 255, 0.01) 100%);
-            border: 1px solid rgba(255, 255, 255, 0.08);
-            border-radius: 50px;
-            padding: 60px;
-            display: flex;
-            align-items: center;
-            justify-content: space-between;
-            gap: 40px;
-            text-align: left;
-            backdrop-filter: blur(15px);
-            overflow: hidden;
-            position: relative;
+            border: 1px solid rgba(255, 255, 255, 0.08); border-radius: 50px; padding: 60px;
+            display: flex; align-items: center; justify-content: space-between; gap: 40px; text-align: left;
+            backdrop-filter: blur(15px); overflow: hidden; position: relative;
         }
+        .radar-banner-text { flex: 1.2; max-width: 550px; }
+        .radar-tag { color: var(--neon); font-size: 0.7rem; font-weight: 800; letter-spacing: 3px; text-transform: uppercase; display: inline-flex; align-items: center; gap: 8px; margin-bottom: 20px; }
+        .pulse-dot { width: 8px; height: 8px; background-color: #FF3333; border-radius: 50%; display: inline-block; animation: pulseAlpha 1.5s infinite; box-shadow: 0 0 10px #FF3333; }
+        .radar-banner-graphic { flex: 0.8; display: flex; justify-content: center; align-items: center; position: relative; width: 100%; }
+        .radar-image-container { width: 100%; max-width: 340px; aspect-ratio: 1 / 1; border-radius: 35px; overflow: hidden; border: 1px solid rgba(63, 240, 0, 0.2); box-shadow: 0 15px 40px rgba(0, 0, 0, 0.4), 0 0 20px rgba(63, 240, 0, 0.05); position: relative; }
+        .radar-image-container img { width: 100%; height: 100%; object-fit: cover; transition: transform 0.6s ease; }
+        .radar-banner-inside:hover .radar-image-container img { transform: scale(1.05); }
+        .radar-image-overlay { position: absolute; top: 0; left: 0; width: 100%; height: 100%; background: linear-gradient(to top, rgba(4, 4, 4, 0.4) 0%, transparent 100%); pointer-events: none; }
 
-        .radar-banner-text {
-            flex: 1.2;
-            max-width: 550px;
-        }
-
-        .radar-tag {
-            color: var(--neon);
-            font-size: 0.7rem;
-            font-weight: 800;
-            letter-spacing: 3px;
-            text-transform: uppercase;
-            display: inline-flex;
-            align-items: center;
-            gap: 8px;
-            margin-bottom: 20px;
-        }
-
-        .pulse-dot {
-            width: 8px;
-            height: 8px;
-            background-color: #FF3333;
-            border-radius: 50%;
-            display: inline-block;
-            animation: pulseAlpha 1.5s infinite;
-            box-shadow: 0 0 10px #FF3333;
-        }
-
-        /* Contenitore Immagine Mappa / Finder */
-        .radar-banner-graphic {
-            flex: 0.8;
-            display: flex;
-            justify-content: center;
-            align-items: center;
-            position: relative;
-            width: 100%;
-        }
-
-        .radar-image-container {
-            width: 100%;
-            max-width: 340px;
-            aspect-ratio: 1 / 1;
-            border-radius: 35px;
-            overflow: hidden;
-            border: 1px solid rgba(63, 240, 0, 0.2);
-            box-shadow: 0 15px 40px rgba(0, 0, 0, 0.4), 0 0 20px rgba(63, 240, 0, 0.05);
-            position: relative;
-        }
-
-        .radar-image-container img {
-            width: 100%;
-            height: 100%;
-            object-fit: cover;
-            transition: transform 0.6s ease;
-        }
-
-        .radar-banner-inside:hover .radar-image-container img {
-            transform: scale(1.05);
-        }
-
-        /* Overlay scuro sopra l'immagine per dar profondità cyberpunk */
-        .radar-image-overlay {
-            position: absolute;
-            top: 0; left: 0; width: 100%; height: 100%;
-            background: linear-gradient(to top, rgba(4, 4, 4, 0.4) 0%, transparent 100%);
-            pointer-events: none;
-        }
-
-        @keyframes pulseAlpha {
-            0%, 100% { opacity: 0.3; }
-            50% { opacity: 1; }
-        }
-
-        /* ANIMAZIONE FRECCIA */
+        @keyframes pulseAlpha { 0%, 100% { opacity: 0.3; } 50% { opacity: 1; } }
         @keyframes bounce { 0%, 20%, 50%, 80%, 100% {transform: translateY(0);} 40% {transform: translateY(-10px);} 60% {transform: translateY(-5px);} }
         .bounce { animation: bounce 2s infinite; }
+
+        /* BLOCCO PRENOTAZIONI PERSONALI UTENTE (INTEGRATO NEL MODALE DASHBOARD PER SOSTITUIRE L'OFFCANVAS) */
+        .my-match-item { background: rgba(255,255,255,0.02); border: 1px solid rgba(255,255,255,0.05); border-radius: 18px; padding: 15px; margin-bottom: 15px; position: relative; text-align: left; }
+        .my-match-club { font-weight: 700; font-size: 0.85rem; text-transform: uppercase; color: white; padding-right: 30px; }
+        .my-match-time { font-size: 0.75rem; color: rgba(255,255,255,0.4); margin-top: 5px; }
+        .btn-delete-match { position: absolute; top: 15px; right: 15px; background: none; border: none; color: rgba(255,68,68,0.5); transition: 0.2s; font-size: 0.9rem; cursor: pointer; }
+        .btn-delete-match:hover { color: #FF4444; transform: scale(1.1); }
+
+        .modal-content-nevera { background: #0c0c0c; border: 1px solid rgba(255,255,255,0.08); border-radius: 35px; color: white; padding: 25px; backdrop-filter: blur(20px); }
+        .profile-data-box { background: rgba(255,255,255,0.02); border: 1px solid rgba(255,255,255,0.05); border-radius: 20px; padding: 20px; margin-bottom: 25px; text-align: left; }
+        .profile-label { font-size: 0.6rem; font-weight: 800; color: rgba(255,255,255,0.4); text-transform: uppercase; letter-spacing: 1.5px; margin-bottom: 4px; }
+        .profile-value { font-size: 0.95rem; font-weight: 600; color: white; margin-bottom: 15px; }
+        .profile-value:last-child { margin-bottom: 0; }
 
         /* FOOTER */
         .nv-footer { padding: 100px 20px 60px; border-top: 1px solid rgba(255, 255, 255, 0.05); background: var(--dark); position: relative; z-index: 10; }
@@ -319,55 +296,19 @@
 
         /* RESPONSIVE */
         @media (max-width: 991px) {
-            .radar-banner-inside {
-                flex-direction: column-reverse;
-                padding: 40px 30px;
-                text-align: center;
-                gap: 40px;
-            }
-            .radar-banner-text {
-                display: flex;
-                flex-direction: column;
-                align-items: center;
-            }
+            .radar-banner-inside { flex-direction: column-reverse; padding: 40px 30px; text-align: center; gap: 40px; }
+            .radar-banner-text { display: flex; flex-direction: column; align-items: center; }
             .radar-tag { justify-content: center; }
             .radar-image-container { max-width: 280px; }
         }
 
         @media (max-width: 768px) {
-            .bg-layer { background-position: 42% center; }
             .footer-container { flex-direction: column; text-align: center; }
             .footer-brand { text-align: center; margin-bottom: 20px; }
             .footer-nav { justify-content: center; text-align: center; width: 100%; }
             .f-col { align-items: center; text-align: center; }
-            .btn-action, .btn-join { font-size: 0.7rem !important; }
-            .auth-header-icon { right: 20px; font-size: 1.2rem; width: 40px; height: 40px; }
+            .user-menu-container { right: 10px; }
         }
-
-        /* --- INTEGRAZIONE E STRUTTURE STILI MENU DASHBOARD UTENTE LATERALE --- */
-        .nv-offcanvas {
-            position: fixed; top: 0; right: -450px; width: 100%; max-width: 420px; height: 100%;
-            background: rgba(8, 8, 8, 0.96); border-left: 1px solid rgba(255,255,255,0.05);
-            z-index: 10050; backdrop-filter: blur(20px);
-            transition: right 0.4s cubic-bezier(0.165, 0.84, 0.44, 1);
-            padding: 40px 30px; display: flex; flex-direction: column; text-align: left; color: white;
-        }
-        .nv-offcanvas.open { right: 0; box-shadow: -15px 0 40px rgba(0,0,0,0.8); }
-        .nv-offcanvas-header { display: flex; justify-content: space-between; align-items: center; margin-bottom: 35px; }
-        .nv-offcanvas-title { font-family: var(--font-title); font-size: 1.2rem; text-transform: uppercase; color: white; margin: 0; }
-        .btn-close-offcanvas { background: none; border: none; color: var(--neon); font-size: 1.5rem; cursor: pointer; }
-        .nv-offcanvas-body { flex: 1; overflow-y: auto; padding-right: 5px; }
-
-        .profile-data-box { background: rgba(255,255,255,0.02); border: 1px solid rgba(255,255,255,0.05); border-radius: 20px; padding: 20px; margin-bottom: 25px; }
-        .profile-label { font-size: 0.6rem; font-weight: 800; color: rgba(255,255,255,0.4); text-transform: uppercase; letter-spacing: 1.5px; margin-bottom: 4px; }
-        .profile-value { font-size: 0.95rem; font-weight: 600; color: white; margin-bottom: 15px; }
-        .profile-value:last-child { margin-bottom: 0; }
-
-        .my-match-item { background: rgba(255,255,255,0.02); border: 1px solid rgba(255,255,255,0.05); border-radius: 18px; padding: 15px; margin-bottom: 15px; position: relative; }
-        .my-match-club { font-weight: 700; font-size: 0.85rem; text-transform: uppercase; color: white; padding-right: 30px; }
-        .my-match-time { font-size: 0.75rem; color: rgba(255,255,255,0.4); margin-top: 5px; }
-        .btn-delete-match { position: absolute; top: 15px; right: 15px; background: none; border: none; color: rgba(255,68,68,0.5); transition: 0.2s; font-size: 0.9rem; cursor: pointer; }
-        .btn-delete-match:hover { color: #FF4444; transform: scale(1.1); }
     </style>
 </head>
 <body>
@@ -389,10 +330,17 @@
         <div class="bg-layer"></div>
         <div class="bg-overlay"></div>
         
-        <header class="nav-fix">
-            <img src="images/logo.png" alt="Nevera Logo" class="logo-trigger" onclick="openM()">
-            <div id="authHeaderBtn" class="auth-header-icon">
-                <i class="fa-regular fa-user"></i>
+        <header>
+            <div class="header-container">
+                <img src="images/logo.png" alt="Nevera Logo" class="logo-trigger" onclick="openM()">
+                
+                <div class="user-menu-container dropdown">
+                    <div class="user-avatar" id="userMenuBtn" data-bs-toggle="dropdown" aria-expanded="false">
+                        <i class="fa-solid fa-user"></i>
+                    </div>
+                    <ul class="dropdown-menu dropdown-menu-end dropdown-menu-nevera" aria-labelledby="userMenuBtn" id="dropdownMenuItems">
+                        </ul>
+                </div>
             </div>
         </header>
 
@@ -417,31 +365,31 @@
         </div>
     </div>
 
-    <div class="nv-offcanvas" id="userOffcanvas">
-        <div class="nv-offcanvas-header">
-            <h5 class="nv-offcanvas-title">DASHBOARD UTENTE</h5>
-            <button class="btn-close-offcanvas" onclick="closeUserPanel()">&times;</button>
-        </div>
-        <div class="nv-offcanvas-body" id="offcanvasBody">
-            <div class="profile-data-box">
-                <div class="profile-label">Nome</div>
-                <div class="profile-value" id="dashName">-</div>
-                
-                <div class="profile-label">Telefono</div>
-                <div class="profile-value" id="dashPhone">-</div>
-                
-                <div class="profile-label">Provincia di Riferimento</div>
-                <div class="profile-value" id="dashProvince">-</div>
+    <div class="modal fade" id="dashboardModal" tabindex="-1" aria-hidden="true">
+        <div class="modal-dialog modal-dialog-centered">
+            <div class="modal-content modal-content-nevera">
+                <div class="modal-header border-0 pb-0 justify-content-between align-items-center">
+                    <h5 class="modal-title" style="font-family: var(--font-title); font-size: 1.1rem; letter-spacing: 1px;">DASHBOARD PROFILO</h5>
+                    <button type="button" class="btn-close btn-close-white" data-bs-dismiss="modal" aria-label="Close"></button>
+                </div>
+                <div class="modal-body px-0 py-3">
+                    <div class="profile-data-box">
+                        <div class="profile-label">Nome</div>
+                        <div class="profile-value" id="dashName">-</div>
+                        
+                        <div class="profile-label">Telefono</div>
+                        <div class="profile-value" id="dashPhone">-</div>
+                        
+                        <div class="profile-label">Provincia di Riferimento</div>
+                        <div class="profile-value" id="dashProvince">-</div>
+                    </div>
+                    
+                    <h6 style="font-family:var(--font-title); font-size:0.75rem; letter-spacing:1px; margin-bottom:15px; text-align:left; padding-left:10px;">I MIEI MATCH ATTIVI</h6>
+                    <div id="myMatchesList">
+                        <p style="font-size:0.8rem; opacity:0.4; text-align:left; padding-left:10px;">Nessun match pubblicato.</p>
+                    </div>
+                </div>
             </div>
-            
-            <h6 style="font-family:var(--font-title); font-size:0.75rem; letter-spacing:1px; margin-bottom:15px;">I MIEI MATCH ATTIVI</h6>
-            <div id="myMatchesList">
-                <p style="font-size:0.8rem; opacity:0.4;">Nessun match pubblicato.</p>
-            </div>
-            
-            <button class="btn-revolution w-100" style="background:#FF4444; color:white; margin-top:30px; font-size:0.75rem;" onclick="handleLogout()">
-                <i class="fa-solid fa-right-from-bracket me-2"></i>Scollegati / Logout
-            </button>
         </div>
     </div>
 
@@ -533,12 +481,10 @@
         function openM() { document.getElementById("m").style.width = "100%"; }
         function closeM() { document.getElementById("m").style.width = "0"; }
 
-        function openUserPanel() { document.getElementById("userOffcanvas").classList.add("open"); }
-        function closeUserPanel() { document.getElementById("userOffcanvas").classList.remove("open"); }
-
-        // Gestione asincrona icona login ed estrazione dati Dashboard
+        // Gestione asincrona dell'autenticazione utente e del Dropdown
         document.addEventListener("DOMContentLoaded", async function() {
-            const authBtn = document.getElementById('authHeaderBtn');
+            const avatarBtn = document.getElementById('userMenuBtn');
+            const dropdownMenu = document.getElementById('dropdownMenuItems');
 
             if (dbClient) {
                 try {
@@ -548,34 +494,35 @@
                         currentUser = session.user;
                         const meta = currentUser.user_metadata || {};
 
-                        // Popolamento dinamico della Dashboard
+                        // 1. Imposta l'iniziale nell'avatar tondo
+                        if (meta.first_name) {
+                            avatarBtn.innerHTML = meta.first_name.charAt(0).toUpperCase();
+                        } else if (currentUser.email) {
+                            avatarBtn.innerHTML = currentUser.email.charAt(0).toUpperCase();
+                        }
+
+                        // 2. Genera gli elementi per il menu dropdown dell'utente loggato (incluso il link alla Dashboard Modale)
+                        dropdownMenu.innerHTML = `
+                            <li><a class="dropdown-item dropdown-item-nevera" href="javascript:void(0)" data-bs-toggle="modal" data-bs-target="#dashboardModal"><i class="fa-solid fa-id-card me-2"></i>La Mia Dashboard</a></li>
+                            <li><a class="dropdown-item dropdown-item-nevera" href="profilo.html"><i class="fa-solid fa-user-gear me-2"></i>Modifica Profilo</a></li>
+                            <li><hr class="dropdown-divider border-secondary opacity-20"></li>
+                            <li><a class="dropdown-item dropdown-item-nevera logout" href="javascript:void(0)" onclick="handleLogout()"><i class="fa-solid fa-right-from-bracket me-2"></i>Logout</a></li>
+                        `;
+
+                        // Popolamento dei dati all'interno del modale Dashboard
                         document.getElementById("dashName").innerText = (meta.first_name || '') + " " + (meta.last_name || '');
                         document.getElementById("dashPhone").innerText = meta.phone || 'Non inserito';
                         document.getElementById("dashProvince").innerText = meta.province || 'Non specificata';
 
-                        // Cambia icona: Se c'è un nome mettiamo l'iniziale, altrimenti icona utente attiva verde neon
-                        if (meta.first_name) {
-                            authBtn.innerHTML = `<span style="font-family:var(--font-title); font-size:0.9rem; color:var(--neon); font-weight:bold;">${meta.first_name.charAt(0).toUpperCase()}</span>`;
-                            authBtn.style.border = "2px solid var(--neon)";
-                        } else {
-                            authBtn.innerHTML = `<i class="fa-solid fa-user" title="Dashboard"></i>`;
-                            authBtn.style.color = "#3FF000"; // Fix di sintassi applicato qui
-                        }
-
-                        // Azione click per utente loggato -> Apri la dashboard
-                        authBtn.onclick = function() {
-                            openUserPanel();
-                        };
-
-                        // Carica i match personali dell'utente loggato
+                        // Carica i match dell'utente
                         await loadMyMatches();
 
                     } else {
-                        // UTENTE OSPITE: Rimane l'icona originale che punta al login
-                        authBtn.innerHTML = `<i class="fa-regular fa-user" title="Accedi"></i>`;
-                        authBtn.onclick = function() {
-                            window.location.href = "login.html";
-                        };
+                        // UTENTE OSPITE: Icona utente vuota classica e dropdown per reindirizzare al login
+                        avatarBtn.innerHTML = `<i class="fa-regular fa-user"></i>`;
+                        dropdownMenu.innerHTML = `
+                            <li><a class="dropdown-item dropdown-item-nevera" href="login.html"><i class="fa-solid fa-right-to-bracket me-2"></i>Accedi / Login</a></li>
+                        `;
                     }
                 } catch (err) {
                     console.error("Errore autenticazione:", err);
@@ -596,7 +543,7 @@
                     .order('date_time', { ascending: true });
 
                 if (error || !matches || matches.length === 0) {
-                    listContainer.innerHTML = `<p style="font-size:0.8rem; opacity:0.4;">Nessun match pubblicato da te.</p>`;
+                    listContainer.innerHTML = `<p style="font-size:0.8rem; opacity:0.4; text-align:left; padding-left:10px;">Nessun match pubblicato da te.</p>`;
                     return;
                 }
 
@@ -654,7 +601,6 @@
     <script>
         if ('serviceWorker' in navigator) {
             navigator.serviceWorker.register('sw.js').catch(err => console.log("SW Error:", err));
-            
             let link = document.createElement('link');
             link.rel = 'manifest';
             link.href = 'manifest.json';
@@ -682,7 +628,6 @@
                 window.addEventListener('beforeinstallprompt', (e) => {
                     e.preventDefault();
                     deferredPrompt = e;
-                    
                     pwaActionArea.innerHTML = `
                         <button onclick="triggerPwaInstall()" class="btn-revolution" style="flex:1; padding: 10px 0; font-size:0.75rem; text-align:center; background-color: var(--neon); color: var(--dark);">Installa Ora</button>
                         <button onclick="closePwaPrompt()" class="btn-revolution" style="margin:0; padding: 10px 20px; font-size:0.75rem; background: transparent; border: 1px solid rgba(255,255,255,0.2); color: white;">Annulla</button>
