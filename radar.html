@@ -1,7 +1,7 @@
 <!DOCTYPE HTML>
 <html lang="it">
 <head>
-    <title>RADAR FINDER | NEVERA SPORTS</title>
+    <title>FINDER | NEVERA SPORTS</title>
     <meta charset="utf-8" />
     <link rel="icon" type="image/png" href="images/logo.png">
     <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=0" />
@@ -120,8 +120,8 @@
             <button class="btn-logout" onclick="handleLogout()"><i class="fa-solid fa-right-from-bracket"></i></button>
         </div>
 
-        <h1 class="radar-title">SOS MATCH RADAR</h1>
-        <p class="radar-subtitle">Trova o lancia una chiamata alle armi sui campi</p>
+        <h1 class="radar-title">FINDER</h1>
+        <p class="radar-subtitle">READY SET PLAY!</p>
 
         <div class="map-container">
             <div id="radarMap"></div>
@@ -151,7 +151,7 @@
         <div class="modal-dialog modal-dialog-centered">
             <div class="modal-content">
                 <div class="modal-header">
-                    <h5 class="modal-title">Lancia un SOS Match</h5>
+                    <h5 class="modal-title">Aggiungi Match</h5>
                     <button type="button" class="btn-close btn-close-white" data-bs-dismiss="modal"></button>
                 </div>
                 <form id="newMatchForm" onsubmit="createMatch(event)">
@@ -159,7 +159,7 @@
                         
                         <label class="small text-uppercase opacity-50 mb-1 fw-bold">Cerca e seleziona il Club / Centro Sportivo</label>
                         <div class="autocomplete-wrapper">
-                            <input type="text" id="matchClub" class="form-control-custom" placeholder="Digita il nome del centro... (es. Monviso Padel)" autocomplete="off" oninput="searchClub(this.value)" required>
+                            <input type="text" id="matchClub" class="form-control-custom" placeholder="Digita il nome del centro... " autocomplete="off" oninput="searchClub(this.value)" required>
                             <div id="autocompleteResults" class="autocomplete-results"></div>
                         </div>
 
@@ -400,7 +400,7 @@
             const playersNeeded = parseInt(document.getElementById("matchPlayers").value);
             const creatorPhone = currentUser?.user_metadata?.phone || '';
 
-            const { error } = await dbClient.from('sos_matches').insert([{
+            const { error } = await dbClient.from('matches').insert([{
                 club: club,
                 province: province,
                 latitude: lat,
