@@ -36,12 +36,81 @@
             background-size: cover; background-position: center; z-index: 0;
         }
 
-        header { position: relative; padding: 60px 0 40px 0; text-align: center; z-index: 100; }
+        header { 
+            position: relative; 
+            padding: 40px 0; 
+            z-index: 100; 
+        }
+        
+        .header-container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 20px;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            position: relative;
+        }
+
         .logo-trigger { 
             height: 85px; cursor: pointer; 
             transition: transform 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275); 
         }
         .logo-trigger:hover { transform: scale(1.1); filter: drop-shadow(0 0 15px var(--neon)); }
+
+        /* User Menu Styles */
+        .user-menu-container {
+            position: absolute;
+            right: 20px;
+            top: 50%;
+            transform: translateY(-50%);
+        }
+        .user-avatar {
+            width: 45px;
+            height: 45px;
+            border-radius: 50%;
+            background: rgba(255, 255, 255, 0.05);
+            border: 1px solid rgba(255, 255, 255, 0.1);
+            color: var(--white);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-family: var(--font-title);
+            font-size: 1rem;
+            cursor: pointer;
+            transition: 0.3s;
+        }
+        .user-avatar:hover {
+            border-color: var(--neon);
+            box-shadow: 0 0 15px rgba(63, 240, 0, 0.2);
+            color: var(--neon);
+        }
+        .dropdown-menu-nevera {
+            background: rgba(12, 12, 12, 0.98) !important;
+            border: 1px solid rgba(255, 255, 255, 0.08) !important;
+            border-radius: 16px !important;
+            backdrop-filter: blur(10px);
+            padding: 8px !important;
+            margin-top: 10px !important;
+        }
+        .dropdown-item-nevera {
+            color: rgba(255, 255, 255, 0.7) !important;
+            font-size: 0.8rem;
+            font-weight: 600;
+            letter-spacing: 1px;
+            text-transform: uppercase;
+            padding: 10px 20px !important;
+            border-radius: 10px;
+            transition: 0.2s;
+        }
+        .dropdown-item-nevera:hover {
+            background: var(--neon) !important;
+            color: var(--dark) !important;
+        }
+        .dropdown-item-nevera.logout:hover {
+            background: #FF4444 !important;
+            color: var(--white) !important;
+        }
 
         .nv-menu {
             height: 100%; width: 0; position: fixed; z-index: 9999;
@@ -167,10 +236,6 @@
         .autocomplete-item { padding: 12px 15px; cursor: pointer; font-size: 0.85rem; border-bottom: 1px solid rgba(255,255,255,0.05); color: rgba(255,255,255,0.7); text-align: left; }
         .autocomplete-item:hover { background: var(--neon); color: var(--dark); font-weight: 600; }
 
-        .cta-section { margin: 80px 0 20px 0; }
-        .btn-logout-radar { font-size: 0.75rem; text-transform: uppercase; opacity: 0.3; color: white; text-decoration: none; transition: 0.3s; font-weight: 600; letter-spacing: 1px; }
-        .btn-logout-radar:hover { opacity: 1; color: #FF4444; }
-
         .modal-content { background: #0c0c0c; border: 1px solid rgba(255,255,255,0.08); border-radius: 35px; color: white; padding: 25px; }
         .modal-title { font-family: var(--font-title); text-transform: uppercase; font-size: 1.2rem; }
         .modal-body label { font-size: 0.65rem; font-weight: 800; opacity: 0.5; text-transform: uppercase; letter-spacing: 2px; margin-bottom: 8px; display: block; text-align: left; }
@@ -199,6 +264,7 @@
             .footer-nav { width: 100%; justify-content: space-around; }
             .footer-brand { width: 100%; margin-bottom: 20px; }
             .filter-bar { flex-direction: column; align-items: stretch; }
+            .user-menu-container { right: 10px; }
         }
     </style>
 </head>
@@ -207,7 +273,20 @@
     <div id="bg"></div>
 
     <header>
-        <img src="images/logo.png" class="logo-trigger" onclick="openM()">
+        <div class="header-container">
+            <img src="images/logo.png" class="logo-trigger" onclick="openM()">
+            
+            <div class="user-menu-container dropdown">
+                <div class="user-avatar" id="userMenuBtn" data-bs-toggle="dropdown" aria-expanded="false">
+                    <i class="fa-solid fa-user"></i>
+                </div>
+                <ul class="dropdown-menu dropdown-menu-end dropdown-menu-nevera" aria-labelledby="userMenuBtn">
+                    <li><a class="dropdown-item dropdown-item-nevera" href="profilo.html"><i class="fa-solid fa-id-card me-2"></i>Il Mio Profilo</a></li>
+                    <li><hr class="dropdown-divider border-secondary opacity-20"></li>
+                    <li><a class="dropdown-item dropdown-item-nevera logout" href="javascript:void(0)" onclick="handleLogout()"><i class="fa-solid fa-right-from-bracket me-2"></i>Logout</a></li>
+                </ul>
+            </div>
+        </div>
     </header>
 
     <div id="m" class="nv-menu">
@@ -250,8 +329,6 @@
         </div>
 
         <div id="matchesGrid" class="row g-4 justify-content-center"></div>
-
-        
     </main>
 
     <div class="modal fade" id="newMatchModal" tabindex="-1" aria-hidden="true">
@@ -360,6 +437,15 @@
                 window.location.href = "login.html";
             } else {
                 currentUser = session.user;
+                
+                // Imposta l'iniziale del nome dentro l'avatar del menu utente
+                const avatarBtn = document.getElementById("userMenuBtn");
+                if (currentUser.user_metadata?.first_name) {
+                    avatarBtn.innerHTML = currentUser.user_metadata.first_name.charAt(0).toUpperCase();
+                } else if (currentUser.email) {
+                    avatarBtn.innerHTML = currentUser.email.charAt(0).toUpperCase();
+                }
+
                 const userProvince = currentUser.user_metadata?.province;
                 if (userProvince) {
                     document.getElementById("geoFilter").value = userProvince;
@@ -463,7 +549,6 @@
             grid.innerHTML = `<div class="text-center opacity-50 py-5 w-100"><i class="fa-solid fa-circle-notch fa-spin fa-2x mb-3" style="color:var(--neon)"></i><br><span style="font-size:0.75rem; letter-spacing:2px; font-weight:800; text-transform:uppercase;">Finding your next match...</span></div>`;
             markerLayer.clearLayers();
 
-            // Sincronizzato su 'matches' minuscolo
             let query = dbClient.from('matches').select('*').order('date_time', { ascending: true });
 
             if (selectedProvince !== "ALL") {
@@ -553,7 +638,6 @@
             const mLink = document.getElementById("matchLink").value || null;
             const creatorPhone = currentUser?.user_metadata?.phone || '';
 
-            // Sincronizzato su 'matches' minuscolo
             const { error } = await dbClient.from('matches').insert([{
                 club: club,
                 province: province,
