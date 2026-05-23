@@ -20,14 +20,37 @@
         .logo-trigger { height: 85px; cursor: pointer; transition: transform 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275); }
         .logo-trigger:hover { transform: scale(1.1); filter: drop-shadow(0 0 15px var(--neon)); }
         
-        /* Menu Utente */
-        .user-menu-container { position: absolute; right: 20px; top: 50%; transform: translateY(-50%); }
-        .user-avatar { width: 45px; height: 45px; border-radius: 50%; background: rgba(255, 255, 255, 0.05); border: 1px solid rgba(255, 255, 255, 0.1); color: var(--white); display: flex; align-items: center; justify-content: center; font-family: var(--font-title); font-size: 1rem; cursor: pointer; transition: 0.3s; }
-        .user-avatar:hover { border-color: var(--neon); box-shadow: 0 0 15px rgba(63, 240, 0, 0.2); color: var(--neon); }
-        .dropdown-menu-nevera { background: rgba(12, 12, 12, 0.98) !important; border: 1px solid rgba(255, 255, 255, 0.08) !important; border-radius: 16px !important; backdrop-filter: blur(10px); padding: 8px !important; margin-top: 10px !important; }
-        .dropdown-item-nevera { color: rgba(255, 255, 255, 0.7) !important; font-size: 0.8rem; font-weight: 600; text-transform: uppercase; padding: 10px 20px !important; border-radius: 10px; transition: 0.2s; }
-        .dropdown-item-nevera:hover { background: var(--neon) !important; color: var(--dark) !important; }
-        .dropdown-item-nevera.logout:hover { background: #FF4444 !important; color: var(--white) !important; }
+        /* --- NUOVO MENU UTENTE --- */
+        .auth-header-icon { font-size: 1.4rem; color: var(--white); cursor: pointer; transition: 0.3s; width: 45px; height: 45px; display: flex; align-items: center; justify-content: center; border-radius: 50%; background: rgba(255, 255, 255, 0.02); border: 1px solid rgba(255, 255, 255, 0.08); position: absolute; right: 20px; top: 50%; transform: translateY(-50%); }
+        .auth-header-icon:hover { color: var(--neon); border-color: var(--neon); box-shadow: 0 0 15px rgba(63, 240, 0, 0.2); }
+        .user-profile-dropdown { position: absolute; right: 20px; top: 50%; transform: translateY(-50%); display: flex; align-items: center; justify-content: center; }
+        .avatar-btn { width: 45px; height: 45px; border-radius: 50%; display: flex; align-items: center; justify-content: center; font-family: var(--font-title); font-size: 0.85rem; color: var(--neon); cursor: pointer; text-transform: uppercase; border: 2px solid var(--neon); background: rgba(4, 4, 4, 0.8); }
+        .nv-dropdown-menu { position: absolute; top: 55px; right: 0; background: rgba(12, 12, 12, 0.98); border: 1px solid rgba(255, 255, 255, 0.08); border-radius: 20px; width: 240px; padding: 15px; box-shadow: 0 15px 35px rgba(0,0,0,0.8); backdrop-filter: blur(15px); z-index: 1000; display: none; opacity: 0; transform: translateY(-10px); transition: opacity 0.3s, transform 0.3s; }
+        .nv-dropdown-menu.show { display: block; opacity: 1; transform: translateY(0); }
+        .user-menu-header { border-bottom: 1px solid rgba(255,255,255,0.05); padding-bottom: 10px; margin-bottom: 10px; text-align: left; }
+        .user-menu-name { font-family: var(--font-title); font-size: 0.85rem; text-transform: uppercase; margin: 0; color: white; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; display: block; }
+        .nv-dropdown-item { display: flex; align-items: center; gap: 12px; padding: 12px; color: rgba(255,255,255,0.6); font-size: 0.8rem; font-weight: 600; text-decoration: none; border-radius: 10px; transition: 0.2s; cursor: pointer; text-align: left; }
+        .nv-dropdown-item:hover { background: rgba(255,255,255,0.04); color: var(--neon); }
+        .nv-dropdown-item i { width: 16px; font-size: 0.9rem; }
+        .btn-logout-new { border-top: 1px solid rgba(255,255,255,0.05); color: #FF4444 !important; margin-top: 5px; padding-top: 12px; }
+        .btn-logout-new:hover { background: rgba(255, 68, 68, 0.05); color: #FF4444; }
+
+        /* --- NUOVO OFFCANVAS DASHBOARD --- */
+        .nv-offcanvas { position: fixed; top: 0; right: -450px; width: 100%; max-width: 420px; height: 100%; background: rgba(8, 8, 8, 0.96); border-left: 1px solid rgba(255,255,255,0.05); z-index: 10050; backdrop-filter: blur(20px); transition: right 0.4s cubic-bezier(0.165, 0.84, 0.44, 1); padding: 40px 30px; display: flex; flex-direction: column; text-align: left; color: white; }
+        .nv-offcanvas.open { right: 0; box-shadow: -15px 0 40px rgba(0,0,0,0.8); }
+        .nv-offcanvas-header { display: flex; justify-content: space-between; align-items: center; margin-bottom: 35px; }
+        .nv-offcanvas-title { font-family: var(--font-title); font-size: 1.2rem; text-transform: uppercase; color: white; margin: 0; }
+        .btn-close-offcanvas { background: none; border: none; color: var(--neon); font-size: 1.5rem; cursor: pointer; }
+        .nv-offcanvas-body { flex: 1; overflow-y: auto; padding-right: 5px; }
+        .profile-data-box { background: rgba(255,255,255,0.02); border: 1px solid rgba(255,255,255,0.05); border-radius: 20px; padding: 20px; }
+        .profile-label { font-size: 0.6rem; font-weight: 800; color: rgba(255,255,255,0.4); text-transform: uppercase; letter-spacing: 1.5px; margin-bottom: 4px; }
+        .profile-value { font-size: 0.95rem; font-weight: 600; color: white; margin-bottom: 15px; }
+        .profile-value:last-child { margin-bottom: 0; }
+        .my-match-item { background: rgba(255,255,255,0.02); border: 1px solid rgba(255,255,255,0.05); border-radius: 18px; padding: 15px; margin-bottom: 15px; position: relative; }
+        .my-match-club { font-weight: 700; font-size: 0.85rem; text-transform: uppercase; color: white; padding-right: 30px; }
+        .my-match-time { font-size: 0.75rem; color: rgba(255,255,255,0.4); margin-top: 5px; }
+        .btn-delete-match { position: absolute; top: 15px; right: 15px; background: none; border: none; color: rgba(255,68,68,0.5); transition: 0.2s; font-size: 0.9rem; cursor: pointer; }
+        .btn-delete-match:hover { color: #FF4444; transform: scale(1.1); }
 
         .nv-menu { height: 100%; width: 0; position: fixed; z-index: 9999; top: 0; left: 0; background-color: rgba(4, 4, 4, 0.98); overflow: hidden; transition: 0.5s; display: flex; align-items: center; justify-content: center; }
         .nv-links a { font-family: var(--font-title); font-size: 2.5rem; color: var(--white); text-decoration: none; display: block; margin: 20px; text-transform: uppercase; }
@@ -61,14 +84,10 @@
         <div class="header-container">
             <img src="images/logo.png" class="logo-trigger" onclick="openM()">
             
-            <div class="user-menu-container dropdown">
-                <div class="user-avatar" id="userMenuBtn" data-bs-toggle="dropdown" aria-expanded="false"><i class="fa-solid fa-user"></i></div>
-                <ul class="dropdown-menu dropdown-menu-end dropdown-menu-nevera">
-                    <li><a class="dropdown-item dropdown-item-nevera" href="profilo.html"><i class="fa-solid fa-id-card me-2"></i>Il Mio Profilo</a></li>
-                    <li><a class="dropdown-item dropdown-item-nevera logout" href="javascript:void(0)" onclick="handleLogout()"><i class="fa-solid fa-right-from-bracket me-2"></i>Logout</a></li>
-                </ul>
+            <div id="authHeaderBtn" class="auth-header-icon">
+                <i class="fa-regular fa-user"></i>
             </div>
-            </div>
+        </div>
     </header>
 
     <div id="m" class="nv-menu">
@@ -77,6 +96,14 @@
             <a href="index.html">HOME</a>
             <a href="radar.html">FINDER</a>
         </div>
+    </div>
+
+    <div class="nv-offcanvas" id="userOffcanvas">
+        <div class="nv-offcanvas-header">
+            <h5 class="nv-offcanvas-title" id="offcanvasTitle">Dashboard</h5>
+            <button class="btn-close-offcanvas" onclick="closeUserPanel()">&times;</button>
+        </div>
+        <div class="nv-offcanvas-body" id="offcanvasBody"></div>
     </div>
 
     <main class="main-wrapper container">
@@ -136,6 +163,145 @@
         const dbClient = window.supabase.createClient(SUPABASE_URL, SUPABASE_KEY);
         let map, markerLayer;
 
+        // --- VARIABILI E LOGICHE MENU UTENTE INIETTATE ---
+        let globalUser = null;
+
+        function toggleUserMenu(event) {
+            event.stopPropagation();
+            document.getElementById("userMenu").classList.toggle("show");
+        }
+
+        window.addEventListener('click', function(event) {
+            const menu = document.getElementById("userMenu");
+            if (menu && menu.classList.contains("show")) {
+                if (!event.target.matches('.avatar-btn') && !event.target.closest('.nv-dropdown-menu')) {
+                    menu.classList.remove("show");
+                }
+            }
+        });
+
+        async function openUserPanel(type) {
+            const menu = document.getElementById("userMenu");
+            if (menu) menu.classList.remove("show");
+            
+            const panel = document.getElementById("userOffcanvas");
+            const title = document.getElementById("offcanvasTitle");
+            const body = document.getElementById("offcanvasBody");
+
+            body.innerHTML = `<div class="text-center py-5 opacity-50"><i class="fa-solid fa-spinner fa-spin fa-2x" style="color:var(--neon)"></i></div>`;
+            panel.classList.add("open");
+
+            if (!globalUser) return;
+
+            if (type === 'info') {
+                title.innerText = "Info Profilo";
+                const fullName = globalUser.user_metadata?.full_name || globalUser.email.split('@')[0];
+                const phone = globalUser.user_metadata?.phone || "Non configurato";
+                const province = globalUser.user_metadata?.province || "MI";
+                
+                body.innerHTML = `
+                    <div class="profile-data-box">
+                        <div class="profile-label">Nome Completo</div>
+                        <div class="profile-value">${fullName}</div>
+                        <div class="profile-label">Indirizzo Email</div>
+                        <div class="profile-value">${globalUser.email}</div>
+                        <div class="profile-label">Numero WhatsApp</div>
+                        <div class="profile-value">${phone}</div>
+                        <div class="profile-label">Provincia di Riferimento</div>
+                        <div class="profile-value">Lombardia, ${province.toUpperCase()}</div>
+                    </div>
+                `;
+            } 
+            else if (type === 'matches') {
+                title.innerText = "I miei Match";
+                
+                const { data: myMatches, error } = await dbClient
+                    .from('matches')
+                    .select('*')
+                    .eq('user_id', globalUser.id)
+                    .order('date_time', { ascending: false });
+
+                if (error || !myMatches || myMatches.length === 0) {
+                    body.innerHTML = `<p class="text-center opacity-40 mt-5 small">Nessun match.</p>`;
+                    return;
+                }
+
+                body.innerHTML = "";
+                myMatches.forEach(m => {
+                    const d = new Date(m.date_time);
+                    const formatted = d.toLocaleDateString('it-IT') + " alle " + d.toLocaleTimeString('it-IT', { hour: '2-digit', minute: '2-digit' });
+                    
+                    const div = document.createElement("div");
+                    div.className = "my-match-item";
+                    div.innerHTML = `
+                        <div class="my-match-club">${m.club}</div>
+                        <div class="my-match-time"><i class="fa-regular fa-calendar-days me-1"></i> ${formatted}</div>
+                        <button class="btn-delete-match" onclick="deleteMatchFromPanel(${m.id}, this)">
+                            <i class="fa-solid fa-trash-can"></i>
+                        </button>
+                    `;
+                    body.appendChild(div);
+                });
+            }
+        }
+
+        function closeUserPanel() {
+            document.getElementById("userOffcanvas").classList.remove("open");
+        }
+
+        async function deleteMatchFromPanel(id, element) {
+            if (confirm("Vuoi rimuovere questo SOS dal radar?")) {
+                const { error } = await dbClient.from('matches').delete().eq('id', id);
+                if (!error) {
+                    element.parentElement.remove();
+                }
+            }
+        }
+
+        async function handleLogout() {
+            if (confirm("Vuoi disconnetterti da Nevera Sports?")) {
+                await dbClient.auth.signOut();
+                window.location.href = "login.html";
+            }
+        }
+
+        document.addEventListener("DOMContentLoaded", async function() {
+            const authBtn = document.getElementById('authHeaderBtn');
+
+            if (dbClient) {
+                const { data: { session } } = await dbClient.auth.getSession();
+                
+                if (session) {
+                    globalUser = session.user;
+                    const fullName = globalUser.user_metadata?.full_name || globalUser.email.split('@')[0];
+                    const initials = fullName.split(' ').map(n => n[0]).join('').substring(0, 2).toUpperCase();
+
+                    authBtn.className = "user-profile-dropdown"; // Rimuove classi extra per lasciare il box personalizzato pulito
+                    authBtn.innerHTML = `
+                        <div class="avatar-btn" id="userAvatar" onclick="toggleUserMenu(event)">${initials}</div>
+                        <div class="nv-dropdown-menu" id="userMenu">
+                            <div class="user-menu-header">
+                                <span class="user-menu-name" id="menuUserName">${fullName}</span>
+                            </div>
+                            <div class="nv-dropdown-item" onclick="openUserPanel('info')">
+                                <i class="fa-solid fa-user-gear"></i> Info Profilo
+                            </div>
+                            <div class="nv-dropdown-item" onclick="openUserPanel('matches')">
+                                <i class="fa-solid fa-calendar-days"></i> I miei Match
+                            </div>
+                            <div class="nv-dropdown-item btn-logout-new" onclick="handleLogout()">
+                                <i class="fa-solid fa-power-off"></i> Scollega
+                            </div>
+                        </div>
+                    `;
+                } else {
+                    authBtn.innerHTML = `<i class="fa-regular fa-user" title="Accedi"></i>`;
+                    authBtn.onclick = function() { window.location.href = "login.html"; };
+                }
+            }
+        });
+
+        // --- MANTENUTA LOGICA PREESISTENTE DELLA PAGINA FINDER ---
         function openM() { document.getElementById("m").style.width = "100%"; }
         function closeM() { document.getElementById("m").style.width = "0"; }
 
@@ -194,11 +360,6 @@
             } else {
                 alert("Errore pubblicazione: " + error.message);
             }
-        }
-
-        async function handleLogout() {
-            await dbClient.auth.signOut();
-            window.location.href = "login.html";
         }
     </script>
 </body>
