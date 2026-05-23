@@ -615,7 +615,7 @@
                 map.setView([45.65, 9.5], 8);
             }
 
-            // RECUPERO PARTITE STANDARD
+            // RECUPERO PARTITE
             let query = dbClient.from('matches').select('*').order('date_time', { ascending: true });
             if (filter !== "ALL") query = query.eq('province', filter);
 
@@ -641,8 +641,13 @@
                 const d = new Date(m.date_time);
                 const formattedDate = d.toLocaleDateString('it-IT') + " - " + d.toLocaleTimeString('it-IT', { hour: '2-digit', minute: '2-digit' });
                 
-                // Rimando temporaneo al gruppo WhatsApp
-                const waLink = "https://chat.whatsapp.com/GItl3C5mrgxJxXAPhHHRFh";
+                // Creazione Link WhatsApp Diretto (pesca dalla colonna whatsapp)
+                let waLink = "";
+                if (m.whatsapp) {
+                    const cleanPhone = m.whatsapp.replace(/\s+/g, ''); // Rimuove eventuali spazi
+                    const textMessage = encodeURIComponent(`Ciao! Ti contatto da NEVERA FINDER. Sono interessato al match di Padel delle ore ${d.toLocaleTimeString('it-IT', { hour: '2-digit', minute: '2-digit' })} del ${d.toLocaleDateString('it-IT')} presso "${m.club}". C'è ancora posto?`);
+                    waLink = `https://wa.me/${cleanPhone}?text=${textMessage}`;
+                }
 
                 const card = document.createElement("div");
                 card.className = "match-card";
@@ -657,7 +662,7 @@
                     
                     <div class="action-buttons-wrapper">
                         ${m.playtomic_link ? `<a href="${m.playtomic_link}" target="_blank" class="btn-playtomic"><i class="fa-solid fa-bolt me-2"></i>ISCRIVITI SU PLAYTOMIC</a>` : ''}
-                        <a href="${waLink}" target="_blank" class="btn-whatsapp-match"><i class="fa-brands fa-whatsapp me-2"></i>SCRIVI NEL GRUPPO</a>
+                        ${waLink ? `<a href="${waLink}" target="_blank" class="btn-whatsapp-match"><i class="fa-brands fa-whatsapp me-2"></i>CONTATTA</a>` : ''}
                     </div>
                 `;
                 grid.appendChild(card);
@@ -691,6 +696,9 @@
             const missingPlayers = document.getElementById("matchPlayers").value;
             const level = document.getElementById("matchLevel").value;
             const playtomicLink = document.getElementById("matchPlaytomic").value;
+            
+            // Recupero il telefono dai metadati dell'utente
+            const creatorPhone = currentUser.user_metadata?.phone || "";
 
             const matchData = {
                 user_id: currentUser.id,
@@ -699,9 +707,10 @@
                 lat: lat ? parseFloat(lat) : null,
                 lng: lng ? parseFloat(lng) : null,
                 date_time: dateTime,
-                missing_players: parseInt(missingPlayers),
+                players: parseInt(missingPlayers),
                 level: level,
-                playtomic_link: playtomicLink
+                playtomic_link: playtomicLink,
+                whatsapp: creatorPhone // Salva il numero nella colonna "whatsapp"
             };
 
             const { data, error } = await dbClient.from('matches').insert([matchData]);
