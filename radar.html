@@ -117,7 +117,7 @@
         }
         .btn-create:hover { transform: scale(1.03); box-shadow: 0 0 20px rgba(63, 240, 0, 0.3); }
 
-        /* --- LAYOUT COMPLETO DI CENTRAMENTO CARD (FLEXBOX GARANTITO) --- */
+        /* --- GRID FLEXBOX CENTRATA --- */
         .matches-grid { 
             display: flex !important;
             flex-wrap: wrap !important;
@@ -140,25 +140,30 @@
 
         .match-badge { position: absolute; top: 20px; right: 20px; background: rgba(63, 240, 0, 0.1); color: var(--neon); padding: 5px 12px; border-radius: 30px; font-size: 0.75rem; font-weight: bold; text-transform: uppercase; }
         .match-club { font-family: var(--font-title); font-size: 1.2rem; text-transform: uppercase; margin-bottom: 5px; color: var(--white); padding-right: 60px; }
-        .match-info { font-size: 0.9rem; opacity: 0.6; margin-bottom: 8px; display: flex; align-items: center; gap: 8px; }
+        .match-info { font-size: 0.9rem; opacity: 0.6; margin-bottom: 12px; display: flex; align-items: center; gap: 8px; }
         
-        .players-needed { font-size: 1rem; font-weight: 700; color: var(--white); margin-bottom: 20px; display: flex; align-items: center; gap: 10px; }
-        .players-count { background: var(--white); color: var(--dark); width: 24px; height: 24px; display: flex; align-items: center; justify-content: center; border-radius: 50%; font-size: 0.8rem; }
+        /* FIX VISIVITA' GIOCATORI MANCANTI */
+        .players-needed { font-size: 0.9rem; font-weight: 700; color: var(--white); margin-bottom: 20px; display: flex; align-items: center; gap: 10px; }
+        .players-count { background: var(--white) !important; color: #040404 !important; width: 26px; height: 26px; display: flex; align-items: center; justify-content: center; border-radius: 50%; font-size: 0.85rem; font-weight: 800; }
 
         .action-buttons-wrapper { display: flex; flex-direction: column; gap: 10px; width: 100%; }
-        .btn-join {
-            background: transparent; border: 1px solid var(--neon); color: var(--neon);
-            font-family: var(--font-title); font-size: 0.75rem; text-transform: uppercase;
-            padding: 12px; border-radius: 12px; width: 100%; text-align: center; text-decoration: none; display: block; transition: 0.3s;
-        }
-        .btn-join:hover { background: var(--neon); color: var(--dark); box-shadow: 0 0 15px rgba(63, 240, 0, 0.2); }
         
+        /* BOTTONE PLAYTOMIC */
         .btn-playtomic {
             background: #1062FE; border: 1px solid #1062FE; color: white !important;
             font-family: var(--font-title); font-size: 0.75rem; text-transform: uppercase;
             padding: 12px; border-radius: 12px; width: 100%; text-align: center; text-decoration: none; display: block; transition: 0.3s;
         }
         .btn-playtomic:hover { background: #0049D0; box-shadow: 0 0 15px rgba(16, 98, 254, 0.3); }
+
+        /* BOTTONE WHATSAPP */
+        .btn-whatsapp-match {
+            background: #25D366; border: 1px solid #25D366; color: #040404 !important;
+            font-family: var(--font-title); font-size: 0.75rem; text-transform: uppercase;
+            padding: 12px; border-radius: 12px; width: 100%; text-align: center; text-decoration: none; display: block; transition: 0.3s;
+            font-weight: bold;
+        }
+        .btn-whatsapp-match:hover { background: #20ba59; box-shadow: 0 0 15px rgba(37, 211, 102, 0.3); }
 
         /* Modal e Autocomplete */
         .modal-content { background: #0c0c0c; border: 1px solid rgba(255,255,255,0.1); border-radius: 24px; color: white; padding: 20px; }
@@ -189,7 +194,7 @@
         .f-link:hover { opacity: 1; color: var(--neon) !important; }
         .copyright { margin-top: 80px; opacity: 0.1; font-size: 0.5rem; letter-spacing: 5px; text-align: center; width: 100%; }
 
-        /* --- RESETTOTALE LEAFLET DIV ICON PER COSTRINGERLO A SPARIRE ED EVITARE IL PIN BLU --- */
+        /* --- RESET LEAFLET DIV ICON --- */
         .custom-div-icon {
             background: none !important;
             border: none !important;
@@ -198,7 +203,7 @@
             height: 16px !important;
         }
 
-        /* --- PIN VERDE LAMPEGGIANTE NEON CORRETTO --- */
+        /* --- PIN VERDE LAMPEGGIANTE --- */
         .blinking-pin {
             background-color: #3FF000 !important;
             width: 16px !important;
@@ -610,7 +615,8 @@
                 map.setView([45.65, 9.5], 8);
             }
 
-            let query = dbClient.from('matches').select('*').order('date_time', { ascending: true });
+            // JOIN SULLA TABELLA PROFILI PER RECUPERARE IL NUMERO DI WHATSAPP DEL CREATORE
+            let query = dbClient.from('matches').select(`*, profiles:user_id(phone)`).order('date_time', { ascending: true });
             if (filter !== "ALL") query = query.eq('province', filter);
 
             const { data: matches, error } = await query;
@@ -623,7 +629,6 @@
                 return;
             }
 
-            // CREAZIONE PIN ICON DEFINITIVA E COSTRANTE COSTRUTTIVA DI LEAFLET
             const blinkingIcon = L.divIcon({
                 className: 'custom-div-icon',
                 html: "<div class='blinking-pin'></div>",
@@ -636,17 +641,25 @@
                 const d = new Date(m.date_time);
                 const formattedDate = d.toLocaleDateString('it-IT') + " - " + d.toLocaleTimeString('it-IT', { hour: '2-digit', minute: '2-digit' });
                 
+                // Creazione testo per il messaggio automatico di WhatsApp
+                const waPhone = m.profiles?.phone;
+                const textMessage = encodeURIComponent(`Ciao! Ti contatto da NEVERA FINDER. Sono interessato a partecipare al match di Padel delle ore ${d.toLocaleTimeString('it-IT', { hour: '2-digit', minute: '2-digit' })} del ${d.toLocaleDateString('it-IT')} presso il centro "${m.club}". C'è ancora posto?`);
+                const waLink = waPhone ? `https://wa.me/${waPhone.replace(/\s+/g, '')}?text=${textMessage}` : null;
+
                 const card = document.createElement("div");
                 card.className = "match-card";
                 card.innerHTML = `
                     <div class="match-badge">${m.level || 'Intermedio'}</div>
                     <h3 class="match-club">${m.club}</h3>
                     <div class="match-info"><i class="fa-regular fa-clock"></i> ${formattedDate}</div>
+                    
                     <div class="players-needed">
                         Giocatori mancanti: <span class="players-count">${m.missing_players}</span>
                     </div>
+                    
                     <div class="action-buttons-wrapper">
                         ${m.playtomic_link ? `<a href="${m.playtomic_link}" target="_blank" class="btn-playtomic"><i class="fa-solid fa-bolt me-2"></i>ISCRIVITI SU PLAYTOMIC</a>` : ''}
+                        ${waLink ? `<a href="${waLink}" target="_blank" class="btn-whatsapp-match"><i class="fa-brands fa-whatsapp me-2"></i>CONTATTA SU WHATSAPP</a>` : ''}
                     </div>
                 `;
                 grid.appendChild(card);
