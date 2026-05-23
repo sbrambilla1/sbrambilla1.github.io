@@ -615,8 +615,8 @@
                 map.setView([45.65, 9.5], 8);
             }
 
-            // JOIN SULLA TABELLA PROFILI PER RECUPERARE IL NUMERO DI WHATSAPP DEL CREATORE
-            let query = dbClient.from('matches').select(`*, profiles:user_id(phone)`).order('date_time', { ascending: true });
+            // RECUPERO PARTITE STANDARD SENZA JOIN CHE CAUSANO ERRORI
+            let query = dbClient.from('matches').select('*').order('date_time', { ascending: true });
             if (filter !== "ALL") query = query.eq('province', filter);
 
             const { data: matches, error } = await query;
@@ -625,6 +625,7 @@
             grid.innerHTML = "";
 
             if (error || !matches || matches.length === 0) {
+                console.error("Errore o nessun match:", error); // Utile se apri la console (F12) per vedere il problema
                 grid.innerHTML = `<div class="text-center w-100 mt-5"><h5 class="opacity-50 text-uppercase">Nessun match trovato per questa zona.</h5></div>`;
                 return;
             }
@@ -641,10 +642,8 @@
                 const d = new Date(m.date_time);
                 const formattedDate = d.toLocaleDateString('it-IT') + " - " + d.toLocaleTimeString('it-IT', { hour: '2-digit', minute: '2-digit' });
                 
-                // Creazione testo per il messaggio automatico di WhatsApp
-                const waPhone = m.profiles?.phone;
-                const textMessage = encodeURIComponent(`Ciao! Ti contatto da NEVERA FINDER. Sono interessato a partecipare al match di Padel delle ore ${d.toLocaleTimeString('it-IT', { hour: '2-digit', minute: '2-digit' })} del ${d.toLocaleDateString('it-IT')} presso il centro "${m.club}". C'è ancora posto?`);
-                const waLink = waPhone ? `https://wa.me/${waPhone.replace(/\s+/g, '')}?text=${textMessage}` : null;
+                // Per ora rimanda al gruppo WhatsApp generale per non far esplodere Supabase
+                const waLink = "https://chat.whatsapp.com/GItl3C5mrgxJxXAPhHHRFh";
 
                 const card = document.createElement("div");
                 card.className = "match-card";
@@ -659,7 +658,7 @@
                     
                     <div class="action-buttons-wrapper">
                         ${m.playtomic_link ? `<a href="${m.playtomic_link}" target="_blank" class="btn-playtomic"><i class="fa-solid fa-bolt me-2"></i>ISCRIVITI SU PLAYTOMIC</a>` : ''}
-                        ${waLink ? `<a href="${waLink}" target="_blank" class="btn-whatsapp-match"><i class="fa-brands fa-whatsapp me-2"></i>CONTATTA SU WHATSAPP</a>` : ''}
+                        <a href="${waLink}" target="_blank" class="btn-whatsapp-match"><i class="fa-brands fa-whatsapp me-2"></i>SCRIVI NEL GRUPPO</a>
                     </div>
                 `;
                 grid.appendChild(card);
