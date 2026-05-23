@@ -7,94 +7,254 @@
     <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=0" />
     
     <link href="https://fonts.googleapis.com/css2?family=Archivo+Black&family=Inter:wght@300;400;600;800&display=swap" rel="stylesheet">
+    
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
-    <link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css" />
     
     <style>
-        :root { --neon: #3FF000; --dark: #040404; --white: #FDFDFD; --font-title: 'Archivo Black', sans-serif; --font-body: 'Inter', sans-serif; }
-        html, body { margin: 0; padding: 0; background-color: var(--dark); color: var(--white); font-family: var(--font-body); overflow-x: hidden; -webkit-font-smoothing: antialiased; }
-        #bg { position: fixed; top: 0; left: 0; width: 100%; height: 100%; background-image: linear-gradient(rgba(4, 4, 4, 0.6), rgba(4, 4, 4, 0.9)), url('images/image_c3c605.jpg'); background-size: cover; background-position: center; z-index: 0; }
-        header { position: relative; padding: 40px 0; z-index: 100; }
-        .header-container { max-width: 1200px; margin: 0 auto; padding: 0 20px; display: flex; justify-content: center; align-items: center; position: relative; }
-        .logo-trigger { height: 85px; cursor: pointer; transition: transform 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275); }
+        :root {
+            --neon: #3FF000;
+            --dark: #040404;
+            --white: #FDFDFD;
+            --font-title: 'Archivo Black', sans-serif;
+            --font-body: 'Inter', sans-serif;
+        }
+
+        html, body {
+            margin: 0; padding: 0;
+            background-color: var(--dark);
+            color: var(--white);
+            font-family: var(--font-body);
+            overflow-x: hidden;
+            -webkit-font-smoothing: antialiased;
+        }
+
+        /* SFONDO E OVERLAY (COERENTE CON TEMPLATE) */
+        #bg {
+            position: fixed; top: 0; left: 0; width: 100%; height: 100%;
+            background-image: linear-gradient(rgba(4, 4, 4, 0.6), rgba(4, 4, 4, 0.9)), url('images/image_c3c605.jpg');
+            background-size: cover; background-position: center; z-index: 0;
+        }
+
+        /* HEADER */
+        header { position: relative; padding: 60px 0 40px 0; text-align: center; z-index: 100; }
+        .logo-trigger { 
+            height: 85px; cursor: pointer; 
+            transition: transform 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275); 
+        }
         .logo-trigger:hover { transform: scale(1.1); filter: drop-shadow(0 0 15px var(--neon)); }
-        
-        /* --- NUOVO MENU UTENTE --- */
-        .auth-header-icon { font-size: 1.4rem; color: var(--white); cursor: pointer; transition: 0.3s; width: 45px; height: 45px; display: flex; align-items: center; justify-content: center; border-radius: 50%; background: rgba(255, 255, 255, 0.02); border: 1px solid rgba(255, 255, 255, 0.08); position: absolute; right: 20px; top: 50%; transform: translateY(-50%); }
-        .auth-header-icon:hover { color: var(--neon); border-color: var(--neon); box-shadow: 0 0 15px rgba(63, 240, 0, 0.2); }
-        .user-profile-dropdown { position: absolute; right: 20px; top: 50%; transform: translateY(-50%); display: flex; align-items: center; justify-content: center; }
+
+        /* --- ICONA AUTH HEADER & MENU UTENTE --- */
+        .auth-header-icon {
+            position: absolute;
+            top: 50%;
+            right: 25px;
+            transform: translateY(-50%);
+            font-size: 1.35rem;
+            color: rgba(255, 255, 255, 0.6);
+            cursor: pointer;
+            transition: 0.3s ease;
+            width: 45px;
+            height: 45px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            background: rgba(255, 255, 255, 0.03);
+            border: 1px solid rgba(255, 255, 255, 0.08);
+            border-radius: 50%;
+            backdrop-filter: blur(5px);
+        }
+        .auth-header-icon:hover {
+            color: var(--neon);
+            border-color: var(--neon);
+            box-shadow: 0 0 15px rgba(63, 240, 0, 0.2);
+        }
+
+        .user-profile-dropdown { position: absolute; right: 25px; top: 50%; transform: translateY(-50%); display: flex; align-items: center; justify-content: center; z-index: 1000;}
         .avatar-btn { width: 45px; height: 45px; border-radius: 50%; display: flex; align-items: center; justify-content: center; font-family: var(--font-title); font-size: 0.85rem; color: var(--neon); cursor: pointer; text-transform: uppercase; border: 2px solid var(--neon); background: rgba(4, 4, 4, 0.8); }
-        .nv-dropdown-menu { position: absolute; top: 55px; right: 0; background: rgba(12, 12, 12, 0.98); border: 1px solid rgba(255, 255, 255, 0.08); border-radius: 20px; width: 240px; padding: 15px; box-shadow: 0 15px 35px rgba(0,0,0,0.8); backdrop-filter: blur(15px); z-index: 1000; display: none; opacity: 0; transform: translateY(-10px); transition: opacity 0.3s, transform 0.3s; }
+        .nv-dropdown-menu { position: absolute; top: 55px; right: 0; background: rgba(12, 12, 12, 0.98); border: 1px solid rgba(255, 255, 255, 0.08); border-radius: 20px; width: 240px; padding: 15px; box-shadow: 0 15px 35px rgba(0,0,0,0.8); backdrop-filter: blur(15px); display: none; opacity: 0; transform: translateY(-10px); transition: opacity 0.3s, transform 0.3s; }
         .nv-dropdown-menu.show { display: block; opacity: 1; transform: translateY(0); }
         .user-menu-header { border-bottom: 1px solid rgba(255,255,255,0.05); padding-bottom: 10px; margin-bottom: 10px; text-align: left; }
         .user-menu-name { font-family: var(--font-title); font-size: 0.85rem; text-transform: uppercase; margin: 0; color: white; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; display: block; }
         .nv-dropdown-item { display: flex; align-items: center; gap: 12px; padding: 12px; color: rgba(255,255,255,0.6); font-size: 0.8rem; font-weight: 600; text-decoration: none; border-radius: 10px; transition: 0.2s; cursor: pointer; text-align: left; }
         .nv-dropdown-item:hover { background: rgba(255,255,255,0.04); color: var(--neon); }
-        .nv-dropdown-item i { width: 16px; font-size: 0.9rem; }
         .btn-logout-new { border-top: 1px solid rgba(255,255,255,0.05); color: #FF4444 !important; margin-top: 5px; padding-top: 12px; }
         .btn-logout-new:hover { background: rgba(255, 68, 68, 0.05); color: #FF4444; }
 
-        /* --- NUOVO OFFCANVAS DASHBOARD --- */
+        /* --- OFFCANVAS DASHBOARD --- */
         .nv-offcanvas { position: fixed; top: 0; right: -450px; width: 100%; max-width: 420px; height: 100%; background: rgba(8, 8, 8, 0.96); border-left: 1px solid rgba(255,255,255,0.05); z-index: 10050; backdrop-filter: blur(20px); transition: right 0.4s cubic-bezier(0.165, 0.84, 0.44, 1); padding: 40px 30px; display: flex; flex-direction: column; text-align: left; color: white; }
         .nv-offcanvas.open { right: 0; box-shadow: -15px 0 40px rgba(0,0,0,0.8); }
         .nv-offcanvas-header { display: flex; justify-content: space-between; align-items: center; margin-bottom: 35px; }
         .nv-offcanvas-title { font-family: var(--font-title); font-size: 1.2rem; text-transform: uppercase; color: white; margin: 0; }
         .btn-close-offcanvas { background: none; border: none; color: var(--neon); font-size: 1.5rem; cursor: pointer; }
         .nv-offcanvas-body { flex: 1; overflow-y: auto; padding-right: 5px; }
-        .profile-data-box { background: rgba(255,255,255,0.02); border: 1px solid rgba(255,255,255,0.05); border-radius: 20px; padding: 20px; }
+        .profile-data-box, .my-match-item { background: rgba(255,255,255,0.02); border: 1px solid rgba(255,255,255,0.05); border-radius: 20px; padding: 20px; margin-bottom: 15px; position: relative; }
         .profile-label { font-size: 0.6rem; font-weight: 800; color: rgba(255,255,255,0.4); text-transform: uppercase; letter-spacing: 1.5px; margin-bottom: 4px; }
         .profile-value { font-size: 0.95rem; font-weight: 600; color: white; margin-bottom: 15px; }
-        .profile-value:last-child { margin-bottom: 0; }
-        .my-match-item { background: rgba(255,255,255,0.02); border: 1px solid rgba(255,255,255,0.05); border-radius: 18px; padding: 15px; margin-bottom: 15px; position: relative; }
         .my-match-club { font-weight: 700; font-size: 0.85rem; text-transform: uppercase; color: white; padding-right: 30px; }
         .my-match-time { font-size: 0.75rem; color: rgba(255,255,255,0.4); margin-top: 5px; }
         .btn-delete-match { position: absolute; top: 15px; right: 15px; background: none; border: none; color: rgba(255,68,68,0.5); transition: 0.2s; font-size: 0.9rem; cursor: pointer; }
         .btn-delete-match:hover { color: #FF4444; transform: scale(1.1); }
 
-        .nv-menu { height: 100%; width: 0; position: fixed; z-index: 9999; top: 0; left: 0; background-color: rgba(4, 4, 4, 0.98); overflow: hidden; transition: 0.5s; display: flex; align-items: center; justify-content: center; }
-        .nv-links a { font-family: var(--font-title); font-size: 2.5rem; color: var(--white); text-decoration: none; display: block; margin: 20px; text-transform: uppercase; }
+        /* MENU OVERLAY */
+        .nv-menu {
+            height: 100%; width: 0; position: fixed; z-index: 9999;
+            top: 0; left: 0; background-color: rgba(4, 4, 4, 0.98); 
+            overflow: hidden; transition: 0.5s; 
+            display: flex; align-items: center; justify-content: center;
+        }
+        .nv-links a { 
+            font-family: var(--font-title); font-size: 2.5rem; color: var(--white); 
+            text-decoration: none; display: block; margin: 20px; text-transform: uppercase; 
+        }
         .nv-links a:hover { color: var(--neon); transform: scale(1.05); }
         .nv-close { position: absolute; top: 30px; right: 45px; font-size: 50px; color: var(--neon); text-decoration: none; }
+
+        /* MAIN CONTENT */
         .main-wrapper { position: relative; z-index: 10; padding: 40px 20px 80px 20px; text-align: center; }
+        
         .nv-title { font-family: var(--font-title); font-size: clamp(2.5rem, 8vw, 4.5rem); text-transform: uppercase; letter-spacing: -2px; margin: 0; line-height: 1; }
         .nv-subtitle { color: var(--neon); font-weight: 700; text-transform: uppercase; letter-spacing: 12px; margin-bottom: 60px; font-size: 0.75rem; }
-        .radar-panel { background: rgba(255, 255, 255, 0.02); border: 1px solid rgba(255, 255, 255, 0.05); border-radius: 35px; padding: 30px; backdrop-filter: blur(10px); margin-bottom: 40px; }
-        #radarMap { height: 380px; border-radius: 24px; background: #0d0d0d; border: 1px solid rgba(255, 255, 255, 0.05); }
-        .filter-bar { display: flex; justify-content: space-between; align-items: center; flex-wrap: wrap; gap: 20px; margin-top: 25px; text-align: left; }
-        .filter-group label { font-size: 0.65rem; color: var(--white); opacity: 0.4; letter-spacing: 2px; font-weight: 800; margin-bottom: 8px; display: block; text-transform: uppercase; }
-        .filter-select, .form-control-custom { background: rgba(4, 4, 4, 0.6); border: 1px solid rgba(255, 255, 255, 0.1); color: white !important; padding: 14px 24px; border-radius: 15px; outline: none; transition: 0.3s; font-size: 0.85rem; }
-        .match-card { background: rgba(255, 255, 255, 0.02); border: 1px solid rgba(255, 255, 255, 0.05); border-radius: 35px; padding: 40px 25px; height: 100%; transition: 0.4s; backdrop-filter: blur(10px); display: flex; flex-direction: column; justify-content: space-between; text-align: left; }
-        .match-badge { position: absolute; top: 30px; right: 25px; background: rgba(63, 240, 0, 0.1); color: var(--neon); padding: 4px 14px; border-radius: 30px; font-size: 0.7rem; font-weight: bold; text-transform: uppercase; }
-        .match-club { font-family: var(--font-body); font-size: 0.95rem; text-transform: uppercase; letter-spacing: 2px; font-weight: 800; margin-bottom: 20px; color: var(--white); padding-right: 55px; }
-        .match-info { font-size: 0.9rem; opacity: 0.5; margin-bottom: 10px; display: flex; align-items: center; gap: 10px; }
-        .btn-action-nevera { font-family: var(--font-title); background: var(--neon); color: var(--dark); padding: 16px 35px; border-radius: 50px; text-decoration: none; border: none; text-transform: uppercase; font-size: 0.8rem; transition: 0.3s; }
-        .btn-link-app { background: rgba(63, 240, 0, 0.1); border: 1px solid rgba(63, 240, 0, 0.3); color: var(--neon); font-family: var(--font-title); font-size: 0.75rem; text-transform: uppercase; padding: 14px; border-radius: 50px; width: 100%; text-align: center; display: block; margin-top: 10px; }
-        .autocomplete-results { position: absolute; width: 100%; background: #0d0d0d; border: 1px solid rgba(255,255,255,0.1); border-radius: 0 0 15px 15px; z-index: 9999; max-height: 180px; overflow-y: auto; display: none; }
-        .autocomplete-item { padding: 12px; cursor: pointer; color: white; }
-        .autocomplete-item:hover { background: var(--neon); color: var(--dark); }
-        .modal-content { background: #0c0c0c; border: 1px solid rgba(255,255,255,0.08); border-radius: 35px; color: white; padding: 25px; }
+
+        /* COMPONENTI SPECIFICI MATCH RADAR */
+        .filter-box {
+            margin: 0 auto 20px auto; max-width: 600px;
+            background: rgba(255, 255, 255, 0.02); border: 1px solid rgba(255, 255, 255, 0.06);
+            border-radius: 25px; padding: 25px; text-align: left;
+            backdrop-filter: blur(10px);
+        }
+        .level-select {
+            background: var(--dark); border: 1px solid rgba(255, 255, 255, 0.12); color: white;
+            padding: 14px 18px; border-radius: 14px; font-weight: 600; width: 100%; margin-top: 10px;
+            outline: none; transition: 0.3s;
+        }
+        .level-select:focus { border-color: var(--neon); }
+
+        /* BOX NOTIFICHE PWA LUXURY */
+        .push-box {
+            margin: 0 auto 35px auto; max-width: 600px;
+            background: rgba(63, 240, 0, 0.02); border: 1px solid rgba(63, 240, 0, 0.15);
+            border-radius: 20px; padding: 18px; text-align: center;
+            backdrop-filter: blur(10px); display: flex; align-items: center; justify-content: space-between; gap: 15px;
+        }
+        .push-text { text-align: left; color: rgba(255, 255, 255, 0.8); font-size: 0.85rem; margin: 0; }
+        .push-text strong { color: var(--neon); }
+
+        .btn-action {
+            font-family: var(--font-title); background: transparent; color: var(--white);
+            border: 1px solid rgba(255, 255, 255, 0.2); padding: 16px 40px; border-radius: 50px;
+            text-decoration: none !important; font-size: 0.75rem; transition: 0.3s; text-transform: uppercase; 
+            margin-bottom: 50px; cursor: pointer; display: inline-block; letter-spacing: 2px;
+        }
+        .btn-action:hover { border-color: var(--neon); color: var(--neon); background: rgba(63, 240, 0, 0.03); box-shadow: 0 0 15px rgba(63, 240, 0, 0.1); }
+
+        .btn-push-trigger {
+            font-family: var(--font-title); background: var(--neon); color: var(--dark);
+            border: none; padding: 10px 20px; border-radius: 50px; font-size: 0.65rem;
+            text-transform: uppercase; letter-spacing: 1px; transition: 0.3s; font-weight: bold; white-space: nowrap;
+        }
+        .btn-push-trigger:hover { transform: scale(1.05); box-shadow: 0 0 15px rgba(63, 240, 0, 0.4); }
+
+        /* GRIGLIA ED ELEMENTI DEL RADAR */
+        #radarGrid { margin: 0 auto; max-width: 600px; width: 100%; }
+        
+        .radar-card {
+            background: rgba(255, 255, 255, 0.02); border: 1px solid rgba(255, 255, 255, 0.1);
+            border-radius: 25px; padding: 25px 30px; margin-bottom: 20px;
+            display: flex; justify-content: space-between; align-items: center; text-align: left;
+            transition: 0.4s ease; backdrop-filter: blur(10px);
+        }
+        .radar-card:hover { border-color: rgba(255,255,255,0.2); background: rgba(255, 255, 255, 0.04); }
+        .match-info h4 { font-weight: 800; font-size: 1.25rem; margin: 0 0 6px 0; letter-spacing: -0.3px; text-transform: uppercase; }
+        .match-info p { margin: 0; opacity: 0.5; font-size: 0.9rem; font-weight: 400; }
+        .match-meta { display: flex; gap: 10px; margin-top: 12px; }
+        
+        .badge-radar { background: rgba(255,255,255,0.04); padding: 6px 14px; border-radius: 30px; font-size: 0.75rem; font-weight: 700; text-transform: uppercase; border: 1px solid rgba(255,255,255,0.06); color: rgba(255,255,255,0.8); }
+        .badge-neon { border-color: var(--neon); color: var(--neon); background: rgba(63, 240, 0, 0.02); }
+
+        .btn-join {
+            background: var(--neon); color: var(--dark); font-family: var(--font-title);
+            padding: 12px 28px; border-radius: 50px; text-decoration: none !important;
+            font-size: 0.75rem; text-transform: uppercase; transition: 0.2s; display: inline-block;
+            letter-spacing: 1px;
+        }
+        .btn-join:hover { transform: scale(1.05); background: #35cc00; box-shadow: 0 0 15px rgba(63, 240, 0, 0.4); color: var(--dark); }
+
+        /* POPUP MODALE FIXED LUXURY */
+        .nv-modal {
+            display: none; position: fixed; z-index: 999999; top: 0; left: 0; width: 100%; height: 100%;
+            background: rgba(4, 4, 4, 0.96); align-items: center; justify-content: center; padding: 20px;
+            backdrop-filter: blur(8px);
+        }
+        .modal-content-box {
+            background: #0d0d0d; border: 1px solid rgba(255, 255, 255, 0.1);
+            padding: 35px; border-radius: 30px; max-width: 460px; width: 100%; color: white;
+            box-shadow: 0 20px 50px rgba(0,0,0,0.8);
+        }
+        .modal-content-box h3 { font-family: var(--font-title); font-size: 1.5rem; margin-bottom: 25px; text-transform: uppercase; letter-spacing: -0.5px; color: #FFF; }
+        .modal-content-box input, .modal-content-box select {
+            background: var(--dark) !important; border: 1px solid rgba(255, 255, 255, 0.12) !important; color: white !important;
+            padding: 13px; border-radius: 12px; width: 100%; margin-bottom: 18px; outline: none; font-size: 0.95rem;
+        }
+        .modal-content-box input:focus, .modal-content-box select:focus { border-color: var(--neon); }
+        .modal-content-box label { font-size: 0.8rem; font-weight: 600; opacity: 0.5; margin-bottom: 6px; display: block; text-transform: uppercase; letter-spacing: 0.5px; color: #FFF; }
+
+        /* FOOTER A GRIGLIA (STILE HOME) */
+        .nv-footer { 
+            position: relative; z-index: 10; padding: 100px 20px 60px; 
+            background-color: var(--dark); 
+            border-top: 1px solid rgba(255, 255, 255, 0.05);
+        }
+        .footer-container {
+            max-width: 1050px; margin: 0 auto;
+            display: flex; justify-content: space-between; align-items: flex-start;
+            flex-wrap: wrap; gap: 50px; text-align: left;
+        }
+        .footer-brand { flex: 1; min-width: 200px; }
+        .footer-logo-mini { height: 75px; opacity: 0.5; margin-bottom: 15px; }
+        .footer-nav { display: flex; gap: 60px; }
+        .f-col { display: flex; flex-direction: column; gap: 10px; }
+        .f-col .f-label { font-size: 0.6rem; color: var(--neon); letter-spacing: 2px; font-weight: 800; margin-bottom: 10px; }
+        .f-link { font-size: 0.85rem; color: white !important; opacity: 0.3; transition: 0.3s; text-decoration: none; }
+        .f-link:hover { opacity: 1; color: var(--neon) !important; }
+        .copyright { margin-top: 80px; opacity: 0.15; font-size: 0.55rem; letter-spacing: 5px; text-align: center; width: 100%; }
+
+        @media (max-width: 768px) {
+            header { padding: 40px 0 30px 0; }
+            .auth-header-icon { right: 15px; width: 40px; height: 40px; font-size: 1.1rem; }
+            .user-profile-dropdown { right: 15px; }
+            .push-box { flex-direction: column; text-align: center; padding: 20px; }
+            .push-text { text-align: center; }
+            .btn-push-trigger { width: 100%; }
+            .radar-card { flex-direction: column; align-items: flex-start; gap: 20px; padding: 20px; }
+            .btn-join { width: 100%; text-align: center; }
+            .footer-container { flex-direction: column; text-align: center; }
+            .footer-nav { width: 100%; justify-content: space-around; }
+            .footer-brand { width: 100%; margin-bottom: 20px; }
+        }
     </style>
 </head>
 <body>
 
     <div id="bg"></div>
 
-    <header>
-        <div class="header-container">
-            <img src="images/logo.png" class="logo-trigger" onclick="openM()">
-            
-            <div id="authHeaderBtn" class="auth-header-icon">
-                <i class="fa-regular fa-user"></i>
-            </div>
+    <header class="position-relative">
+        <img src="images/logo.png" class="logo-trigger" onclick="openM()" alt="Nevera Logo">
+        
+        <div id="authHeaderBtn" class="auth-header-icon">
+            <i class="fa-regular fa-user"></i>
         </div>
     </header>
 
     <div id="m" class="nv-menu">
         <a href="javascript:void(0)" class="nv-close" onclick="closeM()">&times;</a>
         <div class="nv-links">
-            <a href="index.html">HOME</a>
-            <a href="radar.html">FINDER</a>
+            <a href="index.html" onclick="closeM()">HOME</a>
+            <a href="eventi.html" onclick="closeM()">EVENTI</a>
+            <a href="community.html" onclick="closeM()">COMMUNITY</a>
+            <a href="radar.html" onclick="closeM()">FINDER</a>
+            <a href="partners.html" onclick="closeM()">PARTNERS</a>
+            <a href="iniziative.html" onclick="closeM()">INIZIATIVE</a>
         </div>
     </div>
 
@@ -108,67 +268,141 @@
 
     <main class="main-wrapper container">
         <h1 class="nv-title">FINDER</h1>
-        <p class="nv-subtitle">ready set play</p>
+        <p class="nv-subtitle">ready set play!</p>
 
-        <div class="radar-panel">
-            <div id="radarMap"></div>
-            <div class="filter-bar">
-                <div class="filter-group">
-                    <label>MATCH RADAR</label>
-                    <select id="geoFilter" class="filter-select" onchange="loadMatches()">
-                        <option value="ALL">Tutte le province</option>
-                        <option value="BG">Bergamo</option>
-                        <option value="BS">Brescia</option>
-                        <option value="MI">Milano</option>
-                    </select>
-                </div>
-                <button class="btn-action-nevera" data-bs-toggle="modal" data-bs-target="#newMatchModal">Inserisci Match</button>
-            </div>
+        <div class="filter-box">
+            <label style="font-weight: 600; font-size: 0.8rem; opacity: 0.5; text-transform: uppercase; letter-spacing: 0.5px;">Il Tuo Livello Attuale:</label>
+            <select id="userLevel" class="level-select" onchange="saveLevel()">
+                <option value="all">Mostra tutti i match attivi</option>
+                <option value="entry">Entry (Liv. 0.50 - 1.50)</option>
+                <option value="principiante">Principiante (Liv. 1.50 - 2.50)</option>
+                <option value="intermedio">Intermedio (Liv. 2.50 - 3.25)</option>
+                <option value="intermedio-avanzato">Intermedio Avanzato(Liv. 3.25 - 4.50)</option>
+                <option value="avanzato">Avanzato (Liv. 4.50 - 5.50)</option>
+                <option value="pro">Pro (Liv. 5.50 - 7.00)</option>
+            </select>
         </div>
 
-        <div id="matchesGrid" class="row g-4 justify-content-center"></div>
+        <div class="push-box">
+            <p class="push-text"><i class="fa-solid fa-bell me-2 text-warning"></i>Resta aggiornato: attiva le <strong>Notifiche Push</strong> per non perdere nessun SOS Match sul tuo telefono.</p>
+            <button id="btnPushNotify" class="btn-push-trigger">Attiva ora</button>
+        </div>
+
+        <div>
+            <button class="btn-action" onclick="toggleModal(true)"><i class="fa-solid fa-plus me-2"></i> Lancia un SOS Match</button>
+        </div>
+
+        <div id="radarGrid">
+            <p style="opacity:0.3; margin-top:20px;">Sincronizzazione radar in corso...</p>
+        </div>
     </main>
 
-    <div class="modal fade" id="newMatchModal" tabindex="-1" aria-hidden="true">
-        <div class="modal-dialog modal-dialog-centered">
-            <div class="modal-content">
-                <form id="newMatchForm" onsubmit="createMatch(event)">
-                    <div class="modal-body">
-                        <label>Centro Sportivo</label>
-                        <div class="autocomplete-wrapper">
-                            <input type="text" id="matchClub" class="form-control-custom w-100 mb-3" placeholder="Cerca..." oninput="searchClub(this.value)" required>
-                            <div id="autocompleteResults" class="autocomplete-results"></div>
-                        </div>
-                        <input type="hidden" id="matchProvince"><input type="hidden" id="matchLat"><input type="hidden" id="matchLng">
-                        <label>Data e Ora</label>
-                        <input type="datetime-local" id="matchDate" class="form-control-custom w-100 mb-3" required>
-                        <label>Giocatori Mancanti</label>
-                        <input type="number" id="matchPlayers" class="form-control-custom w-100 mb-3" value="1" min="1" max="4">
-                        <label>Link (Playtomic/Web)</label>
-                        <input type="url" id="matchLink" class="form-control-custom w-100 mb-3">
-                    </div>
-                    <div class="modal-footer"><button type="submit" id="publishBtn" class="btn-action-nevera w-100">Pubblica</button></div>
-                </form>
+    <div id="matchModal" class="nv-modal">
+        <div class="modal-content-box text-start">
+            <h3>Nuovo SOS Match</h3>
+            
+            <label>Circolo / Club Sportivo:</label>
+            <input type="text" id="matchClub" placeholder="es. Nevera Sports Academy" required>
+            
+            <label>Data e Ora:</label>
+            <input type="datetime-local" id="matchTime" required>
+            
+            <label>Livello:</label>
+            <select id="matchLevel">
+                <option value="entry">Entry (Liv. 0.50 - 1.50)</option>
+                <option value="principiante">Principiante (Liv. 1.50 - 2.50)</option>
+                <option value="intermedio">Intermedio (Liv. 2.50 - 3.25)</option>
+                <option value="intermedio-avanzato">Intermedio Avanzato(Liv. 3.25 - 4.50)</option>
+                <option value="avanzato">Avanzato (Liv. 4.50 - 5.50)</option>
+                <option value="pro">Pro (Liv. 5.50 - 7.00)</option>
+            </select>
+            
+            <label>Quanti giocatori mancano?</label>
+            <input type="number" id="matchMissing" placeholder="es. 1" min="1" max="3" required>
+            
+            <label>Link Playtomic:</label>
+            <input type="url" id="matchLink" placeholder="https://playtomic.io/match/..." required>
+            
+            <div class="d-flex gap-2 mt-4">
+                <button class="btn-action" onclick="toggleModal(false)" style="margin: 0; padding: 12px 20px; font-size: 0.8rem;">Annulla</button>
+                <button class="btn-join" onclick="createMatch()" style="flex: 1; padding: 14px 0; font-size: 0.8rem;">Pubblica</button>
             </div>
         </div>
     </div>
 
-    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+    <footer class="nv-footer">
+        <div class="footer-container">
+            <div class="footer-brand">
+                <img src="images/logo.png" class="footer-logo-mini" alt="Logo Mini">
+                <p style="font-size:0.6rem; opacity:0.2; letter-spacing:3px; font-weight:700;">PRECISION IN PERFORMANCE.</p>
+            </div>
+            
+            <div class="footer-nav">
+                <div class="f-col">
+                    <span class="f-label">NAVIGAZIONE</span>
+                    <a href="index.html" class="f-link">HOME</a>
+                    <a href="eventi.html" class="f-link">EVENTI</a>
+                    <a href="community.html" class="f-link">COMMUNITY</a>
+                </div>
+                <div class="f-col">
+                    <span class="f-label">SOCIAL</span>
+                    <a href="https://www.instagram.com/neverasports.it/" class="f-link">INSTAGRAM</a>
+                    <a href="https://chat.whatsapp.com/GItl3C5mrgxJxXAPhHHRFh" class="f-link">WHATSAPP</a>
+                </div>
+            </div>
+        </div>
+        <p class="copyright">© 2026 NEVERA SPORTS | BORN UNDER PRESSURE</p>
+    </footer>
+
     <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
-    <script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js"></script>
+    <script src="https://cdn.onesignal.com/sdks/web/v16/OneSignalSDK.page.js" defer></script>
 
     <script>
+        function openM() { document.getElementById("m").style.width = "100%"; }
+        function closeM() { document.getElementById("m").style.width = "0"; }
+        
+        function toggleModal(show) {
+            const modal = document.getElementById("matchModal");
+            if (modal) { modal.style.display = show ? "flex" : "none"; }
+        }
+
+        // Supabase Setup
         const SUPABASE_URL = "https://ennpbtrthwdxsvdbqbmn.supabase.co";
         const SUPABASE_KEY = "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6ImVubnBidHJ0aHdkeHN2ZGJxYm1uIiwicm9sZSI6ImFub24iLCJpYXQiOjE3NzkwNjU0NzUsImV4cCI6MjA5NDY0MTQ3NX0.JL-w7qkp6bktVJMrJ7O0Uw1phxaBpBc9BiP3cH8Q4-0";
-        const dbClient = window.supabase.createClient(SUPABASE_URL, SUPABASE_KEY);
-        let map, markerLayer;
-
-        // --- VARIABILI E LOGICHE MENU UTENTE INIETTATE ---
+        const dbClient = window.supabase ? window.supabase.createClient(SUPABASE_URL, SUPABASE_KEY) : null;
         let globalUser = null;
 
+        // Gestione OneSignal Differita Iniziale
+        window.OneSignalDeferred = window.OneSignalDeferred || [];
+        window.OneSignalDeferred.push(async function(OneSignal) {
+            await OneSignal.init({
+                appId: "907b9331-51c9-4b9d-a87e-65df7bd815f2",
+                allowLocalhostAsSecureOrigin: true
+            });
+        });
+
+        document.addEventListener("DOMContentLoaded", function() {
+            const pushBtn = document.getElementById('btnPushNotify');
+            if (pushBtn) {
+                pushBtn.addEventListener('click', function() {
+                    window.OneSignalDeferred.push(async function(OneSignal) {
+                        try {
+                            await OneSignal.Notifications.requestPermission();
+                            alert("Configurazione completata con successo!");
+                        } catch (err) {
+                            alert("Permesso negato o errore di sistema. Controlla le impostazioni di iOS.");
+                            console.error(err);
+                        }
+                    });
+                });
+            }
+        });
+
+        // --- SISTEMA DASHBOARD UTENTE (REINTEGRATO) ---
         function toggleUserMenu(event) {
             event.stopPropagation();
-            document.getElementById("userMenu").classList.toggle("show");
+            const menu = document.getElementById("userMenu");
+            if(menu) menu.classList.toggle("show");
         }
 
         window.addEventListener('click', function(event) {
@@ -179,6 +413,32 @@
                 }
             }
         });
+
+        function setupUserMenu(user) {
+            globalUser = user;
+            const authBtn = document.getElementById('authHeaderBtn');
+            const fullName = user.user_metadata?.full_name || user.email.split('@')[0];
+            const initials = fullName.split(' ').map(n => n[0]).join('').substring(0, 2).toUpperCase();
+
+            authBtn.className = "user-profile-dropdown"; 
+            authBtn.innerHTML = `
+                <div class="avatar-btn" id="userAvatar" onclick="toggleUserMenu(event)">${initials}</div>
+                <div class="nv-dropdown-menu" id="userMenu">
+                    <div class="user-menu-header">
+                        <span class="user-menu-name" id="menuUserName">${fullName}</span>
+                    </div>
+                    <div class="nv-dropdown-item" onclick="openUserPanel('info')">
+                        <i class="fa-solid fa-user-gear"></i> Info Profilo
+                    </div>
+                    <div class="nv-dropdown-item" onclick="openUserPanel('matches')">
+                        <i class="fa-solid fa-calendar-days"></i> I miei Match
+                    </div>
+                    <div class="nv-dropdown-item btn-logout-new" onclick="handleLogout()">
+                        <i class="fa-solid fa-power-off"></i> Scollega
+                    </div>
+                </div>
+            `;
+        }
 
         async function openUserPanel(type) {
             const menu = document.getElementById("userMenu");
@@ -197,7 +457,6 @@
                 title.innerText = "Info Profilo";
                 const fullName = globalUser.user_metadata?.full_name || globalUser.email.split('@')[0];
                 const phone = globalUser.user_metadata?.phone || "Non configurato";
-                const province = globalUser.user_metadata?.province || "MI";
                 
                 body.innerHTML = `
                     <div class="profile-data-box">
@@ -207,34 +466,36 @@
                         <div class="profile-value">${globalUser.email}</div>
                         <div class="profile-label">Numero WhatsApp</div>
                         <div class="profile-value">${phone}</div>
-                        <div class="profile-label">Provincia di Riferimento</div>
-                        <div class="profile-value">Lombardia, ${province.toUpperCase()}</div>
                     </div>
                 `;
             } 
             else if (type === 'matches') {
                 title.innerText = "I miei Match";
                 
+                // Cerca nella tabella "Matches" invece di "matches" come avevi richiesto nel tuo file
                 const { data: myMatches, error } = await dbClient
-                    .from('matches')
+                    .from('Matches')
                     .select('*')
                     .eq('user_id', globalUser.id)
-                    .order('date_time', { ascending: false });
+                    .order('date', { ascending: false });
 
                 if (error || !myMatches || myMatches.length === 0) {
-                    body.innerHTML = `<p class="text-center opacity-40 mt-5 small">Nessun match.</p>`;
+                    body.innerHTML = `<p class="text-center opacity-40 mt-5 small">Nessun match caricato al momento.</p>`;
                     return;
                 }
 
                 body.innerHTML = "";
                 myMatches.forEach(m => {
-                    const d = new Date(m.date_time);
-                    const formatted = d.toLocaleDateString('it-IT') + " alle " + d.toLocaleTimeString('it-IT', { hour: '2-digit', minute: '2-digit' });
+                    let formatted = "Data non disponibile";
+                    if(m.date) {
+                        const d = new Date(m.date);
+                        formatted = d.toLocaleDateString('it-IT') + " alle " + d.toLocaleTimeString('it-IT', { hour: '2-digit', minute: '2-digit' });
+                    }
                     
                     const div = document.createElement("div");
                     div.className = "my-match-item";
                     div.innerHTML = `
-                        <div class="my-match-club">${m.club}</div>
+                        <div class="my-match-club">${m.club || 'Club'}</div>
                         <div class="my-match-time"><i class="fa-regular fa-calendar-days me-1"></i> ${formatted}</div>
                         <button class="btn-delete-match" onclick="deleteMatchFromPanel(${m.id}, this)">
                             <i class="fa-solid fa-trash-can"></i>
@@ -250,115 +511,143 @@
         }
 
         async function deleteMatchFromPanel(id, element) {
-            if (confirm("Vuoi rimuovere questo SOS dal radar?")) {
-                const { error } = await dbClient.from('matches').delete().eq('id', id);
+            if (confirm("Vuoi rimuovere questo match dal radar?")) {
+                const { error } = await dbClient.from('Matches').delete().eq('id', id);
                 if (!error) {
                     element.parentElement.remove();
+                    fetchMatches(); 
                 }
             }
         }
 
         async function handleLogout() {
-            if (confirm("Vuoi disconnetterti da Nevera Sports?")) {
+            if(confirm("Vuoi disconnetterti da Nevera Sports?")) {
                 await dbClient.auth.signOut();
                 window.location.href = "login.html";
             }
         }
 
-        document.addEventListener("DOMContentLoaded", async function() {
-            const authBtn = document.getElementById('authHeaderBtn');
-
+        // Controllo Sessione Supabase & Inizializzazione Dati Radar
+        window.onload = async function() {
             if (dbClient) {
                 const { data: { session } } = await dbClient.auth.getSession();
                 
-                if (session) {
-                    globalUser = session.user;
-                    const fullName = globalUser.user_metadata?.full_name || globalUser.email.split('@')[0];
-                    const initials = fullName.split(' ').map(n => n[0]).join('').substring(0, 2).toUpperCase();
+                if (!session) {
+                    window.location.href = "login.html";
+                    return;
+                } else {
+                    // Carichiamo il menu utente personalizzato invece del semplice pulsante rosso
+                    setupUserMenu(session.user);
+                }
+            }
 
-                    authBtn.className = "user-profile-dropdown"; // Rimuove classi extra per lasciare il box personalizzato pulito
-                    authBtn.innerHTML = `
-                        <div class="avatar-btn" id="userAvatar" onclick="toggleUserMenu(event)">${initials}</div>
-                        <div class="nv-dropdown-menu" id="userMenu">
-                            <div class="user-menu-header">
-                                <span class="user-menu-name" id="menuUserName">${fullName}</span>
+            // Ripristina livello memorizzato locale
+            if(localStorage.getItem('nevera-level')) {
+                document.getElementById('userLevel').value = localStorage.getItem('nevera-level');
+            }
+            
+            if (dbClient) { fetchMatches(); }
+        }
+
+        function saveLevel() {
+            localStorage.setItem('nevera-level', document.getElementById('userLevel').value);
+            if (dbClient) fetchMatches();
+        }
+
+        async function fetchMatches() {
+            if (!dbClient) return;
+            const grid = document.getElementById("radarGrid");
+            const filter = document.getElementById("userLevel").value;
+
+            let { data: matches, error } = await dbClient
+                .from('Matches')
+                .select('*')
+                .order('date', { ascending: true });
+
+            if (error) {
+                grid.innerHTML = `<p style="opacity:0.6; color: #FF4444; margin-top:20px; font-weight:600;"><i class="fa-solid fa-triangle-exclamation me-2"></i>Errore di sincronizzazione.</p>`;
+                console.error(error);
+                return;
+            }
+
+            grid.innerHTML = "";
+            let hasMatches = false;
+
+            matches.forEach((m) => {
+                const mancanti = m.missing || 1;
+                const liv = m.level || 'all';
+                
+                let dataFormattata = "In aggiornamento";
+                if (m.date) {
+                    const d = new Date(m.date);
+                    dataFormattata = d.toLocaleDateString('it-IT', { day: '2-digit', month: '2-digit' }) + " ore " + d.toLocaleTimeString('it-IT', { hour: '2-digit', minute: '2-digit' });
+                }
+
+                if (filter === "all" || liv === filter) {
+                    hasMatches = true;
+                    const urlPartita = m.link || "#";
+
+                    grid.innerHTML += `
+                        <div class="radar-card">
+                            <div class="match-info">
+                                <h4>${m.club || 'Club Sportivo'}</h4>
+                                <p><i class="fa-regular fa-clock me-2"></i>${dataFormattata}</p>
+                                <div class="match-meta">
+                                    <span class="badge-radar badge-neon">${liv}</span>
+                                    <span class="badge-radar">Mancano: ${mancanti}</span>
+                                </div>
                             </div>
-                            <div class="nv-dropdown-item" onclick="openUserPanel('info')">
-                                <i class="fa-solid fa-user-gear"></i> Info Profilo
-                            </div>
-                            <div class="nv-dropdown-item" onclick="openUserPanel('matches')">
-                                <i class="fa-solid fa-calendar-days"></i> I miei Match
-                            </div>
-                            <div class="nv-dropdown-item btn-logout-new" onclick="handleLogout()">
-                                <i class="fa-solid fa-power-off"></i> Scollega
+                            <div>
+                                <a href="${urlPartita}" target="_blank" class="btn-join">
+                                    <i class="fa-solid fa-arrow-up-right-from-square me-1"></i> Apri Link
+                                </a>
                             </div>
                         </div>
                     `;
-                } else {
-                    authBtn.innerHTML = `<i class="fa-regular fa-user" title="Accedi"></i>`;
-                    authBtn.onclick = function() { window.location.href = "login.html"; };
                 }
-            }
-        });
+            });
 
-        // --- MANTENUTA LOGICA PREESISTENTE DELLA PAGINA FINDER ---
-        function openM() { document.getElementById("m").style.width = "100%"; }
-        function closeM() { document.getElementById("m").style.width = "0"; }
-
-        window.onload = async () => {
-            map = L.map('radarMap').setView([45.46, 9.19], 8);
-            L.tileLayer('https://{s}.basemaps.cartocdn.com/dark_all/{z}/{x}/{y}{r}.png').addTo(map);
-            markerLayer = L.layerGroup().addTo(map);
-            
-            const { data: { session } } = await dbClient.auth.getSession();
-            if (!session) window.location.href = "login.html";
-            loadMatches();
-        };
-
-        async function loadMatches() {
-            const grid = document.getElementById("matchesGrid");
-            const province = document.getElementById("geoFilter").value;
-            grid.innerHTML = "Caricamento...";
-            markerLayer.clearLayers();
-
-            let query = dbClient.from('matches').select('*');
-            if (province !== "ALL") query = query.eq('province', province);
-
-            const { data: matches } = await query;
-            grid.innerHTML = "";
-            
-            if (matches) {
-                matches.forEach(m => {
-                    const col = document.createElement("div");
-                    col.className = "col-md-4";
-                    col.innerHTML = `<div class="match-card">
-                        <div class="match-badge">${m.province}</div>
-                        <div class="match-club">${m.club}</div>
-                        <div class="match-info">📅 ${new Date(m.date_time).toLocaleDateString()}</div>
-                        <div class="match-info">👥 ${m.players_needed} posti liberi</div>
-                        <a href="${m.match_link}" target="_blank" class="btn-link-app">Apri Match</a>
-                    </div>`;
-                    grid.appendChild(col);
-                });
+            if(!hasMatches) {
+                grid.innerHTML = `<p style="opacity:0.4; margin-top:25px; font-size:0.95rem;">Nessun SOS inserito per questa categoria.</p>`;
             }
         }
 
-        async function createMatch(e) {
-            e.preventDefault();
-            const data = {
-                club: document.getElementById('matchClub').value,
-                date_time: document.getElementById('matchDate').value,
-                players_needed: document.getElementById('matchPlayers').value,
-                match_link: document.getElementById('matchLink').value,
-                province: document.getElementById('matchProvince').value || 'MI'
-            };
+        async function createMatch() {
+            if (!dbClient) return;
             
-            const { error } = await dbClient.from('matches').insert([data]);
-            if (!error) {
-                alert("Match pubblicato!");
-                location.reload();
+            const club = document.getElementById("matchClub").value;
+            const dataOraInput = document.getElementById("matchTime").value;
+            const livello = document.getElementById("matchLevel").value;
+            const giocatori_mancanti = document.getElementById("matchMissing").value;
+            const partitaLink = document.getElementById("matchLink").value;
+
+            if(!club || !dataOraInput || !partitaLink || !giocatori_mancanti) { 
+                alert("Tutti i campi sono obbligatori!"); 
+                return; 
+            }
+
+            // Aggiungiamo anche lo user_id globale se disponibile
+            const payload = {
+                user_id: globalUser ? globalUser.id : null,
+                club: club,
+                date: new Date(dataOraInput).toISOString(),
+                level: livello,
+                missing: parseInt(giocatori_mancanti),
+                link: partitaLink
+            };
+
+            const { error } = await dbClient.from('Matches').insert([payload]);
+
+            if (error) {
+                alert("Errore d'inserimento: " + error.message);
+                console.error(error);
             } else {
-                alert("Errore pubblicazione: " + error.message);
+                toggleModal(false);
+                document.getElementById("matchClub").value = "";
+                document.getElementById("matchTime").value = "";
+                document.getElementById("matchMissing").value = "";
+                document.getElementById("matchLink").value = "";
+                fetchMatches();
             }
         }
     </script>
