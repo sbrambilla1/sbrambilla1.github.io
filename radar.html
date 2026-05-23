@@ -222,8 +222,8 @@
     </div>
 
     <div class="container-custom">
-        <h1 class="radar-title">SOS MATCH RADAR</h1>
-        <p class="radar-subtitle">Trova o lancia una chiamata alle armi sui campi</p>
+        <h1 class="radar-title">FINDER</h1>
+        <p class="radar-subtitle">READY SET PLAY</p>
 
         <div class="map-container">
             <div id="radarMap"></div>
@@ -243,7 +243,7 @@
                     <option value="VA">Varese</option>
                 </select>
             </div>
-            <button class="btn-create" data-bs-toggle="modal" data-bs-target="#newMatchModal"><i class="fa-solid fa-plus me-2"></i>Lancia un SOS</button>
+            <button class="btn-create" data-bs-toggle="modal" data-bs-target="#newMatchModal"><i class="fa-solid fa-plus me-2"></i>INSERISCI MATCH</button>
         </div>
 
         <div id="matchesGrid" class="matches-grid"></div>
@@ -253,7 +253,7 @@
         <div class="modal-dialog modal-dialog-centered">
             <div class="modal-content">
                 <div class="modal-header">
-                    <h5 class="modal-title">Lancia un SOS Match</h5>
+                    <h5 class="modal-title">INSERISCI MATCH</h5>
                     <button type="button" class="btn-close btn-close-white" data-bs-dismiss="modal"></button>
                 </div>
                 <form id="newMatchForm" onsubmit="createMatch(event)">
@@ -261,7 +261,7 @@
                         
                         <label class="small text-uppercase opacity-50 mb-1 fw-bold">Cerca e seleziona il Club / Centro Sportivo</label>
                         <div class="autocomplete-wrapper">
-                            <input type="text" id="matchClub" class="form-control-custom" placeholder="Digita il nome del centro... (es. Monviso Padel)" autocomplete="off" oninput="searchClub(this.value)" required>
+                            <input type="text" id="matchClub" class="form-control-custom" placeholder="Digita il nome del centro..." autocomplete="off" oninput="searchClub(this.value)" required>
                             <div id="autocompleteResults" class="autocomplete-results"></div>
                         </div>
 
@@ -271,20 +271,20 @@
                         
                         <div id="locationFeedback" class="small mb-3 text-uppercase fw-bold" style="color: var(--neon); display:none;"></div>
 
-                        <label class="small text-uppercase opacity-50 mb-1 fw-bold">Data e Ora della partita</label>
+                        <label class="small text-uppercase opacity-50 mb-1 fw-bold">Data e Ora</label>
                         <input type="datetime-local" id="matchDate" class="form-control-custom" required>
                         
                         <div class="row">
                             <div class="col-6">
-                                <label class="small text-uppercase opacity-50 mb-1 fw-bold">Player Mancanti</label>
+                                <label class="small text-uppercase opacity-50 mb-1 fw-bold">Giocatori Mancanti</label>
                                 <select id="matchPlayers" class="form-control-custom" required>
-                                    <option value="1">1 Player</option>
-                                    <option value="2">2 Player</option>
-                                    <option value="3">3 Player</option>
+                                    <option value="1">1</option>
+                                    <option value="2">2</option>
+                                    <option value="3">3</option>
                                 </select>
                             </div>
                             <div class="col-6">
-                                <label class="small text-uppercase opacity-50 mb-1 fw-bold">Livello Partita</label>
+                                <label class="small text-uppercase opacity-50 mb-1 fw-bold">Livello Match</label>
                                 <select id="matchLevel" class="form-control-custom" required>
                                     <option value="Principiante (1.0 - 2.5)">Principiante (1.0 - 2.5)</option>
                                     <option value="Intermedio (2.5 - 4.0)" selected>Intermedio (2.5 - 4.0)</option>
@@ -294,12 +294,12 @@
                             </div>
                         </div>
 
-                        <label class="small text-uppercase opacity-50 mb-1 fw-bold">Link Partita Playtomic (Opzionale)</label>
+                        <label class="small text-uppercase opacity-50 mb-1 fw-bold">Link Playtomic</label>
                         <input type="url" id="matchPlaytomic" class="form-control-custom" placeholder="https://playtomic.io/match/...">
                         
                     </div>
                     <div class="modal-footer">
-                        <button type="submit" id="publishBtn" class="btn-create w-100">Pubblica Chiamata</button>
+                        <button type="submit" id="publishBtn" class="btn-create w-100">Pubblica</button>
                     </div>
                 </form>
             </div>
@@ -590,7 +590,7 @@
             const grid = document.getElementById("matchesGrid");
             const selectedProvince = document.getElementById("geoFilter").value;
             
-            grid.innerHTML = `<div class="text-center opacity-50 w-100 py-5"><i class="fa-solid fa-circle-notch fa-spin fa-2x mb-3"></i><br>Scansione radar in corso...</div>`;
+            grid.innerHTML = `<div class="text-center opacity-50 w-100 py-5"><i class="fa-solid fa-circle-notch fa-spin fa-2x mb-3"></i><br>Finding your next match...</div>`;
             markerLayer.clearLayers();
 
             let query = dbClient.from('matches').select('*').order('date_time', { ascending: true });
@@ -604,7 +604,7 @@
 
             const { data: matches, error } = await query;
             if (error || !matches || matches.length === 0) {
-                grid.innerHTML = `<div class="text-center opacity-40 w-100 py-5"><i class="fa-solid fa-satellite-dish fa-3x mb-3" style="color: var(--neon)"></i><br>Nessun SOS attivo.</div>`;
+                grid.innerHTML = `<div class="text-center opacity-40 w-100 py-5"><i class="fa-solid fa-satellite-dish fa-3x mb-3" style="color: var(--neon)"></i><br>Nessun match inserito.</div>`;
                 return;
             }
 
@@ -636,7 +636,7 @@
                 
                 let playtomicButtonHTML = "";
                 if(match.playtomic_link) {
-                    playtomicButtonHTML = `<a href="${match.playtomic_link}" target="_blank" class="btn-playtomic"><i class="fa-solid fa-link me-2"></i>Vedi su Playtomic</a>`;
+                    playtomicButtonHTML = `<a href="${match.playtomic_link}" target="_blank" class="btn-playtomic"><i class="fa-solid fa-link me-2"></i>Apri su Playtomic</a>`;
                 }
 
                 card.innerHTML = `
