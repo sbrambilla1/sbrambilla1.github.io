@@ -405,7 +405,7 @@
                 submitBtn.innerHTML = `<i class="fa-solid fa-satellite-dish me-2"></i> Pubblica sul Finder`;
             } else {
                 feedback.style.display = "block";
-                feedback.style.color = var(--neon);
+                feedback.style.color = "var(--neon)";
                 feedback.innerHTML = `<i class="fa-solid fa-circle-check me-1"></i> SOS pubblicato con successo!`;
                 
                 setTimeout(() => {
@@ -447,7 +447,6 @@
                     authBtn.innerHTML = `<i class="fa-regular fa-user" title="Accedi"></i>`;
                     authBtn.onclick = function() { window.location.href = "login.html"; };
                     
-                    // Forza l'utente a loggarsi se prova ad accedere alla pagina di creazione senza sessione
                     document.getElementById('btnSubmitMatch').disabled = true;
                     document.getElementById('formFeedback').style.display = "block";
                     document.getElementById('formFeedback').style.color = "#FF4444";
