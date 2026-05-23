@@ -19,6 +19,8 @@
         .header-container { max-width: 1200px; margin: 0 auto; padding: 0 20px; display: flex; justify-content: center; align-items: center; position: relative; }
         .logo-trigger { height: 85px; cursor: pointer; transition: transform 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275); }
         .logo-trigger:hover { transform: scale(1.1); filter: drop-shadow(0 0 15px var(--neon)); }
+        
+        /* Menu Utente */
         .user-menu-container { position: absolute; right: 20px; top: 50%; transform: translateY(-50%); }
         .user-avatar { width: 45px; height: 45px; border-radius: 50%; background: rgba(255, 255, 255, 0.05); border: 1px solid rgba(255, 255, 255, 0.1); color: var(--white); display: flex; align-items: center; justify-content: center; font-family: var(--font-title); font-size: 1rem; cursor: pointer; transition: 0.3s; }
         .user-avatar:hover { border-color: var(--neon); box-shadow: 0 0 15px rgba(63, 240, 0, 0.2); color: var(--neon); }
@@ -26,6 +28,7 @@
         .dropdown-item-nevera { color: rgba(255, 255, 255, 0.7) !important; font-size: 0.8rem; font-weight: 600; text-transform: uppercase; padding: 10px 20px !important; border-radius: 10px; transition: 0.2s; }
         .dropdown-item-nevera:hover { background: var(--neon) !important; color: var(--dark) !important; }
         .dropdown-item-nevera.logout:hover { background: #FF4444 !important; color: var(--white) !important; }
+
         .nv-menu { height: 100%; width: 0; position: fixed; z-index: 9999; top: 0; left: 0; background-color: rgba(4, 4, 4, 0.98); overflow: hidden; transition: 0.5s; display: flex; align-items: center; justify-content: center; }
         .nv-links a { font-family: var(--font-title); font-size: 2.5rem; color: var(--white); text-decoration: none; display: block; margin: 20px; text-transform: uppercase; }
         .nv-links a:hover { color: var(--neon); transform: scale(1.05); }
@@ -57,6 +60,7 @@
     <header>
         <div class="header-container">
             <img src="images/logo.png" class="logo-trigger" onclick="openM()">
+            
             <div class="user-menu-container dropdown">
                 <div class="user-avatar" id="userMenuBtn" data-bs-toggle="dropdown" aria-expanded="false"><i class="fa-solid fa-user"></i></div>
                 <ul class="dropdown-menu dropdown-menu-end dropdown-menu-nevera">
@@ -64,7 +68,7 @@
                     <li><a class="dropdown-item dropdown-item-nevera logout" href="javascript:void(0)" onclick="handleLogout()"><i class="fa-solid fa-right-from-bracket me-2"></i>Logout</a></li>
                 </ul>
             </div>
-        </div>
+            </div>
     </header>
 
     <div id="m" class="nv-menu">
@@ -135,7 +139,6 @@
         function openM() { document.getElementById("m").style.width = "100%"; }
         function closeM() { document.getElementById("m").style.width = "0"; }
 
-        // Setup Iniziale
         window.onload = async () => {
             map = L.map('radarMap').setView([45.46, 9.19], 8);
             L.tileLayer('https://{s}.basemaps.cartocdn.com/dark_all/{z}/{x}/{y}{r}.png').addTo(map);
