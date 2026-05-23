@@ -118,7 +118,13 @@
         }
         .btn-create:hover { transform: scale(1.03); box-shadow: 0 0 20px rgba(63, 240, 0, 0.3); }
 
-        .matches-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(320px, 1fr)); gap: 25px; }
+        /* --- CENTRAMENTO ELENCO PARTITE --- */
+        .matches-grid { 
+            display: grid; 
+            grid-template-columns: repeat(auto-fit, minmax(320px, 350px)); 
+            justify-content: center;
+            gap: 25px; 
+        }
         
         .match-card {
             background: rgba(255, 255, 255, 0.02); border: 1px solid rgba(255, 255, 255, 0.06);
@@ -177,6 +183,28 @@
         .f-link { font-size: 0.85rem; color: white !important; opacity: 0.3; text-decoration: none; transition: 0.3s; }
         .f-link:hover { opacity: 1; color: var(--neon) !important; }
         .copyright { margin-top: 80px; opacity: 0.1; font-size: 0.5rem; letter-spacing: 5px; text-align: center; width: 100%; }
+
+        /* --- PIN VERDE LAMPEGGIANTE --- */
+        .blinking-pin {
+            background-color: var(--neon);
+            width: 16px;
+            height: 16px;
+            border-radius: 50%;
+            border: 2px solid var(--white);
+            box-shadow: 0 0 15px var(--neon);
+            animation: pulse-neon 1.5s infinite;
+        }
+
+        @keyframes pulse-neon {
+            0% { transform: scale(0.9); box-shadow: 0 0 0 0 rgba(63, 240, 0, 0.7); }
+            70% { transform: scale(1.2); box-shadow: 0 0 0 15px rgba(63, 240, 0, 0); }
+            100% { transform: scale(0.9); box-shadow: 0 0 0 0 rgba(63, 240, 0, 0); }
+        }
+
+        .custom-div-icon {
+            background: transparent;
+            border: none;
+        }
 
         /* RESPONSIVE & BREAKPOINTS CORRETTI */
         @media (max-width: 768px) {
@@ -528,205 +556,162 @@
                     const data = await response.json();
                     
                     if (!data || data.length === 0) {
-                        resultsBox.innerHTML = `<div class="autocomplete-item" style="opacity:0.6;">Centro non in lista? Clicca qui per inserirlo comunque</div>`;
-                        resultsBox.style.display = "block";
-                        
-                        resultsBox.firstChild.onclick = () => {
-                            resultsBox.style.display = "none";
-                            feedback.innerText = `📍 Inserimento manuale attivo (${userProv})`;
+                        resultsBox.innerHTML = `<div class="autocomplete-item" style="opacity:0.6;">Centro non in lista? Clicca qui per inserirlo senza mappa</div>`;
+                        resultsBox.onclick = () => {
+                            document.getElementById("matchClub").value = query;
+                            document.getElementById("matchLat").value = "";
+                            document.getElementById("matchLng").value = "";
                             feedback.style.display = "block";
+                            feedback.innerText = "Posizione manuale - Il pin non apparirà sulla mappa";
+                            resultsBox.style.display = "none";
                         };
-                        return;
+                        resultsBox.style.display = "block";
+                    } else {
+                        resultsBox.innerHTML = "";
+                        data.forEach(place => {
+                            const div = document.createElement("div");
+                            div.className = "autocomplete-item";
+                            div.innerText = place.display_name;
+                            div.onclick = () => {
+                                document.getElementById("matchClub").value = place.name || place.display_name.split(",")[0];
+                                document.getElementById("matchLat").value = place.lat;
+                                document.getElementById("matchLng").value = place.lon;
+                                feedback.style.display = "block";
+                                feedback.innerText = "Posizione rilevata con successo!";
+                                resultsBox.style.display = "none";
+                            };
+                            resultsBox.appendChild(div);
+                        });
+                        resultsBox.style.display = "block";
                     }
-
-                    resultsBox.innerHTML = "";
-                    data.forEach(item => {
-                        const div = document.createElement("div");
-                        div.className = "autocomplete-item";
-                        
-                        const parts = item.display_name.split(',');
-                        const displayName = parts[0] + (parts[1] ? `, ${parts[1].trim()}` : '') + (parts[2] ? ` (${parts[2].trim()})` : '');
-                        
-                        div.innerText = displayName;
-                        div.onclick = () => selectClub(item);
-                        resultsBox.appendChild(div);
-                    });
-                    resultsBox.style.display = "block";
                 } catch (e) {
-                    console.error("Errore geocoding:", e);
-                    feedback.innerText = `📍 Modalità manuale attiva (${userProv})`;
-                    feedback.style.display = "block";
+                    console.error("Errore ricerca:", e);
                 }
             }, 500);
         }
 
-        function selectClub(item) {
-            document.getElementById("matchClub").value = item.display_name.split(',')[0] + " (" + item.display_name.split(',')[1].trim() + ")";
-            document.getElementById("matchLat").value = item.lat;
-            document.getElementById("matchLng").value = item.lon;
-            document.getElementById("autocompleteResults").style.display = "none";
-
-            let provinceSigla = "MI"; 
-            if (item.address) {
-                if (item.address.province) {
-                    const provNome = item.address.province.toLowerCase();
-                    if (provNome.includes("bergamo")) provinceSigla = "BG";
-                    else if (provNome.includes("brescia")) provinceSigla = "BS";
-                    else if (provNome.includes("como")) provinceSigla = "CO";
-                    else if (provNome.includes("lecco")) provinceSigla = "LC";
-                    else if (provNome.includes("monza")) provinceSigla = "MB";
-                    else if (provNome.includes("milano")) provinceSigla = "MI";
-                    else if (provNome.includes("varese")) provinceSigla = "VA";
-                }
-            }
-            document.getElementById("matchProvince").value = provinceSigla;
-
-            const feedback = document.getElementById("locationFeedback");
-            feedback.innerText = `📍 Localizzato a: ${provinceSigla} (Pronto al posizionamento GPS)`;
-            feedback.style.display = "block";
-        }
-
         async function loadMatches() {
-            const grid = document.getElementById("matchesGrid");
-            const selectedProvince = document.getElementById("geoFilter").value;
+            if (!dbClient) return;
             
-            grid.innerHTML = `<div class="text-center opacity-50 w-100 py-5"><i class="fa-solid fa-circle-notch fa-spin fa-2x mb-3"></i><br>Finding your next match...</div>`;
-            markerLayer.clearLayers();
-
-            let query = dbClient.from('matches').select('*').order('date_time', { ascending: true });
-
-            if (selectedProvince !== "ALL") {
-                query = query.eq('province', selectedProvince);
-                if (PROVINCE_COORDS[selectedProvince]) map.flyTo(PROVINCE_COORDS[selectedProvince], 10);
-            } else {
-                map.flyTo([45.65, 9.5], 8);
+            const grid = document.getElementById("matchesGrid");
+            const filter = document.getElementById("geoFilter").value;
+            grid.innerHTML = `<div class="text-center w-100 py-5"><i class="fa-solid fa-spinner fa-spin fa-2x" style="color:var(--neon)"></i></div>`;
+            
+            // Centra la mappa in base alla provincia
+            if (filter !== "ALL" && PROVINCE_COORDS[filter]) {
+                map.setView(PROVINCE_COORDS[filter], 9);
+            } else if (filter === "ALL") {
+                map.setView([45.65, 9.5], 8); // Lombardia centrale
             }
+
+            // Query Supabase
+            let query = dbClient.from('matches').select('*').order('date_time', { ascending: true });
+            if (filter !== "ALL") query = query.eq('province', filter);
 
             const { data: matches, error } = await query;
+            
+            markerLayer.clearLayers(); 
+            grid.innerHTML = "";
+
             if (error || !matches || matches.length === 0) {
-                grid.innerHTML = `<div class="text-center opacity-40 w-100 py-5"><i class="fa-solid fa-satellite-dish fa-3x mb-3" style="color: var(--neon)"></i><br>Nessun match inserito.</div>`;
+                grid.innerHTML = `<div class="text-center w-100 mt-5"><h5 class="opacity-50 text-uppercase">Nessun match trovato per questa zona.</h5></div>`;
                 return;
             }
 
-            grid.innerHTML = "";
-            matches.forEach(match => {
-                const dateObj = new Date(match.date_time);
-                const dataFormattata = dateObj.toLocaleDateString('it-IT', {day: '2-digit', month: 'short', year: 'numeric'}) + ' - ' + dateObj.toLocaleTimeString('it-IT', {hour: '2-digit', minute: '2-digit'});
-                const livelloGioco = match.level || "Non specificato";
+            // Pin lampeggiante
+            const blinkingIcon = L.divIcon({
+                className: 'custom-div-icon',
+                html: "<div class='blinking-pin'></div>",
+                iconSize: [16, 16],
+                iconAnchor: [8, 8],
+                popupAnchor: [0, -10]
+            });
 
-                if (match.lat && match.lng) {
-                    const marker = L.marker([match.lat, match.lng]).addTo(markerLayer);
-                    const popupHTML = `
-                        <div style="text-align: left; min-width: 170px; font-family: var(--font-body);">
-                            <strong style="color: var(--neon); font-family: var(--font-title); font-size: 0.85rem; text-transform: uppercase; display:block; margin-bottom:4px;">${match.club}</strong>
-                            <span style="font-size: 0.75rem; opacity: 0.7; display:block; margin-bottom:4px;"><i class="fa-regular fa-calendar-days me-1"></i> ${dataFormattata}</span>
-                            <span style="font-size: 0.75rem; color: #FFF; display:block; margin-bottom:6px;"><i class="fa-solid fa-layer-group me-1"></i> Liv: ${livelloGioco}</span>
-                            <span style="font-weight: 700; font-size: 0.8rem;">Mancano: <span style="color: var(--neon);">${match.players}</span> player/s</span>
-                        </div>
-                    `;
-                    marker.bindPopup(popupHTML);
-                }
-
-                const whatsappUrl = match.whatsapp 
-                    ? `https://wa.me/${match.whatsapp.replace(/\s+/g, '')}?text=Ciao!%20Ho%20visto%20il%20tuo%20SOS%20Match%20su%20Nevera%20Sports%20per%20il%20centro%20${encodeURIComponent(match.club)}.%20C'è%20ancora%20posto?`
-                    : `#`;
-
+            matches.forEach(m => {
+                const d = new Date(m.date_time);
+                const formattedDate = d.toLocaleDateString('it-IT') + " - " + d.toLocaleTimeString('it-IT', { hour: '2-digit', minute: '2-digit' });
+                
                 const card = document.createElement("div");
                 card.className = "match-card";
-                
-                let playtomicButtonHTML = "";
-                if(match.playtomic_link) {
-                    playtomicButtonHTML = `<a href="${match.playtomic_link}" target="_blank" class="btn-playtomic"><i class="fa-solid fa-link me-2"></i>Apri su Playtomic</a>`;
-                }
-
                 card.innerHTML = `
-                    <div>
-                        <span class="match-badge">${match.province}</span>
-                        <h3 class="match-club">${match.club}</h3>
-                        <div class="match-info">
-                            <i class="fa-regular fa-calendar-days me-2"></i> ${dataFormattata}
-                        </div>
-                        <div class="match-info" style="color: var(--neon); font-weight: 600;">
-                            <i class="fa-solid fa-layer-group me-2"></i> ${livelloGioco}
-                        </div>
-                        <div class="players-needed">
-                            <span>Giocatori mancanti</span>
-                            <span class="players-count">${match.players}</span>
-                        </div>
+                    <div class="match-badge">${m.level || 'Intermedio'}</div>
+                    <h3 class="match-club">${m.club}</h3>
+                    <div class="match-info"><i class="fa-regular fa-clock"></i> ${formattedDate}</div>
+                    <div class="players-needed">
+                        Giocatori mancanti: <span class="players-count">${m.missing_players}</span>
                     </div>
                     <div class="action-buttons-wrapper">
-                        ${playtomicButtonHTML}
-                        <a href="${whatsappUrl}" target="${match.whatsapp ? '_blank' : '_self'}" class="btn-join" ${!match.whatsapp ? 'onclick="alert(\'Nessun contatto WhatsApp fornito da questo utente.\'); return false;"' : ''}>
-                            <i class="fa-brands fa-whatsapp me-2"></i>Contatta su WhatsApp
-                        </a>
+                        ${m.playtomic_link ? `<a href="${m.playtomic_link}" target="_blank" class="btn-playtomic"><i class="fa-solid fa-bolt me-2"></i>ISCRIVITI SU PLAYTOMIC</a>` : ''}
                     </div>
                 `;
                 grid.appendChild(card);
+
+                if (m.lat && m.lng) {
+                    L.marker([m.lat, m.lng], { icon: blinkingIcon })
+                     .bindPopup(`<b>${m.club}</b><br>Mancano: ${m.missing_players}`)
+                     .addTo(markerLayer);
+                }
             });
         }
 
+        // --- FUNZIONE PER PUBBLICARE IL MATCH ---
         async function createMatch(event) {
             event.preventDefault();
             
             if (!currentUser) {
-                alert("Devi effettuare l'accesso per caricare un match.");
+                alert("Sessione scaduta, effettua nuovamente l'accesso.");
                 return;
             }
 
-            const publishBtn = document.getElementById("publishBtn");
-            const originalText = publishBtn.innerHTML;
-            publishBtn.disabled = true;
-            publishBtn.innerHTML = `<i class="fa-solid fa-spinner fa-spin me-2"></i>Invio...`;
+            const btn = document.getElementById("publishBtn");
+            const originalText = btn.innerHTML;
+            btn.innerHTML = '<i class="fa-solid fa-spinner fa-spin"></i> PUBBLICAZIONE...';
+            btn.disabled = true;
 
             const club = document.getElementById("matchClub").value;
-            const province = document.getElementById("matchProvince").value || "MI";
-            const latStr = document.getElementById("matchLat").value;
-            const lngStr = document.getElementById("matchLng").value;
+            const province = document.getElementById("matchProvince").value;
+            const lat = document.getElementById("matchLat").value;
+            const lng = document.getElementById("matchLng").value;
             const dateTime = document.getElementById("matchDate").value;
-            const players = parseInt(document.getElementById("matchPlayers").value);
+            const missingPlayers = document.getElementById("matchPlayers").value;
             const level = document.getElementById("matchLevel").value;
             const playtomicLink = document.getElementById("matchPlaytomic").value;
-            const whatsapp = currentUser.user_metadata?.phone || "";
 
-            let lat = latStr ? parseFloat(latStr) : null;
-            let lng = lngStr ? parseFloat(lngStr) : null;
+            const matchData = {
+                user_id: currentUser.id,
+                club: club,
+                province: province,
+                lat: lat ? parseFloat(lat) : null,
+                lng: lng ? parseFloat(lng) : null,
+                date_time: dateTime,
+                missing_players: parseInt(missingPlayers),
+                level: level,
+                playtomic_link: playtomicLink
+            };
 
-            if (!lat && PROVINCE_COORDS[province]) {
-                lat = PROVINCE_COORDS[province][0];
-                lng = PROVINCE_COORDS[province][1];
-            }
+            const { data, error } = await dbClient.from('matches').insert([matchData]);
 
-            const { error } = await dbClient.from('matches').insert([
-                {
-                    club: club,
-                    province: province,
-                    lat: lat,
-                    lng: lng,
-                    date_time: dateTime,
-                    players: players,
-                    level: level,
-                    playtomic_link: playtomicLink,
-                    user_id: currentUser.id,
-                    whatsapp: whatsapp
-                }
-            ]);
-
-            publishBtn.disabled = false;
-            publishBtn.innerHTML = originalText;
+            btn.innerHTML = originalText;
+            btn.disabled = false;
 
             if (error) {
-                console.error("Errore salvataggio Supabase:", error);
-                alert("Errore durante la pubblicazione. Assicurati che le colonne 'level' e 'playtomic_link' siano presenti nel tuo DB.");
+                console.error("Errore salvataggio:", error);
+                alert("Si è verificato un errore durante la pubblicazione del match.");
             } else {
-                document.getElementById("newMatchForm").reset();
-                document.getElementById("locationFeedback").style.display = "none";
-                
-                const modalEl = document.getElementById('newMatchModal');
-                const modalInstance = bootstrap.Modal.getInstance(modalEl);
+                // Chiude la modale Bootstrap
+                const modalElement = document.getElementById('newMatchModal');
+                const modalInstance = bootstrap.Modal.getInstance(modalElement);
                 if (modalInstance) {
                     modalInstance.hide();
                 }
-                
+
+                // Resetta il form
+                document.getElementById("newMatchForm").reset();
+                document.getElementById("locationFeedback").style.display = "none";
+                document.getElementById("matchLat").value = "";
+                document.getElementById("matchLng").value = "";
+
+                // Ricarica la griglia e la mappa
                 loadMatches();
             }
         }
