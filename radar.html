@@ -740,26 +740,30 @@
             const province = document.getElementById("matchProvince").value;
             const lat = document.getElementById("matchLat").value;
             const lng = document.getElementById("matchLng").value;
-            const dateTime = document.getElementById("matchDate").value;
-            const missingPlayersInput = document.getElementById("matchPlayers").value; // Questo è solo il menu a tendina dell'HTML
+            
+            // --- CORREZIONE FUSO ORARIO ---
+            const rawDateTime = document.getElementById("matchDate").value;
+            // Converte l'orario selezionato in un formato comprensivo di fuso orario per il database
+            const dateTime = new Date(rawDateTime).toISOString(); 
+            // ------------------------------
+
+            const missingPlayersInput = document.getElementById("matchPlayers").value; 
             const level = document.getElementById("matchLevel").value;
             const playtomicLink = document.getElementById("matchPlaytomic").value;
             
-            // Recupero il telefono dai metadati dell'utente
             const creatorPhone = currentUser.user_metadata?.phone || "";
 
-            // QUI PREPARIAMO I DATI PER IL DATABASE
             const matchData = {
                 user_id: currentUser.id,
                 club: club,
                 province: province,
                 lat: lat ? parseFloat(lat) : null,
                 lng: lng ? parseFloat(lng) : null,
-                date_time: dateTime,
-                players: parseInt(missingPlayersInput), // <-- Colonna corretta: players
+                date_time: dateTime, // Ora inviamo la data formattata correttamente
+                players: parseInt(missingPlayersInput), 
                 level: level,
                 playtomic_link: playtomicLink,
-                whatsapp: creatorPhone // <-- Colonna corretta: whatsapp
+                whatsapp: creatorPhone 
             };
 
             const { data, error } = await dbClient.from('matches').insert([matchData]);
