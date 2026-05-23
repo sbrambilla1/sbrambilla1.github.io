@@ -693,13 +693,14 @@
             const lat = document.getElementById("matchLat").value;
             const lng = document.getElementById("matchLng").value;
             const dateTime = document.getElementById("matchDate").value;
-            const missingPlayers = document.getElementById("matchPlayers").value;
+            const missingPlayersInput = document.getElementById("matchPlayers").value; // Questo è solo il menu a tendina dell'HTML
             const level = document.getElementById("matchLevel").value;
             const playtomicLink = document.getElementById("matchPlaytomic").value;
             
             // Recupero il telefono dai metadati dell'utente
             const creatorPhone = currentUser.user_metadata?.phone || "";
 
+            // QUI PREPARIAMO I DATI PER IL DATABASE
             const matchData = {
                 user_id: currentUser.id,
                 club: club,
@@ -707,10 +708,10 @@
                 lat: lat ? parseFloat(lat) : null,
                 lng: lng ? parseFloat(lng) : null,
                 date_time: dateTime,
-                players: parseInt(missingPlayers),
+                players: parseInt(missingPlayersInput), // <-- Colonna corretta: players
                 level: level,
                 playtomic_link: playtomicLink,
-                whatsapp: creatorPhone // Salva il numero nella colonna "whatsapp"
+                whatsapp: creatorPhone // <-- Colonna corretta: whatsapp
             };
 
             const { data, error } = await dbClient.from('matches').insert([matchData]);
