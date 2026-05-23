@@ -464,56 +464,63 @@
                 }
 
                 body.innerHTML = "";
-                myMatches.forEach(m => {
-                    let formatted = "Data non disponibile";
-                    if(m.date_time) {
-                        const d = new Date(m.date_time);
-                        formatted = d.toLocaleDateString('it-IT') + " alle " + d.toLocaleTimeString('it-IT', { hour: '2-digit', minute: '2-digit' });
-                    }
-                    const div = document.createElement("div");
-                    div.className = "my-match-item";
-                    // CORREZIONE APICI: aggiunto '${m.id}' con gli apici corretti per evitare l'errore undefined
-                    div.innerHTML = `
-                        <div class="my-match-club">${m.club || 'Club'}</div>
-                        <div class="my-match-time"><i class="fa-regular fa-calendar-days me-1"></i> ${formatted}</div>
-                        <button class="btn-delete-match" onclick="deleteMatchFromPanel('${m.id}', this)">
-                            <i class="fa-solid fa-trash-can"></i>
-                        </button>
-                    `;
-                    body.appendChild(div);
-                });
+             myMatches.forEach(m => {
+    let formatted = "Data non disponibile";
+    if(m.date_time) {
+        const d = new Date(m.date_time);
+        formatted = d.toLocaleDateString('it-IT') + " alle " + d.toLocaleTimeString('it-IT', { hour: '2-digit', minute: '2-digit' });
+    }
+    const div = document.createElement("div");
+    div.className = "my-match-item";
+    
+    // MODIFICATO: Passiamo m.playtomic (il link) anziché m.id che non esiste
+    // Usiamo encodeURIComponent per evitare che i caratteri del link rompano l'HTML
+    const safeLink = encodeURIComponent(m.playtomic_link || '');
+    
+    div.innerHTML = `
+        <div class="my-match-club">${m.club || 'Club'}</div>
+        <div class="my-match-time"><i class="fa-regular fa-calendar-days me-1"></i> ${formatted}</div>
+        <button class="btn-delete-match" onclick="deleteMatchFromPanel('${safeLink}', this)">
+            <i class="fa-solid fa-trash-can"></i>
+        </button>
+    `;
+    body.appendChild(div);
+});
             }
         }
 
         function closeUserPanel() { document.getElementById("userOffcanvas").classList.remove("open"); }
 
-        async function deleteMatchFromPanel(id, element) {
-            if (!currentUser) {
-                alert("Devi aver effettuato l'accesso per eliminare un match.");
-                return;
-            }
+        async function deleteMatchFromPanel(encodedLink, element) {
+    if (!currentUser) {
+        alert("Devi aver effettuato l'accesso per eliminare un match.");
+        return;
+    }
 
-            if (confirm("Vuoi rimuovere questo match dal radar?")) {
-                const { error } = await dbClient
-                    .from('matches')
-                    .delete()
-                    .eq('id', id)
-                    .eq('user_id', currentUser.id);
+    // Decodifichiamo il link Playtomic che abbiamo passato come ID temporaneo
+    const playtomicLink = decodeURIComponent(encodedLink);
 
-                if (!error) { 
-                    alert("Match rimosso con successo!");
-                    // Rimuove l'elemento visivo direttamente dalla dashboard laterale
-                    if (element && element.closest('.my-match-item')) {
-                        element.closest('.my-match-item').remove();
-                    }
-                    // Ricarica la griglia principale e la mappa sullo sfondo
-                    loadMatches(); 
-                } else {
-                    console.error("Errore Supabase:", error);
-                    alert("Errore durante l'eliminazione o non sei il proprietario del match.");
-                }
+    if (confirm("Vuoi rimuovere questo match dal radar?")) {
+        const { error } = await dbClient
+            .from('matches')
+            .delete()
+            .eq('playtomic', playtomicLink) // MODIFICATO: Usa la colonna della chiave primaria (es. 'playtomic') invece di 'id'
+            .eq('user_id', currentUser.id);
+
+        if (!error) { 
+            alert("Match rimosso con successo!");
+            // Rimuove l'elemento visivo direttamente dalla dashboard laterale
+            if (element && element.closest('.my-match-item')) {
+                element.closest('.my-match-item').remove();
             }
+            // Ricarica la griglia principale e la mappa sullo sfondo
+            loadMatches(); 
+        } else {
+            console.error("Errore Supabase:", error);
+            alert("Errore durante l'eliminazione o non sei il proprietario del match.");
         }
+    }
+}
 
         async function handleLogout() {
             if (confirm("Vuoi davvero uscire dal radar?")) {
