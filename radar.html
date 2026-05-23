@@ -495,14 +495,27 @@
 
         function closeUserPanel() { document.getElementById("userOffcanvas").classList.remove("open"); }
 
-        async function deleteMatchFromPanel(id, element) {
+       async function deleteMatchFromPanel(id, element) {
+            if (!currentUser) {
+                alert("Devi aver effettuato l'accesso per eliminare un match.");
+                return;
+            }
+
             if (confirm("Vuoi rimuovere questo match dal radar?")) {
-                const { error } = await dbClient.from('matches').delete().eq('id', id);
+                // Elimina solo se l'ID corrisponde E se l'utente è il vero proprietario
+                const { error } = await dbClient
+                    .from('matches')
+                    .delete()
+                    .eq('id', id)
+                    .eq('user_id', currentUser.id);
+
                 if (!error) { 
-                    element.parentElement.remove(); 
+                    alert("Match rimosso con successo!");
+                    // Ricarica direttamente la griglia e la mappa aggiornate dal database
                     loadMatches(); 
                 } else {
-                    alert("Errore durante l'eliminazione.");
+                    console.error("Errore Supabase:", error);
+                    alert("Errore durante l'eliminazione o non sei il proprietario del match.");
                 }
             }
         }
