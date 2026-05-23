@@ -101,7 +101,7 @@
             border-radius: 20px; padding: 20px; margin-bottom: 30px; backdrop-filter: blur(10px);
             display: flex; align-items: center; justify-content: space-between; gap: 20px; flex-wrap: wrap;
         }
-        .filter-group { display: flex; align-items: center; gap: 10px; }
+        .filter-section { display: flex; align-items: center; gap: 10px; }
         .filter-group label { font-size: 0.8rem; font-weight: 600; text-transform: uppercase; opacity: 0.6; }
         .filter-select { background: var(--dark); border: 1px solid rgba(255, 255, 255, 0.15); color: white; padding: 10px 20px; border-radius: 10px; outline: none; }
         .filter-select:focus { border-color: var(--neon); }
@@ -542,65 +542,103 @@
             matches.forEach(match => {
                 const dateObj = new Date(match.date_time);
                 const dataFormattata = dateObj.toLocaleDateString('it-IT', {day: '2-digit', month: 'short', year: 'numeric'}) + ' - ' + dateObj.toLocaleTimeString('it-IT', {hour: '2-digit', minute: '2-digit'});
-                
+         
+                if (match.lat && match.lng) {
+                    const marker = L.marker([match.lat, match.lng]).addTo(markerLayer);
+                    const popupHTML = `
+                        <div style="text-align: left; min-width: 160px; font-family: var(--font-body);">
+                            <strong style="color: var(--neon); font-family: var(--font-title); font-size: 0.85rem; text-transform: uppercase; display:block; margin-bottom:4px;">${match.club}</strong>
+                            <span style="font-size: 0.75rem; opacity: 0.7; display:block; margin-bottom:6px;"><i class="fa-regular fa-calendar-days me-1"></i> ${dataFormattata}</span>
+                            <span style="font-weight: 700; font-size: 0.8rem;">Mancano: <span style="color: var(--neon);">${match.players}</span> player/s</span>
+                        </div>
+                    `;
+                    marker.bindPopup(popupHTML);
+                }
+
+                const whatsappUrl = match.whatsapp 
+                    ? `https://wa.me/${match.whatsapp.replace(/\s+/g, '')}?text=Ciao!%20Ho%20visto%20il%20tuo%20SOS%20Match%20su%20Nevera%20Sports%20per%20il%20centro%20${encodeURIComponent(match.club)}.%20C'è%20ancora%20posto?`
+                    : `#`;
+
                 const card = document.createElement("div");
                 card.className = "match-card";
                 card.innerHTML = `
-                    <div class="match-badge">${match.province || "ALL"}</div>
-                    <div class="match-club">${match.club}</div>
-                    <div class="match-info"><i class="fa-regular fa-calendar"></i> ${dataFormattata}</div>
-                    <div class="players-needed">
-                        <span>Mancano:</span>
-                        <div class="players-count">${match.missing_players}</div>
+                    <div>
+                        <span class="match-badge">${match.province}</span>
+                        <h3 class="match-club">${match.club}</h3>
+                        <div class="match-info">
+                            <i class="fa-regular fa-calendar-days me-2"></i> ${dataFormattata}
+                        </div>
+                        <div class="players-needed">
+                            <span>Giocatori mancanti</span>
+                            <span class="players-count">${match.players}</span>
+                        </div>
                     </div>
-                    <a href="https://chat.whatsapp.com/GItl3C5mrgxJxXAPhHHRFh" target="_blank" class="btn-join">Rispondi all'SOS</a>
+                    <a href="${whatsappUrl}" target="${match.whatsapp ? '_blank' : '_self'}" class="btn-join" ${!match.whatsapp ? 'onclick="alert(\'Nessun contatto WhatsApp fornito da questo utente.\'); return false;"' : ''}>
+                        <i class="fa-brands fa-whatsapp me-2"></i>Partecipa
+                    </a>
                 `;
                 grid.appendChild(card);
-
-                if (match.lat && match.lng) {
-                    const marker = L.marker([match.lat, match.lng]).addTo(markerLayer);
-                    marker.bindPopup(`<strong>${match.club}</strong><br>${dataFormattata}<br>Giocatori mancanti: ${match.missing_players}`);
-                }
             });
         }
 
+        // --- FUNZIONI PER CREARE UN SOS MATCH ---
         async function createMatch(event) {
             event.preventDefault();
-            const btn = document.getElementById("publishBtn");
-            btn.disabled = true;
-            btn.innerHTML = `<i class="fa-solid fa-spinner fa-spin me-2"></i> Pubblicazione...`;
+            
+            if (!currentUser) {
+                alert("Devi effettuare l'accesso per caricare un match.");
+                return;
+            }
+
+            const publishBtn = document.getElementById("publishBtn");
+            const originalText = publishBtn.innerHTML;
+            publishBtn.disabled = true;
+            publishBtn.innerHTML = `<i class="fa-solid fa-spinner fa-spin me-2"></i>Invio...`;
 
             const club = document.getElementById("matchClub").value;
-            const province = document.getElementById("matchProvince").value || currentUser.user_metadata?.province || "MI";
-            const lat = document.getElementById("matchLat").value || null;
-            const lng = document.getElementById("matchLng").value || null;
+            const province = document.getElementById("matchProvince").value || "MI";
+            const latStr = document.getElementById("matchLat").value;
+            const lngStr = document.getElementById("matchLng").value;
             const dateTime = document.getElementById("matchDate").value;
-            const missing = document.getElementById("matchPlayers").value;
+            const players = parseInt(document.getElementById("matchPlayers").value);
+            const whatsapp = currentUser.user_metadata?.phone || "";
 
-            const { data, error } = await dbClient.from('matches').insert([{
-                user_id: currentUser.id,
-                club: club,
-                province: province,
-                lat: lat,
-                lng: lng,
-                date_time: dateTime,
-                missing_players: parseInt(missing)
-            }]);
+            let lat = latStr ? parseFloat(latStr) : null;
+            let lng = lngStr ? parseFloat(lngStr) : null;
+
+            if (!lat && PROVINCE_COORDS[province]) {
+                lat = PROVINCE_COORDS[province][0];
+                lng = PROVINCE_COORDS[province][1];
+            }
+
+            const { error } = await dbClient.from('matches').insert([
+                {
+                    club: club,
+                    province: province,
+                    lat: lat,
+                    lng: lng,
+                    date_time: dateTime,
+                    players: players,
+                    user_id: currentUser.id,
+                    whatsapp: whatsapp
+                }
+            ]);
+
+            publishBtn.disabled = false;
+            publishBtn.innerHTML = originalText;
 
             if (error) {
-                alert("Errore durante la pubblicazione: " + error.message);
-                btn.disabled = false;
-                btn.innerHTML = `Pubblica Chiamata`;
+                console.error("Errore salvataggio:", error);
+                alert("Errore durante la pubblicazione.");
             } else {
-                const modalEl = document.getElementById('newMatchModal');
-                const modalInstance = bootstrap.Modal.getInstance(modalEl);
-                modalInstance.hide();
-                
                 document.getElementById("newMatchForm").reset();
                 document.getElementById("locationFeedback").style.display = "none";
                 
-                btn.disabled = false;
-                btn.innerHTML = `Pubblica Chiamata`;
+                const modalEl = document.getElementById('newMatchModal');
+                const modalInstance = bootstrap.Modal.getInstance(modalEl);
+                if (modalInstance) {
+                    modalInstance.hide();
+                }
                 
                 loadMatches();
             }
