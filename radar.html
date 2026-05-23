@@ -574,7 +574,7 @@
                         document.getElementById("matchClub").value = query;
                         
                         // Chiede all'utente in che città si trova
-                        const city = prompt(`In quale città si trova "${query}"? Inseriscila per far apparire il pin sulla mappa!`);
+                        const city = prompt(`In quale città si trova "${query}"?`);
                         
                         if (city && city.trim() !== "") {
                             feedback.style.display = "block";
@@ -591,7 +591,7 @@
                                     document.getElementById("matchLng").value = cityData[0].lon;
                                     feedback.innerText = `Pin posizionato al centro di: ${cityData[0].name}`;
                                 } else {
-                                    // Città non trovata nemmeno lei
+                                    // Città non trovata
                                     document.getElementById("matchLat").value = "";
                                     document.getElementById("matchLng").value = "";
                                     feedback.innerText = "Città non trovata. Il match sarà nella lista ma senza pin.";
@@ -604,7 +604,7 @@
                             document.getElementById("matchLat").value = "";
                             document.getElementById("matchLng").value = "";
                             feedback.style.display = "block";
-                            feedback.innerText = "Posizione saltata. Il match sarà nella lista ma senza pin.";
+                            feedback.innerText = "Posizione non specificata. Il match sarà nella lista ma senza pin.";
                         }
                     };
                     // -------------------------------------------------------------
@@ -621,7 +621,7 @@
                         const manualDiv = document.createElement("div");
                         manualDiv.className = "autocomplete-item";
                         manualDiv.style = "color: var(--neon); font-size: 0.8rem; border-bottom: 1px solid rgba(255,255,255,0.2);";
-                        manualDiv.innerHTML = `<i class="fa-solid fa-map-pin me-2"></i>Non è in lista? Clicca qui per posizionare il pin manualmente`;
+                        manualDiv.innerHTML = `<i class="fa-solid fa-map-pin me-2"></i>Centro non in lista? Clicca qui per posizionare il pin manualmente`;
                         manualDiv.onclick = handleManualInsert;
                         resultsBox.appendChild(manualDiv);
 
