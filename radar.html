@@ -25,6 +25,7 @@
             background-color: var(--dark); color: var(--white);
             font-family: var(--font-body); -webkit-font-smoothing: antialiased;
             overflow-x: hidden;
+            display: flex; flex-direction: column;
         }
 
         #bg {
@@ -33,7 +34,7 @@
             background-size: cover; background-position: center; z-index: 0;
         }
 
-        /* --- NUOVO HEADER & MENU UTENTE --- */
+        /* --- HEADER & MENU UTENTE --- */
         header { position: relative; padding: 40px 0 20px 0; text-align: center; z-index: 100; }
         .logo-trigger { height: 70px; cursor: pointer; transition: transform 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275); }
         .logo-trigger:hover { transform: scale(1.1); filter: drop-shadow(0 0 15px var(--neon)); }
@@ -80,45 +81,29 @@
         .nv-links a:hover { color: var(--neon); transform: scale(1.05); }
         .nv-close { position: absolute; top: 30px; right: 45px; font-size: 50px; color: var(--neon); text-decoration: none; }
 
-        /* --- STILI ORIGINALI PAGINA --- */
-        .container-custom { position: relative; z-index: 10; max-width: 1200px; margin: 0 auto; padding: 10px 20px 40px; }
+        /* --- STILI RADAR --- */
+        .container-custom { position: relative; z-index: 10; max-width: 1200px; margin: 0 auto; padding: 10px 20px 40px; flex: 1; }
 
         .radar-title { font-family: var(--font-title); font-size: 2.5rem; text-transform: uppercase; letter-spacing: -1px; margin-bottom: 5px; text-align: center;}
         .radar-subtitle { font-size: 0.9rem; opacity: 0.5; text-transform: uppercase; letter-spacing: 2px; margin-bottom: 30px; text-align: center; }
 
-        .map-container {
-            background: rgba(255, 255, 255, 0.02); border: 1px solid rgba(255, 255, 255, 0.08);
-            border-radius: 30px; padding: 15px; margin-bottom: 40px; backdrop-filter: blur(10px);
-            box-shadow: 0 20px 40px rgba(0,0,0,0.4);
-        }
+        .map-container { background: rgba(255, 255, 255, 0.02); border: 1px solid rgba(255, 255, 255, 0.08); border-radius: 30px; padding: 15px; margin-bottom: 40px; backdrop-filter: blur(10px); box-shadow: 0 20px 40px rgba(0,0,0,0.4); }
         #radarMap { height: 350px; border-radius: 20px; background: #0d0d0d; border: 1px solid rgba(255, 255, 255, 0.05); z-index: 1;}
-
         .leaflet-popup-content-wrapper { background: #0c0c0c !important; color: white !important; border: 1px solid var(--neon); border-radius: 12px; font-family: var(--font-body); }
         .leaflet-popup-tip { background: #0c0c0c !important; border-left: 1px solid var(--neon); border-bottom: 1px solid var(--neon); }
 
-        .filter-section {
-            background: rgba(255, 255, 255, 0.02); border: 1px solid rgba(255, 255, 255, 0.08);
-            border-radius: 20px; padding: 20px; margin-bottom: 30px; backdrop-filter: blur(10px);
-            display: flex; align-items: center; justify-content: space-between; gap: 20px; flex-wrap: wrap;
-        }
+        .filter-section { background: rgba(255, 255, 255, 0.02); border: 1px solid rgba(255, 255, 255, 0.08); border-radius: 20px; padding: 20px; margin-bottom: 30px; backdrop-filter: blur(10px); display: flex; align-items: center; justify-content: space-between; gap: 20px; flex-wrap: wrap; }
         .filter-group { display: flex; align-items: center; gap: 10px; }
         .filter-group label { font-size: 0.8rem; font-weight: 600; text-transform: uppercase; opacity: 0.6; }
         .filter-select { background: var(--dark); border: 1px solid rgba(255, 255, 255, 0.15); color: white; padding: 10px 20px; border-radius: 10px; outline: none; }
         .filter-select:focus { border-color: var(--neon); }
 
-        .btn-create {
-            background: var(--neon); color: var(--dark); font-family: var(--font-title); font-size: 0.8rem;
-            text-transform: uppercase; padding: 12px 25px; border-radius: 50px; border: none; font-weight: bold; transition: 0.3s;
-        }
+        .btn-create { background: var(--neon); color: var(--dark); font-family: var(--font-title); font-size: 0.8rem; text-transform: uppercase; padding: 12px 25px; border-radius: 50px; border: none; font-weight: bold; transition: 0.3s; }
         .btn-create:hover { transform: scale(1.03); box-shadow: 0 0 20px rgba(63, 240, 0, 0.3); }
 
         .matches-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(320px, 1fr)); gap: 25px; }
         
-        .match-card {
-            background: rgba(255, 255, 255, 0.02); border: 1px solid rgba(255, 255, 255, 0.06);
-            border-radius: 24px; padding: 25px; backdrop-filter: blur(10px); position: relative;
-            transition: 0.3s ease; display: flex; flex-direction: column; justify-content: space-between;
-        }
+        .match-card { background: rgba(255, 255, 255, 0.02); border: 1px solid rgba(255, 255, 255, 0.06); border-radius: 24px; padding: 25px; backdrop-filter: blur(10px); position: relative; transition: 0.3s ease; display: flex; flex-direction: column; justify-content: space-between; }
         .match-card:hover { border-color: var(--neon); transform: translateY(-5px); box-shadow: 0 10px 30px rgba(0,0,0,0.3); }
 
         .match-badge { position: absolute; top: 20px; right: 20px; background: rgba(63, 240, 0, 0.1); color: var(--neon); padding: 5px 12px; border-radius: 30px; font-size: 0.75rem; font-weight: bold; text-transform: uppercase; }
@@ -128,12 +113,11 @@
         .players-needed { font-size: 1rem; font-weight: 700; color: var(--white); margin-bottom: 20px; display: flex; align-items: center; gap: 10px; }
         .players-count { background: var(--white); color: var(--dark); width: 24px; height: 24px; display: flex; align-items: center; justify-content: center; border-radius: 50%; font-size: 0.8rem; }
 
-        .btn-join {
-            background: transparent; border: 1px solid var(--neon); color: var(--neon);
-            font-family: var(--font-title); font-size: 0.75rem; text-transform: uppercase;
-            padding: 12px; border-radius: 12px; width: 100%; text-align: center; text-decoration: none; display: block; transition: 0.3s;
-        }
+        .btn-join { background: transparent; border: 1px solid var(--neon); color: var(--neon); font-family: var(--font-title); font-size: 0.75rem; text-transform: uppercase; padding: 12px; border-radius: 12px; width: 100%; text-align: center; text-decoration: none; display: block; transition: 0.3s; }
         .btn-join:hover { background: var(--neon); color: var(--dark); box-shadow: 0 0 15px rgba(63, 240, 0, 0.2); }
+        
+        .btn-playtomic { background: transparent; border: 1px solid #10b4f5; color: #10b4f5; font-family: var(--font-title); font-size: 0.75rem; text-transform: uppercase; padding: 12px; border-radius: 12px; width: 100%; text-align: center; text-decoration: none; display: block; transition: 0.3s; }
+        .btn-playtomic:hover { background: #10b4f5; color: white; box-shadow: 0 0 15px rgba(16, 180, 245, 0.2); }
 
         /* Modal e Autocomplete Scuro Cyberpunk */
         .modal-content { background: #0c0c0c; border: 1px solid rgba(255,255,255,0.1); border-radius: 24px; color: white; padding: 20px; }
@@ -143,15 +127,14 @@
 
         /* Suggerimenti indirizzo */
         .autocomplete-wrapper { position: relative; }
-        .autocomplete-results {
-            position: absolute; top: calc(100% - 15px); left: 0; width: 100%;
-            background: #121212; border: 1px solid rgba(255,255,255,0.15);
-            border-bottom-left-radius: 12px; border-bottom-right-radius: 12px;
-            z-index: 9999; max-height: 200px; overflow-y: auto; display: none;
-            box-shadow: 0 10px 25px rgba(0,0,0,0.6);
-        }
+        .autocomplete-results { position: absolute; top: calc(100% - 15px); left: 0; width: 100%; background: #121212; border: 1px solid rgba(255,255,255,0.15); border-bottom-left-radius: 12px; border-bottom-right-radius: 12px; z-index: 9999; max-height: 200px; overflow-y: auto; display: none; box-shadow: 0 10px 25px rgba(0,0,0,0.6); }
         .autocomplete-item { padding: 12px 15px; cursor: pointer; font-size: 0.85rem; border-bottom: 1px solid rgba(255,255,255,0.05); color: rgba(255,255,255,0.8); }
         .autocomplete-item:hover { background: var(--neon); color: var(--dark); font-weight: 600; }
+
+        /* --- FOOTER --- */
+        .nv-footer { border-top: 1px solid rgba(255,255,255,0.05); background: #040404; padding: 40px 0; margin-top: 40px; position: relative; z-index: 10; text-align: center; }
+        .nv-footer-social a { color: white; font-size: 1.5rem; margin: 0 12px; transition: 0.3s; display: inline-block; }
+        .nv-footer-social a:hover { color: var(--neon); transform: translateY(-3px) scale(1.1); filter: drop-shadow(0 0 10px var(--neon)); }
 
         @media (max-width: 768px) {
             .auth-header-icon, .user-profile-dropdown { right: 15px; }
@@ -227,9 +210,9 @@
                 <form id="newMatchForm" onsubmit="createMatch(event)">
                     <div class="modal-body">
                         
-                        <label class="small text-uppercase opacity-50 mb-1 fw-bold">Cerca e seleziona il Club / Centro Sportivo</label>
+                        <label class="small text-uppercase opacity-50 mb-1 fw-bold">Centro Sportivo</label>
                         <div class="autocomplete-wrapper">
-                            <input type="text" id="matchClub" class="form-control-custom" placeholder="Digita il nome del centro... (es. Monviso Padel)" autocomplete="off" oninput="searchClub(this.value)" required>
+                            <input type="text" id="matchClub" class="form-control-custom" placeholder="Es. Monviso Padel..." autocomplete="off" oninput="searchClub(this.value)" required>
                             <div id="autocompleteResults" class="autocomplete-results"></div>
                         </div>
 
@@ -239,15 +222,32 @@
                         
                         <div id="locationFeedback" class="small mb-3 text-uppercase fw-bold" style="color: var(--neon); display:none;"></div>
 
-                        <label class="small text-uppercase opacity-50 mb-1 fw-bold">Data e Ora della partita</label>
+                        <label class="small text-uppercase opacity-50 mb-1 fw-bold">Data e Ora</label>
                         <input type="datetime-local" id="matchDate" class="form-control-custom" required>
                         
-                        <label class="small text-uppercase opacity-50 mb-1 fw-bold">Giocatori Mancanti</label>
-                        <select id="matchPlayers" class="form-control-custom" required>
-                            <option value="1">1 Giocatore mancante</option>
-                            <option value="2">2 Giocatori mancanti</option>
-                            <option value="3">3 Giocatori mancanti</option>
-                        </select>
+                        <div class="row">
+                            <div class="col-6">
+                                <label class="small text-uppercase opacity-50 mb-1 fw-bold">Livello Gioco</label>
+                                <select id="matchLevel" class="form-control-custom" required>
+                                    <option value="Principiante (1 - 2.5)">Principiante (1 - 2.5)</option>
+                                    <option value="Intermedio (2.5 - 3.5)">Intermedio (2.5 - 3.5)</option>
+                                    <option value="Avanzato (3.5 - 4.5)">Avanzato (3.5 - 4.5)</option>
+                                    <option value="Esperto (4.5+)">Esperto (4.5+)</option>
+                                </select>
+                            </div>
+                            <div class="col-6">
+                                <label class="small text-uppercase opacity-50 mb-1 fw-bold">Mancanti</label>
+                                <select id="matchPlayers" class="form-control-custom" required>
+                                    <option value="1">1 Giocatore</option>
+                                    <option value="2">2 Giocatori</option>
+                                    <option value="3">3 Giocatori</option>
+                                </select>
+                            </div>
+                        </div>
+
+                        <label class="small text-uppercase opacity-50 mb-1 fw-bold">Link Partita Playtomic (Opzionale)</label>
+                        <input type="url" id="matchPlaytomic" class="form-control-custom" placeholder="https://playtomic.io/..." autocomplete="off">
+                        
                     </div>
                     <div class="modal-footer">
                         <button type="submit" id="publishBtn" class="btn-create w-100">Pubblica Chiamata</button>
@@ -256,6 +256,20 @@
             </div>
         </div>
     </div>
+
+    <footer class="nv-footer">
+        <div class="container-custom" style="padding-bottom: 20px;">
+            <img src="images/logo.png" alt="Nevera Sports Logo" style="height: 45px; margin-bottom: 20px;">
+            <div class="nv-footer-social mb-3">
+                <a href="#"><i class="fa-brands fa-instagram"></i></a>
+                <a href="#"><i class="fa-brands fa-tiktok"></i></a>
+                <a href="#"><i class="fa-brands fa-whatsapp"></i></a>
+            </div>
+            <p class="small text-uppercase opacity-50 mb-0" style="font-weight: 600; letter-spacing: 1px;">
+                &copy; 2024 Nevera Sports. Play the future.
+            </p>
+        </div>
+    </footer>
 
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
@@ -354,7 +368,6 @@
             } 
             else if (type === 'matches') {
                 title.innerText = "I miei Match";
-                // Chiamata alla tabella matches corretta per questo file
                 const { data: myMatches, error } = await dbClient.from('matches').select('*').eq('user_id', currentUser.id).order('date_time', { ascending: false });
 
                 if (error || !myMatches || myMatches.length === 0) {
@@ -390,7 +403,7 @@
                 const { error } = await dbClient.from('matches').delete().eq('id', id);
                 if (!error) { 
                     element.parentElement.remove(); 
-                    loadMatches(); // Aggiorna anche la mappa in tempo reale
+                    loadMatches();
                 } else {
                     alert("Errore durante l'eliminazione.");
                 }
@@ -422,7 +435,7 @@
                 window.location.href = "login.html";
             } else {
                 currentUser = session.user;
-                setupUserMenu(currentUser); // Inizializza l'header con i dati utente
+                setupUserMenu(currentUser);
                 
                 const userProvince = currentUser.user_metadata?.province;
                 if (userProvince) {
@@ -566,11 +579,15 @@
                     marker.bindPopup(`
                         <strong style="color:var(--neon); text-transform:uppercase;">${match.club}</strong><br>
                         <span style="font-size:0.8rem;">📅 ${dataFormattata} alle ${oraFormattata}</span><br>
+                        <span style="font-size:0.8rem;">🎾 Livello: ${match.level || 'Non specificato'}</span><br>
                         <span style="font-size:0.8rem; font-weight:bold;">👥 Mancano ${match.players_needed} players</span><br>
                         <a href="${waUrl}" target="_blank" style="color:var(--neon); text-decoration:none; display:inline-block; margin-top:5px; font-weight:bold;">Candidati Ora →</a>
                     `);
                     markerLayer.addLayer(marker);
                 }
+
+                const playtomicBtnHtml = match.playtomic_link ? 
+                    `<a href="${match.playtomic_link}" target="_blank" class="btn-playtomic mt-2"><i class="fa-solid fa-link me-2"></i>Apri su Playtomic</a>` : '';
 
                 const card = document.createElement("div");
                 card.className = "match-card";
@@ -580,11 +597,15 @@
                         <div class="match-club">${match.club}</div>
                         <div class="match-info"><i class="fa-regular fa-calendar me-2"></i>${dataFormattata}</div>
                         <div class="match-info"><i class="fa-regular fa-clock me-2"></i>${oraFormattata}</div>
+                        <div class="match-info"><i class="fa-solid fa-layer-group me-2"></i>Livello: ${match.level || 'N/A'}</div>
                         <div class="players-needed">
                             <div class="players-count">${match.players_needed}</div> <span>Giocatori mancanti</span>
                         </div>
                     </div>
-                    <a href="${waUrl}" target="_blank" class="btn-join"><i class="fa-brands fa-whatsapp me-2"></i>Candidati Ora</a>
+                    <div class="d-flex flex-column gap-2 mt-3">
+                        <a href="${waUrl}" target="_blank" class="btn-join"><i class="fa-brands fa-whatsapp me-2"></i>Candidati via WhatsApp</a>
+                        ${playtomicBtnHtml}
+                    </div>
                 `;
                 grid.appendChild(card);
             });
@@ -600,6 +621,8 @@
             
             const dateTime = document.getElementById("matchDate").value;
             const playersNeeded = parseInt(document.getElementById("matchPlayers").value);
+            const level = document.getElementById("matchLevel").value;
+            const playtomicLink = document.getElementById("matchPlaytomic").value;
             const creatorPhone = currentUser?.user_metadata?.phone || '';
 
             const { error } = await dbClient.from('matches').insert([{
@@ -609,6 +632,8 @@
                 longitude: lng,
                 date_time: dateTime,
                 players_needed: playersNeeded,
+                level: level,
+                playtomic_link: playtomicLink,
                 creator_phone: creatorPhone,
                 user_id: currentUser?.id
             }]);
