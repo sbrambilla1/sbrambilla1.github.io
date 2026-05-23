@@ -129,17 +129,25 @@
 
         .match-badge { position: absolute; top: 20px; right: 20px; background: rgba(63, 240, 0, 0.1); color: var(--neon); padding: 5px 12px; border-radius: 30px; font-size: 0.75rem; font-weight: bold; text-transform: uppercase; }
         .match-club { font-family: var(--font-title); font-size: 1.2rem; text-transform: uppercase; margin-bottom: 5px; color: var(--white); padding-right: 60px; }
-        .match-info { font-size: 0.9rem; opacity: 0.6; margin-bottom: 15px; display: flex; align-items: center; gap: 8px; }
+        .match-info { font-size: 0.9rem; opacity: 0.6; margin-bottom: 8px; display: flex; align-items: center; gap: 8px; }
         
         .players-needed { font-size: 1rem; font-weight: 700; color: var(--white); margin-bottom: 20px; display: flex; align-items: center; gap: 10px; }
         .players-count { background: var(--white); color: var(--dark); width: 24px; height: 24px; display: flex; align-items: center; justify-content: center; border-radius: 50%; font-size: 0.8rem; }
 
+        .action-buttons-wrapper { display: flex; flex-direction: column; gap: 10px; width: 100%; }
         .btn-join {
             background: transparent; border: 1px solid var(--neon); color: var(--neon);
             font-family: var(--font-title); font-size: 0.75rem; text-transform: uppercase;
             padding: 12px; border-radius: 12px; width: 100%; text-align: center; text-decoration: none; display: block; transition: 0.3s;
         }
         .btn-join:hover { background: var(--neon); color: var(--dark); box-shadow: 0 0 15px rgba(63, 240, 0, 0.2); }
+        
+        .btn-playtomic {
+            background: #1062FE; border: 1px solid #1062FE; color: white !important;
+            font-family: var(--font-title); font-size: 0.75rem; text-transform: uppercase;
+            padding: 12px; border-radius: 12px; width: 100%; text-align: center; text-decoration: none; display: block; transition: 0.3s;
+        }
+        .btn-playtomic:hover { background: #0049D0; box-shadow: 0 0 15px rgba(16, 98, 254, 0.3); }
 
         /* Modal e Autocomplete */
         .modal-content { background: #0c0c0c; border: 1px solid rgba(255,255,255,0.1); border-radius: 24px; color: white; padding: 20px; }
@@ -266,12 +274,29 @@
                         <label class="small text-uppercase opacity-50 mb-1 fw-bold">Data e Ora della partita</label>
                         <input type="datetime-local" id="matchDate" class="form-control-custom" required>
                         
-                        <label class="small text-uppercase opacity-50 mb-1 fw-bold">Giocatori Mancanti</label>
-                        <select id="matchPlayers" class="form-control-custom" required>
-                            <option value="1">1 Giocatore mancante</option>
-                            <option value="2">2 Giocatori mancanti</option>
-                            <option value="3">3 Giocatori mancanti</option>
-                        </select>
+                        <div class="row">
+                            <div class="col-6">
+                                <label class="small text-uppercase opacity-50 mb-1 fw-bold">Player Mancanti</label>
+                                <select id="matchPlayers" class="form-control-custom" required>
+                                    <option value="1">1 Player</option>
+                                    <option value="2">2 Player</option>
+                                    <option value="3">3 Player</option>
+                                </select>
+                            </div>
+                            <div class="col-6">
+                                <label class="small text-uppercase opacity-50 mb-1 fw-bold">Livello Partita</label>
+                                <select id="matchLevel" class="form-control-custom" required>
+                                    <option value="Principiante (1.0 - 2.5)">Principiante (1.0 - 2.5)</option>
+                                    <option value="Intermedio (2.5 - 4.0)" selected>Intermedio (2.5 - 4.0)</option>
+                                    <option value="Avanzato (4.0 - 5.5)">Avanzato (4.0 - 5.5)</option>
+                                    <option value="Pro (5.5 - 7.0)">Pro (5.5 - 7.0)</option>
+                                </select>
+                            </div>
+                        </div>
+
+                        <label class="small text-uppercase opacity-50 mb-1 fw-bold">Link Partita Playtomic (Opzionale)</label>
+                        <input type="url" id="matchPlaytomic" class="form-control-custom" placeholder="https://playtomic.io/match/...">
+                        
                     </div>
                     <div class="modal-footer">
                         <button type="submit" id="publishBtn" class="btn-create w-100">Pubblica Chiamata</button>
@@ -587,13 +612,15 @@
             matches.forEach(match => {
                 const dateObj = new Date(match.date_time);
                 const dataFormattata = dateObj.toLocaleDateString('it-IT', {day: '2-digit', month: 'short', year: 'numeric'}) + ' - ' + dateObj.toLocaleTimeString('it-IT', {hour: '2-digit', minute: '2-digit'});
-         
+                const livelloGioco = match.level || "Non specificato";
+
                 if (match.lat && match.lng) {
                     const marker = L.marker([match.lat, match.lng]).addTo(markerLayer);
                     const popupHTML = `
-                        <div style="text-align: left; min-width: 160px; font-family: var(--font-body);">
+                        <div style="text-align: left; min-width: 170px; font-family: var(--font-body);">
                             <strong style="color: var(--neon); font-family: var(--font-title); font-size: 0.85rem; text-transform: uppercase; display:block; margin-bottom:4px;">${match.club}</strong>
-                            <span style="font-size: 0.75rem; opacity: 0.7; display:block; margin-bottom:6px;"><i class="fa-regular fa-calendar-days me-1"></i> ${dataFormattata}</span>
+                            <span style="font-size: 0.75rem; opacity: 0.7; display:block; margin-bottom:4px;"><i class="fa-regular fa-calendar-days me-1"></i> ${dataFormattata}</span>
+                            <span style="font-size: 0.75rem; color: #FFF; display:block; margin-bottom:6px;"><i class="fa-solid fa-layer-group me-1"></i> Liv: ${livelloGioco}</span>
                             <span style="font-weight: 700; font-size: 0.8rem;">Mancano: <span style="color: var(--neon);">${match.players}</span> player/s</span>
                         </div>
                     `;
@@ -606,6 +633,12 @@
 
                 const card = document.createElement("div");
                 card.className = "match-card";
+                
+                let playtomicButtonHTML = "";
+                if(match.playtomic_link) {
+                    playtomicButtonHTML = `<a href="${match.playtomic_link}" target="_blank" class="btn-playtomic"><i class="fa-solid fa-link me-2"></i>Vedi su Playtomic</a>`;
+                }
+
                 card.innerHTML = `
                     <div>
                         <span class="match-badge">${match.province}</span>
@@ -613,14 +646,20 @@
                         <div class="match-info">
                             <i class="fa-regular fa-calendar-days me-2"></i> ${dataFormattata}
                         </div>
+                        <div class="match-info" style="color: var(--neon); font-weight: 600;">
+                            <i class="fa-solid fa-layer-group me-2"></i> ${livelloGioco}
+                        </div>
                         <div class="players-needed">
                             <span>Giocatori mancanti</span>
                             <span class="players-count">${match.players}</span>
                         </div>
                     </div>
-                    <a href="${whatsappUrl}" target="${match.whatsapp ? '_blank' : '_self'}" class="btn-join" ${!match.whatsapp ? 'onclick="alert(\'Nessun contatto WhatsApp fornito da questo utente.\'); return false;"' : ''}>
-                        <i class="fa-brands fa-whatsapp me-2"></i>Partecipa
-                    </a>
+                    <div class="action-buttons-wrapper">
+                        ${playtomicButtonHTML}
+                        <a href="${whatsappUrl}" target="${match.whatsapp ? '_blank' : '_self'}" class="btn-join" ${!match.whatsapp ? 'onclick="alert(\'Nessun contatto WhatsApp fornito da questo utente.\'); return false;"' : ''}>
+                            <i class="fa-brands fa-whatsapp me-2"></i>Contatta su WhatsApp
+                        </a>
+                    </div>
                 `;
                 grid.appendChild(card);
             });
@@ -645,6 +684,8 @@
             const lngStr = document.getElementById("matchLng").value;
             const dateTime = document.getElementById("matchDate").value;
             const players = parseInt(document.getElementById("matchPlayers").value);
+            const level = document.getElementById("matchLevel").value;
+            const playtomicLink = document.getElementById("matchPlaytomic").value;
             const whatsapp = currentUser.user_metadata?.phone || "";
 
             let lat = latStr ? parseFloat(latStr) : null;
@@ -663,6 +704,8 @@
                     lng: lng,
                     date_time: dateTime,
                     players: players,
+                    level: level,
+                    playtomic_link: playtomicLink,
                     user_id: currentUser.id,
                     whatsapp: whatsapp
                 }
@@ -672,8 +715,8 @@
             publishBtn.innerHTML = originalText;
 
             if (error) {
-                console.error("Errore salvataggio:", error);
-                alert("Errore durante la pubblicazione.");
+                console.error("Errore salvataggio Supabase:", error);
+                alert("Errore durante la pubblicazione. Assicurati che le colonne 'level' e 'playtomic_link' siano presenti nel tuo DB.");
             } else {
                 document.getElementById("newMatchForm").reset();
                 document.getElementById("locationFeedback").style.display = "none";
