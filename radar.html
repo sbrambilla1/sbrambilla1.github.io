@@ -473,8 +473,7 @@
     const div = document.createElement("div");
     div.className = "my-match-item";
     
-    // MODIFICATO: Passiamo m.playtomic (il link) anziché m.id che non esiste
-    // Usiamo encodeURIComponent per evitare che i caratteri del link rompano l'HTML
+    // CORRETTO: Usiamo m.playtomic_link come da database
     const safeLink = encodeURIComponent(m.playtomic_link || '');
     
     div.innerHTML = `
@@ -497,23 +496,20 @@
         return;
     }
 
-    // Decodifichiamo il link Playtomic che abbiamo passato come ID temporaneo
     const playtomicLink = decodeURIComponent(encodedLink);
 
     if (confirm("Vuoi rimuovere questo match dal radar?")) {
         const { error } = await dbClient
             .from('matches')
             .delete()
-            .eq('playtomic', playtomicLink) // MODIFICATO: Usa la colonna della chiave primaria (es. 'playtomic') invece di 'id'
+            .eq('playtomic_link', playtomicLink) // CORRETTO: Nome colonna esatto del database
             .eq('user_id', currentUser.id);
 
         if (!error) { 
             alert("Match rimosso con successo!");
-            // Rimuove l'elemento visivo direttamente dalla dashboard laterale
             if (element && element.closest('.my-match-item')) {
                 element.closest('.my-match-item').remove();
             }
-            // Ricarica la griglia principale e la mappa sullo sfondo
             loadMatches(); 
         } else {
             console.error("Errore Supabase:", error);
