@@ -708,7 +708,7 @@
                 let waLink = "";
                 if (m.whatsapp) {
                     const cleanPhone = m.whatsapp.replace(/\s+/g, ''); // Rimuove eventuali spazi
-                    const textMessage = encodeURIComponent(`Ciao! Ti contatto da NEVERA FINDER. Sono interessato al match di Padel delle ore ${d.toLocaleTimeString('it-IT', { hour: '2-digit', minute: '2-digit' })} del ${d.toLocaleDateString('it-IT')} presso "${m.club}". C'è ancora posto?`);
+                    const textMessage = encodeURIComponent(`Ciao! Ti contatto da NEVERA FINDER. Sono interessato al match delle ore ${d.toLocaleTimeString('it-IT', { hour: '2-digit', minute: '2-digit' })} del ${d.toLocaleDateString('it-IT')} presso "${m.club}". C'è ancora posto?`);
                     waLink = `https://wa.me/${cleanPhone}?text=${textMessage}`;
                 }
 
@@ -728,6 +728,14 @@
                         ${waLink ? `<a href="${waLink}" target="_blank" class="btn-whatsapp-match"><i class="fa-brands fa-whatsapp me-2"></i>CONTATTA</a>` : ''}
                     </div>
                 `;
+                
+if (currentUser && m.user_id === currentUser.id) {
+    card.innerHTML += `
+        <button onclick="deleteMatchFromPanel('${m.id}', this)" class="btn-delete-match" style="background: #ff4444; color: white; border: none; padding: 10px; width: 100%; margin-top: 10px; border-radius: 8px; font-weight: bold; cursor: pointer;">
+            <i class="fa-solid fa-trash me-2"></i>ELIMINA MATCH
+        </button>
+    `;
+}
                 grid.appendChild(card);
 
                 if (m.lat && m.lng) {
