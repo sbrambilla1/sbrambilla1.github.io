@@ -23,6 +23,11 @@
             --font-body: 'Inter', sans-serif;
         }
 
+        /* REGOLA GLOBALE PER EVITARE SBORDAMENTI */
+        * {
+            box-sizing: border-box;
+        }
+
         #splash-screen {
             position: fixed; top: 0; left: 0; width: 100%; height: 100%;
             background-color: var(--dark); display: flex;
@@ -40,11 +45,16 @@
         .bg-overlay { position: absolute; top: 0; left: 0; width: 100%; height: 100%; background: linear-gradient(to bottom, rgba(4, 4, 4, 0.7) 0%, transparent 30%, transparent 70%, rgba(4, 4, 4, 1) 100%); z-index: 2; }
         .hero-content { position: relative; z-index: 10; text-align: center; margin-top: 80px; }
 
-        .nav-fix { position: absolute; top: 0; width: 100%; padding: 50px 0 80px 0; text-align: center; z-index: 100; background: linear-gradient(to bottom, rgba(4, 4, 4, 0.9) 0%, transparent 100%); }
+        /* HEADER FIXATO CON FLEXBOX E 3 BLOCCHI */
+        .nav-fix { position: absolute; top: 0; left: 0; width: 100%; padding: 40px 40px 20px 40px; z-index: 100; display: flex; align-items: center; justify-content: space-between; background: linear-gradient(to bottom, rgba(4, 4, 4, 0.9) 0%, transparent 100%); }
+        .nav-fix-spacer { flex: 1; display: flex; align-items: center; }
+        .nav-fix-center { text-align: center; display: flex; justify-content: center; align-items: center; }
+        .nav-fix-right { flex: 1; display: flex; justify-content: flex-end; align-items: center; }
+        
         .logo-trigger { height: 85px; cursor: pointer; transition: transform 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275); }
         .logo-trigger:hover { transform: scale(1.1); filter: drop-shadow(0 0 15px var(--neon)); }
 
-        .auth-header-icon { position: absolute; top: 50%; right: 30px; transform: translateY(-50%); font-size: 1.4rem; color: var(--white); cursor: pointer; transition: 0.3s; width: 45px; height: 45px; display: flex; align-items: center; justify-content: center; border-radius: 50%; background: rgba(255, 255, 255, 0.02); border: 1px solid rgba(255, 255, 255, 0.08); }
+        .auth-header-icon { font-size: 1.4rem; color: var(--white); cursor: pointer; transition: 0.3s; width: 45px; height: 45px; display: flex; align-items: center; justify-content: center; border-radius: 50%; background: rgba(255, 255, 255, 0.02); border: 1px solid rgba(255, 255, 255, 0.08); }
         .auth-header-icon:hover { color: var(--neon); border-color: var(--neon); box-shadow: 0 0 15px rgba(63, 240, 0, 0.2); }
 
         .nv-menu { height: 100%; width: 0; position: fixed; z-index: 9999; top: 0; left: 0; background-color: rgba(4, 4, 4, 0.98); overflow: hidden; transition: 0.5s; display: flex; align-items: center; justify-content: center; }
@@ -140,7 +150,10 @@
             .footer-brand { text-align: center; margin-bottom: 20px; }
             .footer-nav { justify-content: center; text-align: center; width: 100%; }
             .f-col { align-items: center; text-align: center; }
-            .auth-header-icon { right: 20px; font-size: 1.2rem; width: 40px; height: 40px; }
+            /* NAV RESPONSIVE MODIFICATA */
+            .nav-fix { padding: 20px 20px 10px 20px; }
+            .logo-trigger { height: 60px; }
+            .auth-header-icon { font-size: 1.2rem; width: 40px; height: 40px; }
         }
     </style>
 </head>
@@ -155,9 +168,16 @@
         <div class="bg-overlay"></div>
         
         <header class="nav-fix">
-            <img src="images/logo.png" alt="Nevera Logo" class="logo-trigger" onclick="openM()">
-            <div id="authHeaderBtn" class="auth-header-icon">
-                <i class="fa-regular fa-user"></i>
+            <div class="nav-fix-spacer"></div>
+            
+            <div class="nav-fix-center">
+                <img src="images/logo.png" alt="Nevera Logo" class="logo-trigger" onclick="openM()">
+            </div>
+            
+            <div class="nav-fix-right">
+                <div id="authHeaderBtn" class="auth-header-icon">
+                    <i class="fa-regular fa-user"></i>
+                </div>
             </div>
         </header>
 
