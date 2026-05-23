@@ -552,44 +552,93 @@
                 return;
             }
 
+            // Imposta la provincia dell'utente loggato come base per i dati
             const userProv = currentUser?.user_metadata?.province || "MI";
             document.getElementById("matchProvince").value = userProv;
 
             searchTimeout = setTimeout(async () => {
-                const url = `https://nominatim.openstreetmap.org/search?format=json&q=${encodeURIComponent(query + " Lombardia")}&countrycodes=it&addressdetails=1&limit=5`;
+                const url = `https://nominatim.openstreetmap.org/search?format=json&q=${encodeURIComponent(query)}&countrycodes=it&addressdetails=1&limit=6`;
                 
                 try {
                     const response = await fetch(url, { 
                         headers: { 
                             'Accept-Language': 'it',
-                            'User-Agent': 'NeveraSportsApp/1.0 (info@neverasports.com)'
+                            'User-Agent': 'NeveraSportsApp/1.0'
                         } 
                     });
                     const data = await response.json();
                     
-                    if (!data || data.length === 0) {
-                        resultsBox.innerHTML = `<div class="autocomplete-item" style="opacity:0.6;">Centro non in lista? Clicca qui per inserirlo senza mappa</div>`;
-                        resultsBox.onclick = () => {
-                            document.getElementById("matchClub").value = query;
+                    // --- FUNZIONE PER L'INSERIMENTO MANUALE CON RICHIESTA CITTÀ ---
+                    const handleManualInsert = async () => {
+                        resultsBox.style.display = "none";
+                        document.getElementById("matchClub").value = query;
+                        
+                        // Chiede all'utente in che città si trova
+                        const city = prompt(`In quale città si trova "${query}"? Inseriscila per far apparire il pin sulla mappa!`);
+                        
+                        if (city && city.trim() !== "") {
+                            feedback.style.display = "block";
+                            feedback.innerHTML = '<i class="fa-solid fa-spinner fa-spin"></i> Ricerca posizione in corso...';
+                            
+                            try {
+                                // Cerca le coordinate della sola città
+                                const cityUrl = `https://nominatim.openstreetmap.org/search?format=json&q=${encodeURIComponent(city)}&countrycodes=it&limit=1`;
+                                const cityRes = await fetch(cityUrl);
+                                const cityData = await cityRes.json();
+                                
+                                if (cityData && cityData.length > 0) {
+                                    document.getElementById("matchLat").value = cityData[0].lat;
+                                    document.getElementById("matchLng").value = cityData[0].lon;
+                                    feedback.innerText = `Pin posizionato al centro di: ${cityData[0].name}`;
+                                } else {
+                                    // Città non trovata nemmeno lei
+                                    document.getElementById("matchLat").value = "";
+                                    document.getElementById("matchLng").value = "";
+                                    feedback.innerText = "Città non trovata. Il match sarà nella lista ma senza pin.";
+                                }
+                            } catch (err) {
+                                feedback.innerText = "Errore di connessione. Match salvato senza pin.";
+                            }
+                        } else {
+                            // L'utente ha annullato o lasciato vuoto
                             document.getElementById("matchLat").value = "";
                             document.getElementById("matchLng").value = "";
                             feedback.style.display = "block";
-                            feedback.innerText = "Posizione manuale - Il pin non apparirà sulla mappa";
-                            resultsBox.style.display = "none";
-                        };
+                            feedback.innerText = "Posizione saltata. Il match sarà nella lista ma senza pin.";
+                        }
+                    };
+                    // -------------------------------------------------------------
+
+                    if (!data || data.length === 0) {
+                        // CASO 1: Nessun risultato trovato
+                        resultsBox.innerHTML = `<div class="autocomplete-item" style="color: var(--neon); font-weight: bold;"><i class="fa-solid fa-map-pin me-2"></i>Centro non trovato. Clicca qui per inserire la città</div>`;
+                        resultsBox.onclick = handleManualInsert;
                         resultsBox.style.display = "block";
                     } else {
                         resultsBox.innerHTML = "";
+                        
+                        // CASO 2: Aggiungo l'opzione manuale in cima ai risultati trovati
+                        const manualDiv = document.createElement("div");
+                        manualDiv.className = "autocomplete-item";
+                        manualDiv.style = "color: var(--neon); font-size: 0.8rem; border-bottom: 1px solid rgba(255,255,255,0.2);";
+                        manualDiv.innerHTML = `<i class="fa-solid fa-map-pin me-2"></i>Non è in lista? Clicca qui per posizionare il pin manualmente`;
+                        manualDiv.onclick = handleManualInsert;
+                        resultsBox.appendChild(manualDiv);
+
+                        // Mostra i risultati di OpenStreetMap
                         data.forEach(place => {
                             const div = document.createElement("div");
                             div.className = "autocomplete-item";
-                            div.innerText = place.display_name;
+                            
+                            const placeName = place.name ? `${place.name} (${place.address?.city || place.address?.town || place.address?.county || ''})` : place.display_name.split(",")[0];
+                            
+                            div.innerText = placeName;
                             div.onclick = () => {
                                 document.getElementById("matchClub").value = place.name || place.display_name.split(",")[0];
                                 document.getElementById("matchLat").value = place.lat;
                                 document.getElementById("matchLng").value = place.lon;
                                 feedback.style.display = "block";
-                                feedback.innerText = "Posizione rilevata con successo!";
+                                feedback.innerText = "Posizione rilevata con successo sulla mappa!";
                                 resultsBox.style.display = "none";
                             };
                             resultsBox.appendChild(div);
@@ -599,9 +648,8 @@
                 } catch (e) {
                     console.error("Errore ricerca:", e);
                 }
-            }, 500);
+            }, 500); 
         }
-
         async function loadMatches() {
             if (!dbClient) return;
             
