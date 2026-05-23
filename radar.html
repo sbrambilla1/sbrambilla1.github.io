@@ -615,7 +615,7 @@
                 map.setView([45.65, 9.5], 8);
             }
 
-            // RECUPERO PARTITE STANDARD SENZA JOIN CHE CAUSANO ERRORI
+            // RECUPERO PARTITE STANDARD
             let query = dbClient.from('matches').select('*').order('date_time', { ascending: true });
             if (filter !== "ALL") query = query.eq('province', filter);
 
@@ -625,7 +625,6 @@
             grid.innerHTML = "";
 
             if (error || !matches || matches.length === 0) {
-                console.error("Errore o nessun match:", error); // Utile se apri la console (F12) per vedere il problema
                 grid.innerHTML = `<div class="text-center w-100 mt-5"><h5 class="opacity-50 text-uppercase">Nessun match trovato per questa zona.</h5></div>`;
                 return;
             }
@@ -642,7 +641,7 @@
                 const d = new Date(m.date_time);
                 const formattedDate = d.toLocaleDateString('it-IT') + " - " + d.toLocaleTimeString('it-IT', { hour: '2-digit', minute: '2-digit' });
                 
-                // Per ora rimanda al gruppo WhatsApp generale per non far esplodere Supabase
+                // Rimando temporaneo al gruppo WhatsApp
                 const waLink = "https://chat.whatsapp.com/GItl3C5mrgxJxXAPhHHRFh";
 
                 const card = document.createElement("div");
@@ -653,7 +652,7 @@
                     <div class="match-info"><i class="fa-regular fa-clock"></i> ${formattedDate}</div>
                     
                     <div class="players-needed">
-                        Giocatori mancanti: <span class="players-count">${m.missing_players}</span>
+                        Giocatori mancanti: <span class="players-count">${m.players || '?'}</span>
                     </div>
                     
                     <div class="action-buttons-wrapper">
@@ -665,7 +664,7 @@
 
                 if (m.lat && m.lng) {
                     L.marker([parseFloat(m.lat), parseFloat(m.lng)], { icon: blinkingIcon })
-                     .bindPopup(`<b>${m.club}</b><br>Mancano: ${m.missing_players}`)
+                     .bindPopup(`<b>${m.club}</b><br>Mancano: ${m.players || '?'}`)
                      .addTo(markerLayer);
                 }
             });
