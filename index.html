@@ -3,249 +3,142 @@
 <head>
     <title>NEVERA SPORTS | Home</title>
     <meta charset="utf-8" />
-    
-    <link rel="icon" type="image/png" href="images/logo.png">
-    <link rel="apple-touch-icon" href="images/logo.png">
-    <link rel="icon" sizes="192x192" href="images/logo.png">
-    
     <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=0" />
     
+    <link rel="icon" type="image/png" href="images/logo.png">
     <link href="https://fonts.googleapis.com/css2?family=Archivo+Black&family=Inter:wght@300;400;600;800&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
     
     <style>
-        :root {
-            --neon: #3FF000;
-            --dark: #040404;
-            --white: #FDFDFD;
-            --font-title: 'Archivo Black', sans-serif;
-            --font-body: 'Inter', sans-serif;
-        }
-
+        :root { --neon: #3FF000; --dark: #040404; --white: #FDFDFD; --font-title: 'Archivo Black', sans-serif; --font-body: 'Inter', sans-serif; }
         * { box-sizing: border-box; }
-
+        
+        /* SPLASH SCREEN FIXATO */
         #splash-screen {
             position: fixed; top: 0; left: 0; width: 100%; height: 100%;
             background-color: var(--dark); display: flex;
-            justify-content: center; align-items: center; z-index: 10000;
+            justify-content: center; align-items: center; z-index: 99999;
             transition: opacity 0.6s ease, visibility 0.6s;
         }
-        .splash-logo { height: 100px; width: auto; animation: rotateLogo 2s infinite cubic-bezier(0.45, 0.05, 0.55, 0.95); }
+        .splash-logo { height: 100px; animation: rotateLogo 2s infinite linear; }
         @keyframes rotateLogo { 0% { transform: rotate(0deg); } 100% { transform: rotate(360deg); } }
-        .splash-hidden { opacity: 0; visibility: hidden; }
+        .splash-hidden { opacity: 0; visibility: hidden; pointer-events: none; }
 
         html, body { margin: 0; padding: 0; background-color: var(--dark); color: var(--white); font-family: var(--font-body); overflow-x: hidden; }
 
+        /* HEADER & NAV */
         .hero-section { position: relative; width: 100%; height: 100vh; display: flex; flex-direction: column; justify-content: center; align-items: center; overflow: hidden; }
         .bg-layer { position: absolute; top: 0; left: 0; width: 100%; height: 100%; background-image: url('images/play.png'); background-size: cover; background-position: center top; z-index: 1; }
-        .bg-overlay { position: absolute; top: 0; left: 0; width: 100%; height: 100%; background: linear-gradient(to bottom, rgba(4, 4, 4, 0.7) 0%, transparent 30%, transparent 70%, rgba(4, 4, 4, 1) 100%); z-index: 2; }
-        .hero-content { position: relative; z-index: 10; text-align: center; margin-top: 80px; }
-
-        /* HEADER FIXATO */
-        .nav-fix { position: absolute; top: 0; left: 0; width: 100%; padding: 40px 40px 20px 40px; z-index: 100; display: flex; align-items: center; justify-content: space-between; background: linear-gradient(to bottom, rgba(4, 4, 4, 0.9) 0%, transparent 100%); }
-        .nav-fix-spacer { flex: 1; display: flex; align-items: center; }
-        .nav-fix-center { text-align: center; display: flex; justify-content: center; align-items: center; }
-        .nav-fix-right { flex: 1; display: flex; justify-content: flex-end; align-items: center; }
+        .bg-overlay { position: absolute; top: 0; left: 0; width: 100%; height: 100%; background: linear-gradient(to bottom, rgba(4, 4, 4, 0.7) 0%, transparent 30%, rgba(4, 4, 4, 1) 100%); z-index: 2; }
         
-        .logo-trigger { height: 85px; cursor: pointer; transition: transform 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275); }
-        .logo-trigger:hover { transform: scale(1.1); filter: drop-shadow(0 0 15px var(--neon)); }
+        .nav-fix { position: absolute; top: 0; left: 0; width: 100%; padding: 40px; z-index: 100; display: flex; justify-content: space-between; align-items: center; }
+        .logo-trigger { height: 85px; cursor: pointer; transition: 0.3s; }
+        .logo-trigger:hover { transform: scale(1.1); filter: drop-shadow(0 0 10px var(--neon)); }
 
-        /* MENU UTENTE TONDO (COERENTE) */
-        .user-menu-container { position: relative; display: flex; align-items: center; justify-content: center; }
-        .user-avatar { 
-            width: 45px; height: 45px; border-radius: 50%; 
-            display: flex; align-items: center; justify-content: center; 
-            font-family: var(--font-title); font-size: 0.85rem; color: var(--neon); 
-            cursor: pointer; text-transform: uppercase; border: 2px solid var(--neon); 
-            background: rgba(4, 4, 4, 0.8); transition: 0.3s;
-        }
-        .user-avatar:hover { box-shadow: 0 0 15px rgba(63, 240, 0, 0.2); }
-        
-        .nv-dropdown-menu { position: absolute; top: 55px; right: 0; background: rgba(12, 12, 12, 0.98); border: 1px solid rgba(255, 255, 255, 0.08); border-radius: 20px; width: 240px; padding: 15px; box-shadow: 0 15px 35px rgba(0,0,0,0.8); backdrop-filter: blur(15px); z-index: 1000; display: none; opacity: 0; transform: translateY(-10px); transition: opacity 0.3s, transform 0.3s; }
-        .nv-dropdown-menu.show { display: block; opacity: 1; transform: translateY(0); }
-        .user-menu-header { border-bottom: 1px solid rgba(255,255,255,0.05); padding-bottom: 10px; margin-bottom: 10px; text-align: left; }
-        .user-menu-name { font-family: var(--font-title); font-size: 0.85rem; text-transform: uppercase; margin: 0; color: white; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; display: block; }
-        .nv-dropdown-item { display: flex; align-items: center; gap: 12px; padding: 12px; color: rgba(255,255,255,0.6); font-size: 0.8rem; font-weight: 600; text-decoration: none; border-radius: 10px; transition: 0.2s; cursor: pointer; text-align: left; }
-        .nv-dropdown-item:hover { background: rgba(255,255,255,0.04); color: var(--neon); }
-        .nv-dropdown-item i { width: 16px; font-size: 0.9rem; }
-        .btn-logout-new { border-top: 1px solid rgba(255,255,255,0.05); color: #FF4444 !important; margin-top: 5px; padding-top: 12px; }
-        .btn-logout-new:hover { background: rgba(255, 68, 68, 0.05); color: #FF4444; }
+        /* USER MENU */
+        .user-menu-container { position: relative; }
+        .user-avatar { width: 45px; height: 45px; border-radius: 50%; border: 2px solid var(--neon); display: flex; align-items: center; justify-content: center; cursor: pointer; background: rgba(0,0,0,0.5); font-family: var(--font-title); font-size: 0.9rem; color: var(--neon); }
+        .nv-dropdown-menu { position: absolute; top: 60px; right: 0; background: #0c0c0c; border: 1px solid rgba(255,255,255,0.1); border-radius: 20px; width: 220px; padding: 10px; display: none; z-index: 1000; }
+        .nv-dropdown-menu.show { display: block; }
+        .nv-dropdown-item { padding: 12px; color: #fff; text-decoration: none; display: flex; align-items: center; gap: 10px; cursor: pointer; border-radius: 10px; }
+        .nv-dropdown-item:hover { background: rgba(255,255,255,0.05); color: var(--neon); }
 
-        /* RESTO DEGLI STILI */
-        .nv-menu { height: 100%; width: 0; position: fixed; z-index: 9999; top: 0; left: 0; background-color: rgba(4, 4, 4, 0.98); overflow: hidden; transition: 0.5s; display: flex; align-items: center; justify-content: center; }
-        .nv-links a { font-family: var(--font-title); font-size: 2.5rem; color: var(--white); text-decoration: none; display: block; margin: 20px; text-transform: uppercase; }
-        .nv-links a:hover { color: var(--neon); }
-        .nv-close { position: absolute; top: 30px; right: 45px; font-size: 50px; color: var(--neon); text-decoration: none; }
-        .main-wrapper { position: relative; z-index: 10; background-color: var(--dark); padding: 80px 0 40px 0; display: flex; flex-direction: column; align-items: center; text-align: center; }
-        .nv-title { font-family: var(--font-title); font-size: clamp(3.5rem, 12vw, 6rem); text-transform: uppercase; letter-spacing: -3px; margin: 0; line-height: 0.9; }
-        .nv-subtitle { color: var(--neon); font-weight: 700; text-transform: uppercase; letter-spacing: 12px; margin-bottom: 20px; font-size: 0.8rem; }
-        .home-card { display: flex; flex-direction: column; justify-content: center; align-items: center; background: rgba(255, 255, 255, 0.03); border: 1px solid rgba(255, 255, 255, 0.08); border-radius: 30px; padding: 60px 10px; text-decoration: none !important; color: white !important; transition: 0.4s; height: 100%; backdrop-filter: blur(10px); }
-        .home-card:hover { border-color: var(--neon); transform: translateY(-10px); background: rgba(63, 240, 0, 0.05); }
-        .home-card i { font-size: 2.5rem; margin-bottom: 20px; color: var(--white); opacity: 0.7; }
-        .home-card:hover i { color: var(--neon); opacity: 1; }
-        .home-card h3 { font-family: var(--font-body); font-size: 0.7rem; text-transform: uppercase; letter-spacing: 3px; font-weight: 800; margin: 0; }
-        .btn-revolution { font-family: var(--font-title); background: var(--neon); color: var(--dark); padding: 20px 40px; border-radius: 50px; text-decoration: none !important; display: inline-block; font-size: 0.85rem; transition: 0.3s; text-transform: uppercase; }
-        .btn-revolution:hover { transform: scale(1.05); box-shadow: 0 0 25px rgba(63, 240, 0, 0.4); color: var(--dark); }
+        /* ALTRI ELEMENTI */
+        .nv-menu { height: 100%; width: 0; position: fixed; z-index: 9999; top: 0; left: 0; background: #040404; display: flex; align-items: center; justify-content: center; transition: 0.5s; overflow: hidden; }
+        .nv-links a { font-family: var(--font-title); font-size: 2.5rem; color: #fff; text-decoration: none; display: block; margin: 20px; text-transform: uppercase; }
+        .nv-title { font-family: var(--font-title); font-size: 5rem; text-transform: uppercase; letter-spacing: -3px; z-index: 10; margin: 0; }
         
-        /* Offcanvas e Footer (omessi per brevità nella visualizzazione ma mantenuti nel file finale) */
-        .nv-offcanvas { position: fixed; top: 0; right: -450px; width: 100%; max-width: 420px; height: 100%; background: rgba(8, 8, 8, 0.96); border-left: 1px solid rgba(255,255,255,0.05); z-index: 10050; backdrop-filter: blur(20px); transition: right 0.4s cubic-bezier(0.165, 0.84, 0.44, 1); padding: 40px 30px; display: flex; flex-direction: column; text-align: left; color: white; }
-        .nv-offcanvas.open { right: 0; box-shadow: -15px 0 40px rgba(0,0,0,0.8); }
-        .nv-offcanvas-header { display: flex; justify-content: space-between; align-items: center; margin-bottom: 35px; }
-        .nv-offcanvas-title { font-family: var(--font-title); font-size: 1.2rem; text-transform: uppercase; color: white; margin: 0; }
-        .btn-close-offcanvas { background: none; border: none; color: var(--neon); font-size: 1.5rem; cursor: pointer; }
-        .nv-offcanvas-body { flex: 1; overflow-y: auto; padding-right: 5px; }
-        .profile-data-box { background: rgba(255,255,255,0.02); border: 1px solid rgba(255,255,255,0.05); border-radius: 20px; padding: 20px; }
-        .profile-label { font-size: 0.6rem; font-weight: 800; color: rgba(255,255,255,0.4); text-transform: uppercase; letter-spacing: 1.5px; margin-bottom: 4px; }
-        .profile-value { font-size: 0.95rem; font-weight: 600; color: white; margin-bottom: 15px; }
-        .my-match-item { background: rgba(255,255,255,0.02); border: 1px solid rgba(255,255,255,0.05); border-radius: 18px; padding: 15px; margin-bottom: 15px; position: relative; }
-        .my-match-club { font-weight: 700; font-size: 0.85rem; text-transform: uppercase; color: white; padding-right: 30px; }
-        .my-match-time { font-size: 0.75rem; color: rgba(255,255,255,0.4); margin-top: 5px; }
-        .btn-delete-match { position: absolute; top: 15px; right: 15px; background: none; border: none; color: rgba(255,68,68,0.5); transition: 0.2s; font-size: 0.9rem; cursor: pointer; }
-        .btn-delete-match:hover { color: #FF4444; transform: scale(1.1); }
-        .nv-footer { padding: 100px 20px 60px; border-top: 1px solid rgba(255, 255, 255, 0.05); background: var(--dark); position: relative; z-index: 10; }
-        .footer-container { max-width: 1100px; margin: 0 auto; display: flex; justify-content: space-between; align-items: center; flex-wrap: wrap; gap: 40px; }
-        .footer-brand { flex: 1; text-align: left; min-width: 250px; }
-        .footer-logo-mini { height: 70px; opacity: 0.4; margin-bottom: 15px; }
-        .footer-nav { display: flex; gap: 60px; flex: 1; justify-content: flex-end; }
-        .f-col { display: flex; flex-direction: column; gap: 8px; text-align: left; }
-        .f-label { font-size: 0.6rem; color: var(--neon); letter-spacing: 2px; font-weight: 800; margin-bottom: 10px; }
-        .f-link { font-size: 0.85rem; color: white !important; opacity: 0.3; text-decoration: none; transition: 0.3s; }
-        .f-link:hover { opacity: 1; color: var(--neon) !important; }
-        .copyright { margin-top: 80px; opacity: 0.1; font-size: 0.5rem; letter-spacing: 5px; text-align: center; width: 100%; }
+        .main-wrapper { position: relative; z-index: 10; background: var(--dark); padding: 80px 0; }
+        .home-card { background: rgba(255,255,255,0.03); border: 1px solid rgba(255,255,255,0.08); padding: 40px; border-radius: 30px; text-align: center; color: white; text-decoration: none; transition: 0.3s; }
+        .home-card:hover { border-color: var(--neon); transform: translateY(-10px); }
     </style>
 </head>
 <body>
 
+    <!-- SPLASH SCREEN -->
     <div id="splash-screen">
-        <img src="images/logo.png" alt="Nevera Loading" class="splash-logo">
+        <img src="images/logo.png" alt="Loading" class="splash-logo">
     </div>
 
+    <!-- UI -->
     <section class="hero-section">
         <div class="bg-layer"></div>
         <div class="bg-overlay"></div>
         
         <header class="nav-fix">
-            <div class="nav-fix-spacer"></div>
-            
-            <div class="nav-fix-center">
-                <img src="images/logo.png" alt="Nevera Logo" class="logo-trigger" onclick="openM()">
-            </div>
-            
-            <div class="nav-fix-right">
-                <!-- MENU UTENTE TONDO E COERENTE -->
-                <div id="authHeaderBtn" class="user-menu-container">
-                    <!-- Il bottone verrà iniettato via JS -->
-                </div>
-            </div>
+            <div style="width: 45px;"></div> <!-- Spacer -->
+            <img src="images/logo.png" class="logo-trigger" onclick="openM()">
+            <div id="authHeaderBtn" class="user-menu-container"></div>
         </header>
 
-        <div class="hero-content">
+        <div class="hero-content text-center">
             <h1 class="nv-title">NEVERA</h1>
-            <p class="nv-subtitle">Born Under Pressure</p>
-            <div style="margin-top: 30px; opacity: 0.5;">
-                <i class="fa-solid fa-chevron-down bounce" style="font-size: 1.5rem;"></i>
-            </div>
+            <p style="color: var(--neon); letter-spacing: 10px;">BORN UNDER PRESSURE</p>
         </div>
     </section>
 
-    <!-- Menu Mobile -->
+    <!-- MENU MOBILE -->
     <div id="m" class="nv-menu">
-        <a href="javascript:void(0)" class="nv-close" onclick="closeM()">&times;</a>
+        <a href="javascript:void(0)" style="position:absolute; top:30px; right:45px; font-size:50px; color:var(--neon);" onclick="closeM()">&times;</a>
         <div class="nv-links">
-            <a href="index.html" onclick="closeM()">HOME</a>
-            <a href="eventi.html" onclick="closeM()">EVENTI</a>
-            <a href="community.html" onclick="closeM()">COMMUNITY</a>
-            <a href="radar.html" onclick="closeM()">FINDER</a>
-            <a href="partners.html" onclick="closeM()">SPONSOR</a>
-            <a href="iniziative.html" onclick="closeM()">INIZIATIVE</a>
+            <a href="index.html">HOME</a>
+            <a href="eventi.html">EVENTI</a>
         </div>
-    </div>
-
-    <!-- Offcanvas Dashboard -->
-    <div class="nv-offcanvas" id="userOffcanvas">
-        <div class="nv-offcanvas-header">
-            <h5 class="nv-offcanvas-title" id="offcanvasTitle">Dashboard</h5>
-            <button class="btn-close-offcanvas" onclick="closeUserPanel()">&times;</button>
-        </div>
-        <div class="nv-offcanvas-body" id="offcanvasBody"></div>
     </div>
 
     <main class="main-wrapper">
-        <!-- Content omesso per brevità, resta invariato -->
-        <div class="container d-flex flex-column align-items-center">
-            <div class="row g-4 w-100 justify-content-center" style="max-width: 1100px;">
-                <div class="col-6 col-md-3"><a href="eventi.html" class="home-card"><i class="fa-solid fa-crown"></i><h3>Eventi</h3></a></div>
-                <div class="col-6 col-md-3"><a href="community.html" class="home-card"><i class="fa-solid fa-circle-nodes"></i><h3>Community</h3></a></div>
-                <div class="col-6 col-md-3"><a href="partners.html" class="home-card"><i class="fa-solid fa-handshake-angle"></i><h3>Sponsor</h3></a></div>
-                <div class="col-6 col-md-3"><a href="iniziative.html" class="home-card"><i class="fa-solid fa-bolt-lightning"></i><h3>Iniziative</h3></a></div>
+        <div class="container">
+            <div class="row g-4 justify-content-center">
+                <div class="col-6 col-md-3"><a href="eventi.html" class="home-card"><i class="fa-solid fa-crown fa-2x"></i><br>Eventi</a></div>
+                <div class="col-6 col-md-3"><a href="community.html" class="home-card"><i class="fa-solid fa-users fa-2x"></i><br>Community</a></div>
             </div>
         </div>
     </main>
 
-    <!-- Footer omesso per brevità, resta invariato -->
-    <footer class="nv-footer">...</footer>
-
     <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
     <script>
+        // 1. SPLASH SCREEN FIX (FAIL-SAFE)
+        function hideSplash() {
+            const splash = document.getElementById('splash-screen');
+            if (splash) splash.classList.add('splash-hidden');
+        }
+        // Rimuovi subito quando la pagina è pronta o dopo 3 secondi forzati
+        window.addEventListener('load', hideSplash);
+        setTimeout(hideSplash, 3000); 
+
+        // 2. NAV & MENU
         function openM() { document.getElementById("m").style.width = "100%"; }
         function closeM() { document.getElementById("m").style.width = "0"; }
-        
-        // Logica Auth e User Menu
+
+        // 3. AUTH LOGIC (Supabase)
         const SUPABASE_URL = "https://ennpbtrthwdxsvdbqbmn.supabase.co";
         const SUPABASE_KEY = "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6ImVubnBidHJ0aHdkeHN2ZGJxYm1uIiwicm9sZSI6ImFub24iLCJpYXQiOjE3NzkwNjU0NzUsImV4cCI6MjA5NDY0MTQ3NX0.JL-w7qkp6bktVJMrJ7O0Uw1phxaBpBc9BiP3cH8Q4-0";
         const dbClient = window.supabase ? window.supabase.createClient(SUPABASE_URL, SUPABASE_KEY) : null;
-        let globalUser = null;
 
-        function toggleUserMenu(event) {
-            event.stopPropagation();
-            document.getElementById("userMenu").classList.toggle("show");
-        }
-
-        window.addEventListener('click', function(event) {
-            const menu = document.getElementById("userMenu");
-            if (menu && menu.classList.contains("show")) {
-                if (!event.target.closest('.user-menu-container')) {
-                    menu.classList.remove("show");
-                }
-            }
-        });
-
-        document.addEventListener("DOMContentLoaded", async function() {
+        document.addEventListener("DOMContentLoaded", async () => {
             const authBtn = document.getElementById('authHeaderBtn');
+            if (!dbClient) return;
 
-            if (dbClient) {
+            try {
                 const { data: { session } } = await dbClient.auth.getSession();
-                
                 if (session) {
-                    globalUser = session.user;
-                    const fullName = globalUser.user_metadata?.full_name || globalUser.email.split('@')[0];
-                    const initials = fullName.split(' ').map(n => n[0]).join('').substring(0, 2).toUpperCase();
-
+                    const name = session.user.user_metadata?.full_name || "User";
+                    const initials = name.substring(0, 2).toUpperCase();
                     authBtn.innerHTML = `
-                        <div class="user-avatar" onclick="toggleUserMenu(event)">${initials}</div>
+                        <div class="user-avatar" onclick="document.getElementById('userMenu').classList.toggle('show')">${initials}</div>
                         <div class="nv-dropdown-menu" id="userMenu">
-                            <div class="user-menu-header">
-                                <span class="user-menu-name">${fullName}</span>
-                            </div>
-                            <div class="nv-dropdown-item" onclick="openUserPanel('info')">
-                                <i class="fa-solid fa-user-gear"></i> Info Profilo
-                            </div>
-                            <div class="nv-dropdown-item" onclick="openUserPanel('matches')">
-                                <i class="fa-solid fa-calendar-days"></i> I miei Match
-                            </div>
-                            <div class="nv-dropdown-item btn-logout-new" onclick="handleLogout()">
-                                <i class="fa-solid fa-power-off"></i> Scollega
-                            </div>
+                            <div class="nv-dropdown-item" onclick="location.href='index.html'">Dashboard</div>
+                            <div class="nv-dropdown-item" onclick="dbClient.auth.signOut(); location.reload();">Scollega</div>
                         </div>
                     `;
                 } else {
-                    authBtn.innerHTML = `<div class="user-avatar" onclick="window.location.href='login.html'"><i class="fa-regular fa-user"></i></div>`;
+                    authBtn.innerHTML = `<div class="user-avatar" onclick="location.href='login.html'"><i class="fa-regular fa-user"></i></div>`;
                 }
+            } catch (e) {
+                console.error("Auth error:", e);
             }
         });
-
-        // ... (resto delle funzioni openUserPanel, closeUserPanel, ecc. invariate)
     </script>
 </body>
 </html>
